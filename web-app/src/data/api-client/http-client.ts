@@ -1,0 +1,33 @@
+
+export enum ContentType {
+    Json = 'application/json',
+    FormData = 'multipart/form-data',
+    UrlEncoded = 'application/x-www-form-urlencoded',
+    Text = 'text/plain',
+}
+
+export class HttpClient<TData = unknown> {
+    private baseURL: string;
+    private getHeaders: () => Record<string, string>;
+    constructor() {
+        this.baseURL = `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`;
+        this.getHeaders = () => {
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`
+            }
+        
+    }
+
+    };
+
+    async get(url: string): Promise<TData> {
+        const response = await fetch(`${this.baseURL}${url}`,
+            {
+                method: 'GET',
+                headers: this.getHeaders()
+            }
+        );
+        return response.json();
+    }
+}
