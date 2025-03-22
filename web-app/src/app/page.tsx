@@ -1,17 +1,15 @@
-'use client';
 
-import { ThemeContextProvider, useThemeContext } from "@/context/theme-context/ThemeContext";
+import { Avatar } from "@mui/material";
+import Button from "@mui/material/Button";
 
 
 export default function Home() {
 
-  const { theme } = useThemeContext();
 
   return (
     <div>
-        <ThemeContextProvider>
-            <h1>{theme}</h1>
-        </ThemeContextProvider>
+      <Button variant="contained">test</Button>
+      <Avatar>H</Avatar>
     </div>
   );
 }

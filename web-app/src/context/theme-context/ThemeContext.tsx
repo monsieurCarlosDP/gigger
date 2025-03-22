@@ -1,3 +1,4 @@
+'use client';
 import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
 import { Theme, createTheme } from '@mui/material/';
 import { breakpoints } from './theme/Breakpoints';
