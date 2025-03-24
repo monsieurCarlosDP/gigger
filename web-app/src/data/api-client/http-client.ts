@@ -6,11 +6,12 @@ export enum ContentType {
     Text = 'text/plain',
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class HttpClient<TData = unknown> {
     private baseURL: string;
     private getHeaders: () => Record<string, string>;
     constructor() {
-        this.baseURL = `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`;
+        this.baseURL = `${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_HOST}/api`;
         this.getHeaders = () => {
             return {
                 'Content-Type': 'application/json',
@@ -21,7 +22,7 @@ export class HttpClient<TData = unknown> {
 
     };
 
-    async get(url: string): Promise<TData> {
+    public get = async<TData>(url: string): Promise<TData> => {
         const response = await fetch(`${this.baseURL}${url}`,
             {
                 method: 'GET',

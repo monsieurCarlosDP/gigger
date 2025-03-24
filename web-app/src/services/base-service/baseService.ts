@@ -1,4 +1,8 @@
-import { HttpClient } from "@/data/api-client/http-client";
+import { IGiggerApiClient } from "@/data/infraestructure/IGiggerApiClient";
 
-
-export interface IHttpClient<SecurityDataType = unknown> extends Api<SecurityDataType> {}
+export class BaseService {
+    protected apiClient: IGiggerApiClient;
+    constructor(apiClient: IGiggerApiClient) {
+        this.apiClient = apiClient;
+    }
+}
