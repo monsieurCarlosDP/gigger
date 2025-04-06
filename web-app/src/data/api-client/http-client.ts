@@ -12,14 +12,10 @@ export class HttpClient<TData = unknown> {
     private getHeaders: () => Record<string, string>;
     constructor() {
         this.baseURL = `${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_HOST}/api`;
-        this.getHeaders = () => {
-            return {
+        this.getHeaders = () => ({
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`
-            }
-        
-    }
-
+            });        
     };
 
     public get = async<TData>(url: string): Promise<TData> => {
