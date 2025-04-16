@@ -16,3 +16,8 @@ Setlist and gig organization for bands
 
 ## Dev dependencies
 - Storybook
+
+
+### Todo
+
+- React query singleton and its error subscribers

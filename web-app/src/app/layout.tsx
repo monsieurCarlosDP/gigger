@@ -6,6 +6,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import AppProviders from "@/components/organisms/AppProviders";
+import NavBar from "@/components/layout/nav-bar/NavBar";
+import { Stack } from "@mui/material";
+import { MainPageLayout } from "@/components/layout/MainPageLayout/MainPageLayout";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +29,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppProviders>
-          {children}
+          <Stack flexDirection={'row'}>
+            <NavBar />
+            <MainPageLayout>
+              {children}
+            </MainPageLayout>
+          </Stack>
         </AppProviders>
       </body>
     </html>

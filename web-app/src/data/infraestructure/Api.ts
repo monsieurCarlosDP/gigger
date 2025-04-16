@@ -1,4 +1,4 @@
-import { GenericResponse, ISongListItemViewModelV1Body, ISetlistListItemViewModelV1Body } from "../api-client/data-contracts";
+import { GenericResponse, ISongListItemViewModelV1Body, ISetlistListItemViewModelV1Body, IDashboardItemViewModelV1Body } from "../api-client/data-contracts";
 import { HttpClient } from "../api-client/http-client";
 
 export class Api<TData = unknown> {
@@ -26,6 +26,14 @@ export class Api<TData = unknown> {
       async getSetlist(id: string){
         return this.http.get<ISetlistListItemViewModelV1Body>(`/setlists/${id}`);
       }
+      //#endregion
+
+      //#region DASHBOARD
+
+      async getDashboard(){
+        return this.http.get<IDashboardItemViewModelV1Body>(`/base-dashboard`);
+      }
+
       //#endregion
 
 }

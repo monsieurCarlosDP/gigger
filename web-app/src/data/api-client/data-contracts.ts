@@ -49,3 +49,11 @@ export type Child = {
     text: string;
 }
 //#region
+
+//#region Dashboard
+export interface IDashboardItemViewModelV1Body {
+    songs: number,
+    setlist: number,
+    events: number,
+}
+//#endregion
