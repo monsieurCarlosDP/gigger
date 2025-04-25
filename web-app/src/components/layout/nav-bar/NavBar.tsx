@@ -1,9 +1,9 @@
 "use client"
 import { HomeOutlined, LibraryMusicOutlined, FormatListBulletedOutlined, CalendarMonthOutlined, SettingsOutlined } from '@mui/icons-material'
 
-import { Stack, styled } from '@mui/material'
+import { IconButton, Stack, styled } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import React from 'react'
-
 
 
 const NavBarStyled = styled('nav')(({theme})=> ({
@@ -21,6 +21,13 @@ const NavBarStyled = styled('nav')(({theme})=> ({
 }))
 
 const NavBar = () => {
+
+  const router = useRouter();
+
+  const goToRoute = (url:string) =>
+    router.push(`/${url}`);
+
+
   return (
     <NavBarStyled>
         <Stack 
@@ -28,11 +35,24 @@ const NavBar = () => {
             component="ul"
             gap={2}
             flex={'col'}
-            justifyContent={'space-around'}>            
-            <HomeOutlined fontSize='large'/>
-            <LibraryMusicOutlined fontSize='large'/>
-            <FormatListBulletedOutlined fontSize='large'/>
-            <CalendarMonthOutlined fontSize='large'/>
+            justifyContent={'space-around'}>   
+            <IconButton 
+              onClick={()=>goToRoute('')}>
+              <HomeOutlined fontSize='large'/>
+            </IconButton>         
+            <IconButton
+              onClick={()=>goToRoute('songs')}>
+              <LibraryMusicOutlined fontSize='large'/>
+            </IconButton>
+            <IconButton
+               onClick={()=>goToRoute('setlists')}>
+              <FormatListBulletedOutlined fontSize='large'/>
+            </IconButton>
+            <IconButton
+               onClick={()=>goToRoute('events')}
+              >
+              <CalendarMonthOutlined fontSize='large'/>
+            </IconButton>
         </Stack>
         <Stack 
             component="ul"
@@ -40,7 +60,9 @@ const NavBar = () => {
             height='50%'
             justifyContent='end'
             gap="ul">
-            <SettingsOutlined fontSize='large'/>
+            <IconButton>
+              <SettingsOutlined fontSize='large'/>
+            </IconButton>
         </Stack>
     </NavBarStyled>
   )

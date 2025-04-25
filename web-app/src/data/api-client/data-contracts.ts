@@ -53,7 +53,37 @@ export type Child = {
 //#region Dashboard
 export interface IDashboardItemViewModelV1Body {
     songs: number,
-    setlist: number,
+    setlists: number,
     events: number,
+    eventList: IEventViewModelV1Body[]
 }
 //#endregion
+
+export interface IEventViewModelV1Body {
+    id?:          number;
+    Date?:        Date;
+    createdAt?:   Date;
+    updatedAt?:   Date;
+    publishedAt?: Date;
+    Location?:    IEventLocation;
+    Url?:         null;
+    Private?:     boolean;
+    Title?:       string;
+    Type?:        EventType;
+    Time?:        null;
+}
+
+export interface IEventLocation {
+    address?:     string;
+    coordinates?: Coordinates;
+    geohash?:     string;
+}
+
+
+export interface Coordinates {
+    lat: number;
+    lng: number;
+}
+export enum EventType {
+    Boda = "Boda",
+}
