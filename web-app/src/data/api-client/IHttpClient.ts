@@ -1,7 +1,5 @@
 import { HttpClient } from "./http-client";
 
-
-
 type PublicMembers<T> = {
   [K in keyof T]: K;
 }[keyof T];

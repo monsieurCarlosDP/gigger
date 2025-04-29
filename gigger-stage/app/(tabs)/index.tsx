@@ -5,30 +5,27 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useEffect, useState } from 'react';
+import { useServiceContext } from '@/src/context/service-context';
+import { useService } from '@/hooks/setlists/setlists';
 
 
 
 
 
 export default function HomeScreen() {
-  const apiToken = process.env.EXPO_PUBLIC_API_KEY;
+
   const [data,setData] = useState()
-  const getData = async ()=>{
-    return await fetch('https://back.somostufestival.es/api/setlists?populate=*',{
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${apiToken}`
-      }
-    });
-  }
-  
-  useEffect(()=>{
-    getData().then(res=>res.json()).then(dataResponse=>setData(dataResponse))
-  },[])
+
+const {isLoadingSetlists, setlistsData, setlistsError } = useService();
+// falta el react query context!!!
+ 
+
 
   useEffect(()=>
-    console.log(data?.data)
-  ,[data])
+    {
+      console.log(setlistsData);  
+    }
+  ,[setlistsData])
 
 
   return (
