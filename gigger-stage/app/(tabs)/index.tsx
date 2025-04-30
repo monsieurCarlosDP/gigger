@@ -4,9 +4,10 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useServiceContext } from '@/src/context/service-context';
-import { useService } from '@/hooks/setlists/setlists';
+import { useSetlistsService } from '@/hooks/setlists/setlists';
+import SetlistListItem from '@/components/SetlistList/SetlistListitem';
 
 
 
@@ -16,28 +17,23 @@ export default function HomeScreen() {
 
   const [data,setData] = useState()
 
-const {isLoadingSetlists, setlistsData, setlistsError } = useService();
-// falta el react query context!!!
- 
-
-
-  useEffect(()=>
-    {
-      console.log(setlistsData);  
-    }
-  ,[setlistsData])
-
+const {isLoadingSetlists, setlistsData, setlistsError } = useSetlistsService();
 
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      
       headerImage={
         <Image
           source={require('@/assets/images/partial-react-logo.png')}
           style={styles.reactLogo}
         />
       }>
-
+        {
+          setlistsData?.data.map((data,index)=>{
+            return <SetlistListItem key={index} title={data.attributes.Name}/>
+          })
+        }
     </ParallaxScrollView>
   );
 }

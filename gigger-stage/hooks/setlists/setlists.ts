@@ -4,7 +4,7 @@ import { setlistsQueryKeyFactory } from "./setlistQueryKeysFactory"
 
 
 
-export const useService = ()=> {
+export const useSetlistsService = ()=> {
     const { setlistService } = useServiceContext();
     const {
         isLoading: isLoadingSetlists,

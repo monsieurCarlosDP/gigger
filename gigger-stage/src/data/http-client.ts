@@ -5,7 +5,7 @@ export class HttpClient<TData = unknown>{
         this.baseUrl = `${process.env.EXPO_PUBLIC_PROTOCOL}${process.env.EXPO_PUBLIC_HOST}${process.env.EXPO_PUBLIC_API}`
         this.getHeaders = () => ({
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.EXPO_PUBLIC_STRAPI_API_KEY}`
+            'Authorization': `Bearer ${process.env.EXPO_PUBLIC_API_KEY}`
         })
     };
 

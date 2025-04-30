@@ -8,6 +8,9 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { ServiceContexProvider, useServiceContext } from '@/src/context/service-context';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryContextProvider } from '@/src/context/react-query-context/react-query-context';
+import ReactQuerySetupSingleton from '@/src/context/react-query-context/react-query-setup-singleton';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -30,6 +33,8 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ReactQueryContextProvider
+      reactQuerySetupSingleton={ReactQuerySetupSingleton.getInstance()}    >
       <ServiceContexProvider>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -37,6 +42,8 @@ export default function RootLayout() {
         </Stack>
         <StatusBar style="auto" />
       </ServiceContexProvider>
+
+      </ReactQueryContextProvider>
     </ThemeProvider>
   );
 }
