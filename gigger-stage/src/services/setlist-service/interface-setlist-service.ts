@@ -6,6 +6,6 @@ export interface ISetlistsListItemDTO extends GenericResponse<ISetlistListItemVi
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface ISetlistItemDTO extends ISetlistListItemViewModelV1Body {
+export interface ISetlistItemDTO extends GenericResponse<ISetlistListItemViewModelV1Body> {
 
 }

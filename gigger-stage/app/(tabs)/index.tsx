@@ -2,22 +2,23 @@ import { Image, StyleSheet, Platform } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import React, { useEffect, useState } from 'react';
 import { useServiceContext } from '@/src/context/service-context';
 import { useSetlistsService } from '@/hooks/setlists/setlists';
 import SetlistListItem from '@/components/SetlistList/SetlistListitem';
-
+import { useRouter } from 'expo-router';
+import { DataObject } from '@/src/data/data-contracts';
+import { ISetlistItemDTO } from '@/src/services/setlist-service/interface-setlist-service';
 
 
 
 
 export default function HomeScreen() {
-
+  const router = useRouter();
+  
   const [data,setData] = useState()
-
-const {isLoadingSetlists, setlistsData, setlistsError } = useSetlistsService();
+  
+  const {isLoadingSetlists, setlistsData, setlistsError } = useSetlistsService();
 
   return (
     <ParallaxScrollView
@@ -31,7 +32,7 @@ const {isLoadingSetlists, setlistsData, setlistsError } = useSetlistsService();
       }>
         {
           setlistsData?.data.map((data,index)=>{
-            return <SetlistListItem key={index} title={data.attributes.Name}/>
+            return <SetlistListItem key={index} data={data}/>
           })
         }
     </ParallaxScrollView>

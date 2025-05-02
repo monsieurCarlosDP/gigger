@@ -17,7 +17,7 @@ export class SetlistService extends BaseService {
         return this.apiClient.getSetlists();
     }
 
-    getSetlist = async (id:string) => {
+    getSetlist = async (id:string):Promise<ISetlistItemDTO> => {
         return this.apiClient.getSetlist(id);
     }
 }

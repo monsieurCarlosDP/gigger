@@ -1,8 +1,13 @@
 //#region Base structure
 export interface GenericResponse<T> {
-    data: DataObject<T>[];
+    data: DataObject<T>[] | DataObject<T>;
     meta: Pagination;
 
+}
+
+export interface SimpleCollection<T> {
+    data: T;
+    updatedAt?: string;
 }
 export interface DataObject<T> {
     id: number;
@@ -23,6 +28,7 @@ export interface ISongListItemViewModelV1Body {
     Title: string;
     Artist: string;
     Duration: number;
+    Tags?: SimpleCollection<DataObject<ITagsItemViewModelV1Body>[]>
 }
 
 //#region
@@ -30,14 +36,26 @@ export interface ISongListItemViewModelV1Body {
 //#region Setlists
 
 export interface ISetlistListItemViewModelV1Body {
+    id:          number;
     Name:        string;
     Date:        null;
     Descripcion: Descripcion[];
     createdAt:   Date;
     updatedAt:   Date;
     publishedAt: Date;
-    songs:       DataObject<ISongListItemViewModelV1Body>;
+    songs:       SimpleCollection<DataObject<ISongListItemViewModelV1Body>[]>;
 }
+
+//#endregion
+
+//#region Tags
+
+export interface ITagsItemViewModelV1Body {
+    name: string,
+    Color: string,
+    Icon: string
+}
+//#endregion 
 
 export type Descripcion = {
     type:     string;

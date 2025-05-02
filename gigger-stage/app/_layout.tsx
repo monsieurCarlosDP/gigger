@@ -7,8 +7,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { ServiceContexProvider, useServiceContext } from '@/src/context/service-context';
-import { QueryClientProvider } from '@tanstack/react-query';
+import { ServiceContexProvider } from '@/src/context/service-context';
 import { ReactQueryContextProvider } from '@/src/context/react-query-context/react-query-context';
 import ReactQuerySetupSingleton from '@/src/context/react-query-context/react-query-setup-singleton';
 
@@ -33,16 +32,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-    <ReactQueryContextProvider
-      reactQuerySetupSingleton={ReactQuerySetupSingleton.getInstance()}    >
-      <ServiceContexProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-      </ServiceContexProvider>
-
+      <ReactQueryContextProvider
+        reactQuerySetupSingleton={ReactQuerySetupSingleton.getInstance()}    >
+        <ServiceContexProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </ServiceContexProvider>
       </ReactQueryContextProvider>
     </ThemeProvider>
   );

@@ -7,6 +7,11 @@ export const setlistsQueryKeyFactory = createQueryKeys('setlists',
         getSetlists: (setlistService: ISetlistService) => ({
             queryKey: [undefined],
             queryFn: ()=>setlistService.getSetlists()
+        }),
+
+        getSetlist: (setlistService: ISetlistService, id:string) => ({
+            queryKey: [id],
+            queryFn: ()=> setlistService.getSetlist(id)
         })
     }
 )
