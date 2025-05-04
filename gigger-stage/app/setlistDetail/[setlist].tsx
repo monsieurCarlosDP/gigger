@@ -29,10 +29,8 @@ const Route = (props: Props) => {
     isLoadingSetlist
   } = useSetlistService(setlist);
   
-  console.log(setlistData)
-  
-  const { data, meta } = setlistData ?? {}
-  const { id, attributes } = data as DataObject<ISetlistListItemViewModelV1Body> ?? {}
+  const { data, meta } = setlistData ?? {};
+  const { id, attributes } = data as DataObject<ISetlistListItemViewModelV1Body> ?? {};
   const { Name: title, songs } = attributes ?? {};
   const { data: songsData } = songs ?? {};
   const numberOfSongs = songsData?.length ?? 0;
@@ -41,7 +39,7 @@ const Route = (props: Props) => {
   const calculateDuration = (songsData:DataObject<ISongListItemViewModelV1Body>[]) => {
     if (!songsData || !songsData.length) return 0;
     const seconds = songsData.reduce((total:number,song: DataObject<ISongListItemViewModelV1Body>)=>{
-      return total + song.attributes.Duration
+      return total + song.attributes.Duration;
     },0);
     
     const minutes = seconds / 60;

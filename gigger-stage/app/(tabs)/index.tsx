@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Box, even, HStack, Surface, VStack, Pressable } from '@react-native-material/core';
 import { ThemedText } from '@/components/ThemedText';
 import { useDashboardService } from '@/hooks/dashboard/dashboard';
+import NextEvent from '@/components/Dashboard/NextEvent';
 
 type Props = {}
 
@@ -14,14 +15,8 @@ const index = (props: Props) => {
         dashboardData
     } = useDashboardService();
 
-    const { events, eventList } = dashboardData ?? {};
-    const [nextEvent, setNextEvent] = useState(()=>{
-        if(eventList){
-            return eventList[0]}
-        else
-            {return {}}
-        }
-    );
+    const { events, setlists, songs, eventList } = dashboardData ?? {};
+    
     
     
   return (
@@ -42,18 +37,55 @@ const index = (props: Props) => {
                     <ThemedText type='title'>Bienvenid@, {user}</ThemedText>
                     <ThemedText type='subtitle'>Tienes {events} eventos programados</ThemedText>
                 </Box>
-                    <Box>
-                        <Surface elevation={2}
+                <Box>                        
+                    <NextEvent title={eventList?.[0].Title ?? ''} date={eventList?.[0].Date?.toString() ?? ''}/>                    
+                </Box>
+                <HStack justify='between'>
+                    <Box 
+                        style={
+                            {
+                                width: '30%',
+                            }
+                        }
+                    >
+                        <Surface 
                             style={{
-                                padding:12
-                            }}>
-                            {nextEvent && <>
-                                <ThemedText type='subtitle2'>Próximo evento:</ThemedText>
-                                <ThemedText type='title'>{nextEvent?.Title}</ThemedText>
-                                <ThemedText type='subtitle'>{nextEvent?.Date?.toString()}</ThemedText>
-                            </>}
+                                    padding: 8
+                                }}
+                            elevation={2}>
+                            <ThemedText type='title2'>{events}</ThemedText>
+                            <ThemedText type='subtitle2'>Eventos</ThemedText>
                         </Surface>
                     </Box>
+                    <Box
+                        style={{
+                                width: '30%'
+                            }}
+                    >
+                        <Surface 
+                            style={{
+                                    padding: 8
+                                }}
+                            elevation={2}>
+                            <ThemedText type='title2'>{setlists}</ThemedText>
+                            <ThemedText type='subtitle2'>Setlist</ThemedText>
+                        </Surface>
+                    </Box>
+                    <Box
+                        style={{
+                                width: '30%'
+                            }}
+                    >
+                        <Surface 
+                            style={{
+                                    padding: 8
+                                }}    
+                            elevation={2}>
+                            <ThemedText type='title2'>{songs}</ThemedText>
+                            <ThemedText type='subtitle2'>Canciones</ThemedText>
+                        </Surface>
+                    </Box>
+                </HStack>
             </VStack>
 
 

@@ -31,7 +31,7 @@ export default function HomeScreen() {
         />
       }>
         {
-          setlistsData?.data.map((data,index)=>{
+          setlistsData && Array.isArray(setlistsData.data) && setlistsData?.data.map((data,index)=>{
             return <SetlistListItem key={index} data={data}/>
           })
         }
