@@ -1,4 +1,4 @@
-import { GenericResponse, ISetlistListItemViewModelV1Body, ISongListItemViewModelV1Body } from "./data-contracts";
+import { GenericResponse, IDashboardItemViewModelV1Body, ISetlistListItemViewModelV1Body, ISongListItemViewModelV1Body } from "./data-contracts";
 import { HttpClient } from "./http-client";
 
 
@@ -33,5 +33,11 @@ export class Api<TData= unknown>{
         return this.http.get<GenericResponse<ISetlistListItemViewModelV1Body>>(`/setlists/${id}?populate[songs][populate]=tags`);
       }
     //#endregion
+
+    //#region DASHBOARD
+    async getDashboard(){
+        return this.http.get<IDashboardItemViewModelV1Body>(`/base-dashboard`);
+      }
+    //#
 
 }

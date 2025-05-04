@@ -5,18 +5,20 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'title2' | 'defaultSemiBold' | 'subtitle' | 'link' | 'subtitle2';
+  invert?: boolean;
+  type?: 'default' | 'title' | 'title2' | 'defaultSemiBold' | 'subtitle' | 'link' | 'subtitle2'| 'tagAvatar';
 };
 
 export function ThemedText({
   style,
   lightColor,
   darkColor,
+  invert=false,
   type = 'default',
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
-
+  const color = useThemeColor({ light: invert? lightColor:darkColor, dark: invert? darkColor:lightColor }, 'text');
+  
   return (
     <Text
       style={[
@@ -27,6 +29,7 @@ export function ThemedText({
         type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
         type === 'subtitle2' ? styles.subtitle2 : undefined,
+        type === 'tagAvatar' ? styles.tagAvatar : undefined,
         type === 'link' ? styles.link : undefined,
         style,
       ]}
@@ -62,6 +65,11 @@ const styles = StyleSheet.create({
   subtitle2: {
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  tagAvatar: {
+    fontSize: 12,
+    fontWeight: 'normal',
+    color: 'white'
   },
   link: {
     lineHeight: 30,

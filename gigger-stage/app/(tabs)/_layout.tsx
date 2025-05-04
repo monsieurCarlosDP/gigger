@@ -7,6 +7,7 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { Avatar } from '@react-native-material/core';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -29,7 +30,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Setlist',
+          title: 'Dashboard',
+          tabBarIcon: ({ color, focused }) => <Avatar size={24} color={color} label={'Usuario'}/>,
+        }}
+      />
+      <Tabs.Screen
+        name="setlists"
+        options={{
+          title: 'Setlists',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />

@@ -36,7 +36,7 @@ export default function RootLayout() {
         reactQuerySetupSingleton={ReactQuerySetupSingleton.getInstance()}    >
         <ServiceContexProvider>
           <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false, title: 'Setlist' }} />
             <Stack.Screen name="+not-found" />
           </Stack>
           <StatusBar style="auto" />

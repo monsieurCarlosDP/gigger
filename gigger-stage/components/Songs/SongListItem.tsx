@@ -1,11 +1,13 @@
 import { DataObject, ISetlistListItemViewModelV1Body, ISongListItemViewModelV1Body } from '@/src/data/data-contracts'
 import { ISetlistItemDTO } from '@/src/services/setlist-service/interface-setlist-service'
-import { Avatar, Box, HStack, ListItem, ListItemProps } from '@react-native-material/core'
+import { Box, HStack, ListItemProps } from '@react-native-material/core'
 import { Link, router } from 'expo-router'
 import React from 'react'
 import { ThemedText } from '../ThemedText'
 import { View } from 'react-native'
 import { Surface } from 'react-native-paper'
+import Tag from '../Tags/Tag'
+import TagGroup from '../Tags/TagGroup'
 
 export interface SongListItemProps extends ListItemProps {
   data: DataObject<ISongListItemViewModelV1Body>
@@ -15,18 +17,24 @@ const SongListItem = ({
   data
 }: SongListItemProps) => {
   const { attributes } = data;
-  const { Title: title, Tags: tagsObject} = attributes ?? {};
+  const { Title: title, tags: tagsObject} = attributes ?? {};
   const { data: tagsData } = tagsObject ?? {}
+  console.log(tagsData);
   return (
     <HStack> 
         <Surface style={{flexGrow:1}}>
             <Box 
-                h={36} 
+            
+                h={48} 
                 ph={12} 
                 style={{
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    backgroundColor: 'white'
                 }}>
-                    <ThemedText type='default'>{title}</ThemedText>
+                  <HStack justify='between' items='center'>
+                      <ThemedText type='default'>{title}</ThemedText>
+                      {tagsData && <TagGroup tagsData={tagsData}/>}
+                  </HStack>
             </Box>
         </Surface>
     

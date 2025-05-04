@@ -28,7 +28,7 @@ export interface ISongListItemViewModelV1Body {
     Title: string;
     Artist: string;
     Duration: number;
-    Tags?: SimpleCollection<DataObject<ITagsItemViewModelV1Body>[]>
+    tags?: SimpleCollection<DataObject<ITagsItemViewModelV1Body>[]>
 }
 
 //#region
