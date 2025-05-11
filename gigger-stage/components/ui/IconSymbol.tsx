@@ -14,6 +14,9 @@ const MAPPING = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
+  'calendar': 'calendar-month',
+  'list.bullet': 'list',
+  'circle': 'bolt'
 } as Partial<
   Record<
     import('expo-symbols').SymbolViewProps['name'],
@@ -23,6 +26,14 @@ const MAPPING = {
 
 export type IconSymbolName = keyof typeof MAPPING;
 
+
+export interface IIconSymbol {
+  name: IconSymbolName;
+  size?: number;
+  color: string | OpaqueColorValue;
+  style?: StyleProp<ViewStyle>;
+  weight?: SymbolWeight;
+}
 /**
  * An icon component that uses native SFSymbols on iOS, and MaterialIcons on Android and web. This ensures a consistent look across platforms, and optimal resource usage.
  *
@@ -33,12 +44,6 @@ export function IconSymbol({
   size = 24,
   color,
   style,
-}: {
-  name: IconSymbolName;
-  size?: number;
-  color: string | OpaqueColorValue;
-  style?: StyleProp<ViewStyle>;
-  weight?: SymbolWeight;
-}) {
+}:IIconSymbol ) {
   return <MaterialIcons color={color} size={size} name={MAPPING[name]} style={style} />;
 }

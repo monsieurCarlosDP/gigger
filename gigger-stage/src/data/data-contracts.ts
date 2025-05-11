@@ -1,8 +1,13 @@
 //#region Base structure
-export interface GenericResponse<T> {
-    data: DataObject<T>[] | DataObject<T>;
+export interface ListResponse<T> {
+    data: DataObject<T>[];
     meta: Pagination;
 
+}
+
+export interface SimpleResponse<T>{
+    data: DataObject<T>;
+    meta: Pagination;
 }
 
 export interface SimpleCollection<T> {
@@ -105,3 +110,27 @@ export interface Coordinates {
 export enum EventType {
     Boda = "Boda",
 }
+
+//#region AUTH
+
+export interface ILoginData {
+    identifier: string;
+    password: string;
+}
+
+export interface ILoginResponseViewModelV1 {
+    jwt:  string;
+    user: IUserDataViewModelV1;
+}
+
+export interface IUserDataViewModelV1 {
+    id:        number;
+    username:  string;
+    email:     string;
+    provider:  string;
+    confirmed: boolean;
+    blocked:   boolean;
+    createdAt: Date;
+    updatedAt: Date;
+}
+//#

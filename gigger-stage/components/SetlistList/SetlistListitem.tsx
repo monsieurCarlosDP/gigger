@@ -1,6 +1,6 @@
 import { DataObject, ISetlistListItemViewModelV1Body } from '@/src/data/data-contracts'
 import { ISetlistItemDTO } from '@/src/services/setlist-service/interface-setlist-service'
-import { ListItem, ListItemProps, Pressable } from '@react-native-material/core'
+import { ListItem, ListItemProps } from '@react-native-material/core'
 import { Link, router } from 'expo-router'
 import React from 'react'
 

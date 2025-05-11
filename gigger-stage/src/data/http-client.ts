@@ -16,6 +16,17 @@ export class HttpClient<TData = unknown>{
                 headers: this.getHeaders()
             }
         )
-        return response.json()
+        return response.json();
+    }
+
+    public post = async<TData, KData>(url:string, body: TData): Promise<KData> => {
+        const response = await fetch(`${this.baseUrl}${url}`,
+            {
+                method: 'POST',
+                headers: this.getHeaders(),
+                body: JSON.stringify(body)
+            }
+        )
+        return response.json();
     }
 }

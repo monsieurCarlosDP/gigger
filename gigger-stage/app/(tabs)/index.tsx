@@ -5,6 +5,9 @@ import { Box, even, HStack, Surface, VStack, Pressable } from '@react-native-mat
 import { ThemedText } from '@/components/ThemedText';
 import { useDashboardService } from '@/hooks/dashboard/dashboard';
 import NextEvent from '@/components/Dashboard/NextEvent';
+import { HelloWave } from '@/components/HelloWave';
+import { useAuth } from '@/hooks/auth/auth';
+import { useStorage } from '@/hooks/secure-storage/storage';
 
 type Props = {}
 
@@ -17,7 +20,9 @@ const index = (props: Props) => {
 
     const { events, setlists, songs, eventList } = dashboardData ?? {};
     
-    
+    const { getValue } = useStorage();
+
+    console.log(getValue('user'));
     
   return (
     <ParallaxScrollView
@@ -34,7 +39,9 @@ const index = (props: Props) => {
 
             <VStack p={12} spacing={12}>
                 <Box>
-                    <ThemedText type='title'>Bienvenid@, {user}</ThemedText>
+                    <HStack spacing={12} items='center'>
+                        <ThemedText type='title'>Bienvenid@, {user}</ThemedText><HelloWave />
+                    </HStack>                    
                     <ThemedText type='subtitle'>Tienes {events} eventos programados</ThemedText>
                 </Box>
                 <Box>                        

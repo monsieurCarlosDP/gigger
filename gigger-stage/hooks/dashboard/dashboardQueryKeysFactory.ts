@@ -5,7 +5,6 @@ import{ IDashboardServices } from '@/src/services/dashboard-service/IDashboardSe
 export const dashboardQueryKeysFactory = createQueryKeys('setlists',
     {
 
-
         getDashboard: (setlistService: IDashboardServices) => ({
             queryKey: [undefined],
             queryFn: ()=> setlistService.getDashboard()

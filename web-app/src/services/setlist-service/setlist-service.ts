@@ -1,4 +1,4 @@
-import { BaseService } from "../base-service/BaseService";
+import { BaseService } from "../base-service/base-service";
 import { ISetlistServices } from "./ISetlistServices";
 import { IGiggerApiClient } from "@/data/infraestructure/IGiggerApiClient";
 
