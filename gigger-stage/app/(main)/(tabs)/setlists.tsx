@@ -2,14 +2,10 @@ import { Image, StyleSheet, Platform } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import React, { useEffect, useState } from 'react';
-import { useServiceContext } from '@/src/context/service-context';
+import React, {  useState } from 'react';
 import { useSetlistsService } from '@/hooks/setlists/setlists';
 import SetlistListItem from '@/components/SetlistList/SetlistListitem';
 import { useRouter } from 'expo-router';
-import { DataObject } from '@/src/data/data-contracts';
-import { ISetlistItemDTO } from '@/src/services/setlist-service/interface-setlist-service';
-
 
 
 

@@ -8,9 +8,12 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Avatar } from '@react-native-material/core';
+import { useAuth } from '@/hooks/auth/auth';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+
+  const {user} = useAuth();
 
   return (
     <Tabs

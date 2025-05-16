@@ -9,10 +9,11 @@ export class StorageApi<TData = unknown>{
     }
 
     async getUser() {
-        return this.storage.getValue('user');
+        const value = await this.storage.getValue('user')
+        return JSON.parse(value ?? '');
     }
 
-    async setUser(data:TData) {
+    async setUser<TData>(data:TData) {
         const value = JSON.stringify(data);
         return this.storage.setValue('user',value)
     }
