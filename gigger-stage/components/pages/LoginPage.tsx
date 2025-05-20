@@ -1,7 +1,11 @@
 import { useAuth } from '@/hooks/auth/auth'
 import { Box, Flex, TextInput, VStack } from '@react-native-material/core'
-import React, { useReducer, useRef, useState } from 'react'
-import { Button, NativeSyntheticEvent, TextInputChangeEventData, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { Button, View, Text, StyleSheet } from 'react-native'
+import Input from '../ui/atoms/Input'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useRouter } from 'expo-router'
+import { useAuthContext } from '@/src/context/auth-context'
 
 type Props = {}
 
@@ -9,9 +13,16 @@ const LoginPage = (props: Props) => {
 
     const [userName,setUserName] = useState<string|null>(null);
     const [passWord,setPassWord] = useState<string|null>(null);
-    const {logIn} = useAuth();
+    const router = useRouter();
+    const {logIn, user} = useAuthContext();
 
     let inputTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+
+    useEffect(()=>{
+        if(user)
+            router.navigate('/(tabs)');
+    },[user,router])
 
     const handleChange = (field: 'username' | 'password', text:string) => {
         if(inputTimeout.current)
@@ -35,21 +46,30 @@ const LoginPage = (props: Props) => {
         })
     }
     }
-    
+
 
 return (
-        <View>
+   <SafeAreaView>
+            <View style={styles.content}>
             <Flex>
                 <VStack p={12}>
-                    <TextInput data-id='username' onChangeText={text => handleChange('username', text)} label='Usuario'/>
-                    <TextInput data-id='password' onChangeText={text => handleChange('password', text)} secureTextEntry={true} label='Password'/>
+                    <Input label={<Text>Usuario</Text>} onChange={text => handleChange('username', text)} placeHolderText='Usuario'/>
+                    <Input label={<Text>Password</Text>} onChange={text => handleChange('password', text)} placeHolderText='Contraseña' isPassword />
                 </VStack>
                 <Box p={12}>
                     <Button onPress={handleLogIn} color='#ff00ff'  title='Log In'/>    
                 </Box>
             </Flex>
-        </View>
+            </View>
+    </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+
+    content: {
+    }
+
+})
 
 export default LoginPage

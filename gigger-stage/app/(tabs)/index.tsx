@@ -6,24 +6,18 @@ import { ThemedText } from '@/components/ThemedText';
 import { useDashboardService } from '@/hooks/dashboard/dashboard';
 import NextEvent from '@/components/Dashboard/NextEvent';
 import { HelloWave } from '@/components/HelloWave';
-import { useAuth } from '@/hooks/auth/auth';
-import { useStorage } from '@/hooks/secure-storage/storage';
 
 type Props = {}
 
 const index = (props: Props) => {
     
-    const user = 'Usuario';const {
+    const {
         isLoadingDashboard,
         dashboardData
     } = useDashboardService();
 
     const { events, setlists, songs, eventList } = dashboardData ?? {};
-    
-    const { getValue } = useStorage();
 
-    console.log(getValue('user'));
-    
   return (
     <ParallaxScrollView
         headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -40,7 +34,7 @@ const index = (props: Props) => {
             <VStack p={12} spacing={12}>
                 <Box>
                     <HStack spacing={12} items='center'>
-                        <ThemedText type='title'>Bienvenid@, {user}</ThemedText><HelloWave />
+                        <ThemedText type='title'>Bienvenid@,</ThemedText><HelloWave />
                     </HStack>                    
                     <ThemedText type='subtitle'>Tienes {events} eventos programados</ThemedText>
                 </Box>

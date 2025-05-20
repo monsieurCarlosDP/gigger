@@ -1,12 +1,7 @@
 import { DataObject, ISetlistListItemViewModelV1Body, ISongListItemViewModelV1Body } from '@/src/data/data-contracts'
-import { ISetlistItemDTO } from '@/src/services/setlist-service/interface-setlist-service'
 import { Box, HStack, ListItemProps } from '@react-native-material/core'
-import { Link, router } from 'expo-router'
 import React from 'react'
 import { ThemedText } from '../ThemedText'
-import { View } from 'react-native'
-import { Surface } from 'react-native-paper'
-import Tag from '../Tags/Tag'
 import TagGroup from '../Tags/TagGroup'
 
 export interface SongListItemProps extends ListItemProps {
@@ -22,7 +17,6 @@ const SongListItem = ({
   console.log(tagsData);
   return (
     <HStack> 
-        <Surface style={{flexGrow:1}}>
             <Box 
             
                 h={48} 
@@ -36,7 +30,6 @@ const SongListItem = ({
                       {tagsData && <TagGroup tagsData={tagsData}/>}
                   </HStack>
             </Box>
-        </Surface>
     
 
     </HStack>

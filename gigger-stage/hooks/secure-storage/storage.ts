@@ -10,9 +10,14 @@ const getValue = async (key:string) => {
 
 const setValue = async<TData>(key:string,value:TData) =>{
     const data = JSON.stringify(value);
+    setItemAsync(key,data);
     return
 }
 
+const clearValue = async(key:string) => {
+    return await setItemAsync(key,'');
+}
+
 export const useStorage = () => {
-    return { getValue }
+    return { getValue, setValue, clearValue }
 }

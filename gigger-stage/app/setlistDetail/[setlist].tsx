@@ -1,6 +1,5 @@
 import SongList from '@/components/Songs/SongList';
 import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import { useSetlistService } from '@/hooks/setlists/setlists';
 import { DataObject, ISetlistListItemViewModelV1Body, ISongListItemViewModelV1Body } from '@/src/data/data-contracts';
 import { ISetlistItemDTO } from '@/src/services/setlist-service/interface-setlist-service';

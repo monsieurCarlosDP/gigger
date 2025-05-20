@@ -1,22 +1,30 @@
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { IAuthService } from "../services/auth-service/auth-service";
+import { useServiceContext } from "./service-context";
+import { useAuth } from "@/hooks/auth/auth";
+import { ILoginErrorResponseDTO, ILoginResponseDTO, IUserData } from "../services/auth-service/interface-auth-service-dto";
+import { useStorage } from "@/hooks/secure-storage/storage";
+import { ILoginData } from "../data/data-contracts";
 import { useMutation } from "@tanstack/react-query";
-import { useServiceContext } from "@/src/context/service-context";
-import { ILoginData } from "@/src/data/data-contracts";
-import { useCallback, useEffect, useState } from "react";
-import { ILoginErrorResponseDTO, ILoginResponseDTO, IUserData } from "@/src/services/auth-service/interface-auth-service-dto";
-import { useStorage } from "../secure-storage/storage";
-import { useRouter } from "expo-router";
 
 const isLoginError = (data: any): data is ILoginErrorResponseDTO => {
   return data && 'data' in data && 'error' in data;
 };
 
+const AuthContext = createContext<IAuthContexProvider|null>(null);
 
-export const useAuth = () => {
+export interface IAuthContexProvider {
+    user: IUserData|undefined;
+    logIn: (data:ILoginData) => void;
+    logOut: () => void;
+}
+
+export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
+    const {authService} = useServiceContext()
     const { getValue, setValue, clearValue } = useStorage();
-    const [user,setUser] = useState<IUserData|undefined>(undefined);
-    const { authService } = useServiceContext();
+    const [user, setUser] = useState<IUserData|undefined>(undefined);
 
-    useEffect(()=>{
+        useEffect(()=>{
 
         const loadUser = async () => {
             const storedValue = await getValue('user');
@@ -27,8 +35,6 @@ export const useAuth = () => {
 
     },[]);
 
-
-    
     const loginMutation =  useMutation<
         ILoginResponseDTO | ILoginErrorResponseDTO,
         Error,
@@ -66,10 +72,21 @@ export const useAuth = () => {
             clearValue('user');
             
          }
-        
-    return {
-        logIn,
-        logOut,
-        user
+
+
+
+    return (
+        <AuthContext.Provider value={{user,logIn,logOut}}>
+            {children}
+        </AuthContext.Provider>
+    )
+}
+
+export const useAuthContext = () => {
+    const context = useContext(AuthContext);
+    if(!context)
+    {
+        throw new Error('useAuthContext must be used within a AuthContextProvider');
     }
+    return context;
 }

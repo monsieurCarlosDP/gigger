@@ -1,20 +1,24 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Redirect, Tabs, useRouter,  } from 'expo-router';
+import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
-
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Avatar } from '@react-native-material/core';
-import { useAuth } from '@/hooks/auth/auth';
+import { useAuthContext } from '@/src/context/auth-context';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
-  const {user} = useAuth();
-
+  const {user} = useAuthContext();
+  const router = useRouter();
+  useEffect(() => {
+  if (!user) {
+    router.replace('/');
+  }
+}, [user, router]);
   return (
     <Tabs
       screenOptions={{
@@ -55,7 +59,7 @@ export default function TabLayout() {
         name="explore"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign name="user" size={24} color={color} />,
         }}
       />
     </Tabs>
