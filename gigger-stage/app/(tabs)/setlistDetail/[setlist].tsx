@@ -6,6 +6,7 @@ import { ISetlistItemDTO } from '@/src/services/setlist-service/interface-setlis
 import { Box, Flex, HStack, VStack, Surface } from '@react-native-material/core';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useEffect } from 'react';
+import { View } from 'react-native';
 
 
 type Props = {
@@ -55,7 +56,7 @@ const Route = (props: Props) => {
   },[title,navigation])
     
   return (
-    <>    
+    <View>    
     <Flex>
       <VStack p={24} spacing={12}>
         <HStack>
@@ -120,7 +121,7 @@ const Route = (props: Props) => {
         </HStack>
       </VStack>
     </Flex>
-    </>
+    </View>
   )
 }
 

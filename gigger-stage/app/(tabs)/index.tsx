@@ -1,7 +1,7 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView'
-import React, { useState } from 'react'
-import { Box, even, HStack, Surface, VStack, Pressable } from '@react-native-material/core';
+import React from 'react'
+import { Box, HStack, Surface, VStack } from '@react-native-material/core';
 import { ThemedText } from '@/components/ThemedText';
 import { useDashboardService } from '@/hooks/dashboard/dashboard';
 import NextEvent from '@/components/Dashboard/NextEvent';
@@ -12,7 +12,6 @@ type Props = {}
 const index = (props: Props) => {
     
     const {
-        isLoadingDashboard,
         dashboardData
     } = useDashboardService();
 

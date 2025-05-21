@@ -8,10 +8,8 @@ import { useRouter } from 'expo-router';
 export default function TabTwoScreen() {
 
   const {logOut} = useAuthContext();
-  const router = useRouter()
   const handleLogOut = ()=>{
     logOut();
-    router.navigate('/')
   }
 
 

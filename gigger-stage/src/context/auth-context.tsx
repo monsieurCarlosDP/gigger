@@ -17,23 +17,28 @@ export interface IAuthContexProvider {
     user: IUserData|undefined;
     logIn: (data:ILoginData) => void;
     logOut: () => void;
+    isLogged: boolean;
 }
 
 export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
     const {authService} = useServiceContext()
     const { getValue, setValue, clearValue } = useStorage();
     const [user, setUser] = useState<IUserData|undefined>(undefined);
+    const [isLogged,setIsLogged] = useState<boolean>(false);
 
         useEffect(()=>{
 
         const loadUser = async () => {
             const storedValue = await getValue('user');
             if(storedValue)
-                setUser(JSON.parse(storedValue).user)
+                {
+                    setUser(JSON.parse(storedValue).user)
+                    setIsLogged(true);
+                }
         }
         loadUser();
 
-    },[]);
+    },[getValue]);
 
     const loginMutation =  useMutation<
         ILoginResponseDTO | ILoginErrorResponseDTO,
@@ -58,6 +63,7 @@ export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
                         
                 setValue('user',data);
                 setUser(data.user);
+                setIsLogged(true);
             
             }
     
@@ -69,6 +75,7 @@ export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
 
          const logOut = ()=>{
             setUser(undefined);
+            setIsLogged(false);
             clearValue('user');
             
          }
@@ -76,7 +83,7 @@ export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
 
 
     return (
-        <AuthContext.Provider value={{user,logIn,logOut}}>
+        <AuthContext.Provider value={{user,logIn,logOut,isLogged}}>
             {children}
         </AuthContext.Provider>
     )

@@ -14,11 +14,13 @@ const SetlistListItem = ({
   const { attributes } = data;
   const { Name: title} = attributes;
   return (
-    <ListItem 
-    pressEffect='ripple'
-    title={title}
-    pressEffectColor='red'
-    onPress={()=>router.navigate(`/setlistDetail/${data.id}`)} />
+    <Link href={`/setlistDetail/${data.id}`}>
+      <ListItem 
+      pressEffect='ripple'
+      title={title}
+      pressEffectColor='red'
+      />
+    </Link>
   )
 }
 

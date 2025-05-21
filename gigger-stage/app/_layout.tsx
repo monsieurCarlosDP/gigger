@@ -10,7 +10,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { ServiceContexProvider } from '@/src/context/service-context';
 import { ReactQueryContextProvider } from '@/src/context/react-query-context/react-query-context';
 import ReactQuerySetupSingleton from '@/src/context/react-query-context/react-query-setup-singleton';
-import { AuthContextProvider } from '@/src/context/auth-context';
+import { AuthContextProvider, useAuthContext } from '@/src/context/auth-context';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,7 +33,23 @@ export default function RootLayout() {
     return null;
   }
 
+const ScreenLayout = () => {
 
+  const {isLogged} = useAuthContext();
+ 
+  return <Stack>
+            <Stack.Protected guard={isLogged}>
+                <Stack.Screen name="(tabs)" options={{
+                  headerShown: false
+                }}/>
+            </Stack.Protected>
+            <Stack.Protected guard={!isLogged}>
+                <Stack.Screen name="index" options={{
+                  title: 'Login'
+                }}/>
+            </Stack.Protected>
+          </Stack>
+}
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -41,7 +57,7 @@ export default function RootLayout() {
         reactQuerySetupSingleton={ReactQuerySetupSingleton.getInstance()}    >
         <ServiceContexProvider>
           <AuthContextProvider>
-            <Slot/>
+            <ScreenLayout />
           </AuthContextProvider>
           <StatusBar style="auto" />
         </ServiceContexProvider>

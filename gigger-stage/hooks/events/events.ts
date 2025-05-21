@@ -15,3 +15,6 @@ export const useEventService = () => {
         return {isLoadingEvents, eventsData, eventsError}
 
 }
+
+
+// Crear el metodo para conseguir everntos individuales

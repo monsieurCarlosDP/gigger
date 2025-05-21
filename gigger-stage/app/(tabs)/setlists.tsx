@@ -11,9 +11,7 @@ import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
   const router = useRouter();
-  
-  const [data,setData] = useState()
-  
+    
   const {isLoadingSetlists, setlistsData, setlistsError } = useSetlistsService();
 
   return (
