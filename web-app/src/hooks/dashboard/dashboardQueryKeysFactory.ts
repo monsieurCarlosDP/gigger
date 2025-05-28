@@ -1,6 +1,6 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 
-import { IDashboardServices } from '@/services/dashboard-service/IDashboardServices';
+import { IDashboardServices } from '../../../services/dashboard-service/IDashboardServices';
 
 const dashboardQueryKeyFactory = createQueryKeys('dashboard',
     {

@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Redirect, Slot, Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -36,7 +36,14 @@ export default function RootLayout() {
 const ScreenLayout = () => {
 
   const {isLogged} = useAuthContext();
- 
+  console.log("HOLO")
+
+/*   if(isLogged) return <Redirect href="/(tabs)"/>
+
+  return <Stack>
+    <Stack.Screen name="Login" />
+  </Stack>
+   */
   return <Stack>
             <Stack.Protected guard={isLogged}>
                 <Stack.Screen name="(tabs)" options={{

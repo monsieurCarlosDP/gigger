@@ -24,7 +24,8 @@ export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
     const {authService} = useServiceContext()
     const { getValue, setValue, clearValue } = useStorage();
     const [user, setUser] = useState<IUserData|undefined>(undefined);
-    const [isLogged,setIsLogged] = useState<boolean>(false);
+    const isLogged = !!user;
+    console.log("SE ESTÁ RENDERIZANDO ESTO ACASO??")
 
         useEffect(()=>{
 
@@ -33,7 +34,6 @@ export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
             if(storedValue)
                 {
                     setUser(JSON.parse(storedValue).user)
-                    setIsLogged(true);
                 }
         }
         loadUser();
@@ -63,7 +63,6 @@ export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
                         
                 setValue('user',data);
                 setUser(data.user);
-                setIsLogged(true);
             
             }
     
@@ -75,7 +74,6 @@ export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
 
          const logOut = ()=>{
             setUser(undefined);
-            setIsLogged(false);
             clearValue('user');
             
          }

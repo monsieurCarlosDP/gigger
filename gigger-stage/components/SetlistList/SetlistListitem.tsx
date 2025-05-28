@@ -7,14 +7,14 @@ import React from 'react'
 export interface SetlistListItemProps extends ListItemProps {
   data: DataObject<ISetlistListItemViewModelV1Body>
 }
-
 const SetlistListItem = ({
   data
 }: SetlistListItemProps) => {
   const { attributes } = data;
   const { Name: title} = attributes;
+  console.log(title)
   return (
-    <Link href={`/setlistDetail/${data.id}`}>
+    <Link href={`/setlistDetail/${data.id}`} asChild>
       <ListItem 
       pressEffect='ripple'
       title={title}

@@ -1,12 +1,12 @@
-import { HttpClient } from "@/data/api-client/http-client";
-import { GiggerApiClient } from "@/data/infraestructure/GiggerApiClient";
-import { SetlistService } from "@/services/setlist-service/setlist-service";
-import { ISongServices } from "@/services/song-service/ISongServices";
-import { ISetlistServices } from "@/services/setlist-service/ISetlistServices";
-import { SongService } from "@/services/song-service/song-service";
+import { HttpClient } from "../../data/api-client/http-client";
+import { GiggerApiClient } from "../../data/infraestructure/GiggerApiClient";
+import { type ISongServices } from "../../services/song-service/ISongServices";
+import { type ISetlistServices } from "../../services/setlist-service/ISetlistServices";
+import { SongService } from "../../services/song-service/song-service";
 import { createContext, useContext } from "react";
-import { DashboardService } from "@/services/dashboard-service/DashboardService";
-import { IDashboardServices } from "@/services/dashboard-service/IDashboardServices";
+import { DashboardService } from "../../services/dashboard-service/DashboardService";
+import { type IDashboardServices } from "../../services/dashboard-service/IDashboardServices";
+import { SetlistService } from "../../services/setlist-service/setlist-service";
 
 
 const ServiceContext = createContext<IServiceContextProvider|null>(null);

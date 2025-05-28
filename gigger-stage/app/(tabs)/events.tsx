@@ -2,8 +2,8 @@ import { Image, StyleSheet, Platform } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import React, { useEffect, useRef } from 'react';
-import { useRouter } from 'expo-router';
-import { useEventService } from '@/hooks/events/events';
+import { Link, useRouter } from 'expo-router';
+import { useEventsService } from '@/hooks/events/events';
 import { Flex, HStack, ListItem, Pressable, Stack, Surface, VStack } from '@react-native-material/core';
 import { ThemedText } from '@/components/ThemedText';
 import { IEventListDTO } from '@/src/services/event-service/interface-event-service';
@@ -17,18 +17,19 @@ export default function HomeScreen() {
   
 
   
-  const { isLoadingEvents, eventsData, eventsError } = useEventService();
+  const { isLoadingEvents, eventsData, eventsError } = useEventsService();
 
   const calculateNextEvent = (events: IEventListDTO | undefined) => {
     const today = new Date();
     return events?.data.find(event=>{
-      if(event.attributes.Date)      
-        return new Date(event?.attributes?.Date) > today
+      if(event.attributes.Date)   {   
+        console.log(new Date(event?.attributes?.Date) > today)
+        return new Date(event?.attributes?.Date) > today}
       })
     }
 
     const nextEvent = useRef(calculateNextEvent(eventsData))
-
+    console.log(nextEvent);
 
   return (
     <ParallaxScrollView
@@ -65,7 +66,7 @@ export default function HomeScreen() {
         </HStack>
         {
           eventsData && Array.isArray(eventsData.data) && eventsData?.data.map((data,index)=>{
-            return <ListItem key={index} title={data?.attributes?.Date?.toString()} />
+            return <Link key={data.id} href={`/eventDetail/${data.id}`} asChild><ListItem key={index} title={data?.attributes?.Date?.toString()} /></Link>
           })
         }
     </ParallaxScrollView>

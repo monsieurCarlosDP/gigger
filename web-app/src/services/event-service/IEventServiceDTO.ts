@@ -1,4 +1,4 @@
-import { IEventViewModelV1Body } from "@/data/api-client/data-contracts";
+import { IEventViewModelV1Body } from "../../../data/api-client/data-contracts";
 
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type

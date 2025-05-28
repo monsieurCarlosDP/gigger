@@ -93,7 +93,7 @@ export interface IEventViewModelV1Body {
     Private?:     boolean;
     Title?:       string;
     Type?:        EventType;
-    Time?:        null;
+    Time?:        string;
 }
 
 export interface IEventLocation {

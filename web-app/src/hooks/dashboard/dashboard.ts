@@ -1,7 +1,7 @@
 import {
   useQuery,
 } from '@tanstack/react-query';
-import { useServiceContext } from '@/context/service-context/ServiceContext';
+import { useServiceContext } from '../../../context/service-context/ServiceContext';
 import dashboardQueryKeyFactory from './dashboardQueryKeysFactory';
 
 export const useDashboard = () => {

@@ -1,4 +1,4 @@
-import { IGiggerApiClient } from "@/data/infraestructure/IGiggerApiClient";
+import { type IGiggerApiClient } from "../../data/infraestructure/IGiggerApiClient";
 
 export class BaseService {
     protected apiClient: IGiggerApiClient;
