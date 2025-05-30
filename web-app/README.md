@@ -1,54 +1,42 @@
-# React + TypeScript + Vite
+# GiggerDashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**GiggerDashboard** es una plataforma enfocada en la gestión de eventos y conciertos para bandas y artistas. Permite organizar, visualizar y coordinar conciertos de manera eficiente, todo desde una interfaz moderna y flexible.
 
-Currently, two official plugins are available:
+## 🛠 Tecnologías utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Frontend
 
-## Expanding the ESLint configuration
+- **React** – Biblioteca para la construcción de interfaces de usuario.
+- **Material UI** – Framework de componentes de diseño con estilos integrados.
+- **TanStack Query (React Query)** – Manejo de datos asíncronos y caché.
+- **React Router** – Enrutamiento para aplicaciones SPA.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Backend
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Strapi** – CMS headless para la gestión de contenido personalizado (bandas, conciertos, etc).
+- **WebSockets** *(en planificación)* – Para funcionalidades en tiempo real como notificaciones o actualizaciones en vivo.
+
+## 🚀 Instalación
+
+> ⚠️ Este proyecto no está diseñado para uso público general. El acceso está restringido a miembros autorizados.
+
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/gigger-dashboard.git
+
+2. Instala las dependencias de frontend:
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# 📦 Uso
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+El uso de esta plataforma está reservado para usuarios con permiso explícito. Para más información o solicitud de acceso, contacta con el administrador del proyecto.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+# 🔒 Licencia
+
+Este proyecto está bajo una licencia de uso restringido:
+	•	Permitido: Usar internamente bajo autorización.
+	•	No permitido: Modificar, redistribuir ni utilizar comercialmente sin consentimiento explícito.

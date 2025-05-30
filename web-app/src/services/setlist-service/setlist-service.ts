@@ -1,6 +1,6 @@
 import { BaseService } from "../base-service/base-service";
-import { ISetlistServices } from "./ISetlistServices";
-import { IGiggerApiClient } from "../../../data/infraestructure/IGiggerApiClient";
+import {type ISetlistServices } from "./ISetlistServices";
+import {type IGiggerApiClient } from "../../data/infraestructure/IGiggerApiClient";
 
 export class SetlistService extends BaseService implements ISetlistServices {
     constructor(apliClient: IGiggerApiClient){

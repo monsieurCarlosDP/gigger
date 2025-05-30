@@ -11,10 +11,10 @@ export class HttpClient<TData = unknown> {
     private baseURL: string;
     private getHeaders: () => Record<string, string>;
     constructor() {
-        this.baseURL = `${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_HOST}/api`;
+        this.baseURL = `${import.meta.env.NEXT_PUBLIC_PROTOCOL}${import.meta.env.NEXT_PUBLIC_HOST}/api`;
         this.getHeaders = () => ({
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`
+                'Authorization': `Bearer ${import.meta.env.NEXT_PUBLIC_STRAPI_API_KEY}`
             });        
     };
 

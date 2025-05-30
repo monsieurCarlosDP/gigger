@@ -1,4 +1,4 @@
-import { GenericResponse, ISongListItemViewModelV1Body, ISetlistListItemViewModelV1Body, IDashboardItemViewModelV1Body } from "../api-client/data-contracts";
+import { type GenericResponse, type ISetlistListItemViewModelV1Body, type IDashboardItemViewModelV1Body, type ISongListItemViewModelV1Body } from "../api-client/data-contracts";
 import { HttpClient } from "../api-client/http-client";
 
 export class Api<TData = unknown> {

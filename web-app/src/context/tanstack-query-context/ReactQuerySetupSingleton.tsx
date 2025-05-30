@@ -1,5 +1,5 @@
 import {
-    DefaultError,
+    type DefaultError,
     Mutation,
     MutationCache,
     Query,

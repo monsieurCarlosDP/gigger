@@ -1,6 +1,6 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import React, { createContext } from "react";
-import { IReactQuerySetupSingleton } from "./ReactQuerySetupSingleton";
+import { type IReactQuerySetupSingleton } from "./ReactQuerySetupSingleton";
 
 export interface IReactQueryContextProviderProps {
     children?: React.ReactNode;

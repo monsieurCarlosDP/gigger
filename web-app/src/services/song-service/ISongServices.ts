@@ -1,4 +1,4 @@
-import { ISongListItemDTO, ISongItemDTO } from "./ISongServicesDTO";
+import { type ISongListItemDTO, type ISongItemDTO } from "./ISongServicesDTO";
 
 export interface ISongServices {
     getSongs: () => Promise<ISongListItemDTO>;
