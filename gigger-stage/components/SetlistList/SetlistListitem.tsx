@@ -12,7 +12,6 @@ const SetlistListItem = ({
 }: SetlistListItemProps) => {
   const { attributes } = data;
   const { Name: title} = attributes;
-  console.log(title)
   return (
     <Link href={`/setlistDetail/${data.id}`} asChild>
       <ListItem 

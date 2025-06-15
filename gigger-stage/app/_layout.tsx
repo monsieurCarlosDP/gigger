@@ -36,7 +36,6 @@ export default function RootLayout() {
 const ScreenLayout = () => {
 
   const {isLogged} = useAuthContext();
-  console.log("HOLO")
 
 /*   if(isLogged) return <Redirect href="/(tabs)"/>
 

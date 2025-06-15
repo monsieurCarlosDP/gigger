@@ -23,13 +23,11 @@ export default function HomeScreen() {
     const today = new Date();
     return events?.data.find(event=>{
       if(event.attributes.Date)   {   
-        console.log(new Date(event?.attributes?.Date) > today)
         return new Date(event?.attributes?.Date) > today}
       })
     }
 
     const nextEvent = useRef(calculateNextEvent(eventsData))
-    console.log(nextEvent);
 
   return (
     <ParallaxScrollView

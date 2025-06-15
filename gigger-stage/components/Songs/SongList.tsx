@@ -1,8 +1,7 @@
 import { DataObject, ISetlistListItemViewModelV1Body, ISongListItemViewModelV1Body, SimpleCollection } from '@/src/data/data-contracts'
 import React from 'react'
-import { ThemedText } from '../ThemedText'
-import { ListItem } from '@react-native-material/core'
 import SongListItem from './SongListItem'
+import { FlatList } from 'react-native'
 
 type Props = {
     songs: ISetlistListItemViewModelV1Body['songs']
@@ -21,13 +20,12 @@ function isSongArray(song: DataObject<ISongListItemViewModelV1Body> | DataObject
     return <></>
 
   return (    
-
-    data?.map((song,index)=>
-        
-            <SongListItem key={song.id} data={song}/>
-
-        
-    )    
+    <FlatList 
+      contentContainerStyle={{ flexGrow: 1 }}
+      style={{ flex: 1 }} 
+      data={data} 
+      renderItem={({item})=><SongListItem data={item}/>}/>
+    
   )
 }
 

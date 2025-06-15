@@ -27,13 +27,37 @@ export interface Pagination {
 
 //#region
 
+
 //#region Songs
+
+export interface TextChildNode {
+  type: "text";
+  text: string;
+}
+export interface LyricsBlock {
+  type: string; 
+  children: TextChildNode[];
+}
+
+export type SongResourceTypes= "lyrics" | "chords" | "comments"
+
+export interface SongResourceAttributes {
+  createdAt: string;       
+  updatedAt: string;       
+  publishedAt: string;     
+  Lyrics: LyricsBlock[];   
+  NombreRecurso: string;   
+  Tipo: SongResourceTypes;            
+}
+
+
 export interface ISongListItemViewModelV1Body {
     id: number;
     Title: string;
     Artist: string;
     Duration: number;
     tags?: SimpleCollection<DataObject<ITagsItemViewModelV1Body>[]>
+    song_resources?: SimpleCollection<DataObject<SongResourceAttributes>>
 }
 
 //#region
@@ -49,6 +73,7 @@ export interface ISetlistListItemViewModelV1Body {
     updatedAt:   Date;
     publishedAt: Date;
     songs:       SimpleCollection<DataObject<ISongListItemViewModelV1Body>[]>;
+
 }
 
 //#endregion

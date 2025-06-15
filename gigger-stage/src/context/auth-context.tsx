@@ -25,7 +25,6 @@ export const AuthContextProvider = ({children}:{children?:React.ReactNode})=>{
     const { getValue, setValue, clearValue } = useStorage();
     const [user, setUser] = useState<IUserData|undefined>(undefined);
     const isLogged = !!user;
-    console.log("SE ESTÁ RENDERIZANDO ESTO ACASO??")
 
         useEffect(()=>{
 

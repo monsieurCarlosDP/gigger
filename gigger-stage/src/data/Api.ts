@@ -31,7 +31,7 @@ export class Api<TData= unknown>{
     }
 
     async getSetlist(id: string){
-        return this.http.get<SimpleResponse<ISetlistListItemViewModelV1Body>>(`/setlists/${id}?populate[songs][populate]=tags`);
+        return this.http.get<SimpleResponse<ISetlistListItemViewModelV1Body>>(`/setlists/${id}?populate[songs][populate]=tags,song_resources`);
       }
     //#endregion
 
