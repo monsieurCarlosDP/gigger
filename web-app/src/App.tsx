@@ -1,26 +1,15 @@
-
-import './App.css'
-import AppProviders from './components/organisms/AppProvider/AppProviders'
-import { BrowserRouter, Route, Routes } from 'react-router'
+import "./App.css";
+import WebAppRootEntryPoint from "./presentation/components/WebAppRootEntryPoint";
+import AppProviders from "./presentation/context/app-provider/AppProviders";
 
 function App() {
-
   return (
     <>
       <AppProviders>
-        <BrowserRouter>
-          <Routes>
-              <Route
-              path={'/'}
-              element={<><h1>This is a test</h1></>}/>
-              <Route
-              path={'/papadopoulos'}
-              element={<><h1>Papadopouleame</h1></>} />
-          </Routes>
-        </BrowserRouter>
+        <WebAppRootEntryPoint />
       </AppProviders>
-  </>
-  )
+    </>
+  );
 }
 
-export default App
+export default App;
