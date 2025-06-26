@@ -39,6 +39,7 @@ export const ThemeContextProvider = ({ children }: ThemeProviderProps) => {
       createTheme({
         breakpoints: breakpoints,
         spacing: 4,
+
         palette: {
           ...(theme === "light" ? paletteLight : paletteDark),
           mode: theme,
