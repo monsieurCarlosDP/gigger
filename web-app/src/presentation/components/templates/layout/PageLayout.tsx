@@ -16,18 +16,24 @@ interface IStackProps extends StackProps {
 
 const LayoutRoot = styled("div")<IStackProps>({
   display: "flex",
+  width: "100vw",
   height: "100vh",
+  overflow: "hidden",
 });
 
 const Main = styled("main")<IStackProps>(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   flex: 1,
-  gap: theme.spacing(2),
   minHeight: 0,
   minWidth: "400px", // force shrink behaviour in main content of the app. Forces scroll appearence to handle overflows when the width is too small.
   height: "100vh",
   alignItems: "center",
+  color: theme.palette.text.primary,
+  backgroundColor:
+    theme.palette.mode === "light"
+      ? theme.palette.lightBackground.main
+      : theme.palette.lightBackground.main,
 }));
 
 const Aside = styled("aside")<IStackProps>({
@@ -46,8 +52,8 @@ const Nav = styled("nav")({
 const ContentHeader = styled("header")<IStackProps>(({ theme }) => ({
   display: "flex",
   width: "100%",
+  flexGrow: 1,
   maxWidth: PAGE_LAYOUT_MAIN_CONTENT_MAX_WIDTH,
-  padding: theme.spacing(5),
   paddingBottom: 0,
 }));
 
@@ -57,9 +63,7 @@ const Content = styled("div")<IStackProps>(({ theme }) => ({
   maxWidth: PAGE_LAYOUT_MAIN_CONTENT_MAX_WIDTH,
   height: "100%",
   minHeight: 0,
-  padding: theme.spacing(5),
   paddingTop: 0,
-  paddingBottom: theme.spacing(3),
 }));
 
 const PageLayout = ({

@@ -1,4 +1,6 @@
 import { Route, Routes } from "react-router";
+import { TextField } from "../components/atoms/TextField/TextField";
+import Header from "../components/templates/layout/header/Header";
 import NavBar from "../components/templates/layout/nav-bar/NavBar";
 import PageLayout from "../components/templates/layout/PageLayout";
 import { PageLayoutContextProvider } from "../context/page-layout-context/PageLayoutContext";
@@ -11,11 +13,11 @@ const MainApp = () => {
           path="*"
           element={
             <PageLayout
-              headerComponent={<></>}
+              headerComponent={<Header />}
               bodyComponent={
                 <Routes>
-                  <Route path="esto-es-una-prueba">
-                    <Route path="*" element={<h1>Probando</h1>} index />
+                  <Route>
+                    <Route path="*" element={<TextField />} index />
                   </Route>
                   <Route path="esto-es-una-prueba-2">
                     <Route path="*" element={<h1>Probando2</h1>} index />

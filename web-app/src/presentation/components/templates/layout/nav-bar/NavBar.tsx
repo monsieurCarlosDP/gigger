@@ -1,5 +1,5 @@
 import { Checkbox, Stack, styled, type StackProps } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useThemeContext } from "../../../../context/theme-context/ThemeContext";
 
 interface INavBarStyled extends StackProps {
@@ -34,13 +34,18 @@ const NavBarStyled = styled(Stack, {
   width: collapsed ? "5vw" : "15vw",
   overflow: "hidden",
   transition: theme.transitions.create(["width", "backgroundColor"], {
-    duration: 100,
+    duration: 250,
     easing: "ease-in-out",
   }),
+  borderRight: 4,
+  borderColor:
+    theme.palette.mode === "light"
+      ? theme.palette.black.main
+      : theme.palette.greySimplified.main,
   backgroundColor:
     theme.palette.mode === "light"
-      ? theme.palette.primary.light
-      : theme.palette.primary.dark,
+      ? theme.palette.lightBackground.main
+      : theme.palette.lightBackground.main,
 }));
 
 const NavBar = () => {
@@ -51,12 +56,9 @@ const NavBar = () => {
     setCollapsed((prevState) => !prevState);
   };
 
-  useEffect(() => {
-    console.log(theme);
-  }, [theme]);
-
   return (
     <NavBarStyled collapsed={collapsed}>
+      aa
       <NavBarHeaderStyled collapsed></NavBarHeaderStyled>
       <NavBarBodyStyled collapsed></NavBarBodyStyled>
       <NavBarFooterStyled collapsed>
