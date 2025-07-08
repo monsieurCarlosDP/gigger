@@ -1,5 +1,6 @@
 import { Stack, styled } from "@mui/material";
 import type { PropsWithChildren } from "react";
+import { FormattedMessage } from "react-intl";
 import { Route, Routes } from "react-router";
 
 const HeaderRootStyled = styled(Stack)(({ theme }) => ({}));
@@ -13,7 +14,10 @@ const Header = ({ children }: PropsWithChildren) => {
             path="*"
             element={
               <>
-                <h1>Paparajote</h1>
+                <FormattedMessage
+                  id="dashboardTitle"
+                  defaultMessage="Dashboard"
+                />
               </>
             }
             index

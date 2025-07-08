@@ -1,3 +1,4 @@
+import { LocalizationProvider } from "../localization-context/LocalizationProvider";
 import { ServiceContextProvider } from "../service-context/ServiceContext";
 import { ReactQueryContextProvider } from "../tanstack-query-context/ReactQueryContext";
 import ReactQuerySetupSingleton from "../tanstack-query-context/ReactQuerySetupSingleton";
@@ -15,7 +16,7 @@ const AppProviders = ({ children }: Props) => {
           <ReactQueryContextProvider
             reactQuerySetupSingleton={ReactQuerySetupSingleton.getInstance()}
           >
-            {children}
+            <LocalizationProvider>{children}</LocalizationProvider>
           </ReactQueryContextProvider>
         </ThemeContextProvider>
       </ServiceContextProvider>

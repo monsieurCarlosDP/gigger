@@ -1,5 +1,9 @@
 import { Checkbox, Stack, styled, type StackProps } from "@mui/material";
 import { useState } from "react";
+import {
+  useLocalizationTools,
+  type TLocales,
+} from "../../../../context/localization-context/LocalizationProvider";
 import { useThemeContext } from "../../../../context/theme-context/ThemeContext";
 
 interface INavBarStyled extends StackProps {
@@ -51,9 +55,15 @@ const NavBarStyled = styled(Stack, {
 const NavBar = () => {
   const { toggleTheme, theme } = useThemeContext();
   const [collapsed, setCollapsed] = useState<boolean>(false);
-
+  const { language, locales, setLanguage } = useLocalizationTools();
   const toggleCollapse = () => {
     setCollapsed((prevState) => !prevState);
+  };
+  const toggleLanguage = () => {
+    setLanguage(
+      (prevLang: TLocales): TLocales =>
+        (prevLang === locales.es ? locales.en : locales.es) as TLocales
+    );
   };
 
   return (
@@ -64,6 +74,7 @@ const NavBar = () => {
       <NavBarFooterStyled collapsed>
         <Checkbox onClick={toggleTheme} />
         <Checkbox checked={collapsed} onClick={toggleCollapse} />
+        <Checkbox checked={language === locales.es} onClick={toggleLanguage} />
       </NavBarFooterStyled>
     </NavBarStyled>
   );
