@@ -1,0 +1,99 @@
+---
+description: Visión general del proyecto Gigger - arquitectura, stack y convenciones generales
+alwaysApply: true
+---
+
+# Gigger - Project Overview
+
+## Stack tecnológico
+
+| Capa | Tecnología |
+|------|-----------|
+| Frontend | React 19 con Vite 7 |
+| Backend / CMS | Strapi v5.37 (headless CMS) |
+| Lenguaje | TypeScript 5.9 (strict mode) |
+| Base de datos | SQLite (better-sqlite3, gestionada por Strapi) |
+| Estilos | Material UI (MUI) v7 |
+| Server State | TanStack React Query v5 |
+| Routing | React Router v7 |
+| API Client | openapi-fetch v0.17 + openapi-typescript v7 |
+
+## Arquitectura frontend
+
+- **Feature-based (vertical slicing)**: cada entidad del dominio es una feature autocontenida.
+- **Root Composition Service Context**: los servicios se instancian en un contexto raíz y se consumen via hooks.
+- **Lazy loading** de todas las páginas clave para optimizar carga y navegación.
+
+## Estructura del monorepo
+
+```
+gigger/
+├── backend/          # Strapi CMS
+│   ├── src/
+│   │   ├── api/      # Content types y controllers custom
+│   │   ├── components/# Componentes compartidos de Strapi
+│   │   ├── extensions/# Extensiones de plugins
+│   │   └── middlewares/
+│   ├── config/        # Configuración de Strapi
+│   ├── database/      # Migraciones y seeds
+│   ├── openapi/       # OpenAPI spec generado (specification.json)
+│   └── types/         # Tipos generados por Strapi
+├── frontend/              # React + Vite SPA
+│   ├── src/
+│   │   ├── features/      # Feature modules (vertical slicing)
+│   │   │   └── <entity>/  # Ej: gig/, user/, booking/
+│   │   │       ├── components/   # Componentes de la feature
+│   │   │       ├── hooks/        # Hooks de la feature (queries, mutations, lógica)
+│   │   │       ├── services/     # Servicio API de la feature
+│   │   │       ├── types.ts      # Tipos del dominio de la feature
+│   │   │       └── index.ts      # Barrel export público
+│   │   ├── components/    # Componentes UI compartidos (no de dominio)
+│   │   ├── pages/         # Páginas/rutas (lazy loaded)
+│   │   ├── hooks/         # Hooks globales compartidos
+│   │   ├── services/      # ServiceContext raíz y base HTTP
+│   │   ├── types/         # Tipos e interfaces globales
+│   │   ├── utils/         # Utilidades puras
+│   │   ├── theme/         # Configuración de MUI theme
+│   │   └── router/        # Configuración de React Router
+│   └── public/
+└── .cursor/rules/     # Reglas de arquitectura para el AI
+```
+
+## Path aliases
+
+- En el frontend, usar `@/` como alias de `src/` en todos los imports.
+- Configurado en `vite.config.ts` (resolve.alias) y `tsconfig.app.json` (paths).
+
+```typescript
+import { GigCard } from '@/features/gig';
+import type { Gig } from '@/types/api';
+```
+
+## Scripts clave
+
+| Directorio | Script | Descripción |
+|------------|--------|-------------|
+| `backend/` | `npm run dev` | Arranca Strapi en modo desarrollo |
+| `backend/` | `npm run openapi:generate` | Genera `openapi/specification.json` |
+| `frontend/` | `npm run dev` | Arranca Vite dev server |
+| `frontend/` | `npm run openapi:types` | Genera `src/types/api.d.ts` desde el spec |
+
+## Convenciones generales
+
+- Todo el código, commits y comentarios técnicos en **inglés**.
+- Documentación de usuario y comunicación con el equipo en **español**.
+- Preferir composición sobre herencia.
+- Funciones puras cuando sea posible.
+- Un archivo = una responsabilidad clara.
+- Nombrar archivos en **kebab-case** excepto componentes React (PascalCase).
+
+## Patrones activos
+
+Los patrones específicos de cada capa están definidos en sus reglas dedicadas:
+- `backend-strapi.mdc` → convenciones Strapi
+- `frontend-react.mdc` → patrones React + Vite
+- `frontend-mui.mdc` → estándares Material UI
+- `typescript-standards.mdc` → normas TypeScript
+
+> **Nota**: El usuario irá definiendo patrones adicionales de forma incremental.
+> Cuando se introduzca un nuevo patrón, debe reflejarse en la regla correspondiente.

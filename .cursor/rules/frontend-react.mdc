@@ -1,0 +1,258 @@
+---
+description: Patrones y convenciones para el frontend React + Vite + TypeScript
+globs: frontend/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Frontend - React + Vite Patterns
+
+## Arquitectura Feature-Based (Vertical Slicing)
+
+Cada entidad del dominio es una **feature** autocontenida en `src/features/<entity>/`.
+Una feature agrupa todo lo necesario para esa entidad: componentes, hooks, servicio y tipos.
+
+```
+src/features/gig/
+├── components/
+│   ├── GigCard.tsx
+│   ├── GigList.tsx
+│   └── GigForm.tsx
+├── hooks/
+│   ├── useGigs.ts          # React Query hook para listar
+│   ├── useGig.ts           # React Query hook para detalle
+│   └── useCreateGig.ts     # React Query mutation
+├── services/
+│   └── gig-service.ts      # Clase/objeto con métodos API
+├── types.ts                 # Gig, GigStatus, CreateGigPayload...
+└── index.ts                 # Barrel: exporta solo la API pública
+```
+
+### Reglas de dependencias entre features
+
+- Una feature **nunca** importa directamente de la carpeta interna de otra feature.
+- Si dos features necesitan compartir algo, se extrae a `src/components/`, `src/hooks/` o `src/types/`.
+- Los barrel `index.ts` de cada feature definen su API pública.
+
+---
+
+## Root Composition Service Context
+
+Todos los servicios se instancian en un **contexto raíz** y se inyectan a la app via Provider.
+Los componentes consumen servicios a través de **hooks dedicados**, nunca accediendo al contexto directamente.
+
+```typescript
+// src/services/service-context.ts
+import { apiClient } from './api-client';
+
+interface Services {
+  gigService: GigService;
+  userService: UserService;
+  bookingService: BookingService;
+}
+
+const ServiceContext = createContext<Services | null>(null);
+
+export const ServiceProvider = ({ children }: { children: ReactNode }) => {
+  const services = useMemo<Services>(() => ({
+    gigService: new GigService(apiClient),
+    userService: new UserService(apiClient),
+    bookingService: new BookingService(apiClient),
+  }), []);
+
+  return (
+    <ServiceContext.Provider value={services}>
+      {children}
+    </ServiceContext.Provider>
+  );
+};
+
+// src/services/useServices.ts
+export const useServices = (): Services => {
+  const ctx = useContext(ServiceContext);
+  if (!ctx) throw new Error('useServices must be used within ServiceProvider');
+  return ctx;
+};
+```
+
+### Composición en el root
+
+```typescript
+// src/main.tsx
+<QueryClientProvider client={queryClient}>
+  <ServiceProvider>
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </ServiceProvider>
+</QueryClientProvider>
+```
+
+---
+
+## React Query (TanStack Query)
+
+React Query gestiona todo el **server state** (datos remotos de Strapi).
+
+### Query hooks por feature
+
+Cada feature define sus propios hooks de React Query que usan el servicio del contexto.
+
+```typescript
+// src/features/gig/hooks/useGigs.ts
+export const useGigs = (filters?: GigFilters) => {
+  const { gigService } = useServices();
+  return useQuery({
+    queryKey: ['gigs', filters],
+    queryFn: () => gigService.getAll(filters),
+  });
+};
+```
+
+### Convenciones de query keys
+
+- Array jerárquico: `['entity', ...params]`.
+- Ej: `['gigs']`, `['gigs', { status: 'published' }]`, `['gigs', id]`.
+
+### Mutations
+
+```typescript
+export const useCreateGig = () => {
+  const { gigService } = useServices();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: CreateGigPayload) => gigService.create(data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['gigs'] }),
+  });
+};
+```
+
+### Estado local vs server state
+
+- `useState` / `useReducer` → estado **puramente de UI** (modals abiertos, tabs activos, inputs controlados).
+- React Query → **todo dato que venga del servidor**.
+- No duplicar server state en useState.
+
+---
+
+## Servicios (capa API) — openapi-fetch
+
+- Los tipos del API se generan desde el OpenAPI spec de Strapi con `openapi-typescript`.
+- El HTTP client tipado se crea con `openapi-fetch`, usando los tipos generados.
+- Cada feature tiene un servicio en `services/<entity>-service.ts` que usa el client tipado.
+- El servicio recibe el `client` de openapi-fetch por constructor.
+- Retorna datos tipados automáticamente desde el spec; no maneja estado ni UI.
+
+```typescript
+// src/services/api-client.ts
+import createClient from 'openapi-fetch';
+import type { paths } from '@/types/api';
+
+export const apiClient = createClient<paths>({
+  baseUrl: import.meta.env.VITE_STRAPI_URL ?? 'http://localhost:1337',
+});
+```
+
+```typescript
+// src/features/gig/services/gig-service.ts
+import type { paths } from '@/types/api';
+import type createClient from 'openapi-fetch';
+
+type ApiClient = ReturnType<typeof createClient<paths>>;
+
+export class GigService {
+  constructor(private client: ApiClient) {}
+
+  async getAll(filters?: Record<string, unknown>) {
+    const { data, error } = await this.client.GET('/api/gigs', { params: { query: filters } });
+    if (error) throw error;
+    return data;
+  }
+
+  async getById(id: string) {
+    const { data, error } = await this.client.GET('/api/gigs/{id}', { params: { path: { id } } });
+    if (error) throw error;
+    return data;
+  }
+
+  async create(body: paths['/api/gigs']['post']['requestBody']['content']['application/json']) {
+    const { data, error } = await this.client.POST('/api/gigs', { body });
+    if (error) throw error;
+    return data;
+  }
+}
+```
+
+### Generación de tipos
+
+```bash
+# Desde la raíz del proyecto:
+# 1. Generar spec en backend
+cd backend && npm run openapi:generate
+# 2. Generar tipos en frontend
+cd ../frontend && npm run openapi:types
+```
+
+Los tipos generados van a `frontend/src/types/api.d.ts` (fichero auto-generado, no editar).
+
+---
+
+## Componentes
+
+- Un componente por archivo, **named exports** (no default).
+- Tipar props con `interface` + sufijo `Props`.
+- Desestructurar props en la firma.
+
+```typescript
+interface GigCardProps {
+  gig: Gig;
+  onSelect: (id: string) => void;
+}
+
+export const GigCard = ({ gig, onSelect }: GigCardProps) => {
+  // ...
+};
+```
+
+---
+
+## Routing y Lazy Loading
+
+- React Router v6+ configurado en `src/router/`.
+- **Todas las páginas principales** se cargan con `React.lazy` + `Suspense`.
+- Páginas en `src/pages/`, una por ruta.
+
+```typescript
+// src/router/router.tsx
+const GigsPage = lazy(() => import('@/pages/GigsPage'));
+const GigDetailPage = lazy(() => import('@/pages/GigDetailPage'));
+
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <AppLayout />,
+    children: [
+      { path: 'gigs', element: <Suspense fallback={<PageLoader />}><GigsPage /></Suspense> },
+      { path: 'gigs/:id', element: <Suspense fallback={<PageLoader />}><GigDetailPage /></Suspense> },
+    ],
+  },
+]);
+```
+
+> **Excepción para lazy**: las páginas usan `export default` para que `React.lazy` funcione.
+> El resto del código mantiene named exports.
+
+---
+
+## Hooks compartidos
+
+- Hooks genéricos (no de feature) en `src/hooks/`.
+- Hooks de feature en `src/features/<entity>/hooks/`.
+- Prefijo `use` obligatorio. Un hook = una responsabilidad.
+
+---
+
+## Rendimiento
+
+- `React.memo` solo tras demostrar re-render innecesario.
+- `useMemo` / `useCallback` para cálculos costosos o referencias estables pasadas como props.
+- React Query ya gestiona caching y deduplicación de peticiones.

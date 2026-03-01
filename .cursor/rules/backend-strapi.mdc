@@ -1,0 +1,58 @@
+---
+description: Convenciones de desarrollo para el backend con Strapi
+globs: backend/**/*
+alwaysApply: false
+---
+
+# Backend - Strapi Conventions
+
+## Estructura de Content Types
+
+- Definir content types mediante la API de Strapi (`src/api/<content-type>/`).
+- Cada content type tiene su carpeta con: `content-types/`, `controllers/`, `routes/`, `services/`.
+- No modificar archivos generados automáticamente; usar extensiones o overrides.
+
+## Controllers y Services
+
+- Los controllers deben ser delgados: delegar lógica de negocio al service.
+- Usar `createCoreController` y `createCoreService` de Strapi como base.
+- Sobreescribir solo los métodos necesarios.
+
+```typescript
+// ✅ Controller delegando al service
+export default factories.createCoreController('api::gig.gig', ({ strapi }) => ({
+  async findAvailable(ctx) {
+    const results = await strapi.service('api::gig.gig').findAvailable(ctx.query);
+    ctx.body = results;
+  },
+}));
+```
+
+## Políticas y Middlewares
+
+- Usar policies para autorización a nivel de ruta.
+- Usar middlewares para lógica transversal (logging, rate limiting).
+- Registrar middlewares en `config/middlewares.ts`.
+
+## Configuración
+
+- Variables de entorno en `.env` (nunca commitear `.env`, solo `.env.example`).
+- Configuración tipada en `config/` siguiendo convenciones de Strapi.
+- SQLite para desarrollo; la configuración de DB vive en `config/database.ts`.
+
+## Validación
+
+- Validar inputs en el controller o con lifecycles de Strapi.
+- Definir validaciones de schema en los content types.
+
+## Tipado
+
+- Usar los tipos auto-generados por Strapi en `types/generated/`.
+- Extender tipos cuando se añadan campos custom.
+
+## OpenAPI Specification
+
+- Strapi v5 incluye generación OpenAPI 3.1.0 en el core (sin plugins adicionales).
+- Comando: `npm run openapi:generate` → genera `backend/openapi/specification.json`.
+- Este spec se usa en el frontend con `openapi-typescript` + `openapi-fetch` para un client tipado.
+- Regenerar el spec cada vez que se modifiquen content types o rutas custom.

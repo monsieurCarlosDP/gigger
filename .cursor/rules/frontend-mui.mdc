@@ -1,0 +1,70 @@
+---
+description: Estándares de uso de Material UI (MUI) para componentes y theming
+globs: frontend/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Frontend - Material UI Standards
+
+## Theme
+
+- Definir un theme custom en `src/theme/theme.ts` usando `createTheme`.
+- Aplicar con `<ThemeProvider>` en el root de la app.
+- Centralizar paleta, tipografía, breakpoints y overrides de componentes en el theme.
+
+```typescript
+import { createTheme } from '@mui/material/styles';
+
+export const theme = createTheme({
+  palette: {
+    primary: { main: '#1976d2' },
+    secondary: { main: '#dc004e' },
+  },
+  typography: {
+    fontFamily: '"Inter", "Roboto", sans-serif',
+  },
+});
+```
+
+## Uso de componentes MUI
+
+- Importar desde `@mui/material` (no desde paths internos).
+- Preferir la prop `sx` para estilos puntuales.
+- Usar `styled()` de MUI para componentes estilizados reutilizables.
+- No usar CSS inline ni clases manuales junto a MUI.
+
+```typescript
+// ✅ sx para estilos puntuales
+<Box sx={{ display: 'flex', gap: 2, p: 3 }}>
+
+// ✅ styled para reutilizables
+const StyledCard = styled(Card)(({ theme }) => ({
+  borderRadius: theme.shape.borderRadius * 2,
+  boxShadow: theme.shadows[3],
+}));
+```
+
+## Layout
+
+- Usar `Box`, `Stack`, `Grid` y `Container` de MUI para layout.
+- Evitar divs crudos cuando MUI ya ofrece el componente.
+- Respetar el sistema de spacing del theme (`theme.spacing`).
+
+## Responsividad
+
+- Usar el sistema de breakpoints de MUI en `sx` o `useMediaQuery`.
+- Mobile-first: definir estilos base y sobreescribir para pantallas mayores.
+
+```typescript
+<Box sx={{ width: { xs: '100%', md: '50%' } }} />
+```
+
+## Tipografía
+
+- Usar el componente `<Typography>` con las variantes del theme.
+- No aplicar font-size manualmente; usar las variantes (`h1`..`h6`, `body1`, `body2`, `caption`).
+
+## Iconos
+
+- Usar `@mui/icons-material` para iconos.
+- Importar cada icono individualmente (tree-shaking).

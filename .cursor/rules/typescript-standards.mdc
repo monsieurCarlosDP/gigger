@@ -1,0 +1,82 @@
+---
+description: Estándares y convenciones de TypeScript para todo el proyecto
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# TypeScript Standards
+
+## Configuración base
+
+- `strict: true` en todos los `tsconfig.json`.
+- No usar `any`. Usar `unknown` si el tipo no se conoce y narrowing después.
+- Habilitar `noUncheckedIndexedAccess` cuando sea posible.
+
+## Tipos e Interfaces
+
+- **Interfaces** para formas de objetos y contratos de props/API.
+- **Types** solo para uniones, intersecciones y tipos utilitarios.
+- Sufijo `Props` para props de componentes, `Params` para parámetros de funciones complejas.
+- No usar `I` prefix (no `IUser`, sino `User`).
+
+```typescript
+// ✅ Interface para formas
+interface Gig {
+  id: string;
+  title: string;
+  status: GigStatus;
+}
+
+// ✅ Type para uniones
+type GigStatus = 'draft' | 'published' | 'archived';
+```
+
+## Funciones
+
+- Tipar explícitamente los parámetros.
+- Tipar el retorno solo cuando no sea obvio por inferencia.
+- Preferir arrow functions para funciones anónimas y callbacks.
+- Usar overloads solo cuando la inferencia no es suficiente.
+
+## Enums vs Union Types
+
+- Preferir **union types** sobre enums para valores de string.
+- Usar `as const` para objetos constantes que necesiten tipado literal.
+
+```typescript
+// ✅ Preferido
+type Role = 'admin' | 'editor' | 'viewer';
+
+// ❌ Evitar
+enum Role { Admin, Editor, Viewer }
+```
+
+## Null safety
+
+- Usar optional chaining (`?.`) y nullish coalescing (`??`).
+- Evitar non-null assertion (`!`) salvo en tests o tras validación comprobada.
+- Preferir early returns para narrow de nullables.
+
+## Imports
+
+- Imports organizados: librerías externas → módulos internos → tipos.
+- Usar `import type` para importaciones solo de tipos.
+
+```typescript
+import { useState } from 'react';
+
+import { GigCard } from '@/components/GigCard';
+
+import type { Gig } from '@/types/gig';
+```
+
+## Naming
+
+| Elemento | Convención | Ejemplo |
+|----------|-----------|---------|
+| Variables / funciones | camelCase | `fetchGigs`, `isActive` |
+| Componentes | PascalCase | `GigCard`, `UserProfile` |
+| Tipos / Interfaces | PascalCase | `GigStatus`, `UserCardProps` |
+| Constantes globales | UPPER_SNAKE_CASE | `API_BASE_URL` |
+| Archivos TS | kebab-case | `gig-service.ts` |
+| Archivos componente | PascalCase | `GigCard.tsx` |
