@@ -1,10 +1,14 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import reactLogo from './assets/react.svg'
+import { useEvents } from './hooks/useEvents'
+import viteLogo from '/vite.svg'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  const events = useEvents();
+  console.debug(events.data)
 
   return (
     <>

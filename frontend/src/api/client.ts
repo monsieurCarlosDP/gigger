@@ -3,7 +3,27 @@ import type { paths } from '../types/api';
 
 const baseUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:1337/api';
 
-const fetchClient = createClient<paths>({ baseUrl });
+/** Source for Bearer token: set via setApiTokenGetter (e.g. from auth) or use VITE_API_TOKEN in .env */
+let tokenGetter: (() => string | null) | null = null;
+
+export function setApiTokenGetter(getter: () => string | null): void {
+  tokenGetter = getter;
+}
+
+function getToken(): string | null {
+  return tokenGetter?.() ?? import.meta.env.VITE_API_TOKEN ?? null;
+}
+
+const fetchClient = createClient<paths>({
+  baseUrl,
+  fetch: (input: Request) => {
+    const token = getToken();
+    if (!token) return fetch(input);
+    const headers = new Headers(input.headers);
+    headers.set('Authorization', `Bearer ${token}`);
+    return fetch(new Request(input, { headers }));
+  },
+});
 
 /** Query params for list endpoints (pagination, filters, etc.) */
 export type ListQuery = paths['/events']['get']['parameters']['query'];
