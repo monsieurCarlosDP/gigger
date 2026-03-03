@@ -430,6 +430,125 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiEventEvent extends Struct.CollectionTypeSchema {
+  collectionName: 'events';
+  info: {
+    displayName: 'Event';
+    pluralName: 'events';
+    singularName: 'event';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Budget: Schema.Attribute.Component<'event.budget', true>;
+    contacts: Schema.Attribute.Relation<'manyToMany', 'api::person.person'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Distance: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
+      Schema.Attribute.Private;
+    Location: Schema.Attribute.String;
+    Name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPersonPerson extends Struct.CollectionTypeSchema {
+  collectionName: 'people';
+  info: {
+    displayName: 'Person';
+    pluralName: 'people';
+    singularName: 'person';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.RichText;
+    Email: Schema.Attribute.Email;
+    events: Schema.Attribute.Relation<'manyToMany', 'api::event.event'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::person.person'
+    > &
+      Schema.Attribute.Private;
+    Name: Schema.Attribute.String;
+    Number: Schema.Attribute.BigInteger;
+    publishedAt: Schema.Attribute.DateTime;
+    Type: Schema.Attribute.Enumeration<['Client', 'Provider', 'Manager']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPricePrice extends Struct.SingleTypeSchema {
+  collectionName: 'prices';
+  info: {
+    displayName: 'Price';
+    pluralName: 'prices';
+    singularName: 'price';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Base: Schema.Attribute.BigInteger;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    DJ: Schema.Attribute.BigInteger;
+    Equipment: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::price.price'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTarifDistanceTarifDistance
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'tarif_distances';
+  info: {
+    displayName: 'TarifDistance';
+    pluralName: 'tarif-distances';
+    singularName: 'tarif-distance';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    additionalPrice: Schema.Attribute.BigInteger;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tarif-distance.tarif-distance'
+    > &
+      Schema.Attribute.Private;
+    minDistance: Schema.Attribute.BigInteger;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -941,6 +1060,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::event.event': ApiEventEvent;
+      'api::person.person': ApiPersonPerson;
+      'api::price.price': ApiPricePrice;
+      'api::tarif-distance.tarif-distance': ApiTarifDistanceTarifDistance;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

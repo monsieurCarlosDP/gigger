@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Distance": {
+      "type": "biginteger"
+    },
+    "Location": {
+      "type": "string"
+    },
+    "contacts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::person.person",
+      "inversedBy": "events"
+    },
+    "Budget": {
+      "type": "component",
+      "component": "event.budget",
+      "repeatable": true
+    }
+  }
+}

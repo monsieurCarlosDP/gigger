@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_event_budgets",
+  "info": {
+    "displayName": "Budget",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "Base": {
+      "type": "integer"
+    },
+    "Equipment": {
+      "type": "boolean"
+    },
+    "Dietas": {
+      "type": "integer"
+    },
+    "DJ": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

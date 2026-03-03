@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "prices",
+  "info": {
+    "singularName": "price",
+    "pluralName": "prices",
+    "displayName": "Price"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Base": {
+      "type": "biginteger"
+    },
+    "DJ": {
+      "type": "biginteger"
+    },
+    "Equipment": {
+      "type": "biginteger"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tarif_distances",
+  "info": {
+    "singularName": "tarif-distance",
+    "pluralName": "tarif-distances",
+    "displayName": "TarifDistance"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "minDistance": {
+      "type": "biginteger"
+    },
+    "additionalPrice": {
+      "type": "biginteger"
+    }
+  }
+}
