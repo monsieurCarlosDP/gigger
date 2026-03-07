@@ -12,7 +12,8 @@
   "pluginOptions": {},
   "attributes": {
     "Name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "Distance": {
       "type": "biginteger"
@@ -25,6 +26,26 @@
       "relation": "manyToMany",
       "target": "api::person.person",
       "inversedBy": "events"
+    },
+    "Period": {
+      "type": "boolean"
+    },
+    "StartDate": {
+      "type": "date",
+      "required": true
+    },
+    "EndDate": {
+      "type": "date",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "Period"
+            },
+            true
+          ]
+        }
+      }
     },
     "Budget": {
       "type": "component",

@@ -33,6 +33,10 @@ export type PersonByIdQuery = paths['/people/{id}']['get']['parameters']['query'
 export type TarifDistancesQuery = paths['/tarif-distances']['get']['parameters']['query'];
 export type TarifDistanceByIdQuery = paths['/tarif-distances/{id}']['get']['parameters']['query'];
 
+/** Request body types for mutations */
+export type CreateEventBody = NonNullable<paths['/events']['post']['requestBody']>['content']['application/json'];
+export type UpdateEventBody = NonNullable<paths['/events/{id}']['put']['requestBody']>['content']['application/json'];
+
 /**
  * API client with GET methods only. Use from custom hooks.
  */
@@ -72,6 +76,21 @@ export const api = {
     return fetchClient.GET('/tarif-distances/{id}', {
       params: { path: { id }, query: params?.query },
     });
+  },
+
+  /** POST /events */
+  createEvent(body: CreateEventBody) {
+    return fetchClient.POST('/events', { body });
+  },
+
+  /** PUT /events/{id} */
+  updateEvent(id: string, body: UpdateEventBody) {
+    return fetchClient.PUT('/events/{id}', { params: { path: { id } }, body });
+  },
+
+  /** DELETE /events/{id} */
+  deleteEvent(id: string) {
+    return fetchClient.DELETE('/events/{id}', { params: { path: { id } } });
   },
 };
 

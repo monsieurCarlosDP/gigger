@@ -563,7 +563,7 @@ export interface operations {
     "event/get/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "createdAt" | "updatedAt" | "publishedAt")[];
                 filters?: {
                     [key: string]: unknown;
                 };
@@ -577,7 +577,7 @@ export interface operations {
                     start: number;
                     limit: number;
                 });
-                sort?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
@@ -603,15 +603,12 @@ export interface operations {
                             /** Format: uuid */
                             documentId: string;
                             id: string | number;
-                            Name: string;
+                            Name?: string;
                             Distance?: string;
                             Location?: string;
-                            Period?: boolean | null;
-                            StartDate: string;
-                            EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.047Z */
+                            /** @default 2026-03-03T23:16:06.409Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -626,21 +623,18 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-03T23:16:06.412Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
-                                    Name: string;
+                                    Name?: string;
                                     Distance?: string;
                                     Location?: string;
-                                    Period?: boolean | null;
-                                    StartDate: string;
-                                    EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-03T23:16:06.414Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -701,7 +695,7 @@ export interface operations {
     "event/post/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
@@ -714,13 +708,10 @@ export interface operations {
             content: {
                 "application/json": {
                     data: {
-                        Name: string;
+                        Name?: string;
                         Distance?: string;
                         Location?: string;
-                        Period?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
-                        StartDate: string;
-                        EndDate?: string;
-                        /** @default 2026-03-07T09:13:30.063Z */
+                        /** @default 2026-03-03T23:16:06.424Z */
                         publishedAt: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -740,15 +731,12 @@ export interface operations {
                             /** Format: uuid */
                             documentId: string;
                             id: string | number;
-                            Name: string;
+                            Name?: string;
                             Distance?: string;
                             Location?: string;
-                            Period?: boolean | null;
-                            StartDate: string;
-                            EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.064Z */
+                            /** @default 2026-03-03T23:16:06.425Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -763,21 +751,18 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-03T23:16:06.412Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
-                                    Name: string;
+                                    Name?: string;
                                     Distance?: string;
                                     Location?: string;
-                                    Period?: boolean | null;
-                                    StartDate: string;
-                                    EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-03T23:16:06.414Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -838,12 +823,12 @@ export interface operations {
     "event/get/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 filters?: {
                     [key: string]: unknown;
                 };
-                sort?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
@@ -870,15 +855,12 @@ export interface operations {
                             /** Format: uuid */
                             documentId: string;
                             id: string | number;
-                            Name: string;
+                            Name?: string;
                             Distance?: string;
                             Location?: string;
-                            Period?: boolean | null;
-                            StartDate: string;
-                            EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.059Z */
+                            /** @default 2026-03-03T23:16:06.420Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -893,21 +875,18 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-03T23:16:06.412Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
-                                    Name: string;
+                                    Name?: string;
                                     Distance?: string;
                                     Location?: string;
-                                    Period?: boolean | null;
-                                    StartDate: string;
-                                    EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-03T23:16:06.414Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -968,7 +947,7 @@ export interface operations {
     "event/put/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
@@ -986,10 +965,7 @@ export interface operations {
                         Name?: string;
                         Distance?: string;
                         Location?: string;
-                        Period?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
-                        StartDate?: string;
-                        EndDate?: string;
-                        /** @default 2026-03-07T09:13:30.067Z */
+                        /** @default 2026-03-03T23:16:06.427Z */
                         publishedAt?: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -1009,15 +985,12 @@ export interface operations {
                             /** Format: uuid */
                             documentId: string;
                             id: string | number;
-                            Name: string;
+                            Name?: string;
                             Distance?: string;
                             Location?: string;
-                            Period?: boolean | null;
-                            StartDate: string;
-                            EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.069Z */
+                            /** @default 2026-03-03T23:16:06.429Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1032,21 +1005,18 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-03T23:16:06.412Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
-                                    Name: string;
+                                    Name?: string;
                                     Distance?: string;
                                     Location?: string;
-                                    Period?: boolean | null;
-                                    StartDate: string;
-                                    EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-03T23:16:06.414Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1107,7 +1077,7 @@ export interface operations {
     "event/delete/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 filters?: {
                     [key: string]: unknown;
@@ -1134,15 +1104,12 @@ export interface operations {
                             /** Format: uuid */
                             documentId: string;
                             id: string | number;
-                            Name: string;
+                            Name?: string;
                             Distance?: string;
                             Location?: string;
-                            Period?: boolean | null;
-                            StartDate: string;
-                            EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.071Z */
+                            /** @default 2026-03-03T23:16:06.431Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1157,21 +1124,18 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-03T23:16:06.412Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
-                                    Name: string;
+                                    Name?: string;
                                     Distance?: string;
                                     Location?: string;
-                                    Period?: boolean | null;
-                                    StartDate: string;
-                                    EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-03T23:16:06.414Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1281,21 +1245,18 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.077Z */
+                            /** @default 2026-03-03T23:16:06.436Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
-                                Name: string;
+                                Name?: string;
                                 Distance?: string;
                                 Location?: string;
-                                Period?: boolean | null;
-                                StartDate: string;
-                                EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-03T23:16:06.414Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1369,7 +1330,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-07T09:13:30.082Z */
+                        /** @default 2026-03-03T23:16:06.442Z */
                         publishedAt: string;
                         events?: string[];
                     };
@@ -1397,21 +1358,18 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.083Z */
+                            /** @default 2026-03-03T23:16:06.443Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
-                                Name: string;
+                                Name?: string;
                                 Distance?: string;
                                 Location?: string;
-                                Period?: boolean | null;
-                                StartDate: string;
-                                EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-03T23:16:06.414Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1506,21 +1464,18 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.080Z */
+                            /** @default 2026-03-03T23:16:06.440Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
-                                Name: string;
+                                Name?: string;
                                 Distance?: string;
                                 Location?: string;
-                                Period?: boolean | null;
-                                StartDate: string;
-                                EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-03T23:16:06.414Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1596,7 +1551,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-07T09:13:30.085Z */
+                        /** @default 2026-03-03T23:16:06.446Z */
                         publishedAt?: string;
                         events?: string[];
                     };
@@ -1624,21 +1579,18 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.086Z */
+                            /** @default 2026-03-03T23:16:06.447Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
-                                Name: string;
+                                Name?: string;
                                 Distance?: string;
                                 Location?: string;
-                                Period?: boolean | null;
-                                StartDate: string;
-                                EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-03T23:16:06.414Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1728,21 +1680,18 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.088Z */
+                            /** @default 2026-03-03T23:16:06.458Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
-                                Name: string;
+                                Name?: string;
                                 Distance?: string;
                                 Location?: string;
-                                Period?: boolean | null;
-                                StartDate: string;
-                                EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-03T23:16:06.414Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1826,7 +1775,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.092Z */
+                            /** @default 2026-03-03T23:16:06.461Z */
                             publishedAt: string;
                         };
                     };
@@ -1888,7 +1837,7 @@ export interface operations {
                         Base?: string;
                         DJ?: string;
                         Equipment?: string;
-                        /** @default 2026-03-07T09:13:30.093Z */
+                        /** @default 2026-03-03T23:16:06.463Z */
                         publishedAt?: string;
                     };
                 };
@@ -1911,7 +1860,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.094Z */
+                            /** @default 2026-03-03T23:16:06.464Z */
                             publishedAt: string;
                         };
                     };
@@ -1984,7 +1933,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.095Z */
+                            /** @default 2026-03-03T23:16:06.465Z */
                             publishedAt: string;
                         };
                     };
@@ -2074,7 +2023,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.098Z */
+                            /** @default 2026-03-03T23:16:06.469Z */
                             publishedAt: string;
                         }[];
                     };
@@ -2135,7 +2084,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-07T09:13:30.413Z */
+                        /** @default 2026-03-03T23:16:06.792Z */
                         publishedAt: string;
                     };
                 };
@@ -2157,7 +2106,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.102Z */
+                            /** @default 2026-03-03T23:16:06.474Z */
                             publishedAt: string;
                         };
                     };
@@ -2239,7 +2188,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.100Z */
+                            /** @default 2026-03-03T23:16:06.472Z */
                             publishedAt: string;
                         };
                     };
@@ -2302,7 +2251,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-07T09:13:30.104Z */
+                        /** @default 2026-03-03T23:16:06.475Z */
                         publishedAt?: string;
                     };
                 };
@@ -2324,7 +2273,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.104Z */
+                            /** @default 2026-03-03T23:16:06.476Z */
                             publishedAt: string;
                         };
                     };
@@ -2401,7 +2350,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.106Z */
+                            /** @default 2026-03-03T23:16:06.478Z */
                             publishedAt: string;
                         };
                     };

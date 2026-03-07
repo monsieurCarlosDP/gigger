@@ -26,6 +26,9 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Period",
+                  "StartDate",
+                  "EndDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -47,6 +50,9 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Period",
+                  "StartDate",
+                  "EndDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -143,6 +149,9 @@
                     "Name",
                     "Distance",
                     "Location",
+                    "Period",
+                    "StartDate",
+                    "EndDate",
                     "createdAt",
                     "updatedAt",
                     "publishedAt"
@@ -156,6 +165,9 @@
                       "Name",
                       "Distance",
                       "Location",
+                      "Period",
+                      "StartDate",
+                      "EndDate",
                       "createdAt",
                       "updatedAt",
                       "publishedAt"
@@ -170,6 +182,9 @@
                       "Name",
                       "Distance",
                       "Location",
+                      "Period",
+                      "StartDate",
+                      "EndDate",
                       "createdAt",
                       "updatedAt",
                       "publishedAt"
@@ -193,6 +208,9 @@
                         "Name",
                         "Distance",
                         "Location",
+                        "Period",
+                        "StartDate",
+                        "EndDate",
                         "createdAt",
                         "updatedAt",
                         "publishedAt"
@@ -319,6 +337,22 @@
                           "Location": {
                             "type": "string"
                           },
+                          "Period": {
+                            "anyOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "StartDate": {
+                            "type": "string"
+                          },
+                          "EndDate": {
+                            "type": "string"
+                          },
                           "createdAt": {
                             "type": "string"
                           },
@@ -326,7 +360,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-03T23:16:06.409Z",
+                            "default": "2026-03-07T09:13:30.047Z",
                             "type": "string"
                           },
                           "contacts": {
@@ -378,7 +412,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-03T23:16:06.412Z",
+                                  "default": "2026-03-07T09:13:30.051Z",
                                   "type": "string"
                                 },
                                 "events": {
@@ -410,6 +444,22 @@
                                       "Location": {
                                         "type": "string"
                                       },
+                                      "Period": {
+                                        "anyOf": [
+                                          {
+                                            "type": "boolean"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "StartDate": {
+                                        "type": "string"
+                                      },
+                                      "EndDate": {
+                                        "type": "string"
+                                      },
                                       "createdAt": {
                                         "type": "string"
                                       },
@@ -417,7 +467,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-03T23:16:06.414Z",
+                                        "default": "2026-03-07T09:13:30.053Z",
                                         "type": "string"
                                       },
                                       "contacts": {
@@ -467,6 +517,8 @@
                                     "required": [
                                       "documentId",
                                       "id",
+                                      "Name",
+                                      "StartDate",
                                       "publishedAt"
                                     ],
                                     "additionalProperties": false
@@ -524,6 +576,8 @@
                         "required": [
                           "documentId",
                           "id",
+                          "Name",
+                          "StartDate",
                           "publishedAt"
                         ],
                         "additionalProperties": false
@@ -575,6 +629,9 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Period",
+                  "StartDate",
+                  "EndDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -689,6 +746,22 @@
                         "Location": {
                           "type": "string"
                         },
+                        "Period": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "StartDate": {
+                          "type": "string"
+                        },
+                        "EndDate": {
+                          "type": "string"
+                        },
                         "createdAt": {
                           "type": "string"
                         },
@@ -696,7 +769,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.425Z",
+                          "default": "2026-03-07T09:13:30.064Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -748,7 +821,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-03T23:16:06.412Z",
+                                "default": "2026-03-07T09:13:30.051Z",
                                 "type": "string"
                               },
                               "events": {
@@ -780,6 +853,22 @@
                                     "Location": {
                                       "type": "string"
                                     },
+                                    "Period": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "StartDate": {
+                                      "type": "string"
+                                    },
+                                    "EndDate": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string"
                                     },
@@ -787,7 +876,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-03T23:16:06.414Z",
+                                      "default": "2026-03-07T09:13:30.053Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -837,6 +926,8 @@
                                   "required": [
                                     "documentId",
                                     "id",
+                                    "Name",
+                                    "StartDate",
                                     "publishedAt"
                                   ],
                                   "additionalProperties": false
@@ -894,6 +985,8 @@
                       "required": [
                         "documentId",
                         "id",
+                        "Name",
+                        "StartDate",
                         "publishedAt"
                       ],
                       "additionalProperties": false
@@ -945,8 +1038,32 @@
                       "Location": {
                         "type": "string"
                       },
+                      "Period": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "0",
+                              "1",
+                              "t",
+                              "true",
+                              "f",
+                              "false"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "StartDate": {
+                        "type": "string"
+                      },
+                      "EndDate": {
+                        "type": "string"
+                      },
                       "publishedAt": {
-                        "default": "2026-03-03T23:16:06.424Z",
+                        "default": "2026-03-07T09:13:30.063Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -963,6 +1080,8 @@
                       }
                     },
                     "required": [
+                      "Name",
+                      "StartDate",
                       "publishedAt"
                     ],
                     "additionalProperties": false
@@ -1007,6 +1126,9 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Period",
+                  "StartDate",
+                  "EndDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -1062,6 +1184,9 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Period",
+                  "StartDate",
+                  "EndDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -1084,6 +1209,9 @@
                     "Name",
                     "Distance",
                     "Location",
+                    "Period",
+                    "StartDate",
+                    "EndDate",
                     "createdAt",
                     "updatedAt",
                     "publishedAt"
@@ -1097,6 +1225,9 @@
                       "Name",
                       "Distance",
                       "Location",
+                      "Period",
+                      "StartDate",
+                      "EndDate",
                       "createdAt",
                       "updatedAt",
                       "publishedAt"
@@ -1111,6 +1242,9 @@
                       "Name",
                       "Distance",
                       "Location",
+                      "Period",
+                      "StartDate",
+                      "EndDate",
                       "createdAt",
                       "updatedAt",
                       "publishedAt"
@@ -1134,6 +1268,9 @@
                         "Name",
                         "Distance",
                         "Location",
+                        "Period",
+                        "StartDate",
+                        "EndDate",
                         "createdAt",
                         "updatedAt",
                         "publishedAt"
@@ -1224,6 +1361,22 @@
                         "Location": {
                           "type": "string"
                         },
+                        "Period": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "StartDate": {
+                          "type": "string"
+                        },
+                        "EndDate": {
+                          "type": "string"
+                        },
                         "createdAt": {
                           "type": "string"
                         },
@@ -1231,7 +1384,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.420Z",
+                          "default": "2026-03-07T09:13:30.059Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -1283,7 +1436,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-03T23:16:06.412Z",
+                                "default": "2026-03-07T09:13:30.051Z",
                                 "type": "string"
                               },
                               "events": {
@@ -1315,6 +1468,22 @@
                                     "Location": {
                                       "type": "string"
                                     },
+                                    "Period": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "StartDate": {
+                                      "type": "string"
+                                    },
+                                    "EndDate": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string"
                                     },
@@ -1322,7 +1491,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-03T23:16:06.414Z",
+                                      "default": "2026-03-07T09:13:30.053Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -1372,6 +1541,8 @@
                                   "required": [
                                     "documentId",
                                     "id",
+                                    "Name",
+                                    "StartDate",
                                     "publishedAt"
                                   ],
                                   "additionalProperties": false
@@ -1429,6 +1600,8 @@
                       "required": [
                         "documentId",
                         "id",
+                        "Name",
+                        "StartDate",
                         "publishedAt"
                       ],
                       "additionalProperties": false
@@ -1490,6 +1663,9 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Period",
+                  "StartDate",
+                  "EndDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -1604,6 +1780,22 @@
                         "Location": {
                           "type": "string"
                         },
+                        "Period": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "StartDate": {
+                          "type": "string"
+                        },
+                        "EndDate": {
+                          "type": "string"
+                        },
                         "createdAt": {
                           "type": "string"
                         },
@@ -1611,7 +1803,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.429Z",
+                          "default": "2026-03-07T09:13:30.069Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -1663,7 +1855,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-03T23:16:06.412Z",
+                                "default": "2026-03-07T09:13:30.051Z",
                                 "type": "string"
                               },
                               "events": {
@@ -1695,6 +1887,22 @@
                                     "Location": {
                                       "type": "string"
                                     },
+                                    "Period": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "StartDate": {
+                                      "type": "string"
+                                    },
+                                    "EndDate": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string"
                                     },
@@ -1702,7 +1910,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-03T23:16:06.414Z",
+                                      "default": "2026-03-07T09:13:30.053Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -1752,6 +1960,8 @@
                                   "required": [
                                     "documentId",
                                     "id",
+                                    "Name",
+                                    "StartDate",
                                     "publishedAt"
                                   ],
                                   "additionalProperties": false
@@ -1809,6 +2019,8 @@
                       "required": [
                         "documentId",
                         "id",
+                        "Name",
+                        "StartDate",
                         "publishedAt"
                       ],
                       "additionalProperties": false
@@ -1860,8 +2072,32 @@
                       "Location": {
                         "type": "string"
                       },
+                      "Period": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "0",
+                              "1",
+                              "t",
+                              "true",
+                              "f",
+                              "false"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "StartDate": {
+                        "type": "string"
+                      },
+                      "EndDate": {
+                        "type": "string"
+                      },
                       "publishedAt": {
-                        "default": "2026-03-03T23:16:06.427Z",
+                        "default": "2026-03-07T09:13:30.067Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -1917,6 +2153,9 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Period",
+                  "StartDate",
+                  "EndDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -1972,6 +2211,9 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Period",
+                  "StartDate",
+                  "EndDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -2053,6 +2295,22 @@
                         "Location": {
                           "type": "string"
                         },
+                        "Period": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "StartDate": {
+                          "type": "string"
+                        },
+                        "EndDate": {
+                          "type": "string"
+                        },
                         "createdAt": {
                           "type": "string"
                         },
@@ -2060,7 +2318,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.431Z",
+                          "default": "2026-03-07T09:13:30.071Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -2112,7 +2370,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-03T23:16:06.412Z",
+                                "default": "2026-03-07T09:13:30.051Z",
                                 "type": "string"
                               },
                               "events": {
@@ -2144,6 +2402,22 @@
                                     "Location": {
                                       "type": "string"
                                     },
+                                    "Period": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "StartDate": {
+                                      "type": "string"
+                                    },
+                                    "EndDate": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string"
                                     },
@@ -2151,7 +2425,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-03T23:16:06.414Z",
+                                      "default": "2026-03-07T09:13:30.053Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -2201,6 +2475,8 @@
                                   "required": [
                                     "documentId",
                                     "id",
+                                    "Name",
+                                    "StartDate",
                                     "publishedAt"
                                   ],
                                   "additionalProperties": false
@@ -2258,6 +2534,8 @@
                       "required": [
                         "documentId",
                         "id",
+                        "Name",
+                        "StartDate",
                         "publishedAt"
                       ],
                       "additionalProperties": false
@@ -2633,7 +2911,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-03T23:16:06.436Z",
+                            "default": "2026-03-07T09:13:30.077Z",
                             "type": "string"
                           },
                           "events": {
@@ -2665,6 +2943,22 @@
                                 "Location": {
                                   "type": "string"
                                 },
+                                "Period": {
+                                  "anyOf": [
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "StartDate": {
+                                  "type": "string"
+                                },
+                                "EndDate": {
+                                  "type": "string"
+                                },
                                 "createdAt": {
                                   "type": "string"
                                 },
@@ -2672,7 +2966,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-03T23:16:06.414Z",
+                                  "default": "2026-03-07T09:13:30.053Z",
                                   "type": "string"
                                 },
                                 "contacts": {
@@ -2722,6 +3016,8 @@
                               "required": [
                                 "documentId",
                                 "id",
+                                "Name",
+                                "StartDate",
                                 "publishedAt"
                               ],
                               "additionalProperties": false
@@ -2916,7 +3212,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.443Z",
+                          "default": "2026-03-07T09:13:30.083Z",
                           "type": "string"
                         },
                         "events": {
@@ -2948,6 +3244,22 @@
                               "Location": {
                                 "type": "string"
                               },
+                              "Period": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "StartDate": {
+                                "type": "string"
+                              },
+                              "EndDate": {
+                                "type": "string"
+                              },
                               "createdAt": {
                                 "type": "string"
                               },
@@ -2955,7 +3267,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-03T23:16:06.414Z",
+                                "default": "2026-03-07T09:13:30.053Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -3005,6 +3317,8 @@
                             "required": [
                               "documentId",
                               "id",
+                              "Name",
+                              "StartDate",
                               "publishedAt"
                             ],
                             "additionalProperties": false
@@ -3079,7 +3393,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-03T23:16:06.442Z",
+                        "default": "2026-03-07T09:13:30.082Z",
                         "type": "string"
                       },
                       "events": {
@@ -3383,7 +3697,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.440Z",
+                          "default": "2026-03-07T09:13:30.080Z",
                           "type": "string"
                         },
                         "events": {
@@ -3415,6 +3729,22 @@
                               "Location": {
                                 "type": "string"
                               },
+                              "Period": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "StartDate": {
+                                "type": "string"
+                              },
+                              "EndDate": {
+                                "type": "string"
+                              },
                               "createdAt": {
                                 "type": "string"
                               },
@@ -3422,7 +3752,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-03T23:16:06.414Z",
+                                "default": "2026-03-07T09:13:30.053Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -3472,6 +3802,8 @@
                             "required": [
                               "documentId",
                               "id",
+                              "Name",
+                              "StartDate",
                               "publishedAt"
                             ],
                             "additionalProperties": false
@@ -3676,7 +4008,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.447Z",
+                          "default": "2026-03-07T09:13:30.086Z",
                           "type": "string"
                         },
                         "events": {
@@ -3708,6 +4040,22 @@
                               "Location": {
                                 "type": "string"
                               },
+                              "Period": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "StartDate": {
+                                "type": "string"
+                              },
+                              "EndDate": {
+                                "type": "string"
+                              },
                               "createdAt": {
                                 "type": "string"
                               },
@@ -3715,7 +4063,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-03T23:16:06.414Z",
+                                "default": "2026-03-07T09:13:30.053Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -3765,6 +4113,8 @@
                             "required": [
                               "documentId",
                               "id",
+                              "Name",
+                              "StartDate",
                               "publishedAt"
                             ],
                             "additionalProperties": false
@@ -3839,7 +4189,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-03T23:16:06.446Z",
+                        "default": "2026-03-07T09:13:30.085Z",
                         "type": "string"
                       },
                       "events": {
@@ -4049,7 +4399,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.458Z",
+                          "default": "2026-03-07T09:13:30.088Z",
                           "type": "string"
                         },
                         "events": {
@@ -4081,6 +4431,22 @@
                               "Location": {
                                 "type": "string"
                               },
+                              "Period": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "StartDate": {
+                                "type": "string"
+                              },
+                              "EndDate": {
+                                "type": "string"
+                              },
                               "createdAt": {
                                 "type": "string"
                               },
@@ -4088,7 +4454,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-03T23:16:06.414Z",
+                                "default": "2026-03-07T09:13:30.053Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -4138,6 +4504,8 @@
                             "required": [
                               "documentId",
                               "id",
+                              "Name",
+                              "StartDate",
                               "publishedAt"
                             ],
                             "additionalProperties": false
@@ -4336,7 +4704,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.461Z",
+                          "default": "2026-03-07T09:13:30.092Z",
                           "type": "string"
                         }
                       },
@@ -4508,7 +4876,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.464Z",
+                          "default": "2026-03-07T09:13:30.094Z",
                           "type": "string"
                         }
                       },
@@ -4567,7 +4935,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-03T23:16:06.463Z",
+                        "default": "2026-03-07T09:13:30.093Z",
                         "type": "string"
                       }
                     },
@@ -4715,7 +5083,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.465Z",
+                          "default": "2026-03-07T09:13:30.095Z",
                           "type": "string"
                         }
                       },
@@ -5059,7 +5427,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-03T23:16:06.469Z",
+                            "default": "2026-03-07T09:13:30.098Z",
                             "type": "string"
                           }
                         },
@@ -5228,7 +5596,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.474Z",
+                          "default": "2026-03-07T09:13:30.102Z",
                           "type": "string"
                         }
                       },
@@ -5284,7 +5652,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-03T23:16:06.792Z",
+                        "default": "2026-03-07T09:13:30.413Z",
                         "type": "string"
                       }
                     },
@@ -5542,7 +5910,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.472Z",
+                          "default": "2026-03-07T09:13:30.100Z",
                           "type": "string"
                         }
                       },
@@ -5721,7 +6089,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.476Z",
+                          "default": "2026-03-07T09:13:30.104Z",
                           "type": "string"
                         }
                       },
@@ -5777,7 +6145,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-03T23:16:06.475Z",
+                        "default": "2026-03-07T09:13:30.104Z",
                         "type": "string"
                       }
                     },
@@ -5953,7 +6321,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-03T23:16:06.478Z",
+                          "default": "2026-03-07T09:13:30.106Z",
                           "type": "string"
                         }
                       },

@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "openapi:types": "openapi-typescript ../backend/openapi/specification.json -o ./src/types/api.d.ts",
+    "openapi:types": "openapi-typescript ../backend/openapi/specification.json -o ./src/shared/types/api.d.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

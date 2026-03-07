@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-03-03T23:16:10.650Z"
+    "x-generation-date": "2026-03-07T09:13:34.102Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -3338,6 +3338,10 @@
         ],
         "properties": {
           "data": {
+            "required": [
+              "Name",
+              "StartDate"
+            ],
             "type": "object",
             "properties": {
               "Name": {
@@ -3364,6 +3368,17 @@
                   ],
                   "example": "string or id"
                 }
+              },
+              "Period": {
+                "type": "boolean"
+              },
+              "StartDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "EndDate": {
+                "type": "string",
+                "format": "date"
               },
               "Budget": {
                 "type": "array",
@@ -3429,6 +3444,10 @@
       },
       "Event": {
         "type": "object",
+        "required": [
+          "Name",
+          "StartDate"
+        ],
         "properties": {
           "id": {
             "oneOf": [
@@ -3544,6 +3563,17 @@
                             }
                           }
                         }
+                      },
+                      "Period": {
+                        "type": "boolean"
+                      },
+                      "StartDate": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "EndDate": {
+                        "type": "string",
+                        "format": "date"
                       },
                       "Budget": {
                         "type": "array",
@@ -4043,6 +4073,17 @@
                 }
               }
             }
+          },
+          "Period": {
+            "type": "boolean"
+          },
+          "StartDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "EndDate": {
+            "type": "string",
+            "format": "date"
           },
           "Budget": {
             "type": "array",
@@ -4811,6 +4852,17 @@
                       }
                     }
                   }
+                },
+                "Period": {
+                  "type": "boolean"
+                },
+                "StartDate": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "EndDate": {
+                  "type": "string",
+                  "format": "date"
                 },
                 "Budget": {
                   "type": "array",
