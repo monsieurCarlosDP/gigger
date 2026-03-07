@@ -21,6 +21,15 @@ Gigger es una aplicación fullstack con:
           └── [Próximas páginas]
   ```
 
+### Navbar (Left Sidebar)
+- `src/shared/components/Navbar.tsx` — Barra lateral izquierda con dos estados:
+  - **Expanded** (240px): icono + label de cada elemento
+  - **Collapsed** (64px): solo icono con tooltip
+- **Mobile (`xs`):** navbar oculta, se abre como drawer temporal con botón hamburguesa
+- **Desktop (`sm`+):** drawer permanente con toggle collapse/expand
+- Estado de collapsed/expanded gestionado localmente en `MainLayout`
+- Los items de navegación se definen como un array `navItems` en el propio componente
+
 ### Right-Side Drawer
 **Decisión:** Gestionar el drawer con contexto en lugar de estado por página.
 
@@ -120,6 +129,70 @@ frontend/src/
 - `src/types/api.d.ts` — tipos generados
 - Hooks de React Query en `src/hooks/useEvents.ts`, etc.
 
+### Calendar Component
+**Ubicación:** `src/shared/components/Calendar.tsx` y `Calendar.stories.tsx`
+
+**Props:**
+```tsx
+interface CalendarProps {
+  value?: Dayjs | null;                        // fecha seleccionada
+  onChange?: (value: Dayjs | null) => void;    // callback al cambiar
+  markedDays?: Record<string, DayMark[]>;      // días con puntos (clave: 'YYYY-MM-DD')
+  blockedRanges?: BlockedRange[];              // periodos bloqueados
+}
+
+interface DayMark {
+  color: string;  // MUI theme color (ej. 'primary.main', '#ff0000')
+}
+
+interface BlockedRange {
+  start: Dayjs;
+  end: Dayjs;
+  color?: string;  // MUI color, defaults to 'error.main'
+}
+```
+
+**Características:**
+- **Puntos debajo del número (dots):** marcan días con eventos, hasta 4 por día, customizables en color
+- **Franja de fondo (blocked ranges):** periodos con fondo semitransparente, redondeado en inicio/fin del rango
+- **Interactivo:** puede seleccionar fechas con click
+- **Responsive:** se adapta a cualquier ancho
+- Usa `@mui/x-date-pickers` v8 (community, gratuito) con `dayjs`
+
+**Implementación interna:**
+- `MarkedDay` componente custom que reemplaza el día por defecto de `DateCalendar`
+- `LocalizationProvider` + `AdapterDayjs` envueltos en el componente
+- Lógica de rango: `isStart` (50% rounded left), `isEnd` (50% rounded right), `isSingle` (4-corner rounded)
+
+**Integración Dashboard (ejemplo):**
+```tsx
+// DashboardPage.tsx
+const { data: eventsData } = useEvents();
+
+const { markedDays, blockedRanges } = useMemo(() => {
+  const markedDays: Record<string, DayMark[]> = {};
+  const blockedRanges: BlockedRange[] = [];
+
+  for (const event of eventsData?.data ?? []) {
+    // Evento con rango (Period: true + EndDate) → BlockedRange
+    if (event.Period && event.EndDate) {
+      blockedRanges.push({
+        start: dayjs(event.StartDate),
+        end: dayjs(event.EndDate),
+      });
+    } else {
+      // Evento puntual → dot azul en StartDate
+      const key = dayjs(event.StartDate).format('YYYY-MM-DD');
+      markedDays[key] = [...(markedDays[key] ?? []), { color: 'primary.main' }];
+    }
+  }
+
+  return { markedDays, blockedRanges };
+}, [eventsData]);
+
+return <Calendar markedDays={markedDays} blockedRanges={blockedRanges} />;
+```
+
 ---
 
 ## Backend - Content Types
@@ -167,8 +240,11 @@ Strapi gestiona internamente los tipos:
 
 ## Próximos Pasos
 
-- [ ] Crear componentes reutilizables en `src/shared/components/`
-- [ ] Implementar validación de formularios
+- [x] Crear componentes reutilizables en `src/shared/components/` (Calendar)
+- [x] Integración con API de Strapi (Calendar con eventos en Dashboard)
+- [ ] Implementar formularios para CRUD de eventos
+- [ ] Validación de formularios (useForm, Zod/Yup)
 - [ ] Setup de tests (Vitest + Playwright)
-- [ ] Integración con API de Strapi
+- [ ] Páginas adicionales: Events, People, Tariffs
+- [ ] Autenticación y logout
 

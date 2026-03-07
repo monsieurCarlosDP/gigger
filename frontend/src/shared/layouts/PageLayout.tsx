@@ -1,4 +1,4 @@
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import type { ReactNode } from 'react';
 
 interface PageLayoutProps {
@@ -10,7 +10,7 @@ export function PageLayout({ header, children }: PageLayoutProps) {
   return (
     <Stack sx={{ minHeight: '100vh' }}>
       {header && (
-        <Box
+        <Stack
           component="header"
           sx={{
             px: { xs: 2, sm: 3 },
@@ -20,17 +20,18 @@ export function PageLayout({ header, children }: PageLayoutProps) {
           }}
         >
           {header}
-        </Box>
+        </Stack>
       )}
-      <Box
+      <Stack
         component="section"
+        justifyContent="start"
         sx={{
           flexGrow: 1,
           p: { xs: 2, sm: 3 },
         }}
       >
         {children}
-      </Box>
+      </Stack>
     </Stack>
   );
 }

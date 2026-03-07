@@ -1,23 +1,45 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Box, CircularProgress, Drawer, IconButton } from '@mui/material';
+import { Box, CircularProgress, Drawer, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
 import { DrawerProvider, useDrawerState, useDrawerActions } from '../context/DrawerContext';
+import { Navbar } from '../components/Navbar';
 
-const DRAWER_WIDTH = { xs: '100%', sm: 480 };
+const RIGHT_DRAWER_WIDTH = { xs: '100%', sm: 480 };
 
 function LayoutContent() {
   const { isOpen, content } = useDrawerState();
   const { closeDrawer } = useDrawerActions();
+  const [navCollapsed, setNavCollapsed] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Box sx={{ minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+      <Navbar
+        collapsed={navCollapsed}
+        onToggle={() => setNavCollapsed((prev) => !prev)}
+        mobileOpen={mobileNavOpen}
+        onMobileClose={() => setMobileNavOpen(false)}
+      />
+
       <Box
         component="main"
         sx={{
+          flexGrow: 1,
           minHeight: '100vh',
         }}
       >
+        {isMobile && (
+          <Box sx={{ p: 1 }}>
+            <IconButton onClick={() => setMobileNavOpen(true)} size="small">
+              <MenuIcon />
+            </IconButton>
+          </Box>
+        )}
+
         <Suspense
           fallback={
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -36,7 +58,7 @@ function LayoutContent() {
         variant="temporary"
         sx={{
           '& .MuiDrawer-paper': {
-            width: DRAWER_WIDTH,
+            width: RIGHT_DRAWER_WIDTH,
             boxSizing: 'border-box',
             height: '100%',
           },
