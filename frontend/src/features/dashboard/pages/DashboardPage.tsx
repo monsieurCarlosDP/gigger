@@ -1,11 +1,13 @@
 import { useEvents } from '@/features/events/hooks/useEvents';
 import type { BlockedRange, DayMark } from '@/shared/components/Calendar';
 import { Calendar } from '@/shared/components/Calendar';
+import Card from '@/shared/components/Card';
 import { PageLayout } from '@/shared/layouts/PageLayout';
-import { Box, CircularProgress, Stack } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { DashboardHeader } from '../components/DashboardHeader';
+
 
 export default function DashboardPage() {
   const { data, isLoading } = useEvents();
@@ -36,14 +38,15 @@ export default function DashboardPage() {
           <CircularProgress />
         </Box>
       ) : (
-      <Stack display="flex" justifyContent="start">
+      <Stack display="flex" flexDirection={{xs: 'column', md: 'row'}} gap={2} justifyContent="start">
         <Stack sx={{width: 'fit-content'}} >
           
-          <Calendar markedDays={markedDays} blockedRanges={blockedRanges} />
+          <Calendar markedDays={markedDays} blockedRanges={blockedRanges} showLegend/>
 
         </Stack>
-        <Stack width="50%">
-
+        <Stack width={{xs: '100%', md: '50%'}}>
+          <Typography variant="h4">Próximos eventos</Typography>
+          <Card/>
         </Stack>
       </Stack>
       )}

@@ -1,4 +1,4 @@
-import { Box, Paper, Stack } from '@mui/material';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -75,11 +75,39 @@ export interface CalendarProps {
   onChange?: (value: Dayjs | null) => void;
   markedDays?: Record<string, DayMark[]>;
   blockedRanges?: BlockedRange[];
+  showLegend?: boolean;
 }
 
-export function Calendar({ value, onChange, markedDays, blockedRanges }: CalendarProps) {
+        
+const Legend = (<Paper elevation={4}>
+          <Stack paddingY={2} paddingX={4} gap={1}>
+            <Typography variant="h6">Leyenda</Typography>
+            <Stack gap={0.1}>
+              <Stack flexDirection="row" alignItems="center" gap={2}>
+                <Box key="warning-legen" sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: "warning.main" }} />
+                <Typography variant="caption">Reserva</Typography>
+              </Stack>
+              <Stack flexDirection="row" alignItems="center" gap={2}>
+                <Box key="success-legen" sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: "success.main" }} />
+                <Typography variant="caption">Efectivibolo</Typography>
+              </Stack>
+              <Stack flexDirection="row" alignItems="center" gap={2}>
+                <Box key="info-legen" sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: "info.main" }} />
+                <Typography variant="caption">Efectivibolo + EfectiviDJ</Typography>
+              </Stack>
+              <Stack flexDirection="row" alignItems="center" gap={2}>
+                <Box key="info-legen" sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: "error.main" }} />
+                <Typography variant="caption" bgcolor="error.main" color="textDisabled">Efectivibolo + EfectiviDJ</Typography>
+              </Stack>
+
+            </Stack>
+          </Stack>
+        </Paper>)
+
+export function Calendar({ value, onChange, markedDays, blockedRanges, showLegend }: CalendarProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Stack gap={2}>
       <Paper elevation={4}>
 
       <DateCalendar
@@ -94,10 +122,9 @@ export function Calendar({ value, onChange, markedDays, blockedRanges }: Calenda
           '& .MuiDayCalendar-slideTransition': { minHeight: 280 },
         }}
         />
-        <Stack paddingX={4}>
-          <Box key="warning-legen" sx={{ width: 4, height: 4, borderRadius: '50%', bgcolor: "warning.main" }} />
-        </Stack>
         </Paper>
+        {showLegend && Legend}
+      </Stack>
     </LocalizationProvider>
   );
 }
