@@ -22,9 +22,11 @@ export interface BlockedRange {
 interface MarkedDayProps extends PickersDayProps {
   markedDays?: Record<string, DayMark[]>;
   blockedRanges?: BlockedRange[];
+  onDayHover?: (dateKey: string, anchorEl: HTMLElement) => void;
+  onDayLeave?: () => void;
 }
 
-function MarkedDay({ day, outsideCurrentMonth, markedDays, blockedRanges, ...props }: MarkedDayProps) {
+function MarkedDay({ day, outsideCurrentMonth, markedDays, blockedRanges, onDayHover, onDayLeave, ...props }: MarkedDayProps) {
   const d = day as Dayjs;
   const key = d.format('YYYY-MM-DD');
   const dots = outsideCurrentMonth ? [] : (markedDays?.[key] ?? []);
@@ -41,8 +43,14 @@ function MarkedDay({ day, outsideCurrentMonth, markedDays, blockedRanges, ...pro
   const isEnd = blockedRange != null && d.isSame(blockedRange.end, 'day');
   const isSingle = isStart && isEnd;
 
+  const hasContent = dots.length > 0 || blockedRange;
+
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+    <Box
+      onMouseEnter={(e) => hasContent && onDayHover?.(key, e.currentTarget)}
+      onMouseLeave={() => hasContent && onDayLeave?.()}
+      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}
+    >
       {blockedRange && (
         <Box
           sx={{
@@ -76,9 +84,11 @@ export interface CalendarProps {
   markedDays?: Record<string, DayMark[]>;
   blockedRanges?: BlockedRange[];
   showLegend?: boolean;
+  onDayHover?: (dateKey: string, anchorEl: HTMLElement) => void;
+  onDayLeave?: () => void;
 }
 
-        
+
 const Legend = (<Paper elevation={4}>
           <Stack paddingY={2} paddingX={4} gap={1}>
             <Typography variant="h6">Leyenda</Typography>
@@ -104,7 +114,7 @@ const Legend = (<Paper elevation={4}>
           </Stack>
         </Paper>)
 
-export function Calendar({ value, onChange, markedDays, blockedRanges, showLegend }: CalendarProps) {
+export function Calendar({ value, onChange, markedDays, blockedRanges, showLegend, onDayHover, onDayLeave }: CalendarProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Stack gap={2}>
@@ -116,7 +126,7 @@ export function Calendar({ value, onChange, markedDays, blockedRanges, showLegen
         slots={{ day: MarkedDay as ComponentType<PickersDayProps> }}
         slotProps={{
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          day: { markedDays, blockedRanges } as any,
+          day: { markedDays, blockedRanges, onDayHover, onDayLeave } as any,
         }}
         sx={{
           '& .MuiDayCalendar-slideTransition': { minHeight: 280 },

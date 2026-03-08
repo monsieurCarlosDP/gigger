@@ -21,6 +21,15 @@
     "Location": {
       "type": "string"
     },
+    "Type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Reservation",
+        "Event",
+        "Viability"
+      ]
+    },
     "contacts": {
       "type": "relation",
       "relation": "manyToMany",

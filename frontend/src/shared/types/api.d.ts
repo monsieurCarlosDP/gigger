@@ -563,7 +563,7 @@ export interface operations {
     "event/get/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 filters?: {
                     [key: string]: unknown;
                 };
@@ -577,7 +577,7 @@ export interface operations {
                     start: number;
                     limit: number;
                 });
-                sort?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
@@ -606,12 +606,14 @@ export interface operations {
                             Name: string;
                             Distance?: string;
                             Location?: string;
+                            /** @enum {string} */
+                            Type: "Reservation" | "Event" | "Viability";
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.047Z */
+                            /** @default 2026-03-08T11:46:10.205Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -626,7 +628,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-08T11:46:10.208Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -635,12 +637,14 @@ export interface operations {
                                     Name: string;
                                     Distance?: string;
                                     Location?: string;
+                                    /** @enum {string} */
+                                    Type: "Reservation" | "Event" | "Viability";
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-08T11:46:10.210Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -701,7 +705,7 @@ export interface operations {
     "event/post/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
@@ -717,10 +721,12 @@ export interface operations {
                         Name: string;
                         Distance?: string;
                         Location?: string;
+                        /** @enum {string} */
+                        Type: "Reservation" | "Event" | "Viability";
                         Period?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
                         StartDate: string;
                         EndDate?: string;
-                        /** @default 2026-03-07T09:13:30.063Z */
+                        /** @default 2026-03-08T11:46:10.221Z */
                         publishedAt: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -743,12 +749,14 @@ export interface operations {
                             Name: string;
                             Distance?: string;
                             Location?: string;
+                            /** @enum {string} */
+                            Type: "Reservation" | "Event" | "Viability";
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.064Z */
+                            /** @default 2026-03-08T11:46:10.223Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -763,7 +771,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-08T11:46:10.208Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -772,12 +780,14 @@ export interface operations {
                                     Name: string;
                                     Distance?: string;
                                     Location?: string;
+                                    /** @enum {string} */
+                                    Type: "Reservation" | "Event" | "Viability";
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-08T11:46:10.210Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -838,12 +848,12 @@ export interface operations {
     "event/get/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 filters?: {
                     [key: string]: unknown;
                 };
-                sort?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
@@ -873,12 +883,14 @@ export interface operations {
                             Name: string;
                             Distance?: string;
                             Location?: string;
+                            /** @enum {string} */
+                            Type: "Reservation" | "Event" | "Viability";
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.059Z */
+                            /** @default 2026-03-08T11:46:10.217Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -893,7 +905,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-08T11:46:10.208Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -902,12 +914,14 @@ export interface operations {
                                     Name: string;
                                     Distance?: string;
                                     Location?: string;
+                                    /** @enum {string} */
+                                    Type: "Reservation" | "Event" | "Viability";
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-08T11:46:10.210Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -968,7 +982,7 @@ export interface operations {
     "event/put/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
@@ -986,10 +1000,12 @@ export interface operations {
                         Name?: string;
                         Distance?: string;
                         Location?: string;
+                        /** @enum {string} */
+                        Type?: "Reservation" | "Event" | "Viability";
                         Period?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
                         StartDate?: string;
                         EndDate?: string;
-                        /** @default 2026-03-07T09:13:30.067Z */
+                        /** @default 2026-03-08T11:46:10.225Z */
                         publishedAt?: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -1012,12 +1028,14 @@ export interface operations {
                             Name: string;
                             Distance?: string;
                             Location?: string;
+                            /** @enum {string} */
+                            Type: "Reservation" | "Event" | "Viability";
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.069Z */
+                            /** @default 2026-03-08T11:46:10.227Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1032,7 +1050,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-08T11:46:10.208Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1041,12 +1059,14 @@ export interface operations {
                                     Name: string;
                                     Distance?: string;
                                     Location?: string;
+                                    /** @enum {string} */
+                                    Type: "Reservation" | "Event" | "Viability";
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-08T11:46:10.210Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1107,7 +1127,7 @@ export interface operations {
     "event/delete/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 filters?: {
                     [key: string]: unknown;
@@ -1137,12 +1157,14 @@ export interface operations {
                             Name: string;
                             Distance?: string;
                             Location?: string;
+                            /** @enum {string} */
+                            Type: "Reservation" | "Event" | "Viability";
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.071Z */
+                            /** @default 2026-03-08T11:46:10.230Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1157,7 +1179,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.051Z */
+                                /** @default 2026-03-08T11:46:10.208Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1166,12 +1188,14 @@ export interface operations {
                                     Name: string;
                                     Distance?: string;
                                     Location?: string;
+                                    /** @enum {string} */
+                                    Type: "Reservation" | "Event" | "Viability";
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-07T09:13:30.053Z */
+                                    /** @default 2026-03-08T11:46:10.210Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1281,7 +1305,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.077Z */
+                            /** @default 2026-03-08T11:46:10.235Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1290,12 +1314,14 @@ export interface operations {
                                 Name: string;
                                 Distance?: string;
                                 Location?: string;
+                                /** @enum {string} */
+                                Type: "Reservation" | "Event" | "Viability";
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-08T11:46:10.210Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1369,7 +1395,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-07T09:13:30.082Z */
+                        /** @default 2026-03-08T11:46:10.250Z */
                         publishedAt: string;
                         events?: string[];
                     };
@@ -1397,7 +1423,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.083Z */
+                            /** @default 2026-03-08T11:46:10.251Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1406,12 +1432,14 @@ export interface operations {
                                 Name: string;
                                 Distance?: string;
                                 Location?: string;
+                                /** @enum {string} */
+                                Type: "Reservation" | "Event" | "Viability";
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-08T11:46:10.210Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1506,7 +1534,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.080Z */
+                            /** @default 2026-03-08T11:46:10.238Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1515,12 +1543,14 @@ export interface operations {
                                 Name: string;
                                 Distance?: string;
                                 Location?: string;
+                                /** @enum {string} */
+                                Type: "Reservation" | "Event" | "Viability";
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-08T11:46:10.210Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1596,7 +1626,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-07T09:13:30.085Z */
+                        /** @default 2026-03-08T11:46:10.254Z */
                         publishedAt?: string;
                         events?: string[];
                     };
@@ -1624,7 +1654,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.086Z */
+                            /** @default 2026-03-08T11:46:10.255Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1633,12 +1663,14 @@ export interface operations {
                                 Name: string;
                                 Distance?: string;
                                 Location?: string;
+                                /** @enum {string} */
+                                Type: "Reservation" | "Event" | "Viability";
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-08T11:46:10.210Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1728,7 +1760,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.088Z */
+                            /** @default 2026-03-08T11:46:10.257Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1737,12 +1769,14 @@ export interface operations {
                                 Name: string;
                                 Distance?: string;
                                 Location?: string;
+                                /** @enum {string} */
+                                Type: "Reservation" | "Event" | "Viability";
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-07T09:13:30.053Z */
+                                /** @default 2026-03-08T11:46:10.210Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1826,7 +1860,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.092Z */
+                            /** @default 2026-03-08T11:46:10.260Z */
                             publishedAt: string;
                         };
                     };
@@ -1888,7 +1922,7 @@ export interface operations {
                         Base?: string;
                         DJ?: string;
                         Equipment?: string;
-                        /** @default 2026-03-07T09:13:30.093Z */
+                        /** @default 2026-03-08T11:46:10.261Z */
                         publishedAt?: string;
                     };
                 };
@@ -1911,7 +1945,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.094Z */
+                            /** @default 2026-03-08T11:46:10.262Z */
                             publishedAt: string;
                         };
                     };
@@ -1984,7 +2018,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.095Z */
+                            /** @default 2026-03-08T11:46:10.263Z */
                             publishedAt: string;
                         };
                     };
@@ -2074,7 +2108,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.098Z */
+                            /** @default 2026-03-08T11:46:10.266Z */
                             publishedAt: string;
                         }[];
                     };
@@ -2135,7 +2169,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-07T09:13:30.413Z */
+                        /** @default 2026-03-08T11:46:10.574Z */
                         publishedAt: string;
                     };
                 };
@@ -2157,7 +2191,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.102Z */
+                            /** @default 2026-03-08T11:46:10.271Z */
                             publishedAt: string;
                         };
                     };
@@ -2239,7 +2273,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.100Z */
+                            /** @default 2026-03-08T11:46:10.269Z */
                             publishedAt: string;
                         };
                     };
@@ -2302,7 +2336,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-07T09:13:30.104Z */
+                        /** @default 2026-03-08T11:46:10.272Z */
                         publishedAt?: string;
                     };
                 };
@@ -2324,7 +2358,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.104Z */
+                            /** @default 2026-03-08T11:46:10.273Z */
                             publishedAt: string;
                         };
                     };
@@ -2401,7 +2435,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-07T09:13:30.106Z */
+                            /** @default 2026-03-08T11:46:10.274Z */
                             publishedAt: string;
                         };
                     };

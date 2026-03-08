@@ -1,6 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import type { CreateEventBody, EventByIdQuery, ListQuery, UpdateEventBody } from '@/shared/api/client';
 import { api } from '@/shared/api/client';
-import type { ListQuery, EventByIdQuery, CreateEventBody, UpdateEventBody } from '@/shared/api/client';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 
 const eventsKey = ['events'] as const;
 const eventByIdKey = (id: string) => ['events', id] as const;
@@ -74,4 +75,34 @@ export function useDeleteEvent() {
       queryClient.invalidateQueries({ queryKey: eventsKey });
     },
   });
+}
+
+export type EventType = 'Event' | 'Viability' | 'Reservation';
+
+type UseUpcomingEventsOptions = {
+  limit?: number;
+  type?: EventType | EventType[];
+  daysBack?: number;
+};
+
+export function useUpcomingEvents({
+  limit = 5,
+  type,
+  daysBack = 1,
+}: UseUpcomingEventsOptions = {}) {
+  const types = type ? (Array.isArray(type) ? type : [type]) : undefined;
+  const fromDate = dayjs().subtract(daysBack, 'day').format('YYYY-MM-DD');
+
+  const query: ListQuery = {
+    filters: {
+      StartDate: { $gte: fromDate },
+      ...(types && { Type: types.length === 1 ? { $eq: types[0] } : { $in: types } }),
+    },
+    sort: { StartDate: 'asc' },
+    pagination: { start: 0, limit },
+  };
+
+  const { data, ...rest } = useEvents({ query });
+
+  return { data: data?.data ?? [], ...rest };
 }

@@ -1,4 +1,5 @@
 import createClient from 'openapi-fetch';
+import qs from 'qs';
 import type { paths } from '../types/api';
 
 const baseUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:1337/api';
@@ -16,6 +17,7 @@ function getToken(): string | null {
 
 const fetchClient = createClient<paths>({
   baseUrl,
+  querySerializer: (params) => qs.stringify(params, { encodeValuesOnly: true }),
   fetch: (input: Request) => {
     const token = getToken();
     if (!token) return fetch(input);

@@ -26,6 +26,7 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Type",
                   "Period",
                   "StartDate",
                   "EndDate",
@@ -50,6 +51,7 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Type",
                   "Period",
                   "StartDate",
                   "EndDate",
@@ -149,6 +151,7 @@
                     "Name",
                     "Distance",
                     "Location",
+                    "Type",
                     "Period",
                     "StartDate",
                     "EndDate",
@@ -165,6 +168,7 @@
                       "Name",
                       "Distance",
                       "Location",
+                      "Type",
                       "Period",
                       "StartDate",
                       "EndDate",
@@ -182,6 +186,7 @@
                       "Name",
                       "Distance",
                       "Location",
+                      "Type",
                       "Period",
                       "StartDate",
                       "EndDate",
@@ -208,6 +213,7 @@
                         "Name",
                         "Distance",
                         "Location",
+                        "Type",
                         "Period",
                         "StartDate",
                         "EndDate",
@@ -337,6 +343,14 @@
                           "Location": {
                             "type": "string"
                           },
+                          "Type": {
+                            "type": "string",
+                            "enum": [
+                              "Reservation",
+                              "Event",
+                              "Viability"
+                            ]
+                          },
                           "Period": {
                             "anyOf": [
                               {
@@ -360,7 +374,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-07T09:13:30.047Z",
+                            "default": "2026-03-08T11:46:10.205Z",
                             "type": "string"
                           },
                           "contacts": {
@@ -412,7 +426,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-07T09:13:30.051Z",
+                                  "default": "2026-03-08T11:46:10.208Z",
                                   "type": "string"
                                 },
                                 "events": {
@@ -444,6 +458,14 @@
                                       "Location": {
                                         "type": "string"
                                       },
+                                      "Type": {
+                                        "type": "string",
+                                        "enum": [
+                                          "Reservation",
+                                          "Event",
+                                          "Viability"
+                                        ]
+                                      },
                                       "Period": {
                                         "anyOf": [
                                           {
@@ -467,7 +489,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-07T09:13:30.053Z",
+                                        "default": "2026-03-08T11:46:10.210Z",
                                         "type": "string"
                                       },
                                       "contacts": {
@@ -518,6 +540,7 @@
                                       "documentId",
                                       "id",
                                       "Name",
+                                      "Type",
                                       "StartDate",
                                       "publishedAt"
                                     ],
@@ -577,6 +600,7 @@
                           "documentId",
                           "id",
                           "Name",
+                          "Type",
                           "StartDate",
                           "publishedAt"
                         ],
@@ -629,6 +653,7 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Type",
                   "Period",
                   "StartDate",
                   "EndDate",
@@ -746,6 +771,14 @@
                         "Location": {
                           "type": "string"
                         },
+                        "Type": {
+                          "type": "string",
+                          "enum": [
+                            "Reservation",
+                            "Event",
+                            "Viability"
+                          ]
+                        },
                         "Period": {
                           "anyOf": [
                             {
@@ -769,7 +802,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.064Z",
+                          "default": "2026-03-08T11:46:10.223Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -821,7 +854,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-07T09:13:30.051Z",
+                                "default": "2026-03-08T11:46:10.208Z",
                                 "type": "string"
                               },
                               "events": {
@@ -853,6 +886,14 @@
                                     "Location": {
                                       "type": "string"
                                     },
+                                    "Type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "Reservation",
+                                        "Event",
+                                        "Viability"
+                                      ]
+                                    },
                                     "Period": {
                                       "anyOf": [
                                         {
@@ -876,7 +917,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-07T09:13:30.053Z",
+                                      "default": "2026-03-08T11:46:10.210Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -927,6 +968,7 @@
                                     "documentId",
                                     "id",
                                     "Name",
+                                    "Type",
                                     "StartDate",
                                     "publishedAt"
                                   ],
@@ -986,6 +1028,7 @@
                         "documentId",
                         "id",
                         "Name",
+                        "Type",
                         "StartDate",
                         "publishedAt"
                       ],
@@ -1038,6 +1081,14 @@
                       "Location": {
                         "type": "string"
                       },
+                      "Type": {
+                        "type": "string",
+                        "enum": [
+                          "Reservation",
+                          "Event",
+                          "Viability"
+                        ]
+                      },
                       "Period": {
                         "anyOf": [
                           {
@@ -1063,7 +1114,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-07T09:13:30.063Z",
+                        "default": "2026-03-08T11:46:10.221Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -1081,6 +1132,7 @@
                     },
                     "required": [
                       "Name",
+                      "Type",
                       "StartDate",
                       "publishedAt"
                     ],
@@ -1126,6 +1178,7 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Type",
                   "Period",
                   "StartDate",
                   "EndDate",
@@ -1184,6 +1237,7 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Type",
                   "Period",
                   "StartDate",
                   "EndDate",
@@ -1209,6 +1263,7 @@
                     "Name",
                     "Distance",
                     "Location",
+                    "Type",
                     "Period",
                     "StartDate",
                     "EndDate",
@@ -1225,6 +1280,7 @@
                       "Name",
                       "Distance",
                       "Location",
+                      "Type",
                       "Period",
                       "StartDate",
                       "EndDate",
@@ -1242,6 +1298,7 @@
                       "Name",
                       "Distance",
                       "Location",
+                      "Type",
                       "Period",
                       "StartDate",
                       "EndDate",
@@ -1268,6 +1325,7 @@
                         "Name",
                         "Distance",
                         "Location",
+                        "Type",
                         "Period",
                         "StartDate",
                         "EndDate",
@@ -1361,6 +1419,14 @@
                         "Location": {
                           "type": "string"
                         },
+                        "Type": {
+                          "type": "string",
+                          "enum": [
+                            "Reservation",
+                            "Event",
+                            "Viability"
+                          ]
+                        },
                         "Period": {
                           "anyOf": [
                             {
@@ -1384,7 +1450,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.059Z",
+                          "default": "2026-03-08T11:46:10.217Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -1436,7 +1502,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-07T09:13:30.051Z",
+                                "default": "2026-03-08T11:46:10.208Z",
                                 "type": "string"
                               },
                               "events": {
@@ -1468,6 +1534,14 @@
                                     "Location": {
                                       "type": "string"
                                     },
+                                    "Type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "Reservation",
+                                        "Event",
+                                        "Viability"
+                                      ]
+                                    },
                                     "Period": {
                                       "anyOf": [
                                         {
@@ -1491,7 +1565,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-07T09:13:30.053Z",
+                                      "default": "2026-03-08T11:46:10.210Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -1542,6 +1616,7 @@
                                     "documentId",
                                     "id",
                                     "Name",
+                                    "Type",
                                     "StartDate",
                                     "publishedAt"
                                   ],
@@ -1601,6 +1676,7 @@
                         "documentId",
                         "id",
                         "Name",
+                        "Type",
                         "StartDate",
                         "publishedAt"
                       ],
@@ -1663,6 +1739,7 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Type",
                   "Period",
                   "StartDate",
                   "EndDate",
@@ -1780,6 +1857,14 @@
                         "Location": {
                           "type": "string"
                         },
+                        "Type": {
+                          "type": "string",
+                          "enum": [
+                            "Reservation",
+                            "Event",
+                            "Viability"
+                          ]
+                        },
                         "Period": {
                           "anyOf": [
                             {
@@ -1803,7 +1888,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.069Z",
+                          "default": "2026-03-08T11:46:10.227Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -1855,7 +1940,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-07T09:13:30.051Z",
+                                "default": "2026-03-08T11:46:10.208Z",
                                 "type": "string"
                               },
                               "events": {
@@ -1887,6 +1972,14 @@
                                     "Location": {
                                       "type": "string"
                                     },
+                                    "Type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "Reservation",
+                                        "Event",
+                                        "Viability"
+                                      ]
+                                    },
                                     "Period": {
                                       "anyOf": [
                                         {
@@ -1910,7 +2003,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-07T09:13:30.053Z",
+                                      "default": "2026-03-08T11:46:10.210Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -1961,6 +2054,7 @@
                                     "documentId",
                                     "id",
                                     "Name",
+                                    "Type",
                                     "StartDate",
                                     "publishedAt"
                                   ],
@@ -2020,6 +2114,7 @@
                         "documentId",
                         "id",
                         "Name",
+                        "Type",
                         "StartDate",
                         "publishedAt"
                       ],
@@ -2072,6 +2167,14 @@
                       "Location": {
                         "type": "string"
                       },
+                      "Type": {
+                        "type": "string",
+                        "enum": [
+                          "Reservation",
+                          "Event",
+                          "Viability"
+                        ]
+                      },
                       "Period": {
                         "anyOf": [
                           {
@@ -2097,7 +2200,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-07T09:13:30.067Z",
+                        "default": "2026-03-08T11:46:10.225Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -2153,6 +2256,7 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Type",
                   "Period",
                   "StartDate",
                   "EndDate",
@@ -2211,6 +2315,7 @@
                   "Name",
                   "Distance",
                   "Location",
+                  "Type",
                   "Period",
                   "StartDate",
                   "EndDate",
@@ -2295,6 +2400,14 @@
                         "Location": {
                           "type": "string"
                         },
+                        "Type": {
+                          "type": "string",
+                          "enum": [
+                            "Reservation",
+                            "Event",
+                            "Viability"
+                          ]
+                        },
                         "Period": {
                           "anyOf": [
                             {
@@ -2318,7 +2431,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.071Z",
+                          "default": "2026-03-08T11:46:10.230Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -2370,7 +2483,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-07T09:13:30.051Z",
+                                "default": "2026-03-08T11:46:10.208Z",
                                 "type": "string"
                               },
                               "events": {
@@ -2402,6 +2515,14 @@
                                     "Location": {
                                       "type": "string"
                                     },
+                                    "Type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "Reservation",
+                                        "Event",
+                                        "Viability"
+                                      ]
+                                    },
                                     "Period": {
                                       "anyOf": [
                                         {
@@ -2425,7 +2546,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-07T09:13:30.053Z",
+                                      "default": "2026-03-08T11:46:10.210Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -2476,6 +2597,7 @@
                                     "documentId",
                                     "id",
                                     "Name",
+                                    "Type",
                                     "StartDate",
                                     "publishedAt"
                                   ],
@@ -2535,6 +2657,7 @@
                         "documentId",
                         "id",
                         "Name",
+                        "Type",
                         "StartDate",
                         "publishedAt"
                       ],
@@ -2911,7 +3034,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-07T09:13:30.077Z",
+                            "default": "2026-03-08T11:46:10.235Z",
                             "type": "string"
                           },
                           "events": {
@@ -2943,6 +3066,14 @@
                                 "Location": {
                                   "type": "string"
                                 },
+                                "Type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Reservation",
+                                    "Event",
+                                    "Viability"
+                                  ]
+                                },
                                 "Period": {
                                   "anyOf": [
                                     {
@@ -2966,7 +3097,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-07T09:13:30.053Z",
+                                  "default": "2026-03-08T11:46:10.210Z",
                                   "type": "string"
                                 },
                                 "contacts": {
@@ -3017,6 +3148,7 @@
                                 "documentId",
                                 "id",
                                 "Name",
+                                "Type",
                                 "StartDate",
                                 "publishedAt"
                               ],
@@ -3212,7 +3344,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.083Z",
+                          "default": "2026-03-08T11:46:10.251Z",
                           "type": "string"
                         },
                         "events": {
@@ -3244,6 +3376,14 @@
                               "Location": {
                                 "type": "string"
                               },
+                              "Type": {
+                                "type": "string",
+                                "enum": [
+                                  "Reservation",
+                                  "Event",
+                                  "Viability"
+                                ]
+                              },
                               "Period": {
                                 "anyOf": [
                                   {
@@ -3267,7 +3407,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-07T09:13:30.053Z",
+                                "default": "2026-03-08T11:46:10.210Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -3318,6 +3458,7 @@
                               "documentId",
                               "id",
                               "Name",
+                              "Type",
                               "StartDate",
                               "publishedAt"
                             ],
@@ -3393,7 +3534,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-07T09:13:30.082Z",
+                        "default": "2026-03-08T11:46:10.250Z",
                         "type": "string"
                       },
                       "events": {
@@ -3697,7 +3838,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.080Z",
+                          "default": "2026-03-08T11:46:10.238Z",
                           "type": "string"
                         },
                         "events": {
@@ -3729,6 +3870,14 @@
                               "Location": {
                                 "type": "string"
                               },
+                              "Type": {
+                                "type": "string",
+                                "enum": [
+                                  "Reservation",
+                                  "Event",
+                                  "Viability"
+                                ]
+                              },
                               "Period": {
                                 "anyOf": [
                                   {
@@ -3752,7 +3901,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-07T09:13:30.053Z",
+                                "default": "2026-03-08T11:46:10.210Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -3803,6 +3952,7 @@
                               "documentId",
                               "id",
                               "Name",
+                              "Type",
                               "StartDate",
                               "publishedAt"
                             ],
@@ -4008,7 +4158,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.086Z",
+                          "default": "2026-03-08T11:46:10.255Z",
                           "type": "string"
                         },
                         "events": {
@@ -4040,6 +4190,14 @@
                               "Location": {
                                 "type": "string"
                               },
+                              "Type": {
+                                "type": "string",
+                                "enum": [
+                                  "Reservation",
+                                  "Event",
+                                  "Viability"
+                                ]
+                              },
                               "Period": {
                                 "anyOf": [
                                   {
@@ -4063,7 +4221,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-07T09:13:30.053Z",
+                                "default": "2026-03-08T11:46:10.210Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -4114,6 +4272,7 @@
                               "documentId",
                               "id",
                               "Name",
+                              "Type",
                               "StartDate",
                               "publishedAt"
                             ],
@@ -4189,7 +4348,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-07T09:13:30.085Z",
+                        "default": "2026-03-08T11:46:10.254Z",
                         "type": "string"
                       },
                       "events": {
@@ -4399,7 +4558,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.088Z",
+                          "default": "2026-03-08T11:46:10.257Z",
                           "type": "string"
                         },
                         "events": {
@@ -4431,6 +4590,14 @@
                               "Location": {
                                 "type": "string"
                               },
+                              "Type": {
+                                "type": "string",
+                                "enum": [
+                                  "Reservation",
+                                  "Event",
+                                  "Viability"
+                                ]
+                              },
                               "Period": {
                                 "anyOf": [
                                   {
@@ -4454,7 +4621,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-07T09:13:30.053Z",
+                                "default": "2026-03-08T11:46:10.210Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -4505,6 +4672,7 @@
                               "documentId",
                               "id",
                               "Name",
+                              "Type",
                               "StartDate",
                               "publishedAt"
                             ],
@@ -4704,7 +4872,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.092Z",
+                          "default": "2026-03-08T11:46:10.260Z",
                           "type": "string"
                         }
                       },
@@ -4876,7 +5044,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.094Z",
+                          "default": "2026-03-08T11:46:10.262Z",
                           "type": "string"
                         }
                       },
@@ -4935,7 +5103,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-07T09:13:30.093Z",
+                        "default": "2026-03-08T11:46:10.261Z",
                         "type": "string"
                       }
                     },
@@ -5083,7 +5251,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.095Z",
+                          "default": "2026-03-08T11:46:10.263Z",
                           "type": "string"
                         }
                       },
@@ -5427,7 +5595,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-07T09:13:30.098Z",
+                            "default": "2026-03-08T11:46:10.266Z",
                             "type": "string"
                           }
                         },
@@ -5596,7 +5764,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.102Z",
+                          "default": "2026-03-08T11:46:10.271Z",
                           "type": "string"
                         }
                       },
@@ -5652,7 +5820,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-07T09:13:30.413Z",
+                        "default": "2026-03-08T11:46:10.574Z",
                         "type": "string"
                       }
                     },
@@ -5910,7 +6078,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.100Z",
+                          "default": "2026-03-08T11:46:10.269Z",
                           "type": "string"
                         }
                       },
@@ -6089,7 +6257,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.104Z",
+                          "default": "2026-03-08T11:46:10.273Z",
                           "type": "string"
                         }
                       },
@@ -6145,7 +6313,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-07T09:13:30.104Z",
+                        "default": "2026-03-08T11:46:10.272Z",
                         "type": "string"
                       }
                     },
@@ -6321,7 +6489,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-07T09:13:30.106Z",
+                          "default": "2026-03-08T11:46:10.274Z",
                           "type": "string"
                         }
                       },

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-03-07T14:26:40.655Z"
+    "x-generation-date": "2026-03-08T11:46:14.297Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -3340,6 +3340,7 @@
           "data": {
             "required": [
               "Name",
+              "Type",
               "StartDate"
             ],
             "type": "object",
@@ -3354,6 +3355,14 @@
               },
               "Location": {
                 "type": "string"
+              },
+              "Type": {
+                "type": "string",
+                "enum": [
+                  "Reservation",
+                  "Event",
+                  "Viability"
+                ]
               },
               "contacts": {
                 "type": "array",
@@ -3446,6 +3455,7 @@
         "type": "object",
         "required": [
           "Name",
+          "Type",
           "StartDate"
         ],
         "properties": {
@@ -3472,6 +3482,14 @@
           },
           "Location": {
             "type": "string"
+          },
+          "Type": {
+            "type": "string",
+            "enum": [
+              "Reservation",
+              "Event",
+              "Viability"
+            ]
           },
           "contacts": {
             "type": "array",
@@ -3542,6 +3560,14 @@
                       },
                       "Location": {
                         "type": "string"
+                      },
+                      "Type": {
+                        "type": "string",
+                        "enum": [
+                          "Reservation",
+                          "Event",
+                          "Viability"
+                        ]
                       },
                       "contacts": {
                         "type": "array",
@@ -4372,6 +4398,14 @@
                 },
                 "Location": {
                   "type": "string"
+                },
+                "Type": {
+                  "type": "string",
+                  "enum": [
+                    "Reservation",
+                    "Event",
+                    "Viability"
+                  ]
                 },
                 "contacts": {
                   "type": "array",

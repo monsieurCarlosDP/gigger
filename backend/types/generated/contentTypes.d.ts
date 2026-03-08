@@ -456,6 +456,8 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     Period: Schema.Attribute.Boolean;
     publishedAt: Schema.Attribute.DateTime;
     StartDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    Type: Schema.Attribute.Enumeration<['Reservation', 'Event', 'Viability']> &
+      Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
