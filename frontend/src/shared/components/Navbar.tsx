@@ -1,4 +1,3 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -6,8 +5,8 @@ import EventIcon from '@mui/icons-material/Event';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import PeopleIcon from '@mui/icons-material/People';
+import { UserAvatar } from '@/shared/components/UserAvatar';
 import {
-  Avatar,
   Box,
   Divider,
   IconButton,
@@ -24,6 +23,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/shared/context/AuthContext';
 
 const EXPANDED_WIDTH = 240;
 const COLLAPSED_WIDTH = 64;
@@ -52,6 +52,7 @@ interface NavbarProps {
 function NavContent({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -63,18 +64,20 @@ function NavContent({ collapsed, onToggle }: { collapsed: boolean; onToggle: () 
           gap: 1.5,
           p: 1.5,
           justifyContent: collapsed ? 'center' : 'initial',
+          cursor: 'pointer',
+          '&:hover': { bgcolor: 'action.hover' },
+          borderRadius: 1,
         }}
+        onClick={() => navigate('/profile')}
       >
-        <Avatar sx={{ width: 32, height: 32 }}>
-          <AccountCircleIcon />
-        </Avatar>
+        <UserAvatar avatar={user?.avatar} size={32} />
         {!collapsed && (
           <Box sx={{ overflow: 'hidden' }}>
             <Typography variant="body2" fontWeight={500} noWrap>
-              Usuario
+              {user?.displayName ?? user?.username ?? 'Usuario'}
             </Typography>
             <Typography variant="caption" color="text.secondary" noWrap>
-              usuario@email.com
+              {user?.email ?? ''}
             </Typography>
           </Box>
         )}
@@ -144,7 +147,7 @@ function NavContent({ collapsed, onToggle }: { collapsed: boolean; onToggle: () 
               </IconButton>
             </Tooltip>
             <Tooltip title="Cerrar sesión" placement="right">
-              <IconButton size="small" sx={{minHeight: 48, ml: 0.5, justifyContent: 'flex-start'}}>
+              <IconButton size="small" onClick={logout} sx={{minHeight: 48, ml: 0.5, justifyContent: 'flex-start'}}>
                 <LogoutIcon />
               </IconButton>
             </Tooltip>
@@ -166,7 +169,7 @@ function NavContent({ collapsed, onToggle }: { collapsed: boolean; onToggle: () 
             </ListItemButton>
             <ListItemButton
               sx={{ borderRadius: 1, minHeight: 48 }}
-              onClick={() => {/* TODO: logout */}}
+              onClick={logout}
             >
               <ListItemIcon sx={{ minWidth: 0, mr: 2, justifyContent: 'initial' }}>
                 <LogoutIcon />

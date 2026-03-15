@@ -1,0 +1,118 @@
+{
+  "collectionName": "components_user_avatars",
+  "info": {
+    "displayName": "Avatar",
+    "icon": "emotionHappy"
+  },
+  "options": {},
+  "attributes": {
+    "top": {
+      "type": "enumeration",
+      "enum": [
+        "hat", "hijab", "turban", "winterHat1", "winterHat02", "winterHat03", "winterHat04",
+        "bob", "bun", "curly", "curvy", "dreads", "frida", "fro", "froBand",
+        "longButNotTooLong", "miaWallace", "shavedSides", "straight02", "straight01",
+        "straightAndStrand", "dreads01", "dreads02", "frizzle", "shaggy", "shaggyMullet",
+        "shortCurly", "shortFlat", "shortRound", "shortWaved", "sides",
+        "theCaesar", "theCaesarAndSidePart", "bigHair"
+      ],
+      "required": true,
+      "default": "shortFlat"
+    },
+    "accessories": {
+      "type": "enumeration",
+      "enum": [
+        "kurt", "prescription01", "prescription02", "round", "sunglasses", "wayfarers", "eyepatch"
+      ],
+      "required": false
+    },
+    "accessoriesProbability": {
+      "type": "integer",
+      "default": 10,
+      "min": 0,
+      "max": 100
+    },
+    "facialHair": {
+      "type": "enumeration",
+      "enum": [
+        "beardLight", "beardMajestic", "beardMedium", "moustacheFancy", "moustacheMagnum"
+      ],
+      "required": false
+    },
+    "facialHairProbability": {
+      "type": "integer",
+      "default": 10,
+      "min": 0,
+      "max": 100
+    },
+    "clothing": {
+      "type": "enumeration",
+      "enum": [
+        "blazerAndShirt", "blazerAndSweater", "collarAndSweater", "graphicShirt",
+        "hoodie", "overall", "shirtCrewNeck", "shirtScoopNeck", "shirtVNeck"
+      ],
+      "required": true,
+      "default": "blazerAndShirt"
+    },
+    "clothingGraphic": {
+      "type": "enumeration",
+      "enum": [
+        "bat", "bear", "cumbia", "deer", "diamond", "hola", "pizza", "resist", "skull", "skullOutline"
+      ],
+      "required": false
+    },
+    "eyes": {
+      "type": "enumeration",
+      "enum": [
+        "closed", "cry", "default", "eyeRoll", "happy", "hearts", "side",
+        "squint", "surprised", "winkWacky", "wink", "xDizzy"
+      ],
+      "required": true,
+      "default": "default"
+    },
+    "eyebrows": {
+      "type": "enumeration",
+      "enum": [
+        "angryNatural", "defaultNatural", "flatNatural", "frownNatural",
+        "raisedExcitedNatural", "sadConcernedNatural", "unibrowNatural",
+        "upDownNatural", "angry", "default", "raisedExcited", "sadConcerned", "upDown"
+      ],
+      "required": true,
+      "default": "default"
+    },
+    "mouth": {
+      "type": "enumeration",
+      "enum": [
+        "concerned", "default", "disbelief", "eating", "grimace", "sad",
+        "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"
+      ],
+      "required": true,
+      "default": "smile"
+    },
+    "skinColor": {
+      "type": "string",
+      "required": true,
+      "default": "edb98a"
+    },
+    "hairColor": {
+      "type": "string",
+      "required": true,
+      "default": "4a312c"
+    },
+    "clothesColor": {
+      "type": "string",
+      "required": true,
+      "default": "929598"
+    },
+    "facialHairColor": {
+      "type": "string",
+      "required": true,
+      "default": "4a312c"
+    },
+    "hatColor": {
+      "type": "string",
+      "required": true,
+      "default": "929598"
+    }
+  }
+}

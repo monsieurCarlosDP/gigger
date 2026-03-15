@@ -27,6 +27,53 @@ const fetchClient = createClient<paths>({
   },
 });
 
+/** Auth types */
+export interface AvatarConfig {
+  top: string;
+  accessories?: string;
+  accessoriesProbability?: number;
+  facialHair?: string;
+  facialHairProbability?: number;
+  clothing: string;
+  clothingGraphic?: string;
+  eyes: string;
+  eyebrows: string;
+  mouth: string;
+  skinColor: string;
+  hairColor: string;
+  clothesColor: string;
+  facialHairColor: string;
+  hatColor: string;
+}
+
+export interface AuthUser {
+  id: number;
+  username: string;
+  email: string;
+  displayName?: string;
+  avatar?: AvatarConfig | null;
+}
+
+interface LoginResponse {
+  jwt: string;
+  user: AuthUser;
+}
+
+/** Helper for custom (non-openapi) endpoints with auth + error handling */
+async function authFetch<T>(path: string, options?: RequestInit): Promise<T> {
+  const token = getToken();
+  const headers = new Headers(options?.headers);
+  headers.set('Content-Type', 'application/json');
+  if (token) headers.set('Authorization', `Bearer ${token}`);
+
+  const res = await fetch(`${baseUrl}${path}`, { ...options, headers });
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    throw new Error(body?.error?.message ?? `Error ${res.status}`);
+  }
+  return res.json() as Promise<T>;
+}
+
 export interface DiscordChannel {
   id: string;
   name: string;
@@ -116,55 +163,55 @@ export const api = {
     return fetchClient.DELETE('/events/{id}', { params: { path: { id } } });
   },
 
-  /** GET /discord/channels */
-  async getDiscordChannels() {
-    const token = getToken();
-    const headers: HeadersInit = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+  /** POST /auth/local */
+  login(identifier: string, password: string) {
+    return authFetch<LoginResponse>('/auth/local', {
+      method: 'POST',
+      body: JSON.stringify({ identifier, password }),
+    });
+  },
 
-    const res = await fetch(`${baseUrl}/discord/channels`, { headers });
-    if (!res.ok) {
-      const body = await res.json().catch(() => null);
-      throw new Error(body?.error?.message ?? `Error ${res.status} al obtener canales de Discord`);
-    }
-    return res.json() as Promise<{ data: DiscordChannel[] }>;
+  /** GET /users/me */
+  getMe() {
+    return authFetch<AuthUser>('/users/me?populate=avatar');
+  },
+
+  /** PUT /users/:id — update profile */
+  updateMe(id: number, data: { username?: string; displayName?: string; avatar?: AvatarConfig }) {
+    return authFetch<AuthUser>(`/users/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  },
+
+  /** POST /auth/change-password */
+  changePassword(currentPassword: string, password: string, passwordConfirmation: string) {
+    return authFetch<AuthUser>('/auth/change-password', {
+      method: 'POST',
+      body: JSON.stringify({ currentPassword, password, passwordConfirmation }),
+    });
+  },
+
+  /** GET /discord/channels */
+  getDiscordChannels() {
+    return authFetch<{ data: DiscordChannel[] }>('/discord/channels');
   },
 
   /** GET /discord/channels/:channelId/messages */
-  async getDiscordMessages(channelId: string, options?: { before?: string; limit?: number }) {
-    const token = getToken();
-    const headers: HeadersInit = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-
+  getDiscordMessages(channelId: string, options?: { before?: string; limit?: number }) {
     const params = new URLSearchParams();
     if (options?.limit) params.set('limit', String(options.limit));
     if (options?.before) params.set('before', options.before);
-    const qs = params.toString();
-
-    const res = await fetch(`${baseUrl}/discord/channels/${channelId}/messages${qs ? `?${qs}` : ''}`, { headers });
-    if (!res.ok) {
-      const body = await res.json().catch(() => null);
-      throw new Error(body?.error?.message ?? `Error ${res.status} al obtener mensajes`);
-    }
-    return res.json() as Promise<{ data: DiscordMessage[] }>;
+    const query = params.toString();
+    return authFetch<{ data: DiscordMessage[] }>(`/discord/channels/${channelId}/messages${query ? `?${query}` : ''}`);
   },
 
   /** POST /discord/channels/:channelId/messages */
-  async sendDiscordMessage(channelId: string, content: string) {
-    const token = getToken();
-    const headers: HeadersInit = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-
-    const res = await fetch(`${baseUrl}/discord/channels/${channelId}/messages`, {
+  sendDiscordMessage(channelId: string, content: string) {
+    return authFetch<{ data: DiscordMessage }>(`/discord/channels/${channelId}/messages`, {
       method: 'POST',
-      headers,
       body: JSON.stringify({ content }),
     });
-    if (!res.ok) {
-      const body = await res.json().catch(() => null);
-      throw new Error(body?.error?.message ?? `Error ${res.status} al enviar mensaje`);
-    }
-    return res.json() as Promise<{ data: DiscordMessage }>;
   },
 };
 

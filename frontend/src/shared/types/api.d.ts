@@ -786,7 +786,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.321Z */
+                            /** @default 2026-03-15T22:18:39.999Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -801,7 +801,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.324Z */
+                                /** @default 2026-03-15T22:18:40.002Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -820,7 +820,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.327Z */
+                                    /** @default 2026-03-15T22:18:40.004Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -848,9 +848,10 @@ export interface operations {
                                             confirmed: boolean | null;
                                             /** @default false */
                                             blocked: boolean | null;
+                                            displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            /** @default 2026-03-15T22:18:40.008Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -861,7 +862,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                /** @default 2026-03-15T22:18:40.009Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -870,11 +871,68 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    /** @default 2026-03-15T22:18:40.010Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
                                                 users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default ShortHairShortFlat
+                                                 * @enum {string}
+                                                 */
+                                                topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default BlazerShirt
+                                                 * @enum {string}
+                                                 */
+                                                clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                                /**
+                                                 * @default Gray01
+                                                 * @enum {string}
+                                                 */
+                                                clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                                /**
+                                                 * @default Smile
+                                                 * @enum {string}
+                                                 */
+                                                mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                                /**
+                                                 * @default Light
+                                                 * @enum {string}
+                                                 */
+                                                skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                             };
                                         };
                                     }[];
@@ -905,9 +963,10 @@ export interface operations {
                                     confirmed: boolean | null;
                                     /** @default false */
                                     blocked: boolean | null;
+                                    displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    /** @default 2026-03-15T22:18:40.008Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -918,7 +977,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        /** @default 2026-03-15T22:18:40.009Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -927,11 +986,68 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            /** @default 2026-03-15T22:18:40.010Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
                                         users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default ShortHairShortFlat
+                                         * @enum {string}
+                                         */
+                                        topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default BlazerShirt
+                                         * @enum {string}
+                                         */
+                                        clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                        /**
+                                         * @default Gray01
+                                         * @enum {string}
+                                         */
+                                        clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                        /**
+                                         * @default Smile
+                                         * @enum {string}
+                                         */
+                                        mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                        /**
+                                         * @default Light
+                                         * @enum {string}
+                                         */
+                                        skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                     };
                                 };
                             }[];
@@ -1003,7 +1119,7 @@ export interface operations {
                         Cancelled?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
                         CancelledDate?: string;
                         DiscordChannelId?: string;
-                        /** @default 2026-03-15T16:04:36.354Z */
+                        /** @default 2026-03-15T22:18:40.033Z */
                         publishedAt: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -1037,7 +1153,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.356Z */
+                            /** @default 2026-03-15T22:18:40.035Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1052,7 +1168,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.324Z */
+                                /** @default 2026-03-15T22:18:40.002Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1071,7 +1187,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.327Z */
+                                    /** @default 2026-03-15T22:18:40.004Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1099,9 +1215,10 @@ export interface operations {
                                             confirmed: boolean | null;
                                             /** @default false */
                                             blocked: boolean | null;
+                                            displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            /** @default 2026-03-15T22:18:40.008Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -1112,7 +1229,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                /** @default 2026-03-15T22:18:40.009Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -1121,11 +1238,68 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    /** @default 2026-03-15T22:18:40.010Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
                                                 users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default ShortHairShortFlat
+                                                 * @enum {string}
+                                                 */
+                                                topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default BlazerShirt
+                                                 * @enum {string}
+                                                 */
+                                                clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                                /**
+                                                 * @default Gray01
+                                                 * @enum {string}
+                                                 */
+                                                clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                                /**
+                                                 * @default Smile
+                                                 * @enum {string}
+                                                 */
+                                                mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                                /**
+                                                 * @default Light
+                                                 * @enum {string}
+                                                 */
+                                                skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                             };
                                         };
                                     }[];
@@ -1156,9 +1330,10 @@ export interface operations {
                                     confirmed: boolean | null;
                                     /** @default false */
                                     blocked: boolean | null;
+                                    displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    /** @default 2026-03-15T22:18:40.008Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -1169,7 +1344,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        /** @default 2026-03-15T22:18:40.009Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -1178,11 +1353,68 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            /** @default 2026-03-15T22:18:40.010Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
                                         users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default ShortHairShortFlat
+                                         * @enum {string}
+                                         */
+                                        topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default BlazerShirt
+                                         * @enum {string}
+                                         */
+                                        clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                        /**
+                                         * @default Gray01
+                                         * @enum {string}
+                                         */
+                                        clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                        /**
+                                         * @default Smile
+                                         * @enum {string}
+                                         */
+                                        mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                        /**
+                                         * @default Light
+                                         * @enum {string}
+                                         */
+                                        skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                     };
                                 };
                             }[];
@@ -1275,7 +1507,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.339Z */
+                            /** @default 2026-03-15T22:18:40.019Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1290,7 +1522,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.324Z */
+                                /** @default 2026-03-15T22:18:40.002Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1309,7 +1541,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.327Z */
+                                    /** @default 2026-03-15T22:18:40.004Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1337,9 +1569,10 @@ export interface operations {
                                             confirmed: boolean | null;
                                             /** @default false */
                                             blocked: boolean | null;
+                                            displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            /** @default 2026-03-15T22:18:40.008Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -1350,7 +1583,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                /** @default 2026-03-15T22:18:40.009Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -1359,11 +1592,68 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    /** @default 2026-03-15T22:18:40.010Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
                                                 users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default ShortHairShortFlat
+                                                 * @enum {string}
+                                                 */
+                                                topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default BlazerShirt
+                                                 * @enum {string}
+                                                 */
+                                                clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                                /**
+                                                 * @default Gray01
+                                                 * @enum {string}
+                                                 */
+                                                clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                                /**
+                                                 * @default Smile
+                                                 * @enum {string}
+                                                 */
+                                                mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                                /**
+                                                 * @default Light
+                                                 * @enum {string}
+                                                 */
+                                                skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                             };
                                         };
                                     }[];
@@ -1394,9 +1684,10 @@ export interface operations {
                                     confirmed: boolean | null;
                                     /** @default false */
                                     blocked: boolean | null;
+                                    displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    /** @default 2026-03-15T22:18:40.008Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -1407,7 +1698,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        /** @default 2026-03-15T22:18:40.009Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -1416,11 +1707,68 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            /** @default 2026-03-15T22:18:40.010Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
                                         users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default ShortHairShortFlat
+                                         * @enum {string}
+                                         */
+                                        topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default BlazerShirt
+                                         * @enum {string}
+                                         */
+                                        clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                        /**
+                                         * @default Gray01
+                                         * @enum {string}
+                                         */
+                                        clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                        /**
+                                         * @default Smile
+                                         * @enum {string}
+                                         */
+                                        mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                        /**
+                                         * @default Light
+                                         * @enum {string}
+                                         */
+                                        skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                     };
                                 };
                             }[];
@@ -1494,7 +1842,7 @@ export interface operations {
                         Cancelled?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
                         CancelledDate?: string;
                         DiscordChannelId?: string;
-                        /** @default 2026-03-15T16:04:36.359Z */
+                        /** @default 2026-03-15T22:18:40.038Z */
                         publishedAt?: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -1528,7 +1876,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.361Z */
+                            /** @default 2026-03-15T22:18:40.040Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1543,7 +1891,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.324Z */
+                                /** @default 2026-03-15T22:18:40.002Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1562,7 +1910,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.327Z */
+                                    /** @default 2026-03-15T22:18:40.004Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1590,9 +1938,10 @@ export interface operations {
                                             confirmed: boolean | null;
                                             /** @default false */
                                             blocked: boolean | null;
+                                            displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            /** @default 2026-03-15T22:18:40.008Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -1603,7 +1952,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                /** @default 2026-03-15T22:18:40.009Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -1612,11 +1961,68 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    /** @default 2026-03-15T22:18:40.010Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
                                                 users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default ShortHairShortFlat
+                                                 * @enum {string}
+                                                 */
+                                                topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default BlazerShirt
+                                                 * @enum {string}
+                                                 */
+                                                clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                                /**
+                                                 * @default Gray01
+                                                 * @enum {string}
+                                                 */
+                                                clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                                /**
+                                                 * @default Smile
+                                                 * @enum {string}
+                                                 */
+                                                mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                                /**
+                                                 * @default Light
+                                                 * @enum {string}
+                                                 */
+                                                skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                             };
                                         };
                                     }[];
@@ -1647,9 +2053,10 @@ export interface operations {
                                     confirmed: boolean | null;
                                     /** @default false */
                                     blocked: boolean | null;
+                                    displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    /** @default 2026-03-15T22:18:40.008Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -1660,7 +2067,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        /** @default 2026-03-15T22:18:40.009Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -1669,11 +2076,68 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            /** @default 2026-03-15T22:18:40.010Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
                                         users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default ShortHairShortFlat
+                                         * @enum {string}
+                                         */
+                                        topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default BlazerShirt
+                                         * @enum {string}
+                                         */
+                                        clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                        /**
+                                         * @default Gray01
+                                         * @enum {string}
+                                         */
+                                        clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                        /**
+                                         * @default Smile
+                                         * @enum {string}
+                                         */
+                                        mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                        /**
+                                         * @default Light
+                                         * @enum {string}
+                                         */
+                                        skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                     };
                                 };
                             }[];
@@ -1761,7 +2225,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.364Z */
+                            /** @default 2026-03-15T22:18:40.044Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1776,7 +2240,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.324Z */
+                                /** @default 2026-03-15T22:18:40.002Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1795,7 +2259,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.327Z */
+                                    /** @default 2026-03-15T22:18:40.004Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1823,9 +2287,10 @@ export interface operations {
                                             confirmed: boolean | null;
                                             /** @default false */
                                             blocked: boolean | null;
+                                            displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            /** @default 2026-03-15T22:18:40.008Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -1836,7 +2301,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                /** @default 2026-03-15T22:18:40.009Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -1845,11 +2310,68 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    /** @default 2026-03-15T22:18:40.010Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
                                                 users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default ShortHairShortFlat
+                                                 * @enum {string}
+                                                 */
+                                                topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default Blank
+                                                 * @enum {string}
+                                                 */
+                                                facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                                /**
+                                                 * @default BrownDark
+                                                 * @enum {string}
+                                                 */
+                                                facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                                /**
+                                                 * @default BlazerShirt
+                                                 * @enum {string}
+                                                 */
+                                                clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                                /**
+                                                 * @default Gray01
+                                                 * @enum {string}
+                                                 */
+                                                clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                                /**
+                                                 * @default Default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                                /**
+                                                 * @default Smile
+                                                 * @enum {string}
+                                                 */
+                                                mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                                /**
+                                                 * @default Light
+                                                 * @enum {string}
+                                                 */
+                                                skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                             };
                                         };
                                     }[];
@@ -1880,9 +2402,10 @@ export interface operations {
                                     confirmed: boolean | null;
                                     /** @default false */
                                     blocked: boolean | null;
+                                    displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    /** @default 2026-03-15T22:18:40.008Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -1893,7 +2416,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        /** @default 2026-03-15T22:18:40.009Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -1902,11 +2425,68 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            /** @default 2026-03-15T22:18:40.010Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
                                         users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default ShortHairShortFlat
+                                         * @enum {string}
+                                         */
+                                        topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default Blank
+                                         * @enum {string}
+                                         */
+                                        facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                        /**
+                                         * @default BrownDark
+                                         * @enum {string}
+                                         */
+                                        facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                        /**
+                                         * @default BlazerShirt
+                                         * @enum {string}
+                                         */
+                                        clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                        /**
+                                         * @default Gray01
+                                         * @enum {string}
+                                         */
+                                        clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                        /**
+                                         * @default Default
+                                         * @enum {string}
+                                         */
+                                        eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                        /**
+                                         * @default Smile
+                                         * @enum {string}
+                                         */
+                                        mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                        /**
+                                         * @default Light
+                                         * @enum {string}
+                                         */
+                                        skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                     };
                                 };
                             }[];
@@ -2003,7 +2583,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.369Z */
+                            /** @default 2026-03-15T22:18:40.049Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -2022,7 +2602,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.327Z */
+                                /** @default 2026-03-15T22:18:40.004Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -2050,9 +2630,10 @@ export interface operations {
                                         confirmed: boolean | null;
                                         /** @default false */
                                         blocked: boolean | null;
+                                        displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        /** @default 2026-03-15T22:18:40.008Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -2063,7 +2644,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            /** @default 2026-03-15T22:18:40.009Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -2072,11 +2653,68 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                /** @default 2026-03-15T22:18:40.010Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
                                             users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default ShortHairShortFlat
+                                             * @enum {string}
+                                             */
+                                            topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default BlazerShirt
+                                             * @enum {string}
+                                             */
+                                            clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                            /**
+                                             * @default Gray01
+                                             * @enum {string}
+                                             */
+                                            clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                            /**
+                                             * @default Smile
+                                             * @enum {string}
+                                             */
+                                            mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                            /**
+                                             * @default Light
+                                             * @enum {string}
+                                             */
+                                            skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                         };
                                     };
                                 }[];
@@ -2145,7 +2783,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-15T16:04:36.375Z */
+                        /** @default 2026-03-15T22:18:40.054Z */
                         publishedAt: string;
                         events?: string[];
                     };
@@ -2173,7 +2811,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.376Z */
+                            /** @default 2026-03-15T22:18:40.055Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -2192,7 +2830,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.327Z */
+                                /** @default 2026-03-15T22:18:40.004Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -2220,9 +2858,10 @@ export interface operations {
                                         confirmed: boolean | null;
                                         /** @default false */
                                         blocked: boolean | null;
+                                        displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        /** @default 2026-03-15T22:18:40.008Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -2233,7 +2872,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            /** @default 2026-03-15T22:18:40.009Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -2242,11 +2881,68 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                /** @default 2026-03-15T22:18:40.010Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
                                             users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default ShortHairShortFlat
+                                             * @enum {string}
+                                             */
+                                            topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default BlazerShirt
+                                             * @enum {string}
+                                             */
+                                            clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                            /**
+                                             * @default Gray01
+                                             * @enum {string}
+                                             */
+                                            clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                            /**
+                                             * @default Smile
+                                             * @enum {string}
+                                             */
+                                            mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                            /**
+                                             * @default Light
+                                             * @enum {string}
+                                             */
+                                            skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                         };
                                     };
                                 }[];
@@ -2336,7 +3032,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.373Z */
+                            /** @default 2026-03-15T22:18:40.052Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -2355,7 +3051,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.327Z */
+                                /** @default 2026-03-15T22:18:40.004Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -2383,9 +3079,10 @@ export interface operations {
                                         confirmed: boolean | null;
                                         /** @default false */
                                         blocked: boolean | null;
+                                        displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        /** @default 2026-03-15T22:18:40.008Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -2396,7 +3093,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            /** @default 2026-03-15T22:18:40.009Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -2405,11 +3102,68 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                /** @default 2026-03-15T22:18:40.010Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
                                             users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default ShortHairShortFlat
+                                             * @enum {string}
+                                             */
+                                            topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default BlazerShirt
+                                             * @enum {string}
+                                             */
+                                            clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                            /**
+                                             * @default Gray01
+                                             * @enum {string}
+                                             */
+                                            clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                            /**
+                                             * @default Smile
+                                             * @enum {string}
+                                             */
+                                            mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                            /**
+                                             * @default Light
+                                             * @enum {string}
+                                             */
+                                            skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                         };
                                     };
                                 }[];
@@ -2480,7 +3234,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-15T16:04:36.378Z */
+                        /** @default 2026-03-15T22:18:40.057Z */
                         publishedAt?: string;
                         events?: string[];
                     };
@@ -2508,7 +3262,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.379Z */
+                            /** @default 2026-03-15T22:18:40.058Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -2527,7 +3281,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.327Z */
+                                /** @default 2026-03-15T22:18:40.004Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -2555,9 +3309,10 @@ export interface operations {
                                         confirmed: boolean | null;
                                         /** @default false */
                                         blocked: boolean | null;
+                                        displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        /** @default 2026-03-15T22:18:40.008Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -2568,7 +3323,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            /** @default 2026-03-15T22:18:40.009Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -2577,11 +3332,68 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                /** @default 2026-03-15T22:18:40.010Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
                                             users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default ShortHairShortFlat
+                                             * @enum {string}
+                                             */
+                                            topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default BlazerShirt
+                                             * @enum {string}
+                                             */
+                                            clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                            /**
+                                             * @default Gray01
+                                             * @enum {string}
+                                             */
+                                            clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                            /**
+                                             * @default Smile
+                                             * @enum {string}
+                                             */
+                                            mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                            /**
+                                             * @default Light
+                                             * @enum {string}
+                                             */
+                                            skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                         };
                                     };
                                 }[];
@@ -2666,7 +3478,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.382Z */
+                            /** @default 2026-03-15T22:18:40.060Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -2685,7 +3497,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-15T16:04:36.327Z */
+                                /** @default 2026-03-15T22:18:40.004Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -2713,9 +3525,10 @@ export interface operations {
                                         confirmed: boolean | null;
                                         /** @default false */
                                         blocked: boolean | null;
+                                        displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        /** @default 2026-03-15T22:18:40.008Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -2726,7 +3539,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            /** @default 2026-03-15T22:18:40.009Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -2735,11 +3548,68 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                /** @default 2026-03-15T22:18:40.010Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
                                             users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default ShortHairShortFlat
+                                             * @enum {string}
+                                             */
+                                            topType: "NoHair" | "Eyepatch" | "Hat" | "Hijab" | "Turban" | "WinterHat1" | "WinterHat2" | "WinterHat3" | "WinterHat4" | "LongHairBigHair" | "LongHairBob" | "LongHairBun" | "LongHairCurly" | "LongHairCurvy" | "LongHairDreads" | "LongHairFrida" | "LongHairFro" | "LongHairFroBand" | "LongHairMiaWallace" | "LongHairNotTooLong" | "LongHairShavedSides" | "LongHairStraight" | "LongHairStraight2" | "LongHairStraightStrand" | "ShortHairDreads01" | "ShortHairDreads02" | "ShortHairFrizzle" | "ShortHairShaggy" | "ShortHairShaggyMullet" | "ShortHairShortCurly" | "ShortHairShortFlat" | "ShortHairShortRound" | "ShortHairShortWaved" | "ShortHairSides" | "ShortHairTheCaesar" | "ShortHairTheCaesarSidePart";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            accessoriesType: "Blank" | "Kurt" | "Prescription01" | "Prescription02" | "Round" | "Sunglasses" | "Wayfarers";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            hairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default Blank
+                                             * @enum {string}
+                                             */
+                                            facialHairType: "Blank" | "BeardMedium" | "BeardLight" | "BeardMajestic" | "MoustacheFancy" | "MoustacheMagnum";
+                                            /**
+                                             * @default BrownDark
+                                             * @enum {string}
+                                             */
+                                            facialHairColor: "Auburn" | "Black" | "Blonde" | "BlondeGolden" | "Brown" | "BrownDark" | "PastelPink" | "Blue" | "Platinum" | "Red" | "SilverGray";
+                                            /**
+                                             * @default BlazerShirt
+                                             * @enum {string}
+                                             */
+                                            clotheType: "BlazerShirt" | "BlazerSweater" | "CollarSweater" | "GraphicShirt" | "Hoodie" | "Overall" | "ShirtCrewNeck" | "ShirtScoopNeck" | "ShirtVNeck";
+                                            /**
+                                             * @default Gray01
+                                             * @enum {string}
+                                             */
+                                            clotheColor: "Black" | "Blue01" | "Blue02" | "Blue03" | "Gray01" | "Gray02" | "Heather" | "PastelBlue" | "PastelGreen" | "PastelOrange" | "PastelRed" | "PastelYellow" | "Pink" | "Red" | "White";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyeType: "Close" | "Cry" | "Default" | "Dizzy" | "EyeRoll" | "Happy" | "Hearts" | "Side" | "Squint" | "Surprised" | "Wink" | "WinkWacky";
+                                            /**
+                                             * @default Default
+                                             * @enum {string}
+                                             */
+                                            eyebrowType: "Angry" | "AngryNatural" | "Default" | "DefaultNatural" | "FlatNatural" | "RaisedExcited" | "RaisedExcitedNatural" | "SadConcerned" | "SadConcernedNatural" | "UnibrowNatural" | "UpDown" | "UpDownNatural";
+                                            /**
+                                             * @default Smile
+                                             * @enum {string}
+                                             */
+                                            mouthType: "Concerned" | "Default" | "Disbelief" | "Eating" | "Grimace" | "Sad" | "ScreamOpen" | "Serious" | "Smile" | "Tongue" | "Twinkle" | "Vomit";
+                                            /**
+                                             * @default Light
+                                             * @enum {string}
+                                             */
+                                            skinColor: "Tanned" | "Yellow" | "Pale" | "Light" | "Brown" | "DarkBrown" | "Black";
                                         };
                                     };
                                 }[];
@@ -2818,7 +3688,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.385Z */
+                            /** @default 2026-03-15T22:18:40.063Z */
                             publishedAt: string;
                         };
                     };
@@ -2880,7 +3750,7 @@ export interface operations {
                         Base?: string;
                         DJ?: string;
                         Equipment?: string;
-                        /** @default 2026-03-15T16:04:36.386Z */
+                        /** @default 2026-03-15T22:18:40.064Z */
                         publishedAt?: string;
                     };
                 };
@@ -2903,7 +3773,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.387Z */
+                            /** @default 2026-03-15T22:18:40.065Z */
                             publishedAt: string;
                         };
                     };
@@ -2976,7 +3846,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.389Z */
+                            /** @default 2026-03-15T22:18:40.066Z */
                             publishedAt: string;
                         };
                     };
@@ -3066,7 +3936,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.392Z */
+                            /** @default 2026-03-15T22:18:40.070Z */
                             publishedAt: string;
                         }[];
                     };
@@ -3127,7 +3997,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-15T16:04:36.699Z */
+                        /** @default 2026-03-15T22:18:40.376Z */
                         publishedAt: string;
                     };
                 };
@@ -3149,7 +4019,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.396Z */
+                            /** @default 2026-03-15T22:18:40.074Z */
                             publishedAt: string;
                         };
                     };
@@ -3231,7 +4101,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.394Z */
+                            /** @default 2026-03-15T22:18:40.072Z */
                             publishedAt: string;
                         };
                     };
@@ -3294,7 +4164,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-15T16:04:36.397Z */
+                        /** @default 2026-03-15T22:18:40.075Z */
                         publishedAt?: string;
                     };
                 };
@@ -3316,7 +4186,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.398Z */
+                            /** @default 2026-03-15T22:18:40.075Z */
                             publishedAt: string;
                         };
                     };
@@ -3393,7 +4263,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-15T16:04:36.399Z */
+                            /** @default 2026-03-15T22:18:40.077Z */
                             publishedAt: string;
                         };
                     };
