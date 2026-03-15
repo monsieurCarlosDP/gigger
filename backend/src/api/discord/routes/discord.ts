@@ -5,7 +5,7 @@ export default {
       path: '/discord/channels',
       handler: 'discord.listChannels',
       config: {
-        policies: [],
+        policies: ['global::isAuthenticated'],
       },
     },
     {
@@ -13,7 +13,7 @@ export default {
       path: '/discord/channels/:channelId/messages',
       handler: 'discord.getMessages',
       config: {
-        policies: [],
+        policies: ['global::isAuthenticated'],
       },
     },
     {
@@ -21,7 +21,7 @@ export default {
       path: '/discord/channels/:channelId/messages',
       handler: 'discord.sendMessage',
       config: {
-        policies: [],
+        policies: ['global::isAuthenticated'],
       },
     },
   ],
