@@ -7,6 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useDrawerNav } from '../context/DrawerContext';
 import { Navbar } from '../components/Navbar';
 import { DayEventsDrawerView } from './DayEventsDrawerView';
+import { EventBudgetsDrawerView } from './EventBudgetsDrawerView';
 import { EventDetailDrawerView } from './EventDetailDrawerView';
 
 const RIGHT_DRAWER_WIDTH = { xs: '100%', sm: 480 };
@@ -30,6 +31,9 @@ export default function MainLayout() {
   } else if (drawerType === 'event') {
     const id = searchParams.get('id') ?? '';
     drawerContent = <EventDetailDrawerView id={id} />;
+  } else if (drawerType === 'budgets') {
+    const id = searchParams.get('id') ?? '';
+    drawerContent = <EventBudgetsDrawerView eventId={id} />;
   }
 
   return (

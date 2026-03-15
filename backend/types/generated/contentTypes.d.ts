@@ -448,12 +448,14 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    DiscordChannelId: Schema.Attribute.String;
     Distance: Schema.Attribute.BigInteger;
     EndDate: Schema.Attribute.Date;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
     Location: Schema.Attribute.String;
+    Logistic: Schema.Attribute.Component<'event.timeline-stop', true>;
     Name: Schema.Attribute.String & Schema.Attribute.Required;
     Period: Schema.Attribute.Boolean;
     publishedAt: Schema.Attribute.DateTime;

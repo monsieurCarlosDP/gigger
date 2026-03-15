@@ -27,6 +27,27 @@ const fetchClient = createClient<paths>({
   },
 });
 
+export interface DiscordChannel {
+  id: string;
+  name: string;
+  categoryId: string | null;
+  position: number;
+}
+
+export interface DiscordMessage {
+  id: string;
+  content: string;
+  author: {
+    id: string;
+    username: string;
+    avatar: string | null;
+    bot: boolean;
+  };
+  timestamp: string;
+  editedAt: string | null;
+  attachments: { id: string; filename: string; url: string }[];
+}
+
 /** Query params for list endpoints (pagination, filters, etc.) */
 export type ListQuery = paths['/events']['get']['parameters']['query'];
 export type EventByIdQuery = paths['/events/{id}']['get']['parameters']['query'];
@@ -93,6 +114,57 @@ export const api = {
   /** DELETE /events/{id} */
   deleteEvent(id: string) {
     return fetchClient.DELETE('/events/{id}', { params: { path: { id } } });
+  },
+
+  /** GET /discord/channels */
+  async getDiscordChannels() {
+    const token = getToken();
+    const headers: HeadersInit = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    const res = await fetch(`${baseUrl}/discord/channels`, { headers });
+    if (!res.ok) {
+      const body = await res.json().catch(() => null);
+      throw new Error(body?.error?.message ?? `Error ${res.status} al obtener canales de Discord`);
+    }
+    return res.json() as Promise<{ data: DiscordChannel[] }>;
+  },
+
+  /** GET /discord/channels/:channelId/messages */
+  async getDiscordMessages(channelId: string, options?: { before?: string; limit?: number }) {
+    const token = getToken();
+    const headers: HeadersInit = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    const params = new URLSearchParams();
+    if (options?.limit) params.set('limit', String(options.limit));
+    if (options?.before) params.set('before', options.before);
+    const qs = params.toString();
+
+    const res = await fetch(`${baseUrl}/discord/channels/${channelId}/messages${qs ? `?${qs}` : ''}`, { headers });
+    if (!res.ok) {
+      const body = await res.json().catch(() => null);
+      throw new Error(body?.error?.message ?? `Error ${res.status} al obtener mensajes`);
+    }
+    return res.json() as Promise<{ data: DiscordMessage[] }>;
+  },
+
+  /** POST /discord/channels/:channelId/messages */
+  async sendDiscordMessage(channelId: string, content: string) {
+    const token = getToken();
+    const headers: HeadersInit = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    const res = await fetch(`${baseUrl}/discord/channels/${channelId}/messages`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ content }),
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => null);
+      throw new Error(body?.error?.message ?? `Error ${res.status} al enviar mensaje`);
+    }
+    return res.json() as Promise<{ data: DiscordMessage }>;
   },
 };
 

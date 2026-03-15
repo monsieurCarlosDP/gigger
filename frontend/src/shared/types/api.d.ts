@@ -4,6 +4,38 @@
  */
 
 export interface paths {
+    "/discord/channels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["discord/get/discord_channels"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/discord/channels/{channelId}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["discord/get/discord_channels_by_channelId_messages"];
+        put?: never;
+        post: operations["discord/post/discord_channels_by_channelId_messages"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/events": {
         parameters: {
             query?: never;
@@ -560,10 +592,148 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    "discord/get/discord_channels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal server error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "discord/get/discord_channels_by_channelId_messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal server error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "discord/post/discord_channels_by_channelId_messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal server error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     "event/get/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
                 filters?: {
                     [key: string]: unknown;
                 };
@@ -577,12 +747,12 @@ export interface operations {
                     start: number;
                     limit: number;
                 });
-                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
                 }[];
-                populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic") | ("contacts" | "Budget" | "Logistic")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
             };
@@ -613,9 +783,10 @@ export interface operations {
                             EndDate?: string;
                             Cancelled?: boolean | null;
                             CancelledDate?: string;
+                            DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.312Z */
+                            /** @default 2026-03-15T16:04:36.321Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -630,7 +801,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.315Z */
+                                /** @default 2026-03-15T16:04:36.324Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -646,9 +817,10 @@ export interface operations {
                                     EndDate?: string;
                                     Cancelled?: boolean | null;
                                     CancelledDate?: string;
+                                    DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-14T22:21:30.317Z */
+                                    /** @default 2026-03-15T16:04:36.327Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -658,6 +830,54 @@ export interface operations {
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
                                     }[];
+                                    Logistic?: {
+                                        Time?: string;
+                                        Label?: string;
+                                        Description?: string;
+                                        /** @enum {string} */
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                        users_permissions_user?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                        };
+                                    }[];
                                 }[];
                             }[];
                             Budget?: {
@@ -666,6 +886,54 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                            }[];
+                            Logistic?: {
+                                Time?: string;
+                                Label?: string;
+                                Description?: string;
+                                /** @enum {string} */
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                users_permissions_user?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                };
                             }[];
                         }[];
                     };
@@ -711,8 +979,8 @@ export interface operations {
     "event/post/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
-                populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic") | ("contacts" | "Budget" | "Logistic")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
             };
@@ -734,10 +1002,12 @@ export interface operations {
                         EndDate?: string;
                         Cancelled?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
                         CancelledDate?: string;
-                        /** @default 2026-03-14T22:21:30.329Z */
+                        DiscordChannelId?: string;
+                        /** @default 2026-03-15T16:04:36.354Z */
                         publishedAt: string;
                         contacts?: string[];
                         Budget?: unknown[];
+                        Logistic?: unknown[];
                     };
                 };
             };
@@ -764,9 +1034,10 @@ export interface operations {
                             EndDate?: string;
                             Cancelled?: boolean | null;
                             CancelledDate?: string;
+                            DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.331Z */
+                            /** @default 2026-03-15T16:04:36.356Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -781,7 +1052,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.315Z */
+                                /** @default 2026-03-15T16:04:36.324Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -797,9 +1068,10 @@ export interface operations {
                                     EndDate?: string;
                                     Cancelled?: boolean | null;
                                     CancelledDate?: string;
+                                    DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-14T22:21:30.317Z */
+                                    /** @default 2026-03-15T16:04:36.327Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -809,6 +1081,54 @@ export interface operations {
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
                                     }[];
+                                    Logistic?: {
+                                        Time?: string;
+                                        Label?: string;
+                                        Description?: string;
+                                        /** @enum {string} */
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                        users_permissions_user?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                        };
+                                    }[];
                                 }[];
                             }[];
                             Budget?: {
@@ -817,6 +1137,54 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                            }[];
+                            Logistic?: {
+                                Time?: string;
+                                Label?: string;
+                                Description?: string;
+                                /** @enum {string} */
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                users_permissions_user?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                };
                             }[];
                         };
                     };
@@ -862,12 +1230,12 @@ export interface operations {
     "event/get/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
-                populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic") | ("contacts" | "Budget" | "Logistic")[];
                 filters?: {
                     [key: string]: unknown;
                 };
-                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
@@ -904,9 +1272,10 @@ export interface operations {
                             EndDate?: string;
                             Cancelled?: boolean | null;
                             CancelledDate?: string;
+                            DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.325Z */
+                            /** @default 2026-03-15T16:04:36.339Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -921,7 +1290,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.315Z */
+                                /** @default 2026-03-15T16:04:36.324Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -937,9 +1306,10 @@ export interface operations {
                                     EndDate?: string;
                                     Cancelled?: boolean | null;
                                     CancelledDate?: string;
+                                    DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-14T22:21:30.317Z */
+                                    /** @default 2026-03-15T16:04:36.327Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -949,6 +1319,54 @@ export interface operations {
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
                                     }[];
+                                    Logistic?: {
+                                        Time?: string;
+                                        Label?: string;
+                                        Description?: string;
+                                        /** @enum {string} */
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                        users_permissions_user?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                        };
+                                    }[];
                                 }[];
                             }[];
                             Budget?: {
@@ -957,6 +1375,54 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                            }[];
+                            Logistic?: {
+                                Time?: string;
+                                Label?: string;
+                                Description?: string;
+                                /** @enum {string} */
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                users_permissions_user?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                };
                             }[];
                         };
                     };
@@ -1002,8 +1468,8 @@ export interface operations {
     "event/put/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
-                populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic") | ("contacts" | "Budget" | "Logistic")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
             };
@@ -1027,10 +1493,12 @@ export interface operations {
                         EndDate?: string;
                         Cancelled?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
                         CancelledDate?: string;
-                        /** @default 2026-03-14T22:21:30.343Z */
+                        DiscordChannelId?: string;
+                        /** @default 2026-03-15T16:04:36.359Z */
                         publishedAt?: string;
                         contacts?: string[];
                         Budget?: unknown[];
+                        Logistic?: unknown[];
                     };
                 };
             };
@@ -1057,9 +1525,10 @@ export interface operations {
                             EndDate?: string;
                             Cancelled?: boolean | null;
                             CancelledDate?: string;
+                            DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.345Z */
+                            /** @default 2026-03-15T16:04:36.361Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1074,7 +1543,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.315Z */
+                                /** @default 2026-03-15T16:04:36.324Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1090,9 +1559,10 @@ export interface operations {
                                     EndDate?: string;
                                     Cancelled?: boolean | null;
                                     CancelledDate?: string;
+                                    DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-14T22:21:30.317Z */
+                                    /** @default 2026-03-15T16:04:36.327Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1102,6 +1572,54 @@ export interface operations {
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
                                     }[];
+                                    Logistic?: {
+                                        Time?: string;
+                                        Label?: string;
+                                        Description?: string;
+                                        /** @enum {string} */
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                        users_permissions_user?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                        };
+                                    }[];
                                 }[];
                             }[];
                             Budget?: {
@@ -1110,6 +1628,54 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                            }[];
+                            Logistic?: {
+                                Time?: string;
+                                Label?: string;
+                                Description?: string;
+                                /** @enum {string} */
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                users_permissions_user?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                };
                             }[];
                         };
                     };
@@ -1155,8 +1721,8 @@ export interface operations {
     "event/delete/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
-                populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic") | ("contacts" | "Budget" | "Logistic")[];
                 filters?: {
                     [key: string]: unknown;
                 };
@@ -1192,9 +1758,10 @@ export interface operations {
                             EndDate?: string;
                             Cancelled?: boolean | null;
                             CancelledDate?: string;
+                            DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.348Z */
+                            /** @default 2026-03-15T16:04:36.364Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1209,7 +1776,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.315Z */
+                                /** @default 2026-03-15T16:04:36.324Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1225,9 +1792,10 @@ export interface operations {
                                     EndDate?: string;
                                     Cancelled?: boolean | null;
                                     CancelledDate?: string;
+                                    DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-14T22:21:30.317Z */
+                                    /** @default 2026-03-15T16:04:36.327Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1237,6 +1805,54 @@ export interface operations {
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
                                     }[];
+                                    Logistic?: {
+                                        Time?: string;
+                                        Label?: string;
+                                        Description?: string;
+                                        /** @enum {string} */
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                        users_permissions_user?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.330Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.331Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-15T16:04:36.332Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                        };
+                                    }[];
                                 }[];
                             }[];
                             Budget?: {
@@ -1245,6 +1861,54 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                            }[];
+                            Logistic?: {
+                                Time?: string;
+                                Label?: string;
+                                Description?: string;
+                                /** @enum {string} */
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                users_permissions_user?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-15T16:04:36.330Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.331Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.332Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                };
                             }[];
                         };
                     };
@@ -1339,7 +2003,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.353Z */
+                            /** @default 2026-03-15T16:04:36.369Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1355,9 +2019,10 @@ export interface operations {
                                 EndDate?: string;
                                 Cancelled?: boolean | null;
                                 CancelledDate?: string;
+                                DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.317Z */
+                                /** @default 2026-03-15T16:04:36.327Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1366,6 +2031,54 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                }[];
+                                Logistic?: {
+                                    Time?: string;
+                                    Label?: string;
+                                    Description?: string;
+                                    /** @enum {string} */
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                    users_permissions_user?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                    };
                                 }[];
                             }[];
                         }[];
@@ -1432,7 +2145,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-14T22:21:30.358Z */
+                        /** @default 2026-03-15T16:04:36.375Z */
                         publishedAt: string;
                         events?: string[];
                     };
@@ -1460,7 +2173,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.359Z */
+                            /** @default 2026-03-15T16:04:36.376Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1476,9 +2189,10 @@ export interface operations {
                                 EndDate?: string;
                                 Cancelled?: boolean | null;
                                 CancelledDate?: string;
+                                DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.317Z */
+                                /** @default 2026-03-15T16:04:36.327Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1487,6 +2201,54 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                }[];
+                                Logistic?: {
+                                    Time?: string;
+                                    Label?: string;
+                                    Description?: string;
+                                    /** @enum {string} */
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                    users_permissions_user?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                    };
                                 }[];
                             }[];
                         };
@@ -1574,7 +2336,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.356Z */
+                            /** @default 2026-03-15T16:04:36.373Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1590,9 +2352,10 @@ export interface operations {
                                 EndDate?: string;
                                 Cancelled?: boolean | null;
                                 CancelledDate?: string;
+                                DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.317Z */
+                                /** @default 2026-03-15T16:04:36.327Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1601,6 +2364,54 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                }[];
+                                Logistic?: {
+                                    Time?: string;
+                                    Label?: string;
+                                    Description?: string;
+                                    /** @enum {string} */
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                    users_permissions_user?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                    };
                                 }[];
                             }[];
                         };
@@ -1669,7 +2480,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-14T22:21:30.361Z */
+                        /** @default 2026-03-15T16:04:36.378Z */
                         publishedAt?: string;
                         events?: string[];
                     };
@@ -1697,7 +2508,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.362Z */
+                            /** @default 2026-03-15T16:04:36.379Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1713,9 +2524,10 @@ export interface operations {
                                 EndDate?: string;
                                 Cancelled?: boolean | null;
                                 CancelledDate?: string;
+                                DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.317Z */
+                                /** @default 2026-03-15T16:04:36.327Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1724,6 +2536,54 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                }[];
+                                Logistic?: {
+                                    Time?: string;
+                                    Label?: string;
+                                    Description?: string;
+                                    /** @enum {string} */
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                    users_permissions_user?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                    };
                                 }[];
                             }[];
                         };
@@ -1806,7 +2666,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.364Z */
+                            /** @default 2026-03-15T16:04:36.382Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1822,9 +2682,10 @@ export interface operations {
                                 EndDate?: string;
                                 Cancelled?: boolean | null;
                                 CancelledDate?: string;
+                                DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-14T22:21:30.317Z */
+                                /** @default 2026-03-15T16:04:36.327Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1833,6 +2694,54 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                }[];
+                                Logistic?: {
+                                    Time?: string;
+                                    Label?: string;
+                                    Description?: string;
+                                    /** @enum {string} */
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
+                                    users_permissions_user?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-15T16:04:36.330Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-15T16:04:36.331Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-15T16:04:36.332Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                    };
                                 }[];
                             }[];
                         };
@@ -1909,7 +2818,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.367Z */
+                            /** @default 2026-03-15T16:04:36.385Z */
                             publishedAt: string;
                         };
                     };
@@ -1971,7 +2880,7 @@ export interface operations {
                         Base?: string;
                         DJ?: string;
                         Equipment?: string;
-                        /** @default 2026-03-14T22:21:30.369Z */
+                        /** @default 2026-03-15T16:04:36.386Z */
                         publishedAt?: string;
                     };
                 };
@@ -1994,7 +2903,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.369Z */
+                            /** @default 2026-03-15T16:04:36.387Z */
                             publishedAt: string;
                         };
                     };
@@ -2067,7 +2976,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.371Z */
+                            /** @default 2026-03-15T16:04:36.389Z */
                             publishedAt: string;
                         };
                     };
@@ -2157,7 +3066,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.374Z */
+                            /** @default 2026-03-15T16:04:36.392Z */
                             publishedAt: string;
                         }[];
                     };
@@ -2218,7 +3127,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-14T22:21:30.674Z */
+                        /** @default 2026-03-15T16:04:36.699Z */
                         publishedAt: string;
                     };
                 };
@@ -2240,7 +3149,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.378Z */
+                            /** @default 2026-03-15T16:04:36.396Z */
                             publishedAt: string;
                         };
                     };
@@ -2322,7 +3231,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.376Z */
+                            /** @default 2026-03-15T16:04:36.394Z */
                             publishedAt: string;
                         };
                     };
@@ -2385,7 +3294,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-14T22:21:30.379Z */
+                        /** @default 2026-03-15T16:04:36.397Z */
                         publishedAt?: string;
                     };
                 };
@@ -2407,7 +3316,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.380Z */
+                            /** @default 2026-03-15T16:04:36.398Z */
                             publishedAt: string;
                         };
                     };
@@ -2484,7 +3393,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-14T22:21:30.381Z */
+                            /** @default 2026-03-15T16:04:36.399Z */
                             publishedAt: string;
                         };
                     };

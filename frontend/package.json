@@ -34,6 +34,7 @@
     "@storybook/addon-onboarding": "^10.2.14",
     "@storybook/addon-vitest": "^10.2.14",
     "@storybook/react-vite": "^10.2.14",
+    "@tanstack/react-query-devtools": "^5.91.3",
     "@types/node": "^24.10.1",
     "@types/qs": "^6.15.0",
     "@types/react": "^19.2.7",

@@ -1,5 +1,6 @@
 import type { CreateEventBody, EventByIdQuery, ListQuery, UpdateEventBody } from '@/shared/api/client';
 import { api } from '@/shared/api/client';
+import { useSnackbar } from '@/shared/context/SnackbarContext';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
@@ -73,6 +74,49 @@ export function useDeleteEvent() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: eventsKey });
+    },
+  });
+}
+
+type BudgetInput = {
+  Base?: number;
+  Equipment?: boolean | null;
+  Dietas?: number;
+  DJ?: boolean | null;
+  Accepted?: boolean | null;
+};
+
+export function useAcceptBudget() {
+  const queryClient = useQueryClient();
+  const { showSuccess, showError } = useSnackbar();
+
+  return useMutation({
+    mutationFn: async ({
+      eventId,
+      budgetIndex,
+      budgets,
+    }: {
+      eventId: string;
+      budgetIndex: number;
+      budgets: BudgetInput[];
+    }) => {
+      const updated = budgets.map(({ Base, Equipment, Dietas, DJ }, i) => ({
+        Base,
+        Equipment,
+        Dietas,
+        DJ,
+        Accepted: i === budgetIndex,
+      }));
+      const { data, error } = await api.updateEvent(eventId, { data: { Budget: updated } });
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: (_, { eventId }) => {
+      queryClient.invalidateQueries({ queryKey: eventByIdKey(eventId) });
+      showSuccess('Presupuesto aceptado');
+    },
+    onError: () => {
+      showError('Error al aceptar el presupuesto');
     },
   });
 }

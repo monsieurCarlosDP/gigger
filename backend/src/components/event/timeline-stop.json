@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_event_timeline_stops",
+  "info": {
+    "displayName": "TimelineStop",
+    "icon": "pinMap"
+  },
+  "options": {},
+  "attributes": {
+    "Time": {
+      "type": "datetime"
+    },
+    "Label": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "Type": {
+      "type": "enumeration",
+      "enum": [
+        "load",
+        "unload",
+        "pickup",
+        "setup",
+        "event_start",
+        "event_end",
+        "arrival",
+        "teardown",
+        "meal"
+      ]
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "Type"
+            },
+            "pickup"
+          ]
+        }
+      }
+    }
+  },
+  "config": {}
+}

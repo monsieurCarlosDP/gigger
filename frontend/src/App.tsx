@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { SnackbarProvider } from '@/shared/context/SnackbarContext';
 
 const MainLayout = lazy(() => import('@/shared/layouts/MainLayout'));
 const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'));
@@ -8,14 +9,16 @@ const EventDetailPage = lazy(() => import('@/features/events/pages/EventDetailPa
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="events" element={<EventsPage />} />
-          <Route path="events/:documentId" element={<EventDetailPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <SnackbarProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="events" element={<EventsPage />} />
+            <Route path="events/:documentId" element={<EventDetailPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </SnackbarProvider>
   );
 }

@@ -66,6 +66,14 @@
     },
     "CancelledDate": {
       "type": "date"
+    },
+    "DiscordChannelId": {
+      "type": "string"
+    },
+    "Logistic": {
+      "type": "component",
+      "component": "event.timeline-stop",
+      "repeatable": true
     }
   }
 }
