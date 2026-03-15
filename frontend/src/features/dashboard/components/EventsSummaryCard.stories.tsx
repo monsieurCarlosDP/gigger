@@ -63,3 +63,35 @@ export const LongDescription: Story = {
     onEventClick: (id) => console.log('Seminario clickeado:', id),
   },
 };
+
+export const Cancelled: Story = {
+  args: {
+    event: {
+      id: '5',
+      Name: 'Boda García-López',
+      Description: 'Ceremonia y banquete cancelados por el cliente',
+      StartDate: dayjs().add(20, 'day').toISOString(),
+      Type: 'Event',
+      Cancelled: true,
+      CancelledDate: dayjs().subtract(2, 'day').toISOString(),
+    },
+    onEventClick: (id) => console.log('Click:', id),
+  },
+};
+
+export const CancelledPeriod: Story = {
+  args: {
+    event: {
+      id: '6',
+      Name: 'Festival de Verano',
+      Description: 'Festival cancelado por condiciones meteorológicas',
+      StartDate: dayjs().add(30, 'day').toISOString(),
+      EndDate: dayjs().add(32, 'day').toISOString(),
+      Period: true,
+      Type: 'Reservation',
+      Cancelled: true,
+      CancelledDate: dayjs().subtract(1, 'day').toISOString(),
+    },
+    onEventClick: (id) => console.log('Click:', id),
+  },
+};

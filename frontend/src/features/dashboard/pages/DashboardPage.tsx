@@ -1,17 +1,22 @@
 import { useEvents, useUpcomingEvents } from '@/features/events/hooks/useEvents';
 import type { BlockedRange, DayMark } from '@/shared/components/Calendar';
 import { Calendar } from '@/shared/components/Calendar';
+import { useDrawerNav } from '@/shared/context/DrawerContext';
 import { PageLayout } from '@/shared/layouts/PageLayout';
 import { Box, CircularProgress, Paper, Popper, Stack, Typography } from '@mui/material';
+import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
+import 'dayjs/locale/es';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { DashboardHeader } from '../components/DashboardHeader';
 import { EventCard } from '../components/EventsSummaryCard';
 
+dayjs.locale('es');
 
 export default function DashboardPage() {
   const { data, isLoading } = useEvents();
   const { data: upcomingEvents } = useUpcomingEvents({ limit: 5, type: ['Event', 'Reservation'] });
+  const { openDayDrawer, openEventDrawer } = useDrawerNav();
 
   const [popperAnchor, setPopperAnchor] = useState<HTMLElement | null>(null);
   const [hoveredDateKey, setHoveredDateKey] = useState<string | null>(null);
@@ -23,12 +28,14 @@ export default function DashboardPage() {
     const eventsByDate: Record<string, NonNullable<typeof data>['data']> = {};
 
     for (const event of data?.data ?? []) {
+      const isCancelled = event.Cancelled === true;
+
       if (event.Period && event.EndDate) {
         blockedRanges.push({
           start: dayjs(event.StartDate),
           end: dayjs(event.EndDate),
+          ...(isCancelled && { color: 'action.disabled' }),
         });
-        // Index each day within the period for popper lookup
         let cursor = dayjs(event.StartDate);
         const end = dayjs(event.EndDate);
         while (cursor.isBefore(end, 'day') || cursor.isSame(end, 'day')) {
@@ -38,7 +45,7 @@ export default function DashboardPage() {
         }
       } else {
         const key = dayjs(event.StartDate).format('YYYY-MM-DD');
-        markedDays[key] = [...(markedDays[key] ?? []), { color: 'primary.main' }];
+        markedDays[key] = [...(markedDays[key] ?? []), { color: isCancelled ? 'action.disabled' : 'primary.main' }];
         eventsByDate[key] = [...(eventsByDate[key] ?? []), event];
       }
     }
@@ -59,7 +66,16 @@ export default function DashboardPage() {
     }, 150);
   }, []);
 
-  const hoveredEvents = hoveredDateKey ? (eventsByDate[hoveredDateKey] ?? []) : [];
+  const hoveredEvents = hoveredDateKey
+    ? (eventsByDate[hoveredDateKey] ?? []).filter((e) => !e.Cancelled)
+    : [];
+
+  const handleDayClick = useCallback((value: Dayjs | null) => {
+    if (!value) return;
+    const dateKey = value.format('YYYY-MM-DD');
+    if (!eventsByDate[dateKey]?.length) return;
+    openDayDrawer(dateKey);
+  }, [eventsByDate, openDayDrawer]);
 
   return (
     <PageLayout header={<DashboardHeader />}>
@@ -69,12 +85,13 @@ export default function DashboardPage() {
         </Box>
       ) : (
       <Stack display="flex" flexDirection={{xs: 'column', md: 'row'}} gap={2} justifyContent="start">
-        <Stack sx={{width: 'fit-content'}} >
+        <Stack sx={{ width: 'fit-content', mx: { xs: 'auto', md: 0 } }}>
 
           <Calendar
             markedDays={markedDays}
             blockedRanges={blockedRanges}
             showLegend
+            onChange={handleDayClick}
             onDayHover={handleDayHover}
             onDayLeave={handleDayLeave}
           />
@@ -92,7 +109,7 @@ export default function DashboardPage() {
                 <EventCard
                   key={event.id}
                   event={event}
-                  onEventClick={(id) => console.log('Click en evento:', id)}
+                  onEventClick={() => event.documentId && openEventDrawer(event.documentId)}
                 />
               ))}
             </Stack>
@@ -108,7 +125,7 @@ export default function DashboardPage() {
                 <EventCard
                   key={event.id}
                   event={event}
-                  onEventClick={(id) => console.log('Click en evento:', id)}
+                  onEventClick={() => event.documentId && openEventDrawer(event.documentId)}
                 />
               ))
             ) : (

@@ -17,6 +17,9 @@
     },
     "DJ": {
       "type": "boolean"
+    },
+    "Accepted": {
+      "type": "boolean"
     }
   },
   "config": {}

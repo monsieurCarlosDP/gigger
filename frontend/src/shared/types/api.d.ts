@@ -563,7 +563,7 @@ export interface operations {
     "event/get/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 filters?: {
                     [key: string]: unknown;
                 };
@@ -577,7 +577,7 @@ export interface operations {
                     start: number;
                     limit: number;
                 });
-                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
@@ -611,9 +611,11 @@ export interface operations {
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
+                            Cancelled?: boolean | null;
+                            CancelledDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.205Z */
+                            /** @default 2026-03-14T22:21:30.312Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -628,7 +630,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.208Z */
+                                /** @default 2026-03-14T22:21:30.315Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -642,9 +644,11 @@ export interface operations {
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
+                                    Cancelled?: boolean | null;
+                                    CancelledDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-08T11:46:10.210Z */
+                                    /** @default 2026-03-14T22:21:30.317Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -652,6 +656,7 @@ export interface operations {
                                         Equipment?: boolean | null;
                                         Dietas?: number;
                                         DJ?: boolean | null;
+                                        Accepted?: boolean | null;
                                     }[];
                                 }[];
                             }[];
@@ -660,6 +665,7 @@ export interface operations {
                                 Equipment?: boolean | null;
                                 Dietas?: number;
                                 DJ?: boolean | null;
+                                Accepted?: boolean | null;
                             }[];
                         }[];
                     };
@@ -705,7 +711,7 @@ export interface operations {
     "event/post/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
@@ -726,7 +732,9 @@ export interface operations {
                         Period?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
                         StartDate: string;
                         EndDate?: string;
-                        /** @default 2026-03-08T11:46:10.221Z */
+                        Cancelled?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
+                        CancelledDate?: string;
+                        /** @default 2026-03-14T22:21:30.329Z */
                         publishedAt: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -754,9 +762,11 @@ export interface operations {
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
+                            Cancelled?: boolean | null;
+                            CancelledDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.223Z */
+                            /** @default 2026-03-14T22:21:30.331Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -771,7 +781,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.208Z */
+                                /** @default 2026-03-14T22:21:30.315Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -785,9 +795,11 @@ export interface operations {
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
+                                    Cancelled?: boolean | null;
+                                    CancelledDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-08T11:46:10.210Z */
+                                    /** @default 2026-03-14T22:21:30.317Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -795,6 +807,7 @@ export interface operations {
                                         Equipment?: boolean | null;
                                         Dietas?: number;
                                         DJ?: boolean | null;
+                                        Accepted?: boolean | null;
                                     }[];
                                 }[];
                             }[];
@@ -803,6 +816,7 @@ export interface operations {
                                 Equipment?: boolean | null;
                                 Dietas?: number;
                                 DJ?: boolean | null;
+                                Accepted?: boolean | null;
                             }[];
                         };
                     };
@@ -848,12 +862,12 @@ export interface operations {
     "event/get/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 filters?: {
                     [key: string]: unknown;
                 };
-                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
@@ -888,9 +902,11 @@ export interface operations {
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
+                            Cancelled?: boolean | null;
+                            CancelledDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.217Z */
+                            /** @default 2026-03-14T22:21:30.325Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -905,7 +921,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.208Z */
+                                /** @default 2026-03-14T22:21:30.315Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -919,9 +935,11 @@ export interface operations {
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
+                                    Cancelled?: boolean | null;
+                                    CancelledDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-08T11:46:10.210Z */
+                                    /** @default 2026-03-14T22:21:30.317Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -929,6 +947,7 @@ export interface operations {
                                         Equipment?: boolean | null;
                                         Dietas?: number;
                                         DJ?: boolean | null;
+                                        Accepted?: boolean | null;
                                     }[];
                                 }[];
                             }[];
@@ -937,6 +956,7 @@ export interface operations {
                                 Equipment?: boolean | null;
                                 Dietas?: number;
                                 DJ?: boolean | null;
+                                Accepted?: boolean | null;
                             }[];
                         };
                     };
@@ -982,7 +1002,7 @@ export interface operations {
     "event/put/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
@@ -1005,7 +1025,9 @@ export interface operations {
                         Period?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
                         StartDate?: string;
                         EndDate?: string;
-                        /** @default 2026-03-08T11:46:10.225Z */
+                        Cancelled?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
+                        CancelledDate?: string;
+                        /** @default 2026-03-14T22:21:30.343Z */
                         publishedAt?: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -1033,9 +1055,11 @@ export interface operations {
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
+                            Cancelled?: boolean | null;
+                            CancelledDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.227Z */
+                            /** @default 2026-03-14T22:21:30.345Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1050,7 +1074,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.208Z */
+                                /** @default 2026-03-14T22:21:30.315Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1064,9 +1088,11 @@ export interface operations {
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
+                                    Cancelled?: boolean | null;
+                                    CancelledDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-08T11:46:10.210Z */
+                                    /** @default 2026-03-14T22:21:30.317Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1074,6 +1100,7 @@ export interface operations {
                                         Equipment?: boolean | null;
                                         Dietas?: number;
                                         DJ?: boolean | null;
+                                        Accepted?: boolean | null;
                                     }[];
                                 }[];
                             }[];
@@ -1082,6 +1109,7 @@ export interface operations {
                                 Equipment?: boolean | null;
                                 Dietas?: number;
                                 DJ?: boolean | null;
+                                Accepted?: boolean | null;
                             }[];
                         };
                     };
@@ -1127,7 +1155,7 @@ export interface operations {
     "event/delete/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "Period" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "createdAt" | "updatedAt" | "publishedAt")[];
                 populate?: "*" | ("contacts" | "Budget") | ("contacts" | "Budget")[];
                 filters?: {
                     [key: string]: unknown;
@@ -1162,9 +1190,11 @@ export interface operations {
                             Period?: boolean | null;
                             StartDate: string;
                             EndDate?: string;
+                            Cancelled?: boolean | null;
+                            CancelledDate?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.230Z */
+                            /** @default 2026-03-14T22:21:30.348Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1179,7 +1209,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.208Z */
+                                /** @default 2026-03-14T22:21:30.315Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1193,9 +1223,11 @@ export interface operations {
                                     Period?: boolean | null;
                                     StartDate: string;
                                     EndDate?: string;
+                                    Cancelled?: boolean | null;
+                                    CancelledDate?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-08T11:46:10.210Z */
+                                    /** @default 2026-03-14T22:21:30.317Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1203,6 +1235,7 @@ export interface operations {
                                         Equipment?: boolean | null;
                                         Dietas?: number;
                                         DJ?: boolean | null;
+                                        Accepted?: boolean | null;
                                     }[];
                                 }[];
                             }[];
@@ -1211,6 +1244,7 @@ export interface operations {
                                 Equipment?: boolean | null;
                                 Dietas?: number;
                                 DJ?: boolean | null;
+                                Accepted?: boolean | null;
                             }[];
                         };
                     };
@@ -1305,7 +1339,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.235Z */
+                            /** @default 2026-03-14T22:21:30.353Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1319,9 +1353,11 @@ export interface operations {
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
+                                Cancelled?: boolean | null;
+                                CancelledDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.210Z */
+                                /** @default 2026-03-14T22:21:30.317Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1329,6 +1365,7 @@ export interface operations {
                                     Equipment?: boolean | null;
                                     Dietas?: number;
                                     DJ?: boolean | null;
+                                    Accepted?: boolean | null;
                                 }[];
                             }[];
                         }[];
@@ -1395,7 +1432,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-08T11:46:10.250Z */
+                        /** @default 2026-03-14T22:21:30.358Z */
                         publishedAt: string;
                         events?: string[];
                     };
@@ -1423,7 +1460,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.251Z */
+                            /** @default 2026-03-14T22:21:30.359Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1437,9 +1474,11 @@ export interface operations {
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
+                                Cancelled?: boolean | null;
+                                CancelledDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.210Z */
+                                /** @default 2026-03-14T22:21:30.317Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1447,6 +1486,7 @@ export interface operations {
                                     Equipment?: boolean | null;
                                     Dietas?: number;
                                     DJ?: boolean | null;
+                                    Accepted?: boolean | null;
                                 }[];
                             }[];
                         };
@@ -1534,7 +1574,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.238Z */
+                            /** @default 2026-03-14T22:21:30.356Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1548,9 +1588,11 @@ export interface operations {
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
+                                Cancelled?: boolean | null;
+                                CancelledDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.210Z */
+                                /** @default 2026-03-14T22:21:30.317Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1558,6 +1600,7 @@ export interface operations {
                                     Equipment?: boolean | null;
                                     Dietas?: number;
                                     DJ?: boolean | null;
+                                    Accepted?: boolean | null;
                                 }[];
                             }[];
                         };
@@ -1626,7 +1669,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-08T11:46:10.254Z */
+                        /** @default 2026-03-14T22:21:30.361Z */
                         publishedAt?: string;
                         events?: string[];
                     };
@@ -1654,7 +1697,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.255Z */
+                            /** @default 2026-03-14T22:21:30.362Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1668,9 +1711,11 @@ export interface operations {
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
+                                Cancelled?: boolean | null;
+                                CancelledDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.210Z */
+                                /** @default 2026-03-14T22:21:30.317Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1678,6 +1723,7 @@ export interface operations {
                                     Equipment?: boolean | null;
                                     Dietas?: number;
                                     DJ?: boolean | null;
+                                    Accepted?: boolean | null;
                                 }[];
                             }[];
                         };
@@ -1760,7 +1806,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.257Z */
+                            /** @default 2026-03-14T22:21:30.364Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -1774,9 +1820,11 @@ export interface operations {
                                 Period?: boolean | null;
                                 StartDate: string;
                                 EndDate?: string;
+                                Cancelled?: boolean | null;
+                                CancelledDate?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-08T11:46:10.210Z */
+                                /** @default 2026-03-14T22:21:30.317Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -1784,6 +1832,7 @@ export interface operations {
                                     Equipment?: boolean | null;
                                     Dietas?: number;
                                     DJ?: boolean | null;
+                                    Accepted?: boolean | null;
                                 }[];
                             }[];
                         };
@@ -1860,7 +1909,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.260Z */
+                            /** @default 2026-03-14T22:21:30.367Z */
                             publishedAt: string;
                         };
                     };
@@ -1922,7 +1971,7 @@ export interface operations {
                         Base?: string;
                         DJ?: string;
                         Equipment?: string;
-                        /** @default 2026-03-08T11:46:10.261Z */
+                        /** @default 2026-03-14T22:21:30.369Z */
                         publishedAt?: string;
                     };
                 };
@@ -1945,7 +1994,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.262Z */
+                            /** @default 2026-03-14T22:21:30.369Z */
                             publishedAt: string;
                         };
                     };
@@ -2018,7 +2067,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.263Z */
+                            /** @default 2026-03-14T22:21:30.371Z */
                             publishedAt: string;
                         };
                     };
@@ -2108,7 +2157,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.266Z */
+                            /** @default 2026-03-14T22:21:30.374Z */
                             publishedAt: string;
                         }[];
                     };
@@ -2169,7 +2218,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-08T11:46:10.574Z */
+                        /** @default 2026-03-14T22:21:30.674Z */
                         publishedAt: string;
                     };
                 };
@@ -2191,7 +2240,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.271Z */
+                            /** @default 2026-03-14T22:21:30.378Z */
                             publishedAt: string;
                         };
                     };
@@ -2273,7 +2322,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.269Z */
+                            /** @default 2026-03-14T22:21:30.376Z */
                             publishedAt: string;
                         };
                     };
@@ -2336,7 +2385,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-08T11:46:10.272Z */
+                        /** @default 2026-03-14T22:21:30.379Z */
                         publishedAt?: string;
                     };
                 };
@@ -2358,7 +2407,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.273Z */
+                            /** @default 2026-03-14T22:21:30.380Z */
                             publishedAt: string;
                         };
                     };
@@ -2435,7 +2484,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-08T11:46:10.274Z */
+                            /** @default 2026-03-14T22:21:30.381Z */
                             publishedAt: string;
                         };
                     };

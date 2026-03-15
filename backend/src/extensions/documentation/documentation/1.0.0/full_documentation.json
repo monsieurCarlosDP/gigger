@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-03-08T11:46:14.297Z"
+    "x-generation-date": "2026-03-14T22:21:34.469Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -3395,6 +3395,13 @@
                   "$ref": "#/components/schemas/EventBudgetComponent"
                 }
               },
+              "Cancelled": {
+                "type": "boolean"
+              },
+              "CancelledDate": {
+                "type": "string",
+                "format": "date"
+              },
               "locale": {
                 "type": "string"
               },
@@ -3606,6 +3613,13 @@
                         "items": {
                           "$ref": "#/components/schemas/EventBudgetComponent"
                         }
+                      },
+                      "Cancelled": {
+                        "type": "boolean"
+                      },
+                      "CancelledDate": {
+                        "type": "string",
+                        "format": "date"
                       },
                       "createdAt": {
                         "type": "string",
@@ -4117,6 +4131,13 @@
               "$ref": "#/components/schemas/EventBudgetComponent"
             }
           },
+          "Cancelled": {
+            "type": "boolean"
+          },
+          "CancelledDate": {
+            "type": "string",
+            "format": "date"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -4225,6 +4246,9 @@
             "type": "integer"
           },
           "DJ": {
+            "type": "boolean"
+          },
+          "Accepted": {
             "type": "boolean"
           }
         }
@@ -4903,6 +4927,13 @@
                   "items": {
                     "$ref": "#/components/schemas/EventBudgetComponent"
                   }
+                },
+                "Cancelled": {
+                  "type": "boolean"
+                },
+                "CancelledDate": {
+                  "type": "string",
+                  "format": "date"
                 },
                 "createdAt": {
                   "type": "string",

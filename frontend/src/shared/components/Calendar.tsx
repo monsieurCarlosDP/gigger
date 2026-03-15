@@ -109,6 +109,10 @@ const Legend = (<Paper elevation={4}>
                 <Box key="info-legen" sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: "error.main" }} />
                 <Typography variant="caption" bgcolor="error.main" color="textDisabled">Efectivibolo + EfectiviDJ</Typography>
               </Stack>
+              <Stack flexDirection="row" alignItems="center" gap={2}>
+                <Box key="cancelled-legend" sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: "action.disabled" }} />
+                <Typography variant="caption">Cancelado</Typography>
+              </Stack>
 
             </Stack>
           </Stack>
@@ -133,7 +137,11 @@ export function Calendar({ value, onChange, markedDays, blockedRanges, showLegen
         }}
         />
         </Paper>
-        {showLegend && Legend}
+        {showLegend && (
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            {Legend}
+          </Box>
+        )}
       </Stack>
     </LocalizationProvider>
   );

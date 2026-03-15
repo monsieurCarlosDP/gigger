@@ -442,6 +442,8 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   };
   attributes: {
     Budget: Schema.Attribute.Component<'event.budget', true>;
+    Cancelled: Schema.Attribute.Boolean;
+    CancelledDate: Schema.Attribute.Date;
     contacts: Schema.Attribute.Relation<'manyToMany', 'api::person.person'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

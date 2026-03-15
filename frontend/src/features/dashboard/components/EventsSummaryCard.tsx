@@ -1,8 +1,10 @@
+import { EventChip } from '@/features/events/components/EventChip';
 import type { EventType } from '@/features/events/hooks/useEvents';
 import Card from '@/shared/components/Card';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import BlockIcon from '@mui/icons-material/Block';
 import EventIcon from '@mui/icons-material/Event';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Chip, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -21,6 +23,8 @@ type Event = {
   Distance?: string;
   Location?: string;
   Type?: EventType;
+  Cancelled?: boolean | null;
+  CancelledDate?: string;
 };
 
 type EventCardProps = {
@@ -31,10 +35,32 @@ type EventCardProps = {
 export function EventCard({ event, onEventClick }: EventCardProps) {
   const startDate = dayjs(event.StartDate);
   const isPeriod = event.Period && event.EndDate;
+  const isCancelled = event.Cancelled === true;
 
   return (
+    <Box sx={isCancelled ? { opacity: 0.6 } : undefined}>
     <Card
-      headerContent={event.Name}
+      headerContent={
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Typography
+            variant="subtitle1"
+            sx={isCancelled ? { textDecoration: 'line-through' } : undefined}
+          >
+            {event.Name}
+          </Typography>
+          <Stack direction="row" spacing={0.5}>
+            {isCancelled && (
+              <Chip
+                icon={<BlockIcon />}
+                label="Cancelado"
+                size="small"
+                color="default"
+              />
+            )}
+            {event.Type && <EventChip type={event.Type} />}
+          </Stack>
+        </Stack>
+      }
       cardContent={
         <Stack spacing={1.5}>
           <Box>
@@ -45,7 +71,7 @@ export function EventCard({ event, onEventClick }: EventCardProps) {
 
           <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <EventIcon fontSize="small" color="primary" />
+              <EventIcon fontSize="small" color={isCancelled ? 'disabled' : 'primary'} />
               <Typography variant="body2">
                 {isPeriod
                   ? `${startDate.format('D MMM')} - ${dayjs(event.EndDate).format('D MMM')}`
@@ -54,7 +80,13 @@ export function EventCard({ event, onEventClick }: EventCardProps) {
             </Box>
           </Stack>
 
-          {!isPeriod && (
+          {isCancelled && event.CancelledDate && (
+            <Typography variant="caption" color="text.secondary">
+              Cancelado el {dayjs(event.CancelledDate).format('D [de] MMMM [de] YYYY')}
+            </Typography>
+          )}
+
+          {!isPeriod && !isCancelled && (
             <Stack direction="row" spacing={2}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <AccessTimeIcon fontSize="small" color="success" />
@@ -70,7 +102,7 @@ export function EventCard({ event, onEventClick }: EventCardProps) {
       cardActions={
         <Button
           size="small"
-          variant="contained"
+          variant={isCancelled ? 'outlined' : 'contained'}
           fullWidth
           onClick={() => event.id && onEventClick?.(event.id)}
         >
@@ -78,5 +110,6 @@ export function EventCard({ event, onEventClick }: EventCardProps) {
         </Button>
       }
     />
+    </Box>
   );
 }

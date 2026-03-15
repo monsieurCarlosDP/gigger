@@ -103,6 +103,7 @@ export function useUpcomingEvents({
   };
 
   const { data, ...rest } = useEvents({ query });
+  const activeEvents = (data?.data ?? []).filter((e) => !e.Cancelled);
 
-  return { data: data?.data ?? [], ...rest };
+  return { data: activeEvents, ...rest };
 }

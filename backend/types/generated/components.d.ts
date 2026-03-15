@@ -7,6 +7,7 @@ export interface EventBudget extends Struct.ComponentSchema {
     icon: 'file';
   };
   attributes: {
+    Accepted: Schema.Attribute.Boolean;
     Base: Schema.Attribute.Integer;
     Dietas: Schema.Attribute.Integer;
     DJ: Schema.Attribute.Boolean;

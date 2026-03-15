@@ -30,6 +30,8 @@
                   "Period",
                   "StartDate",
                   "EndDate",
+                  "Cancelled",
+                  "CancelledDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -55,6 +57,8 @@
                   "Period",
                   "StartDate",
                   "EndDate",
+                  "Cancelled",
+                  "CancelledDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -155,6 +159,8 @@
                     "Period",
                     "StartDate",
                     "EndDate",
+                    "Cancelled",
+                    "CancelledDate",
                     "createdAt",
                     "updatedAt",
                     "publishedAt"
@@ -172,6 +178,8 @@
                       "Period",
                       "StartDate",
                       "EndDate",
+                      "Cancelled",
+                      "CancelledDate",
                       "createdAt",
                       "updatedAt",
                       "publishedAt"
@@ -190,6 +198,8 @@
                       "Period",
                       "StartDate",
                       "EndDate",
+                      "Cancelled",
+                      "CancelledDate",
                       "createdAt",
                       "updatedAt",
                       "publishedAt"
@@ -217,6 +227,8 @@
                         "Period",
                         "StartDate",
                         "EndDate",
+                        "Cancelled",
+                        "CancelledDate",
                         "createdAt",
                         "updatedAt",
                         "publishedAt"
@@ -367,6 +379,19 @@
                           "EndDate": {
                             "type": "string"
                           },
+                          "Cancelled": {
+                            "anyOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "CancelledDate": {
+                            "type": "string"
+                          },
                           "createdAt": {
                             "type": "string"
                           },
@@ -374,7 +399,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-08T11:46:10.205Z",
+                            "default": "2026-03-14T22:21:30.312Z",
                             "type": "string"
                           },
                           "contacts": {
@@ -426,7 +451,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-08T11:46:10.208Z",
+                                  "default": "2026-03-14T22:21:30.315Z",
                                   "type": "string"
                                 },
                                 "events": {
@@ -482,6 +507,19 @@
                                       "EndDate": {
                                         "type": "string"
                                       },
+                                      "Cancelled": {
+                                        "anyOf": [
+                                          {
+                                            "type": "boolean"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "CancelledDate": {
+                                        "type": "string"
+                                      },
                                       "createdAt": {
                                         "type": "string"
                                       },
@@ -489,7 +527,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-08T11:46:10.210Z",
+                                        "default": "2026-03-14T22:21:30.317Z",
                                         "type": "string"
                                       },
                                       "contacts": {
@@ -522,6 +560,16 @@
                                               "maximum": 9007199254740991
                                             },
                                             "DJ": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "boolean"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "Accepted": {
                                               "anyOf": [
                                                 {
                                                   "type": "boolean"
@@ -582,6 +630,16 @@
                                   "maximum": 9007199254740991
                                 },
                                 "DJ": {
+                                  "anyOf": [
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "Accepted": {
                                   "anyOf": [
                                     {
                                       "type": "boolean"
@@ -657,6 +715,8 @@
                   "Period",
                   "StartDate",
                   "EndDate",
+                  "Cancelled",
+                  "CancelledDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -795,6 +855,19 @@
                         "EndDate": {
                           "type": "string"
                         },
+                        "Cancelled": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "CancelledDate": {
+                          "type": "string"
+                        },
                         "createdAt": {
                           "type": "string"
                         },
@@ -802,7 +875,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.223Z",
+                          "default": "2026-03-14T22:21:30.331Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -854,7 +927,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-08T11:46:10.208Z",
+                                "default": "2026-03-14T22:21:30.315Z",
                                 "type": "string"
                               },
                               "events": {
@@ -910,6 +983,19 @@
                                     "EndDate": {
                                       "type": "string"
                                     },
+                                    "Cancelled": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "CancelledDate": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string"
                                     },
@@ -917,7 +1003,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-08T11:46:10.210Z",
+                                      "default": "2026-03-14T22:21:30.317Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -950,6 +1036,16 @@
                                             "maximum": 9007199254740991
                                           },
                                           "DJ": {
+                                            "anyOf": [
+                                              {
+                                                "type": "boolean"
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "Accepted": {
                                             "anyOf": [
                                               {
                                                 "type": "boolean"
@@ -1010,6 +1106,16 @@
                                 "maximum": 9007199254740991
                               },
                               "DJ": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "Accepted": {
                                 "anyOf": [
                                   {
                                     "type": "boolean"
@@ -1113,8 +1219,29 @@
                       "EndDate": {
                         "type": "string"
                       },
+                      "Cancelled": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "0",
+                              "1",
+                              "t",
+                              "true",
+                              "f",
+                              "false"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "CancelledDate": {
+                        "type": "string"
+                      },
                       "publishedAt": {
-                        "default": "2026-03-08T11:46:10.221Z",
+                        "default": "2026-03-14T22:21:30.329Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -1182,6 +1309,8 @@
                   "Period",
                   "StartDate",
                   "EndDate",
+                  "Cancelled",
+                  "CancelledDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -1241,6 +1370,8 @@
                   "Period",
                   "StartDate",
                   "EndDate",
+                  "Cancelled",
+                  "CancelledDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -1267,6 +1398,8 @@
                     "Period",
                     "StartDate",
                     "EndDate",
+                    "Cancelled",
+                    "CancelledDate",
                     "createdAt",
                     "updatedAt",
                     "publishedAt"
@@ -1284,6 +1417,8 @@
                       "Period",
                       "StartDate",
                       "EndDate",
+                      "Cancelled",
+                      "CancelledDate",
                       "createdAt",
                       "updatedAt",
                       "publishedAt"
@@ -1302,6 +1437,8 @@
                       "Period",
                       "StartDate",
                       "EndDate",
+                      "Cancelled",
+                      "CancelledDate",
                       "createdAt",
                       "updatedAt",
                       "publishedAt"
@@ -1329,6 +1466,8 @@
                         "Period",
                         "StartDate",
                         "EndDate",
+                        "Cancelled",
+                        "CancelledDate",
                         "createdAt",
                         "updatedAt",
                         "publishedAt"
@@ -1443,6 +1582,19 @@
                         "EndDate": {
                           "type": "string"
                         },
+                        "Cancelled": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "CancelledDate": {
+                          "type": "string"
+                        },
                         "createdAt": {
                           "type": "string"
                         },
@@ -1450,7 +1602,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.217Z",
+                          "default": "2026-03-14T22:21:30.325Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -1502,7 +1654,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-08T11:46:10.208Z",
+                                "default": "2026-03-14T22:21:30.315Z",
                                 "type": "string"
                               },
                               "events": {
@@ -1558,6 +1710,19 @@
                                     "EndDate": {
                                       "type": "string"
                                     },
+                                    "Cancelled": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "CancelledDate": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string"
                                     },
@@ -1565,7 +1730,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-08T11:46:10.210Z",
+                                      "default": "2026-03-14T22:21:30.317Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -1598,6 +1763,16 @@
                                             "maximum": 9007199254740991
                                           },
                                           "DJ": {
+                                            "anyOf": [
+                                              {
+                                                "type": "boolean"
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "Accepted": {
                                             "anyOf": [
                                               {
                                                 "type": "boolean"
@@ -1658,6 +1833,16 @@
                                 "maximum": 9007199254740991
                               },
                               "DJ": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "Accepted": {
                                 "anyOf": [
                                   {
                                     "type": "boolean"
@@ -1743,6 +1928,8 @@
                   "Period",
                   "StartDate",
                   "EndDate",
+                  "Cancelled",
+                  "CancelledDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -1881,6 +2068,19 @@
                         "EndDate": {
                           "type": "string"
                         },
+                        "Cancelled": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "CancelledDate": {
+                          "type": "string"
+                        },
                         "createdAt": {
                           "type": "string"
                         },
@@ -1888,7 +2088,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.227Z",
+                          "default": "2026-03-14T22:21:30.345Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -1940,7 +2140,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-08T11:46:10.208Z",
+                                "default": "2026-03-14T22:21:30.315Z",
                                 "type": "string"
                               },
                               "events": {
@@ -1996,6 +2196,19 @@
                                     "EndDate": {
                                       "type": "string"
                                     },
+                                    "Cancelled": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "CancelledDate": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string"
                                     },
@@ -2003,7 +2216,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-08T11:46:10.210Z",
+                                      "default": "2026-03-14T22:21:30.317Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -2036,6 +2249,16 @@
                                             "maximum": 9007199254740991
                                           },
                                           "DJ": {
+                                            "anyOf": [
+                                              {
+                                                "type": "boolean"
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "Accepted": {
                                             "anyOf": [
                                               {
                                                 "type": "boolean"
@@ -2096,6 +2319,16 @@
                                 "maximum": 9007199254740991
                               },
                               "DJ": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "Accepted": {
                                 "anyOf": [
                                   {
                                     "type": "boolean"
@@ -2199,8 +2432,29 @@
                       "EndDate": {
                         "type": "string"
                       },
+                      "Cancelled": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "0",
+                              "1",
+                              "t",
+                              "true",
+                              "f",
+                              "false"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "CancelledDate": {
+                        "type": "string"
+                      },
                       "publishedAt": {
-                        "default": "2026-03-08T11:46:10.225Z",
+                        "default": "2026-03-14T22:21:30.343Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -2260,6 +2514,8 @@
                   "Period",
                   "StartDate",
                   "EndDate",
+                  "Cancelled",
+                  "CancelledDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -2319,6 +2575,8 @@
                   "Period",
                   "StartDate",
                   "EndDate",
+                  "Cancelled",
+                  "CancelledDate",
                   "createdAt",
                   "updatedAt",
                   "publishedAt"
@@ -2424,6 +2682,19 @@
                         "EndDate": {
                           "type": "string"
                         },
+                        "Cancelled": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "CancelledDate": {
+                          "type": "string"
+                        },
                         "createdAt": {
                           "type": "string"
                         },
@@ -2431,7 +2702,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.230Z",
+                          "default": "2026-03-14T22:21:30.348Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -2483,7 +2754,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-08T11:46:10.208Z",
+                                "default": "2026-03-14T22:21:30.315Z",
                                 "type": "string"
                               },
                               "events": {
@@ -2539,6 +2810,19 @@
                                     "EndDate": {
                                       "type": "string"
                                     },
+                                    "Cancelled": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "CancelledDate": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string"
                                     },
@@ -2546,7 +2830,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-08T11:46:10.210Z",
+                                      "default": "2026-03-14T22:21:30.317Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -2579,6 +2863,16 @@
                                             "maximum": 9007199254740991
                                           },
                                           "DJ": {
+                                            "anyOf": [
+                                              {
+                                                "type": "boolean"
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "Accepted": {
                                             "anyOf": [
                                               {
                                                 "type": "boolean"
@@ -2639,6 +2933,16 @@
                                 "maximum": 9007199254740991
                               },
                               "DJ": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "Accepted": {
                                 "anyOf": [
                                   {
                                     "type": "boolean"
@@ -3034,7 +3338,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-08T11:46:10.235Z",
+                            "default": "2026-03-14T22:21:30.353Z",
                             "type": "string"
                           },
                           "events": {
@@ -3090,6 +3394,19 @@
                                 "EndDate": {
                                   "type": "string"
                                 },
+                                "Cancelled": {
+                                  "anyOf": [
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "CancelledDate": {
+                                  "type": "string"
+                                },
                                 "createdAt": {
                                   "type": "string"
                                 },
@@ -3097,7 +3414,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-08T11:46:10.210Z",
+                                  "default": "2026-03-14T22:21:30.317Z",
                                   "type": "string"
                                 },
                                 "contacts": {
@@ -3130,6 +3447,16 @@
                                         "maximum": 9007199254740991
                                       },
                                       "DJ": {
+                                        "anyOf": [
+                                          {
+                                            "type": "boolean"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "Accepted": {
                                         "anyOf": [
                                           {
                                             "type": "boolean"
@@ -3344,7 +3671,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.251Z",
+                          "default": "2026-03-14T22:21:30.359Z",
                           "type": "string"
                         },
                         "events": {
@@ -3400,6 +3727,19 @@
                               "EndDate": {
                                 "type": "string"
                               },
+                              "Cancelled": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "CancelledDate": {
+                                "type": "string"
+                              },
                               "createdAt": {
                                 "type": "string"
                               },
@@ -3407,7 +3747,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-08T11:46:10.210Z",
+                                "default": "2026-03-14T22:21:30.317Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -3440,6 +3780,16 @@
                                       "maximum": 9007199254740991
                                     },
                                     "DJ": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "Accepted": {
                                       "anyOf": [
                                         {
                                           "type": "boolean"
@@ -3534,7 +3884,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-08T11:46:10.250Z",
+                        "default": "2026-03-14T22:21:30.358Z",
                         "type": "string"
                       },
                       "events": {
@@ -3838,7 +4188,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.238Z",
+                          "default": "2026-03-14T22:21:30.356Z",
                           "type": "string"
                         },
                         "events": {
@@ -3894,6 +4244,19 @@
                               "EndDate": {
                                 "type": "string"
                               },
+                              "Cancelled": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "CancelledDate": {
+                                "type": "string"
+                              },
                               "createdAt": {
                                 "type": "string"
                               },
@@ -3901,7 +4264,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-08T11:46:10.210Z",
+                                "default": "2026-03-14T22:21:30.317Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -3934,6 +4297,16 @@
                                       "maximum": 9007199254740991
                                     },
                                     "DJ": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "Accepted": {
                                       "anyOf": [
                                         {
                                           "type": "boolean"
@@ -4158,7 +4531,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.255Z",
+                          "default": "2026-03-14T22:21:30.362Z",
                           "type": "string"
                         },
                         "events": {
@@ -4214,6 +4587,19 @@
                               "EndDate": {
                                 "type": "string"
                               },
+                              "Cancelled": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "CancelledDate": {
+                                "type": "string"
+                              },
                               "createdAt": {
                                 "type": "string"
                               },
@@ -4221,7 +4607,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-08T11:46:10.210Z",
+                                "default": "2026-03-14T22:21:30.317Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -4254,6 +4640,16 @@
                                       "maximum": 9007199254740991
                                     },
                                     "DJ": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "Accepted": {
                                       "anyOf": [
                                         {
                                           "type": "boolean"
@@ -4348,7 +4744,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-08T11:46:10.254Z",
+                        "default": "2026-03-14T22:21:30.361Z",
                         "type": "string"
                       },
                       "events": {
@@ -4558,7 +4954,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.257Z",
+                          "default": "2026-03-14T22:21:30.364Z",
                           "type": "string"
                         },
                         "events": {
@@ -4614,6 +5010,19 @@
                               "EndDate": {
                                 "type": "string"
                               },
+                              "Cancelled": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "CancelledDate": {
+                                "type": "string"
+                              },
                               "createdAt": {
                                 "type": "string"
                               },
@@ -4621,7 +5030,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-08T11:46:10.210Z",
+                                "default": "2026-03-14T22:21:30.317Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -4654,6 +5063,16 @@
                                       "maximum": 9007199254740991
                                     },
                                     "DJ": {
+                                      "anyOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "Accepted": {
                                       "anyOf": [
                                         {
                                           "type": "boolean"
@@ -4872,7 +5291,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.260Z",
+                          "default": "2026-03-14T22:21:30.367Z",
                           "type": "string"
                         }
                       },
@@ -5044,7 +5463,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.262Z",
+                          "default": "2026-03-14T22:21:30.369Z",
                           "type": "string"
                         }
                       },
@@ -5103,7 +5522,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-08T11:46:10.261Z",
+                        "default": "2026-03-14T22:21:30.369Z",
                         "type": "string"
                       }
                     },
@@ -5251,7 +5670,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.263Z",
+                          "default": "2026-03-14T22:21:30.371Z",
                           "type": "string"
                         }
                       },
@@ -5595,7 +6014,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-08T11:46:10.266Z",
+                            "default": "2026-03-14T22:21:30.374Z",
                             "type": "string"
                           }
                         },
@@ -5764,7 +6183,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.271Z",
+                          "default": "2026-03-14T22:21:30.378Z",
                           "type": "string"
                         }
                       },
@@ -5820,7 +6239,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-08T11:46:10.574Z",
+                        "default": "2026-03-14T22:21:30.674Z",
                         "type": "string"
                       }
                     },
@@ -6078,7 +6497,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.269Z",
+                          "default": "2026-03-14T22:21:30.376Z",
                           "type": "string"
                         }
                       },
@@ -6257,7 +6676,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.273Z",
+                          "default": "2026-03-14T22:21:30.380Z",
                           "type": "string"
                         }
                       },
@@ -6313,7 +6732,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-08T11:46:10.272Z",
+                        "default": "2026-03-14T22:21:30.379Z",
                         "type": "string"
                       }
                     },
@@ -6489,7 +6908,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-08T11:46:10.274Z",
+                          "default": "2026-03-14T22:21:30.381Z",
                           "type": "string"
                         }
                       },

@@ -60,6 +60,12 @@
       "type": "component",
       "component": "event.budget",
       "repeatable": true
+    },
+    "Cancelled": {
+      "type": "boolean"
+    },
+    "CancelledDate": {
+      "type": "date"
     }
   }
 }

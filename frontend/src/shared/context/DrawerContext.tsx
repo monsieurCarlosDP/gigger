@@ -1,52 +1,20 @@
-import { createContext, useContext, useMemo, useState } from 'react';
-import type { ReactNode } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-interface DrawerState {
-  isOpen: boolean;
-  content: ReactNode;
-}
+export type DrawerView = 'day' | 'event';
 
-interface DrawerActions {
-  openDrawer: (content: ReactNode) => void;
-  closeDrawer: () => void;
-}
+export function useDrawerNav() {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-const DrawerStateContext = createContext<DrawerState | null>(null);
-const DrawerActionsContext = createContext<DrawerActions | null>(null);
+  const drawerType = searchParams.get('drawer') as DrawerView | null;
 
-export function DrawerProvider({ children }: { children: ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [content, setContent] = useState<ReactNode>(null);
-
-  const actions = useMemo<DrawerActions>(() => ({
-    openDrawer: (newContent: ReactNode) => {
-      setContent(newContent);
-      setIsOpen(true);
-    },
-    closeDrawer: () => {
-      setIsOpen(false);
-    },
-  }), []);
-
-  const state = useMemo<DrawerState>(() => ({ isOpen, content }), [isOpen, content]);
-
-  return (
-    <DrawerActionsContext value={actions}>
-      <DrawerStateContext value={state}>
-        {children}
-      </DrawerStateContext>
-    </DrawerActionsContext>
-  );
-}
-
-export function useDrawerState(): DrawerState {
-  const ctx = useContext(DrawerStateContext);
-  if (!ctx) throw new Error('useDrawerState must be used within DrawerProvider');
-  return ctx;
-}
-
-export function useDrawerActions(): DrawerActions {
-  const ctx = useContext(DrawerActionsContext);
-  if (!ctx) throw new Error('useDrawerActions must be used within DrawerProvider');
-  return ctx;
+  return {
+    drawerType,
+    drawerDate: searchParams.get('date'),
+    drawerEventId: searchParams.get('id'),
+    openDayDrawer: (date: string) =>
+      setSearchParams({ drawer: 'day', date }),
+    openEventDrawer: (id: string) =>
+      setSearchParams({ drawer: 'event', id }),
+    closeDrawer: () => setSearchParams({}),
+  };
 }

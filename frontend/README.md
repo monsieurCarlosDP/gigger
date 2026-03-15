@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+# Gigger - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SPA en React 19 con arquitectura feature-based para gestión de eventos.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** + **TypeScript** (estricto)
+- **Vite** — bundler y dev server
+- **MUI v7** — componentes UI
+- **TanStack Query v5** — data fetching y cache
+- **React Router v7** — routing con lazy loading
+- **openapi-fetch** — cliente API type-safe
+- **dayjs** — manejo de fechas
+- **Storybook v10** — documentación visual de componentes
 
-## React Compiler
+## Scripts
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev              # Dev server (http://localhost:5173)
+npm run build            # Build de producción
+npm run preview          # Preview del build
+npm run storybook        # Storybook (http://localhost:6006)
+npm run openapi:generate # Regenerar tipos desde OpenAPI spec
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Estructura
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── features/              # Features independientes
+│   ├── dashboard/         # Dashboard con calendario y resumen de eventos
+│   │   ├── pages/         # DashboardPage
+│   │   └── components/    # DashboardHeader, EventsSummaryCard
+│   └── events/            # Lógica de eventos compartida
+│       ├── components/    # EventChip
+│       └── hooks/         # useEvents, useUpcomingEvents, CRUD hooks
+│
+├── shared/                # Código compartido
+│   ├── api/               # Cliente HTTP type-safe (openapi-fetch)
+│   ├── components/        # Calendar, Card, Navbar
+│   ├── context/           # DrawerContext (split state/actions)
+│   ├── layouts/           # MainLayout, PageLayout
+│   └── types/             # api.d.ts (generado desde OpenAPI)
+│
+├── stories/               # Storybook examples
+├── App.tsx                # Rutas
+└── main.tsx               # Entry point
+```
+
+## Convenciones
+
+- **Sin barrel files** — importar siempre desde el archivo fuente directo
+- **camelCase** para archivos TS/hooks, **PascalCase** para componentes
+- **Mobile-first** — todos los componentes usan breakpoints de MUI
+- **`import type`** para importaciones solo de tipos
+- **Union types** sobre enums
+- Path alias: `@/` apunta a `src/`
+
+## Componentes Principales
+
+| Componente | Ubicación | Descripción |
+|-----------|-----------|-------------|
+| `Calendar` | `shared/components/` | Calendario con dots, rangos bloqueados, leyenda y hover events |
+| `Card` | `shared/components/` | Wrapper sobre MUI Card con action area y acciones |
+| `Navbar` | `shared/components/` | Sidebar izquierda collapsible, mobile-responsive |
+| `EventChip` | `features/events/components/` | Chip coloreado por tipo de evento |
+| `EventCard` | `features/dashboard/components/` | Tarjeta de resumen de evento con fecha y tiempo relativo |
+
+## Hooks de Eventos
+
+| Hook | Uso |
+|------|-----|
+| `useEvents(params?)` | Lista eventos con query opcional |
+| `useEventById(id)` | Evento por ID |
+| `useCreateEvent()` | Mutation para crear |
+| `useUpdateEvent()` | Mutation para actualizar |
+| `useDeleteEvent()` | Mutation para eliminar |
+| `useUpcomingEvents({ limit, type, daysBack })` | Próximos eventos filtrados |
+
+## API
+
+El frontend consume la API REST de Strapi a través de un cliente type-safe generado desde la spec OpenAPI:
+
+```
+Backend (Strapi) → OpenAPI spec → openapi:generate → api.d.ts → openapi-fetch client
+```
+
+El cliente está en `src/shared/api/client.ts` y los tipos en `src/shared/types/api.d.ts`.
