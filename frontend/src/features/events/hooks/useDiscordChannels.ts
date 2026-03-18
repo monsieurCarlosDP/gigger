@@ -1,6 +1,6 @@
 import { api } from '@/shared/api/client';
 import { useSnackbar } from '@/shared/context/SnackbarContext';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 export function useDiscordChannels() {
@@ -22,4 +22,41 @@ export function useDiscordChannels() {
   }, [query.error, showError]);
 
   return query;
+}
+
+export function useCreateDiscordChannel() {
+  const queryClient = useQueryClient();
+  const { showSuccess, showError } = useSnackbar();
+
+  return useMutation({
+    mutationFn: async (name: string) => {
+      const res = await api.createDiscordChannel(name);
+      return res.data;
+    },
+    onSuccess: (channel) => {
+      showSuccess(`Canal #${channel.name} creado`);
+      queryClient.invalidateQueries({ queryKey: ['discord', 'channels'] });
+    },
+    onError: (err: Error) => {
+      showError(err.message);
+    },
+  });
+}
+
+export function useLinkDiscordChannel(eventDocumentId: string) {
+  const queryClient = useQueryClient();
+  const { showSuccess, showError } = useSnackbar();
+
+  return useMutation({
+    mutationFn: async (channelId: string) => {
+      return api.updateEvent(eventDocumentId, { data: { DiscordChannelId: channelId } });
+    },
+    onSuccess: () => {
+      showSuccess('Canal vinculado al evento');
+      queryClient.invalidateQueries({ queryKey: ['events', eventDocumentId] });
+    },
+    onError: (err: Error) => {
+      showError(err.message);
+    },
+  });
 }

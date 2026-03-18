@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-03-15T22:32:30.790Z"
+    "x-generation-date": "2026-03-18T18:55:30.742Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -3364,6 +3364,15 @@
                   "Viability"
                 ]
               },
+              "GigType": {
+                "type": "string",
+                "enum": [
+                  "Wedding",
+                  "Party",
+                  "Village",
+                  "Gig"
+                ]
+              },
               "contacts": {
                 "type": "array",
                 "items": {
@@ -3377,9 +3386,6 @@
                   ],
                   "example": "string or id"
                 }
-              },
-              "Period": {
-                "type": "boolean"
               },
               "StartDate": {
                 "type": "string",
@@ -3410,6 +3416,17 @@
                 "items": {
                   "$ref": "#/components/schemas/EventTimelineStopComponent"
                 }
+              },
+              "CreatedByUser": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "example": "string or id"
               },
               "locale": {
                 "type": "string"
@@ -3507,6 +3524,15 @@
               "Viability"
             ]
           },
+          "GigType": {
+            "type": "string",
+            "enum": [
+              "Wedding",
+              "Party",
+              "Village",
+              "Gig"
+            ]
+          },
           "contacts": {
             "type": "array",
             "items": {
@@ -3585,6 +3611,15 @@
                           "Viability"
                         ]
                       },
+                      "GigType": {
+                        "type": "string",
+                        "enum": [
+                          "Wedding",
+                          "Party",
+                          "Village",
+                          "Gig"
+                        ]
+                      },
                       "contacts": {
                         "type": "array",
                         "items": {
@@ -3605,9 +3640,6 @@
                             }
                           }
                         }
-                      },
-                      "Period": {
-                        "type": "boolean"
                       },
                       "StartDate": {
                         "type": "string",
@@ -3637,6 +3669,24 @@
                         "type": "array",
                         "items": {
                           "$ref": "#/components/schemas/EventTimelineStopComponent"
+                        }
+                      },
+                      "CreatedByUser": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          "documentId": {
+                            "type": "string"
+                          }
                         }
                       },
                       "createdAt": {
@@ -3789,9 +3839,6 @@
               }
             }
           },
-          "Period": {
-            "type": "boolean"
-          },
           "StartDate": {
             "type": "string",
             "format": "date"
@@ -3820,6 +3867,24 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/EventTimelineStopComponent"
+            }
+          },
+          "CreatedByUser": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "documentId": {
+                "type": "string"
+              }
             }
           },
           "createdAt": {
@@ -4252,6 +4317,27 @@
               "avatar": {
                 "$ref": "#/components/schemas/UserAvatarComponent"
               },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -4682,6 +4768,15 @@
                     "Reservation",
                     "Event",
                     "Viability"
+                  ]
+                },
+                "GigType": {
+                  "type": "string",
+                  "enum": [
+                    "Wedding",
+                    "Party",
+                    "Village",
+                    "Gig"
                   ]
                 },
                 "contacts": {
@@ -5164,9 +5259,6 @@
                     }
                   }
                 },
-                "Period": {
-                  "type": "boolean"
-                },
                 "StartDate": {
                   "type": "string",
                   "format": "date"
@@ -5195,6 +5287,24 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/EventTimelineStopComponent"
+                  }
+                },
+                "CreatedByUser": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
                   }
                 },
                 "createdAt": {

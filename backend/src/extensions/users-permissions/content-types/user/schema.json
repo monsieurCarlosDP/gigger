@@ -73,6 +73,12 @@
       "type": "component",
       "component": "user.avatar",
       "repeatable": false
+    },
+    "events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event",
+      "mappedBy": "CreatedByUser"
     }
   }
 }

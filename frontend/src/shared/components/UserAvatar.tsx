@@ -29,10 +29,14 @@ export function UserAvatar({ avatar, size = 32, sx }: UserAvatarProps) {
       skinColor: [avatar.skinColor],
     };
 
-    if (avatar.accessories) options.accessories = [avatar.accessories];
-    if (avatar.accessoriesProbability != null) options.accessoriesProbability = avatar.accessoriesProbability;
-    if (avatar.facialHair) options.facialHair = [avatar.facialHair];
-    if (avatar.facialHairProbability != null) options.facialHairProbability = avatar.facialHairProbability;
+    if (avatar.accessories) {
+      options.accessories = [avatar.accessories];
+      options.accessoriesProbability = 100;
+    }
+    if (avatar.facialHair) {
+      options.facialHair = [avatar.facialHair];
+      options.facialHairProbability = 100;
+    }
     if (avatar.clothingGraphic) options.clothingGraphic = [avatar.clothingGraphic];
     if (avatar.hairColor) options.hairColor = [avatar.hairColor];
     if (avatar.clothesColor) options.clothesColor = [avatar.clothesColor];

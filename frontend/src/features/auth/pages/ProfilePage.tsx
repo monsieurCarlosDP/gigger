@@ -1,16 +1,28 @@
-import { api } from '@/shared/api/client';
+import { useDeleteEvent, useUpdateEvent } from '@/features/events/hooks/useEvents';
 import type { AvatarConfig } from '@/shared/api/client';
+import { api } from '@/shared/api/client';
+import type { BlockedRange } from '@/shared/components/Calendar';
+import { Calendar } from '@/shared/components/Calendar';
+import { UserAvatar } from '@/shared/components/UserAvatar';
 import { useAuth } from '@/shared/context/AuthContext';
 import { useSnackbar } from '@/shared/context/SnackbarContext';
 import { PageLayout } from '@/shared/layouts/PageLayout';
-import { UserAvatar } from '@/shared/components/UserAvatar';
-import PersonIcon from '@mui/icons-material/Person';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import FaceIcon from '@mui/icons-material/Face';
+import PersonIcon from '@mui/icons-material/Person';
+import SaveIcon from '@mui/icons-material/Save';
 import {
   Box,
   Button,
   CircularProgress,
   Divider,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
   MenuItem,
   Paper,
   Stack,
@@ -19,85 +31,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import dayjs from 'dayjs';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { FormEvent } from 'react';
+import { useState } from 'react';
 
 // --- Avatar option values (dicebear avataaars) ---
 
-const AVATAR_OPTIONS = {
-  top: [
-    'hat', 'hijab', 'turban', 'winterHat1', 'winterHat02', 'winterHat03', 'winterHat04',
-    'bob', 'bun', 'curly', 'curvy', 'dreads', 'frida', 'fro', 'froBand',
-    'longButNotTooLong', 'miaWallace', 'shavedSides', 'straight02', 'straight01',
-    'straightAndStrand', 'dreads01', 'dreads02', 'frizzle', 'shaggy', 'shaggyMullet',
-    'shortCurly', 'shortFlat', 'shortRound', 'shortWaved', 'sides',
-    'theCaesar', 'theCaesarAndSidePart', 'bigHair',
-  ],
-  accessories: [
-    'kurt', 'prescription01', 'prescription02', 'round', 'sunglasses', 'wayfarers', 'eyepatch',
-  ],
-  facialHair: [
-    'beardLight', 'beardMajestic', 'beardMedium', 'moustacheFancy', 'moustacheMagnum',
-  ],
-  clothing: [
-    'blazerAndShirt', 'blazerAndSweater', 'collarAndSweater', 'graphicShirt',
-    'hoodie', 'overall', 'shirtCrewNeck', 'shirtScoopNeck', 'shirtVNeck',
-  ],
-  clothingGraphic: [
-    'bat', 'bear', 'cumbia', 'deer', 'diamond', 'hola', 'pizza', 'resist', 'skull', 'skullOutline',
-  ],
-  eyes: [
-    'closed', 'cry', 'default', 'eyeRoll', 'happy', 'hearts', 'side',
-    'squint', 'surprised', 'winkWacky', 'wink', 'xDizzy',
-  ],
-  eyebrows: [
-    'angryNatural', 'defaultNatural', 'flatNatural', 'frownNatural',
-    'raisedExcitedNatural', 'sadConcernedNatural', 'unibrowNatural',
-    'upDownNatural', 'angry', 'default', 'raisedExcited', 'sadConcerned', 'upDown',
-  ],
-  mouth: [
-    'concerned', 'default', 'disbelief', 'eating', 'grimace', 'sad',
-    'screamOpen', 'serious', 'smile', 'tongue', 'twinkle', 'vomit',
-  ],
-  skinColor: [
-    { label: 'Claro', value: 'ffdbb4' },
-    { label: 'Medio claro', value: 'edb98a' },
-    { label: 'Medio', value: 'd08b5b' },
-    { label: 'Bronceado', value: 'fd9841' },
-    { label: 'Oscuro', value: 'ae5d29' },
-    { label: 'Muy oscuro', value: '614335' },
-    { label: 'Amarillo', value: 'f8d25c' },
-  ],
-  hairColor: [
-    { label: 'Castaño', value: 'a55728' },
-    { label: 'Negro', value: '2c1b18' },
-    { label: 'Rubio', value: 'b58143' },
-    { label: 'Rubio dorado', value: 'd6b370' },
-    { label: 'Marrón', value: '724133' },
-    { label: 'Marrón oscuro', value: '4a312c' },
-    { label: 'Rosa pastel', value: 'f59797' },
-    { label: 'Platino', value: 'ecdcbf' },
-    { label: 'Pelirrojo', value: 'c93305' },
-    { label: 'Gris plata', value: 'e8e1e1' },
-  ],
-  clothesColor: [
-    { label: 'Negro', value: '262e33' },
-    { label: 'Azul claro', value: '65c9ff' },
-    { label: 'Azul', value: '5199e4' },
-    { label: 'Azul oscuro', value: '25557c' },
-    { label: 'Gris claro', value: 'e6e6e6' },
-    { label: 'Gris', value: '929598' },
-    { label: 'Gris oscuro', value: '3c4f5c' },
-    { label: 'Azul pastel', value: 'b1e2ff' },
-    { label: 'Verde pastel', value: 'a7ffc4' },
-    { label: 'Naranja pastel', value: 'ffdeb5' },
-    { label: 'Rosa pastel', value: 'ffafb9' },
-    { label: 'Amarillo pastel', value: 'ffffb1' },
-    { label: 'Rosa', value: 'ff488e' },
-    { label: 'Rojo', value: 'ff5c5c' },
-    { label: 'Blanco', value: 'ffffff' },
-  ],
-} as const;
+import { AVATAR_OPTIONS, randomAvatar } from '@/shared/constants/avatarOptions';
 
 // --- Shared section wrapper ---
 
@@ -259,18 +200,6 @@ function InfoTab() {
 
 // --- Tab 1: Avatar editor ---
 
-const DEFAULT_AVATAR: AvatarConfig = {
-  top: 'shortFlat',
-  clothing: 'blazerAndShirt',
-  eyes: 'default',
-  eyebrows: 'default',
-  mouth: 'smile',
-  skinColor: 'edb98a',
-  hairColor: '4a312c',
-  clothesColor: '929598',
-  facialHairColor: '4a312c',
-  hatColor: '929598',
-};
 
 interface AvatarSelectProps {
   label: string;
@@ -335,7 +264,7 @@ function ColorSelect({ label, value, options, onChange }: AvatarSelectProps & { 
 function AvatarTab() {
   const { user, refreshUser } = useAuth();
   const { showSuccess, showError } = useSnackbar();
-  const [draft, setDraft] = useState<AvatarConfig>(user?.avatar ?? DEFAULT_AVATAR);
+  const [draft, setDraft] = useState<AvatarConfig>(user?.avatar ?? randomAvatar());
   const [isSaving, setIsSaving] = useState(false);
 
   if (!user) return null;
@@ -358,7 +287,7 @@ function AvatarTab() {
       if (draft.facialHairProbability != null) cleanAvatar.facialHairProbability = draft.facialHairProbability;
       if (draft.clothingGraphic) cleanAvatar.clothingGraphic = draft.clothingGraphic;
 
-      await api.updateMe(user.id, { avatar: cleanAvatar });
+      await api.updateAvatar(cleanAvatar);
       await refreshUser();
       showSuccess('Avatar actualizado');
     } catch (err) {
@@ -392,7 +321,13 @@ function AvatarTab() {
           <Stack spacing={2}>
             <AvatarSelect label="Peinado" value={draft.top} options={AVATAR_OPTIONS.top} onChange={(v) => update('top', v)} />
             <ColorSelect label="Color de pelo" value={draft.hairColor} options={AVATAR_OPTIONS.hairColor} onChange={(v) => update('hairColor', v)} />
+            {['hat', 'winterHat1', 'winterHat02', 'winterHat03', 'winterHat04'].includes(draft.top) && (
+              <ColorSelect label="Color de gorro" value={draft.hatColor} options={AVATAR_OPTIONS.hatColor} onChange={(v) => update('hatColor', v)} />
+            )}
             <AvatarSelect label="Vello facial" value={draft.facialHair ?? ''} options={['', ...AVATAR_OPTIONS.facialHair]} onChange={(v) => update('facialHair', v)} />
+            {draft.facialHair && (
+              <ColorSelect label="Color vello facial" value={draft.facialHairColor} options={AVATAR_OPTIONS.facialHairColor} onChange={(v) => update('facialHairColor', v)} />
+            )}
             <AvatarSelect label="Accesorios" value={draft.accessories ?? ''} options={['', ...AVATAR_OPTIONS.accessories]} onChange={(v) => update('accessories', v)} />
           </Stack>
         </ProfileSection>
@@ -420,11 +355,216 @@ function AvatarTab() {
   );
 }
 
+// --- Tab 2: Availability calendar ---
+
+function AvailabilityTab() {
+  const { showSuccess, showError } = useSnackbar();
+  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(dayjs());
+
+  // Form state
+  const [name, setName] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [editingId, setEditingId] = useState<string | null>(null);
+
+  const { data } = useQuery({
+    queryKey: ['profile', 'viability'],
+    queryFn: () => api.getMyViability(),
+  });
+
+  const { mutate: updateEvent, isPending: isUpdating } = useUpdateEvent();
+  const { mutate: deleteEvent } = useDeleteEvent();
+  const [isCreating, setIsCreating] = useState(false);
+  const queryClient = useQueryClient();
+
+  const events = data?.data ?? [];
+
+  const blockedRanges: BlockedRange[] = events.map((event) => ({
+    start: dayjs(event.StartDate as string),
+    end: dayjs((event.EndDate as string) || (event.StartDate as string)),
+    color: event.Cancelled ? 'action.disabled' : 'error.main',
+  }));
+
+  const resetForm = () => {
+    setName('');
+    setStartDate('');
+    setEndDate('');
+    setEditingId(null);
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!name || !startDate) return;
+
+    if (editingId) {
+      updateEvent(
+        {
+          id: editingId,
+          body: {
+            data: {
+              Name: name,
+              Type: 'Viability' as const,
+              StartDate: startDate,
+              EndDate: endDate || undefined,
+              publishedAt: new Date().toISOString(),
+            },
+          },
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['profile', 'viability'] });
+            showSuccess('Disponibilidad actualizada');
+            resetForm();
+          },
+          onError: () => showError('Error al actualizar'),
+        },
+      );
+    } else {
+      setIsCreating(true);
+      try {
+        await api.createViability({ Name: name, StartDate: startDate, EndDate: endDate || undefined });
+        queryClient.invalidateQueries({ queryKey: ['profile', 'viability'] });
+        showSuccess('Disponibilidad creada');
+        resetForm();
+      } catch {
+        showError('Error al crear');
+      } finally {
+        setIsCreating(false);
+      }
+    }
+  };
+
+  const handleEdit = (event: (typeof events)[number]) => {
+    setEditingId(event.documentId);
+    setName(event.Name);
+    setStartDate(event.StartDate);
+    setEndDate((event.EndDate as string) ?? '');
+  };
+
+  const handleDelete = (documentId: string) => {
+    deleteEvent(documentId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['profile', 'viability'] });
+        showSuccess('Disponibilidad eliminada');
+      },
+      onError: () => showError('Error al eliminar'),
+    });
+  };
+
+  const isSaving = isCreating || isUpdating;
+  const canSubmit = !!name && !!startDate && !isSaving;
+
+  return (
+    <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} alignItems="flex-start">
+      {/* Calendar */}
+      <Box sx={{ position: 'sticky', top: 80, alignSelf: { md: 'flex-start' } }}>
+        <Calendar
+          value={selectedDate}
+          onChange={setSelectedDate}
+          blockedRanges={blockedRanges}
+        />
+      </Box>
+
+      {/* Form + List */}
+      <Stack spacing={3} sx={{ flex: 1, maxWidth: 500, width: '100%' }}>
+        <ProfileSection title={editingId ? 'Editar disponibilidad' : 'Nueva disponibilidad'}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <TextField
+              label="Nombre"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Ej: Vacaciones, No disponible..."
+              required
+              fullWidth
+              size="small"
+            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                label="Fecha inicio"
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                required
+                fullWidth
+                size="small"
+                slotProps={{ inputLabel: { shrink: true } }}
+              />
+              <TextField
+                label="Fecha fin"
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                fullWidth
+                size="small"
+                slotProps={{ inputLabel: { shrink: true } }}
+              />
+            </Stack>
+            <Stack direction="row" spacing={1} justifyContent="flex-end">
+              {editingId && (
+                <Button variant="outlined" onClick={resetForm} startIcon={<CloseIcon />}>
+                  Cancelar
+                </Button>
+              )}
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={!canSubmit}
+                startIcon={isSaving ? <CircularProgress size={16} color="inherit" /> : <SaveIcon />}
+              >
+                {editingId ? 'Actualizar' : 'Crear'}
+              </Button>
+            </Stack>
+          </Box>
+        </ProfileSection>
+
+        <ProfileSection title="Disponibilidades">
+          {events.length === 0 ? (
+            <Typography variant="body2" color="text.secondary">
+              No hay disponibilidades registradas.
+            </Typography>
+          ) : (
+            <List disablePadding>
+              {events.map((event) => (
+                <ListItem
+                  key={event.documentId}
+                  disableGutters
+                  secondaryAction={
+                    <Stack direction="row" spacing={0.5}>
+                      <IconButton size="small" onClick={() => handleEdit(event)} title="Editar">
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton size="small" onClick={() => handleDelete(event.documentId)} title="Eliminar" color="error">
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Stack>
+                  }
+                  sx={{ borderBottom: '1px solid', borderColor: 'divider', py: 1 }}
+                >
+                  <ListItemText
+                    primary={event.Name}
+                    secondary={
+                      event.EndDate
+                        ? `${dayjs(event.StartDate).format('D MMM YYYY')} — ${dayjs(event.EndDate).format('D MMM YYYY')}`
+                        : dayjs(event.StartDate).format('D MMM YYYY')
+                    }
+                  />
+                </ListItem>
+              ))}
+            </List>
+          )}
+        </ProfileSection>
+      </Stack>
+    </Stack>
+  );
+}
+
 // --- Page ---
+
+const PROFILE_TABS = { availability: 0, info: 1, avatar: 2 } as const;
 
 export default function ProfilePage() {
   const { user, isLoading } = useAuth();
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState(PROFILE_TABS.availability);
 
   if (isLoading || !user) {
     return (
@@ -448,11 +588,13 @@ export default function ProfilePage() {
     >
       <Box>
         <Tabs value={tab} onChange={(_, v: number) => setTab(v)} sx={{ mb: 3 }}>
+          <Tab icon={<CalendarMonthIcon />} label="Disponibilidad" />
           <Tab icon={<PersonIcon />} label="Información" />
           <Tab icon={<FaceIcon />} label="Avatar" />
         </Tabs>
-        {tab === 0 && <InfoTab />}
-        {tab === 1 && <AvatarTab />}
+        {tab === PROFILE_TABS.availability && <AvailabilityTab />}
+        {tab === PROFILE_TABS.info && <InfoTab />}
+        {tab === PROFILE_TABS.avatar && <AvatarTab />}
       </Box>
     </PageLayout>
   );

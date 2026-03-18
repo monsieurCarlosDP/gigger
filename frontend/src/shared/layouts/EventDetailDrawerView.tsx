@@ -33,6 +33,7 @@ import {
   Tabs,
   Typography,
 } from '@mui/material';
+import { useAuth } from '@/shared/context/AuthContext';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { useEffect, useRef } from 'react';
@@ -46,6 +47,7 @@ interface EventDetailDrawerViewProps {
 
 export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { openBudgetsDrawer } = useDrawerNav();
   const { tabIndex: tab, setTab } = useEventTabParam();
   const { data, isLoading } = useEventById(id, {
@@ -72,7 +74,7 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
     return <Typography color="textSecondary">Evento no encontrado</Typography>;
   }
 
-  const isPeriod = event.Period && event.EndDate;
+  const isPeriod = event.Type === 'Viability' && event.EndDate;
   const isCancelled = event.Cancelled === true;
 
   return (
@@ -260,16 +262,19 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
               </Typography>
             ) : (
               <Stack spacing={1.5}>
-                {[...messages].reverse().map((msg) => (
-                  <ChatBubble
-                    key={msg.id}
-                    variant={msg.author.bot ? 'sent' : 'received'}
-                    content={msg.content || '[Adjunto]'}
-                    author={msg.author.username}
-                    avatar={msg.author.avatar}
-                    timestamp={dayjs(msg.timestamp).format('D MMM YYYY, HH:mm')}
-                  />
-                ))}
+                {[...messages].reverse().map((msg) => {
+                  const isMine = msg.isWebhook && msg.author.username === (user?.displayName || user?.username);
+                  return (
+                    <ChatBubble
+                      key={msg.id}
+                      variant={isMine ? 'sent' : 'received'}
+                      content={msg.content || '[Adjunto]'}
+                      author={msg.author.username}
+                      avatar={msg.author.avatar}
+                      timestamp={dayjs(msg.timestamp).format('D MMM YYYY, HH:mm')}
+                    />
+                  );
+                })}
                 <div ref={messagesEndRef} />
               </Stack>
             )}

@@ -48,6 +48,7 @@ export interface AvatarConfig {
 
 export interface AuthUser {
   id: number;
+  documentId: string;
   username: string;
   email: string;
   displayName?: string;
@@ -90,6 +91,7 @@ export interface DiscordMessage {
     avatar: string | null;
     bot: boolean;
   };
+  isWebhook: boolean;
   timestamp: string;
   editedAt: string | null;
   attachments: { id: string; filename: string; url: string }[];
@@ -163,6 +165,19 @@ export const api = {
     return fetchClient.DELETE('/events/{id}', { params: { path: { id } } });
   },
 
+  /** GET /profile/my-viability — list Viability events for current user */
+  getMyViability() {
+    return authFetch<{ data: { documentId: string; Name: string; StartDate: string; EndDate: string | null; Cancelled: boolean | null }[] }>('/profile/my-viability');
+  },
+
+  /** POST /profile/viability — create Viability event linked to current user */
+  createViability(data: { Name: string; StartDate: string; EndDate?: string }) {
+    return authFetch<{ data: Record<string, unknown> }>('/profile/viability', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
   /** POST /auth/local */
   login(identifier: string, password: string) {
     return authFetch<LoginResponse>('/auth/local', {
@@ -176,11 +191,19 @@ export const api = {
     return authFetch<AuthUser>('/users/me?populate=avatar');
   },
 
-  /** PUT /users/:id — update profile */
-  updateMe(id: number, data: { username?: string; displayName?: string; avatar?: AvatarConfig }) {
+  /** PUT /users/:id — update profile (campos planos) */
+  updateMe(id: number, data: { username?: string; displayName?: string }) {
     return authFetch<AuthUser>(`/users/${id}`, {
       method: 'PUT',
       body: JSON.stringify(data),
+    });
+  },
+
+  /** PUT /profile/avatar — update avatar via custom endpoint */
+  updateAvatar(avatar: AvatarConfig) {
+    return authFetch<{ data: { avatar: AvatarConfig } }>('/profile/avatar', {
+      method: 'PUT',
+      body: JSON.stringify({ avatar }),
     });
   },
 
@@ -189,6 +212,16 @@ export const api = {
     return authFetch<AuthUser>('/auth/change-password', {
       method: 'POST',
       body: JSON.stringify({ currentPassword, password, passwordConfirmation }),
+    });
+  },
+
+  /** POST /discord/channels — create new text channel */
+  createDiscordChannel(name: string, categoryId?: string) {
+    const body: Record<string, unknown> = { name };
+    if (categoryId) body.categoryId = categoryId;
+    return authFetch<{ data: DiscordChannel }>('/discord/channels', {
+      method: 'POST',
+      body: JSON.stringify(body),
     });
   },
 

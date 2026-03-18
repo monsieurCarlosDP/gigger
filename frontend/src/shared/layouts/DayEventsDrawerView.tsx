@@ -16,7 +16,7 @@ export function DayEventsDrawerView({ date }: DayEventsDrawerViewProps) {
   const { openEventDrawer } = useDrawerNav();
 
   const dayEvents = (data?.data ?? []).filter((event) => {
-    if (event.Period && event.EndDate) {
+    if (event.Type === 'Viability' && event.EndDate) {
       const d = dayjs(date);
       return (
         (d.isSame(dayjs(event.StartDate), 'day') || d.isAfter(dayjs(event.StartDate), 'day')) &&

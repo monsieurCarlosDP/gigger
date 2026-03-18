@@ -1,10 +1,11 @@
 import { EventChip } from '@/features/events/components/EventChip';
 import { Timeline } from '@/shared/components/Timeline';
-import { useDiscordChannels } from '@/features/events/hooks/useDiscordChannels';
+import { useCreateDiscordChannel, useDiscordChannels, useLinkDiscordChannel } from '@/features/events/hooks/useDiscordChannels';
 import { useDiscordMessages, useSendDiscordMessage } from '@/features/events/hooks/useDiscordMessages';
 import { useEventById } from '@/features/events/hooks/useEvents';
 import { ChatBubble } from '@/shared/components/ChatBubble';
 import { ChatInput } from '@/shared/components/ChatInput';
+import { useAuth } from '@/shared/context/AuthContext';
 import { useDrawerNav } from '@/shared/context/DrawerContext';
 import { PageLayout } from '@/shared/layouts/PageLayout';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -39,7 +40,9 @@ import {
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { useEventTabParam } from '@/shared/context/DrawerContext';
-import { useEffect, useRef } from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import LinkIcon from '@mui/icons-material/Link';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 dayjs.locale('es');
@@ -47,6 +50,7 @@ dayjs.locale('es');
 export default function EventDetailPage() {
   const { documentId } = useParams<{ documentId: string }>();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { openEventDrawer } = useDrawerNav();
   const { tabIndex: tab, tabName, setTab } = useEventTabParam();
 
@@ -55,8 +59,27 @@ export default function EventDetailPage() {
   });
 
   const { data: channels = [], isLoading: channelsLoading } = useDiscordChannels();
+  const { mutateAsync: createChannel, isPending: isCreating } = useCreateDiscordChannel();
+  const { mutate: linkChannel, isPending: isLinking } = useLinkDiscordChannel(documentId ?? '');
+
+  const [selectedChannel, setSelectedChannel] = useState<{ id: string; name: string } | null>(null);
 
   const event = data?.data;
+
+  const defaultChannelName = event
+    ? [
+        dayjs(event.StartDate).format('DD-MM-YY'),
+        event.Location?.toLowerCase().replace(/\s+/g, '-'),
+        event.Type?.toLowerCase(),
+      ].filter(Boolean).join('-')
+    : '';
+  const [newChannelName, setNewChannelName] = useState('');
+
+  useEffect(() => {
+    if (defaultChannelName && !newChannelName) {
+      setNewChannelName(defaultChannelName);
+    }
+  }, [defaultChannelName]);
   const { data: messages = [], isLoading: messagesLoading } = useDiscordMessages(event?.DiscordChannelId, { polling: tab === 3 });
   const { mutate: sendMessage, isPending: isSending } = useSendDiscordMessage(event?.DiscordChannelId);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -64,7 +87,7 @@ export default function EventDetailPage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, tab]);
-  const isPeriod = event?.Period && event?.EndDate;
+  const isPeriod = event?.Type === 'Viability' && event?.EndDate;
   const isCancelled = event?.Cancelled === true;
 
   return (
@@ -293,32 +316,82 @@ export default function EventDetailPage() {
           {/* Tab: Conversación */}
           {tab === 3 && (
             <Stack spacing={3}>
-              <Paper elevation={2} sx={{ p: 3 }}>
-                <Stack spacing={2}>
-                  <Typography variant="h6">Canal de Discord</Typography>
-                  <Divider />
-                  <Autocomplete
-                    options={channels}
-                    getOptionLabel={(option) => `#${option.name}`}
-                    loading={channelsLoading}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        placeholder="Buscar canal..."
-                        size="small"
-                      />
-                    )}
-                    onChange={(_e, value) => {
-                      console.log('Canal seleccionado:', value);
-                    }}
-                  />
-                </Stack>
-              </Paper>
+              {/* Channel config — show when no channel linked, or collapsible when linked */}
+              {!event.DiscordChannelId && (
+                <Paper elevation={2} sx={{ p: 3 }}>
+                  <Stack spacing={2}>
+                    <Typography variant="h6">Vincular canal de Discord</Typography>
+                    <Divider />
 
+                    {/* Select existing channel */}
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Autocomplete
+                        options={channels}
+                        getOptionLabel={(option) => `#${option.name}`}
+                        loading={channelsLoading}
+                        value={selectedChannel}
+                        onChange={(_e, value) => setSelectedChannel(value)}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            placeholder="Buscar canal existente..."
+                            size="small"
+                          />
+                        )}
+                        sx={{ flexGrow: 1 }}
+                      />
+                      <Button
+                        variant="contained"
+                        startIcon={<LinkIcon />}
+                        disabled={!selectedChannel || isLinking}
+                        onClick={() => {
+                          if (selectedChannel) linkChannel(selectedChannel.id);
+                        }}
+                      >
+                        Vincular
+                      </Button>
+                    </Stack>
+
+                    <Divider><Typography variant="caption" color="text.secondary">o</Typography></Divider>
+
+                    {/* Create new channel */}
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <TextField
+                        size="small"
+                        placeholder="Nombre del nuevo canal..."
+                        value={newChannelName}
+                        onChange={(e) => setNewChannelName(e.target.value)}
+                        sx={{ flexGrow: 1 }}
+                      />
+                      <Button
+                        variant="outlined"
+                        startIcon={<AddIcon />}
+                        disabled={!newChannelName.trim() || isCreating}
+                        onClick={async () => {
+                          const channel = await createChannel(newChannelName.trim());
+                          linkChannel(channel.id);
+                          setNewChannelName('');
+                        }}
+                      >
+                        Crear y vincular
+                      </Button>
+                    </Stack>
+                  </Stack>
+                </Paper>
+              )}
+
+              {/* Chat messages */}
               {event.DiscordChannelId && (
                 <Paper elevation={2} sx={{ p: 3 }}>
                   <Stack spacing={2}>
-                    <Typography variant="h6">Mensajes</Typography>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between">
+                      <Typography variant="h6">Mensajes</Typography>
+                      <Chip
+                        label={`#${channels.find((c) => c.id === event.DiscordChannelId)?.name ?? event.DiscordChannelId}`}
+                        size="small"
+                        variant="outlined"
+                      />
+                    </Stack>
                     <Divider />
                     {messagesLoading ? (
                       <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
@@ -330,23 +403,26 @@ export default function EventDetailPage() {
                       </Typography>
                     ) : (
                       <Stack spacing={1.5}>
-                        {[...messages].reverse().map((msg) => (
+                        {[...messages].reverse().map((msg) => {
+                          const isMine = msg.isWebhook && msg.author.username === (user?.displayName || user?.username);
+                          return (
                             <ChatBubble
                               key={msg.id}
-                              variant={msg.author.bot ? 'sent' : 'received'}
+                              variant={isMine ? 'sent' : 'received'}
                               content={msg.content || '[Adjunto]'}
                               author={msg.author.username}
                               avatar={msg.author.avatar}
                               timestamp={dayjs(msg.timestamp).format('D MMM YYYY, HH:mm')}
                             />
-                          ))}
+                          );
+                        })}
                         <div ref={messagesEndRef} />
                       </Stack>
                     )}
                     <Box sx={{ position: 'sticky', bottom: 0, bgcolor: 'background.paper', pt: 1, pb: 0.5 }}>
                       <ChatInput
-                        disabled={!event.DiscordChannelId || isSending}
-                        placeholder={event.DiscordChannelId ? 'Escribe un mensaje...' : 'Próximamente...'}
+                        disabled={isSending}
+                        placeholder="Escribe un mensaje..."
                         onSend={(content) => sendMessage(content)}
                       />
                     </Box>

@@ -9,6 +9,14 @@ export default {
       },
     },
     {
+      method: 'POST',
+      path: '/discord/channels',
+      handler: 'discord.createChannel',
+      config: {
+        policies: ['global::isAuthenticated'],
+      },
+    },
+    {
       method: 'GET',
       path: '/discord/channels/:channelId/messages',
       handler: 'discord.getMessages',

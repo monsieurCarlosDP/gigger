@@ -448,16 +448,22 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    CreatedByUser: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     DiscordChannelId: Schema.Attribute.String;
     Distance: Schema.Attribute.BigInteger;
     EndDate: Schema.Attribute.Date;
+    GigType: Schema.Attribute.Enumeration<
+      ['Wedding', 'Party', 'Village', 'Gig']
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
     Location: Schema.Attribute.String;
     Logistic: Schema.Attribute.Component<'event.timeline-stop', true>;
     Name: Schema.Attribute.String & Schema.Attribute.Required;
-    Period: Schema.Attribute.Boolean;
     publishedAt: Schema.Attribute.DateTime;
     StartDate: Schema.Attribute.Date & Schema.Attribute.Required;
     Type: Schema.Attribute.Enumeration<['Reservation', 'Event', 'Viability']> &
@@ -1029,6 +1035,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

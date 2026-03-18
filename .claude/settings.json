@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -g 'http://localhost:1337/api/events?filters[Type][$eq]=Viability&filters[createdByUser][id][$eq]=1')"
+    ]
+  }
+}

@@ -52,7 +52,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data = await api.login(identifier, password);
     localStorage.setItem(STORAGE_KEY, data.jwt);
     setJwt(data.jwt);
-    setUser(data.user);
+    // /auth/local no devuelve populate, obtenemos el user completo con avatar
+    setApiTokenGetter(() => data.jwt);
+    const fullUser = await api.getMe();
+    setUser(fullUser);
   }, []);
 
   const logout = useCallback(() => {

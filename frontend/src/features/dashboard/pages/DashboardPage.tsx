@@ -30,7 +30,7 @@ export default function DashboardPage() {
     for (const event of data?.data ?? []) {
       const isCancelled = event.Cancelled === true;
 
-      if (event.Period && event.EndDate) {
+      if (event.Type === 'Viability' && event.EndDate) {
         blockedRanges.push({
           start: dayjs(event.StartDate),
           end: dayjs(event.EndDate),

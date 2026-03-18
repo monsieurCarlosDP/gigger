@@ -19,7 +19,6 @@ type Event = {
   Description?: string;
   StartDate: string;
   EndDate?: string;
-  Period?: boolean | null;
   Distance?: string;
   Location?: string;
   Type?: EventType;
@@ -34,7 +33,7 @@ type EventCardProps = {
 
 export function EventCard({ event, onEventClick }: EventCardProps) {
   const startDate = dayjs(event.StartDate);
-  const isPeriod = event.Period && event.EndDate;
+  const isPeriod = event.Type === 'Viability' && event.EndDate;
   const isCancelled = event.Cancelled === true;
 
   return (
