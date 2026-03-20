@@ -8,6 +8,223 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/auth/local": {
+      "post": {
+        "operationId": "users-permissions/post/auth_local",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "jwt": {
+                      "type": "string"
+                    },
+                    "refreshToken": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "provider": {
+                          "type": "string"
+                        },
+                        "confirmed": {
+                          "type": "boolean"
+                        },
+                        "blocked": {
+                          "type": "boolean"
+                        },
+                        "role": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "type": {
+                                  "type": "string"
+                                },
+                                "createdAt": {
+                                  "type": "string"
+                                },
+                                "updatedAt": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "name",
+                                "description",
+                                "type",
+                                "createdAt",
+                                "updatedAt"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "publishedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "documentId",
+                        "username",
+                        "email",
+                        "provider",
+                        "confirmed",
+                        "blocked",
+                        "createdAt",
+                        "updatedAt",
+                        "publishedAt"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "jwt",
+                    "user"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "users-permissions"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "identifier": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "identifier",
+                  "password"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/discord/categories": {
+      "get": {
+        "operationId": "discord/get/discord_categories",
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "discord"
+        ]
+      },
+      "post": {
+        "operationId": "discord/post/discord_categories",
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "discord"
+        ]
+      }
+    },
     "/discord/channels": {
       "get": {
         "operationId": "discord/get/discord_channels",
@@ -156,7 +373,7 @@
                   "GigType",
                   "StartDate",
                   "EndDate",
-                  "Status",
+                  "EventStatus",
                   "CancelledDate",
                   "DiscordChannelId",
                   "createdAt",
@@ -184,7 +401,7 @@
                   "GigType",
                   "StartDate",
                   "EndDate",
-                  "Status",
+                  "EventStatus",
                   "CancelledDate",
                   "DiscordChannelId",
                   "createdAt",
@@ -287,7 +504,7 @@
                     "GigType",
                     "StartDate",
                     "EndDate",
-                    "Status",
+                    "EventStatus",
                     "CancelledDate",
                     "DiscordChannelId",
                     "createdAt",
@@ -307,7 +524,7 @@
                       "GigType",
                       "StartDate",
                       "EndDate",
-                      "Status",
+                      "EventStatus",
                       "CancelledDate",
                       "DiscordChannelId",
                       "createdAt",
@@ -328,7 +545,7 @@
                       "GigType",
                       "StartDate",
                       "EndDate",
-                      "Status",
+                      "EventStatus",
                       "CancelledDate",
                       "DiscordChannelId",
                       "createdAt",
@@ -358,7 +575,7 @@
                         "GigType",
                         "StartDate",
                         "EndDate",
-                        "Status",
+                        "EventStatus",
                         "CancelledDate",
                         "DiscordChannelId",
                         "createdAt",
@@ -513,10 +730,11 @@
                           "EndDate": {
                             "type": "string"
                           },
-                          "Status": {
-                            "default": "Budgeted",
+                          "EventStatus": {
+                            "default": "Requested",
                             "type": "string",
                             "enum": [
+                              "Requested",
                               "Budgeted",
                               "Accepted",
                               "Cancelled"
@@ -535,7 +753,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-20T18:37:44.487Z",
+                            "default": "2026-03-20T22:57:47.029Z",
                             "type": "string"
                           },
                           "contacts": {
@@ -587,7 +805,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-20T18:37:44.490Z",
+                                  "default": "2026-03-20T22:57:47.032Z",
                                   "type": "string"
                                 },
                                 "events": {
@@ -641,10 +859,11 @@
                                       "EndDate": {
                                         "type": "string"
                                       },
-                                      "Status": {
-                                        "default": "Budgeted",
+                                      "EventStatus": {
+                                        "default": "Requested",
                                         "type": "string",
                                         "enum": [
+                                          "Requested",
                                           "Budgeted",
                                           "Accepted",
                                           "Cancelled"
@@ -663,7 +882,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.493Z",
+                                        "default": "2026-03-20T22:57:47.034Z",
                                         "type": "string"
                                       },
                                       "contacts": {
@@ -815,7 +1034,7 @@
                                                   "type": "string"
                                                 },
                                                 "publishedAt": {
-                                                  "default": "2026-03-20T18:37:44.497Z",
+                                                  "default": "2026-03-20T22:57:47.038Z",
                                                   "type": "string"
                                                 },
                                                 "role": {
@@ -852,7 +1071,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-20T18:37:44.498Z",
+                                                      "default": "2026-03-20T22:57:47.039Z",
                                                       "type": "string"
                                                     },
                                                     "permissions": {
@@ -885,7 +1104,7 @@
                                                             "type": "string"
                                                           },
                                                           "publishedAt": {
-                                                            "default": "2026-03-20T18:37:44.499Z",
+                                                            "default": "2026-03-20T22:57:47.040Z",
                                                             "type": "string"
                                                           },
                                                           "role": {}
@@ -1188,7 +1407,7 @@
                                                   "type": "string"
                                                 },
                                                 "publishedAt": {
-                                                  "default": "2026-03-20T18:37:44.497Z",
+                                                  "default": "2026-03-20T22:57:47.038Z",
                                                   "type": "string"
                                                 },
                                                 "role": {
@@ -1225,7 +1444,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-20T18:37:44.498Z",
+                                                      "default": "2026-03-20T22:57:47.039Z",
                                                       "type": "string"
                                                     },
                                                     "permissions": {
@@ -1258,7 +1477,7 @@
                                                             "type": "string"
                                                           },
                                                           "publishedAt": {
-                                                            "default": "2026-03-20T18:37:44.499Z",
+                                                            "default": "2026-03-20T22:57:47.040Z",
                                                             "type": "string"
                                                           },
                                                           "role": {}
@@ -1565,7 +1784,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-20T18:37:44.497Z",
+                                            "default": "2026-03-20T22:57:47.038Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -1602,7 +1821,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.498Z",
+                                                "default": "2026-03-20T22:57:47.039Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -1635,7 +1854,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-20T18:37:44.499Z",
+                                                      "default": "2026-03-20T22:57:47.040Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -1884,7 +2103,7 @@
                                       "Name",
                                       "Type",
                                       "StartDate",
-                                      "Status",
+                                      "EventStatus",
                                       "publishedAt"
                                     ],
                                     "additionalProperties": false
@@ -2044,7 +2263,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-20T18:37:44.497Z",
+                                      "default": "2026-03-20T22:57:47.038Z",
                                       "type": "string"
                                     },
                                     "role": {
@@ -2081,7 +2300,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.498Z",
+                                          "default": "2026-03-20T22:57:47.039Z",
                                           "type": "string"
                                         },
                                         "permissions": {
@@ -2114,7 +2333,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.499Z",
+                                                "default": "2026-03-20T22:57:47.040Z",
                                                 "type": "string"
                                               },
                                               "role": {}
@@ -2417,7 +2636,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-20T18:37:44.497Z",
+                                      "default": "2026-03-20T22:57:47.038Z",
                                       "type": "string"
                                     },
                                     "role": {
@@ -2454,7 +2673,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.498Z",
+                                          "default": "2026-03-20T22:57:47.039Z",
                                           "type": "string"
                                         },
                                         "permissions": {
@@ -2487,7 +2706,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.499Z",
+                                                "default": "2026-03-20T22:57:47.040Z",
                                                 "type": "string"
                                               },
                                               "role": {}
@@ -2794,7 +3013,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-20T18:37:44.497Z",
+                                "default": "2026-03-20T22:57:47.038Z",
                                 "type": "string"
                               },
                               "role": {
@@ -2831,7 +3050,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.498Z",
+                                    "default": "2026-03-20T22:57:47.039Z",
                                     "type": "string"
                                   },
                                   "permissions": {
@@ -2864,7 +3083,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.499Z",
+                                          "default": "2026-03-20T22:57:47.040Z",
                                           "type": "string"
                                         },
                                         "role": {}
@@ -3113,7 +3332,7 @@
                           "Name",
                           "Type",
                           "StartDate",
-                          "Status",
+                          "EventStatus",
                           "publishedAt"
                         ],
                         "additionalProperties": false
@@ -3169,7 +3388,7 @@
                   "GigType",
                   "StartDate",
                   "EndDate",
-                  "Status",
+                  "EventStatus",
                   "CancelledDate",
                   "DiscordChannelId",
                   "createdAt",
@@ -3312,10 +3531,11 @@
                         "EndDate": {
                           "type": "string"
                         },
-                        "Status": {
-                          "default": "Budgeted",
+                        "EventStatus": {
+                          "default": "Requested",
                           "type": "string",
                           "enum": [
+                            "Requested",
                             "Budgeted",
                             "Accepted",
                             "Cancelled"
@@ -3334,7 +3554,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.515Z",
+                          "default": "2026-03-20T22:57:47.055Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -3386,7 +3606,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-20T18:37:44.490Z",
+                                "default": "2026-03-20T22:57:47.032Z",
                                 "type": "string"
                               },
                               "events": {
@@ -3440,10 +3660,11 @@
                                     "EndDate": {
                                       "type": "string"
                                     },
-                                    "Status": {
-                                      "default": "Budgeted",
+                                    "EventStatus": {
+                                      "default": "Requested",
                                       "type": "string",
                                       "enum": [
+                                        "Requested",
                                         "Budgeted",
                                         "Accepted",
                                         "Cancelled"
@@ -3462,7 +3683,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-20T18:37:44.493Z",
+                                      "default": "2026-03-20T22:57:47.034Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -3614,7 +3835,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.497Z",
+                                                "default": "2026-03-20T22:57:47.038Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -3651,7 +3872,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.498Z",
+                                                    "default": "2026-03-20T22:57:47.039Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -3684,7 +3905,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-20T18:37:44.499Z",
+                                                          "default": "2026-03-20T22:57:47.040Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -3987,7 +4208,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.497Z",
+                                                "default": "2026-03-20T22:57:47.038Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -4024,7 +4245,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.498Z",
+                                                    "default": "2026-03-20T22:57:47.039Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -4057,7 +4278,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-20T18:37:44.499Z",
+                                                          "default": "2026-03-20T22:57:47.040Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -4364,7 +4585,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -4401,7 +4622,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -4434,7 +4655,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -4683,7 +4904,7 @@
                                     "Name",
                                     "Type",
                                     "StartDate",
-                                    "Status",
+                                    "EventStatus",
                                     "publishedAt"
                                   ],
                                   "additionalProperties": false
@@ -4843,7 +5064,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -4880,7 +5101,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -4913,7 +5134,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -5216,7 +5437,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -5253,7 +5474,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -5286,7 +5507,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -5593,7 +5814,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.497Z",
+                              "default": "2026-03-20T22:57:47.038Z",
                               "type": "string"
                             },
                             "role": {
@@ -5630,7 +5851,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-20T18:37:44.498Z",
+                                  "default": "2026-03-20T22:57:47.039Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -5663,7 +5884,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.499Z",
+                                        "default": "2026-03-20T22:57:47.040Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -5912,7 +6133,7 @@
                         "Name",
                         "Type",
                         "StartDate",
-                        "Status",
+                        "EventStatus",
                         "publishedAt"
                       ],
                       "additionalProperties": false
@@ -5986,10 +6207,11 @@
                       "EndDate": {
                         "type": "string"
                       },
-                      "Status": {
-                        "default": "Budgeted",
+                      "EventStatus": {
+                        "default": "Requested",
                         "type": "string",
                         "enum": [
+                          "Requested",
                           "Budgeted",
                           "Accepted",
                           "Cancelled"
@@ -6002,7 +6224,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-20T18:37:44.513Z",
+                        "default": "2026-03-20T22:57:47.053Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -6031,7 +6253,7 @@
                       "Name",
                       "Type",
                       "StartDate",
-                      "Status",
+                      "EventStatus",
                       "publishedAt"
                     ],
                     "additionalProperties": false
@@ -6080,7 +6302,7 @@
                   "GigType",
                   "StartDate",
                   "EndDate",
-                  "Status",
+                  "EventStatus",
                   "CancelledDate",
                   "DiscordChannelId",
                   "createdAt",
@@ -6146,7 +6368,7 @@
                   "GigType",
                   "StartDate",
                   "EndDate",
-                  "Status",
+                  "EventStatus",
                   "CancelledDate",
                   "DiscordChannelId",
                   "createdAt",
@@ -6175,7 +6397,7 @@
                     "GigType",
                     "StartDate",
                     "EndDate",
-                    "Status",
+                    "EventStatus",
                     "CancelledDate",
                     "DiscordChannelId",
                     "createdAt",
@@ -6195,7 +6417,7 @@
                       "GigType",
                       "StartDate",
                       "EndDate",
-                      "Status",
+                      "EventStatus",
                       "CancelledDate",
                       "DiscordChannelId",
                       "createdAt",
@@ -6216,7 +6438,7 @@
                       "GigType",
                       "StartDate",
                       "EndDate",
-                      "Status",
+                      "EventStatus",
                       "CancelledDate",
                       "DiscordChannelId",
                       "createdAt",
@@ -6246,7 +6468,7 @@
                         "GigType",
                         "StartDate",
                         "EndDate",
-                        "Status",
+                        "EventStatus",
                         "CancelledDate",
                         "DiscordChannelId",
                         "createdAt",
@@ -6361,10 +6583,11 @@
                         "EndDate": {
                           "type": "string"
                         },
-                        "Status": {
-                          "default": "Budgeted",
+                        "EventStatus": {
+                          "default": "Requested",
                           "type": "string",
                           "enum": [
+                            "Requested",
                             "Budgeted",
                             "Accepted",
                             "Cancelled"
@@ -6383,7 +6606,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.508Z",
+                          "default": "2026-03-20T22:57:47.049Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -6435,7 +6658,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-20T18:37:44.490Z",
+                                "default": "2026-03-20T22:57:47.032Z",
                                 "type": "string"
                               },
                               "events": {
@@ -6489,10 +6712,11 @@
                                     "EndDate": {
                                       "type": "string"
                                     },
-                                    "Status": {
-                                      "default": "Budgeted",
+                                    "EventStatus": {
+                                      "default": "Requested",
                                       "type": "string",
                                       "enum": [
+                                        "Requested",
                                         "Budgeted",
                                         "Accepted",
                                         "Cancelled"
@@ -6511,7 +6735,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-20T18:37:44.493Z",
+                                      "default": "2026-03-20T22:57:47.034Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -6663,7 +6887,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.497Z",
+                                                "default": "2026-03-20T22:57:47.038Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -6700,7 +6924,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.498Z",
+                                                    "default": "2026-03-20T22:57:47.039Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -6733,7 +6957,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-20T18:37:44.499Z",
+                                                          "default": "2026-03-20T22:57:47.040Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -7036,7 +7260,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.497Z",
+                                                "default": "2026-03-20T22:57:47.038Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -7073,7 +7297,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.498Z",
+                                                    "default": "2026-03-20T22:57:47.039Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -7106,7 +7330,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-20T18:37:44.499Z",
+                                                          "default": "2026-03-20T22:57:47.040Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -7413,7 +7637,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -7450,7 +7674,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -7483,7 +7707,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -7732,7 +7956,7 @@
                                     "Name",
                                     "Type",
                                     "StartDate",
-                                    "Status",
+                                    "EventStatus",
                                     "publishedAt"
                                   ],
                                   "additionalProperties": false
@@ -7892,7 +8116,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -7929,7 +8153,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -7962,7 +8186,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -8265,7 +8489,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -8302,7 +8526,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -8335,7 +8559,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -8642,7 +8866,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.497Z",
+                              "default": "2026-03-20T22:57:47.038Z",
                               "type": "string"
                             },
                             "role": {
@@ -8679,7 +8903,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-20T18:37:44.498Z",
+                                  "default": "2026-03-20T22:57:47.039Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -8712,7 +8936,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.499Z",
+                                        "default": "2026-03-20T22:57:47.040Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -8961,7 +9185,7 @@
                         "Name",
                         "Type",
                         "StartDate",
-                        "Status",
+                        "EventStatus",
                         "publishedAt"
                       ],
                       "additionalProperties": false
@@ -9027,7 +9251,7 @@
                   "GigType",
                   "StartDate",
                   "EndDate",
-                  "Status",
+                  "EventStatus",
                   "CancelledDate",
                   "DiscordChannelId",
                   "createdAt",
@@ -9170,10 +9394,11 @@
                         "EndDate": {
                           "type": "string"
                         },
-                        "Status": {
-                          "default": "Budgeted",
+                        "EventStatus": {
+                          "default": "Requested",
                           "type": "string",
                           "enum": [
+                            "Requested",
                             "Budgeted",
                             "Accepted",
                             "Cancelled"
@@ -9192,7 +9417,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.520Z",
+                          "default": "2026-03-20T22:57:47.060Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -9244,7 +9469,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-20T18:37:44.490Z",
+                                "default": "2026-03-20T22:57:47.032Z",
                                 "type": "string"
                               },
                               "events": {
@@ -9298,10 +9523,11 @@
                                     "EndDate": {
                                       "type": "string"
                                     },
-                                    "Status": {
-                                      "default": "Budgeted",
+                                    "EventStatus": {
+                                      "default": "Requested",
                                       "type": "string",
                                       "enum": [
+                                        "Requested",
                                         "Budgeted",
                                         "Accepted",
                                         "Cancelled"
@@ -9320,7 +9546,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-20T18:37:44.493Z",
+                                      "default": "2026-03-20T22:57:47.034Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -9472,7 +9698,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.497Z",
+                                                "default": "2026-03-20T22:57:47.038Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -9509,7 +9735,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.498Z",
+                                                    "default": "2026-03-20T22:57:47.039Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -9542,7 +9768,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-20T18:37:44.499Z",
+                                                          "default": "2026-03-20T22:57:47.040Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -9845,7 +10071,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.497Z",
+                                                "default": "2026-03-20T22:57:47.038Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -9882,7 +10108,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.498Z",
+                                                    "default": "2026-03-20T22:57:47.039Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -9915,7 +10141,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-20T18:37:44.499Z",
+                                                          "default": "2026-03-20T22:57:47.040Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -10222,7 +10448,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -10259,7 +10485,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -10292,7 +10518,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -10541,7 +10767,7 @@
                                     "Name",
                                     "Type",
                                     "StartDate",
-                                    "Status",
+                                    "EventStatus",
                                     "publishedAt"
                                   ],
                                   "additionalProperties": false
@@ -10701,7 +10927,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -10738,7 +10964,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -10771,7 +10997,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -11074,7 +11300,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -11111,7 +11337,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -11144,7 +11370,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -11451,7 +11677,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.497Z",
+                              "default": "2026-03-20T22:57:47.038Z",
                               "type": "string"
                             },
                             "role": {
@@ -11488,7 +11714,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-20T18:37:44.498Z",
+                                  "default": "2026-03-20T22:57:47.039Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -11521,7 +11747,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.499Z",
+                                        "default": "2026-03-20T22:57:47.040Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -11770,7 +11996,7 @@
                         "Name",
                         "Type",
                         "StartDate",
-                        "Status",
+                        "EventStatus",
                         "publishedAt"
                       ],
                       "additionalProperties": false
@@ -11844,10 +12070,11 @@
                       "EndDate": {
                         "type": "string"
                       },
-                      "Status": {
-                        "default": "Budgeted",
+                      "EventStatus": {
+                        "default": "Requested",
                         "type": "string",
                         "enum": [
+                          "Requested",
                           "Budgeted",
                           "Accepted",
                           "Cancelled"
@@ -11860,7 +12087,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-20T18:37:44.518Z",
+                        "default": "2026-03-20T22:57:47.058Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -11929,7 +12156,7 @@
                   "GigType",
                   "StartDate",
                   "EndDate",
-                  "Status",
+                  "EventStatus",
                   "CancelledDate",
                   "DiscordChannelId",
                   "createdAt",
@@ -11995,7 +12222,7 @@
                   "GigType",
                   "StartDate",
                   "EndDate",
-                  "Status",
+                  "EventStatus",
                   "CancelledDate",
                   "DiscordChannelId",
                   "createdAt",
@@ -12101,10 +12328,11 @@
                         "EndDate": {
                           "type": "string"
                         },
-                        "Status": {
-                          "default": "Budgeted",
+                        "EventStatus": {
+                          "default": "Requested",
                           "type": "string",
                           "enum": [
+                            "Requested",
                             "Budgeted",
                             "Accepted",
                             "Cancelled"
@@ -12123,7 +12351,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.524Z",
+                          "default": "2026-03-20T22:57:47.063Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -12175,7 +12403,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-20T18:37:44.490Z",
+                                "default": "2026-03-20T22:57:47.032Z",
                                 "type": "string"
                               },
                               "events": {
@@ -12229,10 +12457,11 @@
                                     "EndDate": {
                                       "type": "string"
                                     },
-                                    "Status": {
-                                      "default": "Budgeted",
+                                    "EventStatus": {
+                                      "default": "Requested",
                                       "type": "string",
                                       "enum": [
+                                        "Requested",
                                         "Budgeted",
                                         "Accepted",
                                         "Cancelled"
@@ -12251,7 +12480,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-20T18:37:44.493Z",
+                                      "default": "2026-03-20T22:57:47.034Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -12403,7 +12632,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.497Z",
+                                                "default": "2026-03-20T22:57:47.038Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -12440,7 +12669,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.498Z",
+                                                    "default": "2026-03-20T22:57:47.039Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -12473,7 +12702,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-20T18:37:44.499Z",
+                                                          "default": "2026-03-20T22:57:47.040Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -12776,7 +13005,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.497Z",
+                                                "default": "2026-03-20T22:57:47.038Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -12813,7 +13042,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.498Z",
+                                                    "default": "2026-03-20T22:57:47.039Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -12846,7 +13075,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-20T18:37:44.499Z",
+                                                          "default": "2026-03-20T22:57:47.040Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -13153,7 +13382,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -13190,7 +13419,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -13223,7 +13452,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -13472,7 +13701,7 @@
                                     "Name",
                                     "Type",
                                     "StartDate",
-                                    "Status",
+                                    "EventStatus",
                                     "publishedAt"
                                   ],
                                   "additionalProperties": false
@@ -13632,7 +13861,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -13669,7 +13898,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -13702,7 +13931,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -14005,7 +14234,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -14042,7 +14271,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -14075,7 +14304,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -14382,7 +14611,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.497Z",
+                              "default": "2026-03-20T22:57:47.038Z",
                               "type": "string"
                             },
                             "role": {
@@ -14419,7 +14648,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-20T18:37:44.498Z",
+                                  "default": "2026-03-20T22:57:47.039Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -14452,7 +14681,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.499Z",
+                                        "default": "2026-03-20T22:57:47.040Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -14701,7 +14930,7 @@
                         "Name",
                         "Type",
                         "StartDate",
-                        "Status",
+                        "EventStatus",
                         "publishedAt"
                       ],
                       "additionalProperties": false
@@ -14909,7 +15138,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.527Z",
+                          "default": "2026-03-20T22:57:47.067Z",
                           "type": "string"
                         },
                         "BasicLogo": {
@@ -14980,7 +15209,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.529Z",
+                              "default": "2026-03-20T22:57:47.069Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15067,7 +15296,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.529Z",
+                              "default": "2026-03-20T22:57:47.069Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15271,7 +15500,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.543Z",
+                          "default": "2026-03-20T22:57:47.073Z",
                           "type": "string"
                         },
                         "BasicLogo": {
@@ -15342,7 +15571,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.529Z",
+                              "default": "2026-03-20T22:57:47.069Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15429,7 +15658,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.529Z",
+                              "default": "2026-03-20T22:57:47.069Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15512,7 +15741,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-20T18:37:44.542Z",
+                        "default": "2026-03-20T22:57:47.072Z",
                         "type": "string"
                       },
                       "BasicLogo": {},
@@ -15678,7 +15907,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.545Z",
+                          "default": "2026-03-20T22:57:47.075Z",
                           "type": "string"
                         },
                         "BasicLogo": {
@@ -15749,7 +15978,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.529Z",
+                              "default": "2026-03-20T22:57:47.069Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15836,7 +16065,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-20T18:37:44.529Z",
+                              "default": "2026-03-20T22:57:47.069Z",
                               "type": "string"
                             },
                             "related": {}
@@ -16234,7 +16463,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-20T18:37:44.549Z",
+                            "default": "2026-03-20T22:57:47.079Z",
                             "type": "string"
                           },
                           "events": {
@@ -16288,10 +16517,11 @@
                                 "EndDate": {
                                   "type": "string"
                                 },
-                                "Status": {
-                                  "default": "Budgeted",
+                                "EventStatus": {
+                                  "default": "Requested",
                                   "type": "string",
                                   "enum": [
+                                    "Requested",
                                     "Budgeted",
                                     "Accepted",
                                     "Cancelled"
@@ -16310,7 +16540,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-20T18:37:44.493Z",
+                                  "default": "2026-03-20T22:57:47.034Z",
                                   "type": "string"
                                 },
                                 "contacts": {
@@ -16462,7 +16692,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-20T18:37:44.497Z",
+                                            "default": "2026-03-20T22:57:47.038Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -16499,7 +16729,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.498Z",
+                                                "default": "2026-03-20T22:57:47.039Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -16532,7 +16762,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-20T18:37:44.499Z",
+                                                      "default": "2026-03-20T22:57:47.040Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -16835,7 +17065,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-20T18:37:44.497Z",
+                                            "default": "2026-03-20T22:57:47.038Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -16872,7 +17102,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.498Z",
+                                                "default": "2026-03-20T22:57:47.039Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -16905,7 +17135,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-20T18:37:44.499Z",
+                                                      "default": "2026-03-20T22:57:47.040Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -17212,7 +17442,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-20T18:37:44.497Z",
+                                      "default": "2026-03-20T22:57:47.038Z",
                                       "type": "string"
                                     },
                                     "role": {
@@ -17249,7 +17479,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.498Z",
+                                          "default": "2026-03-20T22:57:47.039Z",
                                           "type": "string"
                                         },
                                         "permissions": {
@@ -17282,7 +17512,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-20T18:37:44.499Z",
+                                                "default": "2026-03-20T22:57:47.040Z",
                                                 "type": "string"
                                               },
                                               "role": {}
@@ -17531,7 +17761,7 @@
                                 "Name",
                                 "Type",
                                 "StartDate",
-                                "Status",
+                                "EventStatus",
                                 "publishedAt"
                               ],
                               "additionalProperties": false
@@ -17726,7 +17956,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.555Z",
+                          "default": "2026-03-20T22:57:47.085Z",
                           "type": "string"
                         },
                         "events": {
@@ -17780,10 +18010,11 @@
                               "EndDate": {
                                 "type": "string"
                               },
-                              "Status": {
-                                "default": "Budgeted",
+                              "EventStatus": {
+                                "default": "Requested",
                                 "type": "string",
                                 "enum": [
+                                  "Requested",
                                   "Budgeted",
                                   "Accepted",
                                   "Cancelled"
@@ -17802,7 +18033,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-20T18:37:44.493Z",
+                                "default": "2026-03-20T22:57:47.034Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -17954,7 +18185,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -17991,7 +18222,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -18024,7 +18255,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -18327,7 +18558,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -18364,7 +18595,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -18397,7 +18628,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -18704,7 +18935,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -18741,7 +18972,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -18774,7 +19005,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -19023,7 +19254,7 @@
                               "Name",
                               "Type",
                               "StartDate",
-                              "Status",
+                              "EventStatus",
                               "publishedAt"
                             ],
                             "additionalProperties": false
@@ -19098,7 +19329,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-20T18:37:44.554Z",
+                        "default": "2026-03-20T22:57:47.084Z",
                         "type": "string"
                       },
                       "events": {
@@ -19402,7 +19633,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.552Z",
+                          "default": "2026-03-20T22:57:47.082Z",
                           "type": "string"
                         },
                         "events": {
@@ -19456,10 +19687,11 @@
                               "EndDate": {
                                 "type": "string"
                               },
-                              "Status": {
-                                "default": "Budgeted",
+                              "EventStatus": {
+                                "default": "Requested",
                                 "type": "string",
                                 "enum": [
+                                  "Requested",
                                   "Budgeted",
                                   "Accepted",
                                   "Cancelled"
@@ -19478,7 +19710,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-20T18:37:44.493Z",
+                                "default": "2026-03-20T22:57:47.034Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -19630,7 +19862,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -19667,7 +19899,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -19700,7 +19932,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -20003,7 +20235,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -20040,7 +20272,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -20073,7 +20305,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -20380,7 +20612,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -20417,7 +20649,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -20450,7 +20682,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -20699,7 +20931,7 @@
                               "Name",
                               "Type",
                               "StartDate",
-                              "Status",
+                              "EventStatus",
                               "publishedAt"
                             ],
                             "additionalProperties": false
@@ -20904,7 +21136,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.558Z",
+                          "default": "2026-03-20T22:57:47.096Z",
                           "type": "string"
                         },
                         "events": {
@@ -20958,10 +21190,11 @@
                               "EndDate": {
                                 "type": "string"
                               },
-                              "Status": {
-                                "default": "Budgeted",
+                              "EventStatus": {
+                                "default": "Requested",
                                 "type": "string",
                                 "enum": [
+                                  "Requested",
                                   "Budgeted",
                                   "Accepted",
                                   "Cancelled"
@@ -20980,7 +21213,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-20T18:37:44.493Z",
+                                "default": "2026-03-20T22:57:47.034Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -21132,7 +21365,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -21169,7 +21402,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -21202,7 +21435,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -21505,7 +21738,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -21542,7 +21775,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -21575,7 +21808,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -21882,7 +22115,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -21919,7 +22152,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -21952,7 +22185,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -22201,7 +22434,7 @@
                               "Name",
                               "Type",
                               "StartDate",
-                              "Status",
+                              "EventStatus",
                               "publishedAt"
                             ],
                             "additionalProperties": false
@@ -22276,7 +22509,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-20T18:37:44.557Z",
+                        "default": "2026-03-20T22:57:47.087Z",
                         "type": "string"
                       },
                       "events": {
@@ -22486,7 +22719,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.560Z",
+                          "default": "2026-03-20T22:57:47.098Z",
                           "type": "string"
                         },
                         "events": {
@@ -22540,10 +22773,11 @@
                               "EndDate": {
                                 "type": "string"
                               },
-                              "Status": {
-                                "default": "Budgeted",
+                              "EventStatus": {
+                                "default": "Requested",
                                 "type": "string",
                                 "enum": [
+                                  "Requested",
                                   "Budgeted",
                                   "Accepted",
                                   "Cancelled"
@@ -22562,7 +22796,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-20T18:37:44.493Z",
+                                "default": "2026-03-20T22:57:47.034Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -22714,7 +22948,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -22751,7 +22985,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -22784,7 +23018,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -23087,7 +23321,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-20T18:37:44.497Z",
+                                          "default": "2026-03-20T22:57:47.038Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -23124,7 +23358,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.498Z",
+                                              "default": "2026-03-20T22:57:47.039Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -23157,7 +23391,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-20T18:37:44.499Z",
+                                                    "default": "2026-03-20T22:57:47.040Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -23464,7 +23698,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-20T18:37:44.497Z",
+                                    "default": "2026-03-20T22:57:47.038Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -23501,7 +23735,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-20T18:37:44.498Z",
+                                        "default": "2026-03-20T22:57:47.039Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -23534,7 +23768,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-20T18:37:44.499Z",
+                                              "default": "2026-03-20T22:57:47.040Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -23783,7 +24017,7 @@
                               "Name",
                               "Type",
                               "StartDate",
-                              "Status",
+                              "EventStatus",
                               "publishedAt"
                             ],
                             "additionalProperties": false
@@ -23982,7 +24216,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.563Z",
+                          "default": "2026-03-20T22:57:47.101Z",
                           "type": "string"
                         }
                       },
@@ -24154,7 +24388,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.565Z",
+                          "default": "2026-03-20T22:57:47.103Z",
                           "type": "string"
                         }
                       },
@@ -24213,7 +24447,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-20T18:37:44.564Z",
+                        "default": "2026-03-20T22:57:47.102Z",
                         "type": "string"
                       }
                     },
@@ -24361,7 +24595,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.566Z",
+                          "default": "2026-03-20T22:57:47.104Z",
                           "type": "string"
                         }
                       },
@@ -24783,7 +25017,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-20T18:37:44.570Z",
+                            "default": "2026-03-20T22:57:47.107Z",
                             "type": "string"
                           }
                         },
@@ -24952,7 +25186,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.574Z",
+                          "default": "2026-03-20T22:57:47.111Z",
                           "type": "string"
                         }
                       },
@@ -25008,7 +25242,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-20T18:37:44.889Z",
+                        "default": "2026-03-20T22:57:47.442Z",
                         "type": "string"
                       }
                     },
@@ -25266,7 +25500,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.572Z",
+                          "default": "2026-03-20T22:57:47.109Z",
                           "type": "string"
                         }
                       },
@@ -25445,7 +25679,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.576Z",
+                          "default": "2026-03-20T22:57:47.113Z",
                           "type": "string"
                         }
                       },
@@ -25501,7 +25735,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-20T18:37:44.575Z",
+                        "default": "2026-03-20T22:57:47.112Z",
                         "type": "string"
                       }
                     },
@@ -25677,7 +25911,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-20T18:37:44.577Z",
+                          "default": "2026-03-20T22:57:47.115Z",
                           "type": "string"
                         }
                       },
@@ -28670,173 +28904,6 @@
         "tags": [
           "users-permissions"
         ]
-      }
-    },
-    "/auth/local": {
-      "post": {
-        "operationId": "users-permissions/post/auth_local",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$schema": "https://json-schema.org/draft/2020-12/schema",
-                  "type": "object",
-                  "properties": {
-                    "jwt": {
-                      "type": "string"
-                    },
-                    "refreshToken": {
-                      "type": "string"
-                    },
-                    "user": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number"
-                        },
-                        "documentId": {
-                          "type": "string"
-                        },
-                        "username": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "provider": {
-                          "type": "string"
-                        },
-                        "confirmed": {
-                          "type": "boolean"
-                        },
-                        "blocked": {
-                          "type": "boolean"
-                        },
-                        "role": {
-                          "anyOf": [
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "name": {
-                                  "type": "string"
-                                },
-                                "description": {
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "null"
-                                    }
-                                  ]
-                                },
-                                "type": {
-                                  "type": "string"
-                                },
-                                "createdAt": {
-                                  "type": "string"
-                                },
-                                "updatedAt": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "name",
-                                "description",
-                                "type",
-                                "createdAt",
-                                "updatedAt"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        },
-                        "createdAt": {
-                          "type": "string"
-                        },
-                        "updatedAt": {
-                          "type": "string"
-                        },
-                        "publishedAt": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "documentId",
-                        "username",
-                        "email",
-                        "provider",
-                        "confirmed",
-                        "blocked",
-                        "createdAt",
-                        "updatedAt",
-                        "publishedAt"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "jwt",
-                    "user"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-        },
-        "tags": [
-          "users-permissions"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$schema": "https://json-schema.org/draft/2020-12/schema",
-                "type": "object",
-                "properties": {
-                  "identifier": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "identifier",
-                  "password"
-                ],
-                "additionalProperties": false
-              }
-            }
-          }
-        }
       }
     },
     "/auth/local/register": {

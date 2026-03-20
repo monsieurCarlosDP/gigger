@@ -96,7 +96,7 @@ export default function EventDetailPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, tab]);
   const isPeriod = event?.Type === 'Viability' && event?.EndDate;
-  const isCancelled = event?.Status === 'Cancelled';
+  const isCancelled = event?.EventStatus === 'Cancelled';
 
   // Budget action buttons component
   const BudgetActionButtons = ({ budgetIndex, setPreviewBudgetIndex }: { budgetIndex: number; setPreviewBudgetIndex: (i: number | null) => void }) => {

@@ -25,7 +25,7 @@ const columns: ColumnDef<EventRow>[] = [
       <Typography
         variant="body2"
         fontWeight={500}
-        sx={row.Status === 'Cancelled' ? { textDecoration: 'line-through', color: 'text.disabled' } : undefined}
+        sx={row.EventStatus === 'Cancelled' ? { textDecoration: 'line-through', color: 'text.disabled' } : undefined}
       >
         {row.Name}
       </Typography>
@@ -87,11 +87,11 @@ const columns: ColumnDef<EventRow>[] = [
     align: 'center',
     render: (row) => {
       const config: Record<string, { label: string; color: 'success' | 'info' | 'default' }> = {
-        Budgeted: { label: 'Presupuestado', color: 'info' },
+        Requested: { label: 'Solicitado', color: 'info' },
         Accepted: { label: 'Aceptado', color: 'success' },
         Cancelled: { label: 'Cancelado', color: 'default' },
       };
-      const c = config[row.Status ?? 'Budgeted'];
+      const c = config[row.EventStatus ?? 'Requested'];
       return <Chip label={c.label} color={c.color} size="small" />;
     },
   },
@@ -107,7 +107,7 @@ const GIG_TYPES: { value: GigType; label: string }[] = [
 ];
 
 const STATUS_OPTIONS = [
-  { value: 'Budgeted', label: 'Presupuestado' },
+  { value: 'Requested', label: 'Solicitado' },
   { value: 'Accepted', label: 'Aceptado' },
   { value: 'Cancelled', label: 'Cancelado' },
 ] as const;
@@ -119,7 +119,7 @@ export default function EventsPage() {
   const { openEventDrawer } = useDrawerNav();
   const [search, setSearch] = useState('');
   const [gigTypeFilters, setGigTypeFilters] = useState<Set<GigType>>(new Set(['Wedding', 'Party', 'Village', 'Gig']));
-  const [statusFilters, setStatusFilters] = useState<Set<StatusFilter>>(new Set(['Budgeted', 'Accepted', 'Cancelled']));
+  const [statusFilters, setStatusFilters] = useState<Set<StatusFilter>>(new Set(['Requested', 'Accepted', 'Cancelled']));
   const [hidePast, setHidePast] = useState(false);
 
   const rows = data?.data ?? [];
@@ -149,7 +149,7 @@ export default function EventsPage() {
       // GigType filter
       if (row.GigType && !gigTypeFilters.has(row.GigType as GigType)) return false;
       // Status filter
-      const status: StatusFilter = (row.Status as StatusFilter) ?? 'Budgeted';
+      const status: StatusFilter = (row.EventStatus as StatusFilter) ?? 'Requested';
       if (!statusFilters.has(status)) return false;
       // Hide past events
       if (hidePast && dayjs(row.StartDate).isBefore(dayjs(), 'day')) return false;

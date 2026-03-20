@@ -22,7 +22,7 @@ export function FloatingActionMenu({ isDrawerOpen = false }: FloatingActionMenuP
       icon: <EventIcon />,
       name: 'Nuevo Evento',
       action: () => {
-        navigate('/events');
+        navigate('/events/new');
         handleClose();
       },
     },

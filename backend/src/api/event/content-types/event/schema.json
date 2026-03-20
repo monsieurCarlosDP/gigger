@@ -76,14 +76,15 @@
       "component": "event.budget",
       "repeatable": true
     },
-    "Status": {
+    "EventStatus": {
       "type": "enumeration",
+      "default": "Requested",
       "enum": [
+        "Requested",
         "Budgeted",
         "Accepted",
         "Cancelled"
-      ],
-      "default": "Budgeted"
+      ]
     },
     "CancelledDate": {
       "type": "date"

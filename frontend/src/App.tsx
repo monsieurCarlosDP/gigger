@@ -9,6 +9,7 @@ const LoginPage = lazy(() => import('@/features/auth/pages/LoginPage'));
 const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'));
 const EventsPage = lazy(() => import('@/features/events/pages/EventsPage'));
 const EventDetailPage = lazy(() => import('@/features/events/pages/EventDetailPage'));
+const EventCreatePage = lazy(() => import('@/features/events/pages/EventCreatePage'));
 const EventEditPage = lazy(() => import('@/features/events/pages/EventEditPage'));
 const ProfilePage = lazy(() => import('@/features/auth/pages/ProfilePage'));
 const TariffsPage = lazy(() => import('@/features/tariffs/pages/TariffsPage'));
@@ -38,6 +39,7 @@ export default function App() {
               <Route element={<MainLayout />}>
                 <Route index element={<DashboardPage />} />
                 <Route path="events" element={<EventsPage />} />
+                <Route path="events/new" element={<EventCreatePage />} />
                 <Route path="events/:documentId" element={<EventDetailPage />} />
                 <Route path="events/:documentId/edit" element={<EventEditPage />} />
                 <Route path="tariffs" element={<TariffsPage />} />

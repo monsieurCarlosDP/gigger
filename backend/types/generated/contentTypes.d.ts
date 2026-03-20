@@ -480,6 +480,10 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     DiscordChannelId: Schema.Attribute.String;
     Distance: Schema.Attribute.BigInteger;
     EndDate: Schema.Attribute.Date;
+    EventStatus: Schema.Attribute.Enumeration<
+      ['Requested', 'Budgeted', 'Accepted', 'Cancelled']
+    > &
+      Schema.Attribute.DefaultTo<'Requested'>;
     GigType: Schema.Attribute.Enumeration<
       ['Wedding', 'Party', 'Village', 'Gig']
     >;
@@ -491,10 +495,6 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     Name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     StartDate: Schema.Attribute.Date & Schema.Attribute.Required;
-    Status: Schema.Attribute.Enumeration<
-      ['Budgeted', 'Accepted', 'Cancelled']
-    > &
-      Schema.Attribute.DefaultTo<'Budgeted'>;
     Type: Schema.Attribute.Enumeration<['Event', 'Viability']> &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

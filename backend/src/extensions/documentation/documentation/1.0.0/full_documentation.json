@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-03-20T22:24:45.773Z"
+    "x-generation-date": "2026-03-20T22:57:51.187Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -4269,9 +4269,10 @@
                   "$ref": "#/components/schemas/EventBudgetComponent"
                 }
               },
-              "Status": {
+              "EventStatus": {
                 "type": "string",
                 "enum": [
+                  "Requested",
                   "Budgeted",
                   "Accepted",
                   "Cancelled"
@@ -4526,9 +4527,10 @@
                           "$ref": "#/components/schemas/EventBudgetComponent"
                         }
                       },
-                      "Status": {
+                      "EventStatus": {
                         "type": "string",
                         "enum": [
+                          "Requested",
                           "Budgeted",
                           "Accepted",
                           "Cancelled"
@@ -4729,9 +4731,10 @@
               "$ref": "#/components/schemas/EventBudgetComponent"
             }
           },
-          "Status": {
+          "EventStatus": {
             "type": "string",
             "enum": [
+              "Requested",
               "Budgeted",
               "Accepted",
               "Cancelled"
@@ -7832,9 +7835,10 @@
                     "$ref": "#/components/schemas/EventBudgetComponent"
                   }
                 },
-                "Status": {
+                "EventStatus": {
                   "type": "string",
                   "enum": [
+                    "Requested",
                     "Budgeted",
                     "Accepted",
                     "Cancelled"

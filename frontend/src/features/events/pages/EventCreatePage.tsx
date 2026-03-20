@@ -1,24 +1,23 @@
 import { useDiscordChannels } from '@/features/events/hooks/useDiscordChannels';
 import type { EventFormDispatch, EventFormState } from '@/features/events/hooks/useEventForm';
-import { eventToFormState, useEventForm } from '@/features/events/hooks/useEventForm';
-import { useEventById, useUpdateEvent } from '@/features/events/hooks/useEvents';
+import { useEventForm } from '@/features/events/hooks/useEventForm';
+import { useCreateEvent } from '@/features/events/hooks/useEvents';
 import { useTarifDistance } from '@/features/events/hooks/useTarifDistance';
 import { usePrice } from '@/features/tariffs/hooks/usePrice';
 import { Timeline } from '@/shared/components/Timeline';
 import { UserAvatar } from '@/shared/components/UserAvatar';
 import { DEFAULT_STOP_COLOR, DEFAULT_STOP_ICON, STOP_TYPES, STOP_TYPE_MAP } from '@/shared/constants/stopTypes';
+import { useAuth } from '@/shared/context/AuthContext';
 import { useSnackbar } from '@/shared/context/SnackbarContext';
 import { useUsers } from '@/shared/hooks/useUsers';
 import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import { PageLayout } from '@/shared/layouts/PageLayout';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import LinkOffIcon from '@mui/icons-material/LinkOff';
 import {
   Autocomplete,
   Box,
   Button,
   Checkbox,
-  Chip,
   CircularProgress,
   Divider,
   FormControl,
@@ -41,13 +40,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { useCallback, useRef, useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 dayjs.locale('es');
-
-const EVENT_TYPES = [
-  { value: 'Event', label: 'Evento' },
-] as const;
 
 const GIG_TYPES = [
   { value: 'Wedding', label: 'Boda' },
@@ -56,29 +51,57 @@ const GIG_TYPES = [
   { value: 'Gig', label: 'Bolo/concierto' },
 ] as const;
 
-export default function EventEditPage() {
-  const { documentId } = useParams<{ documentId: string }>();
+export default function EventCreatePage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const TAB_MAP: Record<string, number> = { info: 0, logistics: 1, budget: 2, chat: 3 };
+  const { user } = useAuth();
+  const TAB_MAP: Record<string, number> = { info: 0, logistics: 1, budget: 2 };
   const [tab, setTab] = useState(() => TAB_MAP[searchParams.get('openTab') ?? 'info'] ?? 0);
 
-  const { data, isLoading } = useEventById(documentId ?? '', {
-    query: { populate: ['contacts', 'Budget', 'Logistic'] },
-  });
-  const { data: channels = [], isLoading: channelsLoading } = useDiscordChannels();
-  const { mutateAsync: updateEvent, isPending: isSaving } = useUpdateEvent();
+  const { data: channels = [] } = useDiscordChannels();
+  const { mutateAsync: createEvent, isPending: isSaving } = useCreateEvent();
   const { showSuccess, showError } = useSnackbar();
 
+  const [form, dispatch] = useEventForm({
+    Name: '',
+    Type: 'Event',
+    GigType: '',
+    Location: '',
+    Distance: '',
+    StartDate: dayjs().format('YYYY-MM-DD'),
+    EndDate: '',
+    Status: 'Requested',
+    CancelledDate: '',
+    DiscordChannelId: '',
+    contacts: [],
+    Budget: [{ Base: null, Equipment: false, Dietas: null, DJ: false, Accepted: false }],
+    Logistic: [],
+  });
+
   const formRef = useRef<(() => EventFormState) | null>(null);
+  formRef.current = () => form;
 
   const handleSave = useCallback(async () => {
-    if (!documentId || !formRef.current) return;
+    if (!user?.documentId) {
+      showError('Usuario no autenticado');
+      return;
+    }
+
+    if (!formRef.current) return;
     const form = formRef.current();
+
+    if (!form.Name.trim()) {
+      showError('El nombre del evento es obligatorio');
+      return;
+    }
+
+    if (!form.StartDate) {
+      showError('La fecha de inicio es obligatoria');
+      return;
+    }
+
     try {
-    await updateEvent({
-      id: documentId,
-      body: {
+      await createEvent({
         data: {
           Name: form.Name,
           Type: form.Type || undefined,
@@ -90,6 +113,7 @@ export default function EventEditPage() {
           EventStatus: form.Status || undefined,
           CancelledDate: form.CancelledDate || undefined,
           DiscordChannelId: form.DiscordChannelId || undefined,
+          CreatedByUser: user.documentId,
           contacts: form.contacts.map((c) => c.documentId),
           Budget: form.Budget.map((b) => ({
             Base: b.Base ?? undefined,
@@ -106,30 +130,32 @@ export default function EventEditPage() {
             PickUpUser: s.PickUpUser || undefined,
             DoneBy: s.DoneBy || undefined,
           })),
-        },
-      },
-    });
-    showSuccess('Evento guardado');
-    navigate(`/events/${documentId}`);
-    } catch {
-      showError('Error al guardar el evento');
-    }
-  }, [documentId, updateEvent, navigate, showSuccess, showError]);
+        } as any,
+      });
 
-  const event = data?.data;
+      showSuccess('Evento creado correctamente');
+      navigate('/events');
+    } catch (err) {
+      showError(err instanceof Error ? err.message : 'Error al crear evento');
+    }
+  }, [user, createEvent, navigate, showSuccess, showError]);
+
+  const handleCancel = () => {
+    navigate('/events');
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
       <PageLayout
         header={
           <Stack direction="row" alignItems="center" gap={1}>
-            <IconButton onClick={() => navigate(-1)} size="small">
+            <IconButton onClick={handleCancel} size="small">
               <ArrowBackIcon />
             </IconButton>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              {isLoading ? 'Cargando...' : `Editar: ${event?.Name ?? 'Evento'}`}
+              {form.Name.trim() || 'Crear Evento'}
             </Typography>
-            <Button variant="outlined" onClick={() => navigate(-1)}>
+            <Button variant="outlined" onClick={handleCancel}>
               Cancelar
             </Button>
             <Button variant="contained" onClick={handleSave} disabled={isSaving}>
@@ -138,48 +164,32 @@ export default function EventEditPage() {
           </Stack>
         }
       >
-        {isLoading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', pt: 8 }}>
-            <CircularProgress />
-          </Box>
-        ) : !event ? (
-          <Typography color="textSecondary">Evento no encontrado</Typography>
-        ) : (
-          <EventEditForm
-            event={event}
-            tab={tab}
-            setTab={setTab}
-            channels={channels}
-            channelsLoading={channelsLoading}
-            formRef={formRef}
-          />
-        )}
+        <EventCreateForm
+          form={form}
+          dispatch={dispatch}
+          tab={tab}
+          setTab={setTab}
+          channels={channels}
+        />
       </PageLayout>
     </LocalizationProvider>
   );
 }
 
-/** Inner form component — only mounts when event is loaded */
-function EventEditForm({
-  event,
+/** Inner form component */
+function EventCreateForm({
+  form,
+  dispatch,
   tab,
   setTab,
   channels,
-  channelsLoading,
-  formRef,
 }: {
-  event: Record<string, unknown>;
+  form: EventFormState;
+  dispatch: EventFormDispatch;
   tab: number;
   setTab: (v: number) => void;
   channels: { id: string; name: string }[];
-  channelsLoading: boolean;
-  formRef: React.MutableRefObject<(() => EventFormState) | null>;
 }) {
-  const [form, dispatch] = useEventForm(eventToFormState(event));
-
-  // Expose current form state to parent via ref
-  formRef.current = () => form;
-  const linkedChannel = channels.find((c) => c.id === form.DiscordChannelId);
   const defaultDietas = useTarifDistance(form.Distance ? Number(form.Distance) : null);
   const price = usePrice();
 
@@ -190,22 +200,12 @@ function EventEditForm({
           <Tab label="Info" />
           <Tab label="Logística" />
           <Tab label="Económica" />
-          <Tab label="Discord" />
         </Tabs>
       </Box>
 
       {tab === 0 && <InfoTab form={form} dispatch={dispatch} />}
       {tab === 1 && <LogisticsTab form={form} dispatch={dispatch} />}
       {tab === 2 && <BudgetTab form={form} dispatch={dispatch} defaultDietas={defaultDietas} price={price} />}
-      {tab === 3 && (
-        <DiscordTab
-          form={form}
-          dispatch={dispatch}
-          channels={channels}
-          channelsLoading={channelsLoading}
-          linkedChannel={linkedChannel}
-        />
-      )}
     </Box>
   );
 }
@@ -227,34 +227,19 @@ function InfoTab({ form, dispatch }: { form: EventFormState; dispatch: EventForm
             onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Name', value: e.target.value })}
           />
 
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-            <FormControl fullWidth required>
-              <InputLabel>Tipo</InputLabel>
-              <Select
-                value={form.Type}
-                label="Tipo"
-                onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Type', value: e.target.value })}
-              >
-                {EVENT_TYPES.map((t) => (
-                  <MenuItem key={t.value} value={t.value}>{t.label}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl fullWidth>
-              <InputLabel>Tipo de evento</InputLabel>
-              <Select
-                value={form.GigType}
-                label="Tipo de evento"
-                onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'GigType', value: e.target.value })}
-              >
-                <MenuItem value="">—</MenuItem>
-                {GIG_TYPES.map((t) => (
-                  <MenuItem key={t.value} value={t.value}>{t.label}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Stack>
+          <FormControl fullWidth>
+            <InputLabel>Tipo de evento</InputLabel>
+            <Select
+              value={form.GigType}
+              label="Tipo de evento"
+              onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'GigType', value: e.target.value })}
+            >
+              <MenuItem value="">—</MenuItem>
+              {GIG_TYPES.map((t) => (
+                <MenuItem key={t.value} value={t.value}>{t.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           <TextField
             label="Ubicación"
@@ -270,29 +255,13 @@ function InfoTab({ form, dispatch }: { form: EventFormState; dispatch: EventForm
             value={form.Distance}
             onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Distance', value: e.target.value })}
           />
-        </Stack>
-      </Paper>
 
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Stack spacing={3}>
-          <Typography variant="h6">Fechas</Typography>
-          <Divider />
-
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-            <DatePicker
-              label="Fecha de inicio"
-              value={form.StartDate ? dayjs(form.StartDate) : null}
-              onChange={(v) => dispatch({ type: 'SET_FIELD', field: 'StartDate', value: v?.format('YYYY-MM-DD') ?? '' })}
-              slotProps={{ textField: { fullWidth: true, required: true } }}
-            />
-
-            <DatePicker
-              label="Fecha de fin"
-              value={form.EndDate ? dayjs(form.EndDate) : null}
-              onChange={(v) => dispatch({ type: 'SET_FIELD', field: 'EndDate', value: v?.format('YYYY-MM-DD') ?? '' })}
-              slotProps={{ textField: { fullWidth: true } }}
-            />
-          </Stack>
+          <DatePicker
+            label="Fecha"
+            value={form.StartDate ? dayjs(form.StartDate) : null}
+            onChange={(v) => dispatch({ type: 'SET_FIELD', field: 'StartDate', value: v?.format('YYYY-MM-DD') ?? '' })}
+            slotProps={{ textField: { fullWidth: true, required: true } }}
+          />
         </Stack>
       </Paper>
 
@@ -571,7 +540,17 @@ function LogisticsTab({ form, dispatch }: { form: EventFormState; dispatch: Even
 }
 
 /** Tab: Económica */
-function BudgetTab({ form, dispatch, defaultDietas, price }: { form: EventFormState; dispatch: EventFormDispatch; defaultDietas: number | null; price: { base: number; dj: number; equipment: number } }) {
+function BudgetTab({
+  form,
+  dispatch,
+  defaultDietas,
+  price,
+}: {
+  form: EventFormState;
+  dispatch: EventFormDispatch;
+  defaultDietas: number | null;
+  price: { base: number; dj: number; equipment: number };
+}) {
   return (
     <Stack spacing={3}>
       <Paper elevation={2} sx={{ p: 3 }}>
@@ -668,85 +647,6 @@ function BudgetTab({ form, dispatch, defaultDietas, price }: { form: EventFormSt
           >
             Añadir presupuesto
           </Button>
-        </Stack>
-      </Paper>
-    </Stack>
-  );
-}
-
-/** Tab: Discord */
-function DiscordTab({
-  form,
-  dispatch,
-  channels,
-  channelsLoading,
-  linkedChannel,
-}: {
-  form: EventFormState;
-  dispatch: EventFormDispatch;
-  channels: { id: string; name: string }[];
-  channelsLoading: boolean;
-  linkedChannel?: { id: string; name: string };
-}) {
-  return (
-    <Stack spacing={3}>
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Stack spacing={3}>
-          <Typography variant="h6">Canal de Discord</Typography>
-          <Divider />
-
-          {form.DiscordChannelId ? (
-            <Stack spacing={2}>
-              <Stack direction="row" alignItems="center" justifyContent="space-between">
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Chip
-                    label={`#${linkedChannel?.name ?? form.DiscordChannelId}`}
-                    color="primary"
-                    variant="outlined"
-                  />
-                  <Typography variant="body2" color="text.secondary">
-                    Canal vinculado
-                  </Typography>
-                </Stack>
-                <Button
-                  variant="outlined"
-                  color="error"
-                  startIcon={<LinkOffIcon />}
-                  size="small"
-                  onClick={() => dispatch({ type: 'SET_FIELD', field: 'DiscordChannelId', value: '' })}
-                >
-                  Desvincular
-                </Button>
-              </Stack>
-
-              <Divider />
-
-              <Typography variant="subtitle2" color="text.secondary">
-                Cambiar canal
-              </Typography>
-              <Autocomplete
-                options={channels.filter((c) => c.id !== form.DiscordChannelId)}
-                getOptionLabel={(option) => `#${option.name}`}
-                loading={channelsLoading}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder="Seleccionar otro canal..."
-                    size="small"
-                  />
-                )}
-                onChange={(_e, value) => {
-                  if (value) {
-                    dispatch({ type: 'SET_FIELD', field: 'DiscordChannelId', value: value.id });
-                  }
-                }}
-              />
-            </Stack>
-          ) : (
-            <Typography variant="body2" color="text.secondary" textAlign="center">
-              No hay canal vinculado. Puedes vincularlo desde la pestaña Conversación en la vista de detalle.
-            </Typography>
-          )}
         </Stack>
       </Paper>
     </Stack>

@@ -4,7 +4,7 @@ import { useReducer } from 'react';
 
 type EventType = 'Event' | 'Viability';
 type GigType = 'Wedding' | 'Party' | 'Village' | 'Gig';
-export type EventStatus = 'Budgeted' | 'Accepted' | 'Cancelled';
+export type EventStatus = 'Requested' | 'Accepted' | 'Cancelled';
 
 export interface BudgetItem {
   Base: number | null;
@@ -112,7 +112,7 @@ export function eventToFormState(event: Record<string, unknown>): EventFormState
     Distance: event.Distance != null ? String(event.Distance) : '',
     StartDate: (event.StartDate as string) ?? '',
     EndDate: (event.EndDate as string) ?? '',
-    Status: (event.Status as EventStatus) ?? 'Budgeted',
+    Status: (event.EventStatus as EventStatus) ?? 'Requested',
     CancelledDate: (event.CancelledDate as string) ?? '',
     DiscordChannelId: (event.DiscordChannelId as string) ?? '',
     contacts: Array.isArray(event.contacts)
