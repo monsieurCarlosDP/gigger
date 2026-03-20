@@ -1,6 +1,6 @@
 import { api } from '@/shared/api/client';
-import { DataTable } from '@/shared/components/DataTable';
 import type { ColumnDef } from '@/shared/components/DataTable';
+import { DataTable } from '@/shared/components/DataTable';
 import { PageLayout } from '@/shared/layouts/PageLayout';
 import { Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -39,7 +39,7 @@ export default function TariffsPage() {
     queryKey: ['tarif-distances'],
     queryFn: async () => {
       const { data, error } = await api.getTarifDistances({
-        query: { sort: { minDistance: 'asc' }, pagination: { limit: 100 } },
+        query: { sort: { minDistance: 'asc' }, pagination: { start:0, limit: 100 } },
       });
       if (error) throw error;
       return data;

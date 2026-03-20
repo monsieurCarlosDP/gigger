@@ -3011,7 +3011,7 @@ export interface operations {
                 "application/json": {
                     data: {
                         Name?: string;
-                        Distance?: string;
+                        Distance?: number;
                         Location?: string;
                         /** @enum {string} */
                         Type?: "Event" | "Viability";

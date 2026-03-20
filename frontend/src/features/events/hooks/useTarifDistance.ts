@@ -7,7 +7,7 @@ export function useTarifDistance(distance: number | null | undefined) {
     queryKey: ['tarif-distances'],
     queryFn: async () => {
       const { data, error } = await api.getTarifDistances({
-        query: { sort: { minDistance: 'asc' }, pagination: { limit: 100 } },
+        query: { sort: { minDistance: 'asc' }, pagination: { start:0, limit: 100 } },
       });
       if (error) throw error;
       return data;

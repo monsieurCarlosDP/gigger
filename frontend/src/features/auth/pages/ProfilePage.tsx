@@ -31,8 +31,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import dayjs from 'dayjs';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 
@@ -561,10 +561,11 @@ function AvailabilityTab() {
 // --- Page ---
 
 const PROFILE_TABS = { availability: 0, info: 1, avatar: 2 } as const;
+type ProfileTab = typeof PROFILE_TABS[keyof typeof PROFILE_TABS];
 
 export default function ProfilePage() {
   const { user, isLoading } = useAuth();
-  const [tab, setTab] = useState(PROFILE_TABS.availability);
+  const [tab, setTab] = useState<ProfileTab>(PROFILE_TABS.availability);
 
   if (isLoading || !user) {
     return (
@@ -587,7 +588,7 @@ export default function ProfilePage() {
       }
     >
       <Box>
-        <Tabs value={tab} onChange={(_, v: number) => setTab(v)} sx={{ mb: 3 }}>
+        <Tabs value={tab} onChange={(_, v: ProfileTab) => setTab(v)} sx={{ mb: 3 }}>
           <Tab icon={<CalendarMonthIcon />} label="Disponibilidad" />
           <Tab icon={<PersonIcon />} label="Información" />
           <Tab icon={<FaceIcon />} label="Avatar" />

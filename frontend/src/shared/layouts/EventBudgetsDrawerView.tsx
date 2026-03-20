@@ -53,7 +53,6 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
           {budgets.map((budget, index) => {
             const total = (budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0);
             const isAccepted = budget.Accepted === true;
-            const hasExtras = budget.Equipment || budget.DJ;
 
             return (
               <Card

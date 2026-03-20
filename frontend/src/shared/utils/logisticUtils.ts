@@ -1,16 +1,16 @@
-import { createAvatar } from '@dicebear/core';
-import { avataaars } from '@dicebear/collection';
-import dayjs from 'dayjs';
 import type { TimelineItem } from '@/shared/components/Timeline';
 import { DEFAULT_STOP_COLOR, DEFAULT_STOP_ICON, STOP_TYPE_MAP } from '@/shared/constants/stopTypes';
+import { avataaars } from '@dicebear/collection';
+import { createAvatar } from '@dicebear/core';
+import dayjs from 'dayjs';
 
 export interface LogisticStop {
-  Time: string | null;
-  Label: string;
-  Description: string;
-  Type: string;
-  PickUpUser: string | null | Record<string, unknown>;
-  DoneBy: string | null;
+  Time?: string | null;
+  Label?: string;
+  Description?: string;
+  Type?: string;
+  PickUpUser?: string | null | Record<string, unknown>;
+  DoneBy?: string | null | Record<string, unknown>;
 }
 
 export interface User {
@@ -65,22 +65,24 @@ function generateAvatarUri(avatarConfig: Record<string, unknown> | undefined | n
  */
 export function logisticToTimelineItems(
   logistic: LogisticStop[],
-  users: User[] = []
+  users: (User | { documentId: string; displayName?: string; username: string; avatar?: any })[] = []
 ): TimelineItem[] {
   return logistic
     .filter((s) => s.Time || s.Label)
-    .map((s) => {
-      const cfg = STOP_TYPE_MAP[s.Type];
+    .map((s: LogisticStop) => {
+      const cfg = s.Type ? STOP_TYPE_MAP[s.Type] : undefined;
       const pickupUser =
         s.Type === 'pickup' && s.PickUpUser
           ? typeof s.PickUpUser === 'string'
-            ? users.find((u) => u.documentId === s.PickUpUser)
-            : (s.PickUpUser as User)
+            ? users.find((u:User) => u.documentId === s.PickUpUser)
+            : (s.PickUpUser as unknown as User)
           : null;
       const doneByUser =
         s.DoneBy && typeof s.DoneBy === 'string'
           ? users.find((u) => u.documentId === s.DoneBy)
-          : null;
+          : typeof s.DoneBy === 'object'
+            ? (s.DoneBy as any)
+            : null;
 
       const hasDetails = !!s.Description || !!pickupUser || !!doneByUser;
       const details: LogisticDetails | undefined = hasDetails ? {

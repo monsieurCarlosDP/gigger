@@ -1,31 +1,28 @@
-import { BudgetPreviewModal } from '@/shared/components/BudgetPreviewModal';
 import { EventChip } from '@/features/events/components/EventChip';
-import { Timeline } from '@/shared/components/Timeline';
-import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import { useCreateDiscordChannel, useDiscordChannels, useLinkDiscordChannel } from '@/features/events/hooks/useDiscordChannels';
 import { useDiscordMessages, useSendDiscordMessage } from '@/features/events/hooks/useDiscordMessages';
 import { useEventById } from '@/features/events/hooks/useEvents';
 import { usePrice } from '@/features/tariffs/hooks/usePrice';
-import { useUsers } from '@/shared/hooks/useUsers';
+import { BudgetPreviewModal } from '@/shared/components/BudgetPreviewModal';
 import { ChatBubble } from '@/shared/components/ChatBubble';
 import { ChatInput } from '@/shared/components/ChatInput';
+import { Timeline } from '@/shared/components/Timeline';
 import { useAuth } from '@/shared/context/AuthContext';
-import { useDrawerNav } from '@/shared/context/DrawerContext';
+import { useDrawerNav, useEventTabParam } from '@/shared/context/DrawerContext';
+import { useUsers } from '@/shared/hooks/useUsers';
 import { PageLayout } from '@/shared/layouts/PageLayout';
+import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
+import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import BlockIcon from '@mui/icons-material/Block';
-import BuildIcon from '@mui/icons-material/Build';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import EditIcon from '@mui/icons-material/Edit';
-import FlagIcon from '@mui/icons-material/Flag';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
+import LinkIcon from '@mui/icons-material/Link';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import NightlightIcon from '@mui/icons-material/Nightlight';
 import PersonIcon from '@mui/icons-material/Person';
 import RouteIcon from '@mui/icons-material/Route';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Autocomplete,
   Box,
@@ -43,10 +40,6 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
-import { useEventTabParam } from '@/shared/context/DrawerContext';
-import AddIcon from '@mui/icons-material/Add';
-import LinkIcon from '@mui/icons-material/Link';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 

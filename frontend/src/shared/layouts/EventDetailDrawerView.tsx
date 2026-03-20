@@ -1,25 +1,21 @@
 import { EventChip } from '@/features/events/components/EventChip';
-import { Timeline } from '@/shared/components/Timeline';
-import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import { useDiscordMessages, useSendDiscordMessage } from '@/features/events/hooks/useDiscordMessages';
 import { useEventById } from '@/features/events/hooks/useEvents';
 import { ChatBubble } from '@/shared/components/ChatBubble';
 import { ChatInput } from '@/shared/components/ChatInput';
+import { Timeline } from '@/shared/components/Timeline';
+import { useAuth } from '@/shared/context/AuthContext';
 import { useDrawerNav, useEventTabParam } from '@/shared/context/DrawerContext';
+import { useUsers } from '@/shared/hooks/useUsers';
+import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import BlockIcon from '@mui/icons-material/Block';
-import BuildIcon from '@mui/icons-material/Build';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import ChatIcon from '@mui/icons-material/Chat';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import EditIcon from '@mui/icons-material/Edit';
 import EuroIcon from '@mui/icons-material/Euro';
-import FlagIcon from '@mui/icons-material/Flag';
 import InfoIcon from '@mui/icons-material/Info';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import NightlightIcon from '@mui/icons-material/Nightlight';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import PersonIcon from '@mui/icons-material/Person';
 import RouteIcon from '@mui/icons-material/Route';
@@ -34,8 +30,6 @@ import {
   Tabs,
   Typography,
 } from '@mui/material';
-import { useAuth } from '@/shared/context/AuthContext';
-import { useUsers } from '@/shared/hooks/useUsers';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { useEffect, useRef } from 'react';
@@ -202,7 +196,7 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
             Cronología
           </Typography>
           {event.Logistic && event.Logistic.length > 0 ? (
-            <Timeline items={logisticToTimelineItems(event.Logistic as any, users)} />
+            <Timeline items={logisticToTimelineItems(event.Logistic, users)} />
           ) : (
             <Typography variant="body2" color="text.secondary" textAlign="center">
               Sin paradas definidas

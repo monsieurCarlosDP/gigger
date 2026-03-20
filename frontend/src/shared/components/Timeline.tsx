@@ -2,6 +2,10 @@ import type { ReactNode } from 'react';
 import { Avatar, Box, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import type { LogisticDetails } from '@/shared/utils/logisticUtils';
 
+const isLogisticDetails = (details: unknown): details is LogisticDetails => {
+  return typeof details === 'object' && details !== null && 'displayName' in details;
+};
+
 export interface TimelineItem {
   time: string;
   label: string;
@@ -67,51 +71,54 @@ export function Timeline({ items }: TimelineProps) {
 
             {/* Center: avatar + line */}
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mx: 1.5 }}>
-              {item.details ? (
-                <Tooltip
-                  title={
-                    typeof item.details === 'object' && 'displayName' in item.details ? (
-                      // LogisticDetails
-                      <Stack spacing={0.5}>
-                        {item.details.description && (
-                          <Typography variant="body2">{item.details.description}</Typography>
-                        )}
-                        {item.details.pickupUser && (
-                          <Typography variant="caption">
-                            👤 Recoger: <strong>{item.details.pickupUser.displayName || item.details.pickupUser.username}</strong>
-                          </Typography>
-                        )}
-                        {item.details.doneByUser && (
-                          <Typography variant="caption">
-                            👤 Responsable: <strong>{item.details.doneByUser.displayName || item.details.doneByUser.username}</strong>
-                          </Typography>
-                        )}
-                      </Stack>
-                    ) : (
-                      // ReactNode
-                      item.details
-                    )
-                  }
-                  placement="top"
-                  arrow
-                  enterDelay={200}
-                  slotProps={{
-                    tooltip: {
-                      sx: {
-                        bgcolor: '#fff',
-                        color: '#000',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                        border: '1px solid #e0e0e0',
-                        borderRadius: '4px',
-                        padding: '12px',
-                        fontSize: '0.875rem',
+              {item.details ? (() => {
+                const details = item.details;
+                const tooltipTitle: ReactNode = isLogisticDetails(details) ? (
+                  // LogisticDetails
+                  <Stack spacing={0.5}>
+                    {details.description && (
+                      <Typography variant="body2">{details.description}</Typography>
+                    )}
+                    {details.pickupUser && (
+                      <Typography variant="caption">
+                        👤 Recoger: <strong>{details.pickupUser.displayName || details.pickupUser.username}</strong>
+                      </Typography>
+                    )}
+                    {details.doneByUser && (
+                      <Typography variant="caption">
+                        👤 Responsable: <strong>{details.doneByUser.displayName || details.doneByUser.username}</strong>
+                      </Typography>
+                    )}
+                  </Stack>
+                ) : (
+                  // ReactNode
+                  details
+                );
+
+                return (
+                  <Tooltip
+                    title={tooltipTitle}
+                    placement="top"
+                    arrow
+                    enterDelay={200}
+                    slotProps={{
+                      tooltip: {
+                        sx: {
+                          bgcolor: '#fff',
+                          color: '#000',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                          border: '1px solid #e0e0e0',
+                          borderRadius: '4px',
+                          padding: '12px',
+                          fontSize: '0.875rem',
+                        },
                       },
-                    },
-                  }}
-                >
-                  {avatarElement}
-                </Tooltip>
-              ) : (
+                    }}
+                  >
+                    {avatarElement}
+                  </Tooltip>
+                );
+              })() : (
                 avatarElement
               )}
               {!isLast && (
