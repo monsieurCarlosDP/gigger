@@ -24,12 +24,16 @@
         "setup",
         "event_start",
         "event_end",
+        "departure",
         "arrival",
         "teardown",
-        "meal"
+        "meal",
+        "rest",
+        "pick_truck",
+        "leave_truck"
       ]
     },
-    "users_permissions_user": {
+    "PickUpUser": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
@@ -43,6 +47,11 @@
           ]
         }
       }
+    },
+    "DoneBy": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   },
   "config": {}

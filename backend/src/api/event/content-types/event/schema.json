@@ -25,7 +25,6 @@
       "type": "enumeration",
       "required": true,
       "enum": [
-        "Reservation",
         "Event",
         "Viability"
       ]
@@ -77,8 +76,14 @@
       "component": "event.budget",
       "repeatable": true
     },
-    "Cancelled": {
-      "type": "boolean"
+    "Status": {
+      "type": "enumeration",
+      "enum": [
+        "Budgeted",
+        "Accepted",
+        "Cancelled"
+      ],
+      "default": "Budgeted"
     },
     "CancelledDate": {
       "type": "date"

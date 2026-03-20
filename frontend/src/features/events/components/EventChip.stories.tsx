@@ -10,10 +10,6 @@ const meta: Meta<typeof EventChip> = {
 export default meta;
 type Story = StoryObj<typeof EventChip>;
 
-export const Reservation: Story = {
-  args: { type: 'Reservation' },
-};
-
 export const Event: Story = {
   args: { type: 'Event' },
 };
@@ -25,7 +21,6 @@ export const Viability: Story = {
 export const AllTypes: Story = {
   render: () => (
     <Stack direction="row" spacing={1}>
-      <EventChip type="Reservation" />
       <EventChip type="Event" />
       <EventChip type="Viability" />
     </Stack>

@@ -1,8 +1,12 @@
+import { BudgetPreviewModal } from '@/shared/components/BudgetPreviewModal';
 import { EventChip } from '@/features/events/components/EventChip';
 import { Timeline } from '@/shared/components/Timeline';
+import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import { useCreateDiscordChannel, useDiscordChannels, useLinkDiscordChannel } from '@/features/events/hooks/useDiscordChannels';
 import { useDiscordMessages, useSendDiscordMessage } from '@/features/events/hooks/useDiscordMessages';
 import { useEventById } from '@/features/events/hooks/useEvents';
+import { usePrice } from '@/features/tariffs/hooks/usePrice';
+import { useUsers } from '@/shared/hooks/useUsers';
 import { ChatBubble } from '@/shared/components/ChatBubble';
 import { ChatInput } from '@/shared/components/ChatInput';
 import { useAuth } from '@/shared/context/AuthContext';
@@ -42,6 +46,7 @@ import 'dayjs/locale/es';
 import { useEventTabParam } from '@/shared/context/DrawerContext';
 import AddIcon from '@mui/icons-material/Add';
 import LinkIcon from '@mui/icons-material/Link';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -55,14 +60,17 @@ export default function EventDetailPage() {
   const { tabIndex: tab, tabName, setTab } = useEventTabParam();
 
   const { data, isLoading } = useEventById(documentId ?? '', {
-    query: { populate: ['contacts', 'Budget'] },
+    query: { populate: ['contacts', 'Budget', 'Logistic'] },
   });
+  const { data: users = [] } = useUsers();
 
+  const price = usePrice();
   const { data: channels = [], isLoading: channelsLoading } = useDiscordChannels();
   const { mutateAsync: createChannel, isPending: isCreating } = useCreateDiscordChannel();
   const { mutate: linkChannel, isPending: isLinking } = useLinkDiscordChannel(documentId ?? '');
 
   const [selectedChannel, setSelectedChannel] = useState<{ id: string; name: string } | null>(null);
+  const [previewBudgetIndex, setPreviewBudgetIndex] = useState<number | null>(null);
 
   const event = data?.data;
 
@@ -88,7 +96,7 @@ export default function EventDetailPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, tab]);
   const isPeriod = event?.Type === 'Viability' && event?.EndDate;
-  const isCancelled = event?.Cancelled === true;
+  const isCancelled = event?.Status === 'Cancelled';
 
   return (
     <PageLayout
@@ -119,7 +127,7 @@ export default function EventDetailPage() {
               <Button
                 variant="contained"
                 startIcon={<EditIcon />}
-                onClick={() => navigate(`/events/${event.documentId}/edit`)}
+                onClick={() => navigate(`/events/${event.documentId}/edit?openTab=${tabName}`)}
                 size="small"
               >
                 Editar
@@ -228,18 +236,13 @@ export default function EventDetailPage() {
                 <Stack spacing={2}>
                   <Typography variant="h6">Cronología</Typography>
                   <Divider />
-                  <Timeline
-                    items={[
-                      { time: '08:00', label: 'Carga de equipo', description: 'Almacén central', icon: <Inventory2Icon sx={{ fontSize: 18 }} />, color: '#546e7a' },
-                      { time: '08:45', label: 'Recoger a Carlos', description: 'C/ Gran Vía 12', photo: 'https://i.pravatar.cc/150?u=carlos' },
-                      { time: '09:30', label: 'Salida', description: 'Viaje estimado: 2h 15min', icon: <DirectionsCarIcon sx={{ fontSize: 18 }} />, color: '#1565c0' },
-                      { time: '11:45', label: 'Llegada y montaje', description: 'Recinto ferial, puerta B', icon: <BuildIcon sx={{ fontSize: 18 }} />, color: '#ef6c00' },
-                      { time: '14:00', label: 'Inicio del evento', icon: <MusicNoteIcon sx={{ fontSize: 18 }} />, color: '#2e7d32' },
-                      { time: '22:00', label: 'Fin del evento', icon: <FlagIcon sx={{ fontSize: 18 }} />, color: '#2e7d32' },
-                      { time: '22:30', label: 'Desmontaje', icon: <BuildIcon sx={{ fontSize: 18 }} />, color: '#ef6c00' },
-                      { time: '23:30', label: 'Llegada a casa', icon: <NightlightIcon sx={{ fontSize: 18 }} />, color: '#37474f' },
-                    ]}
-                  />
+                  {event.Logistic && event.Logistic.length > 0 ? (
+                    <Timeline items={logisticToTimelineItems(event.Logistic as any, users)} />
+                  ) : (
+                    <Typography variant="body2" color="text.secondary" textAlign="center">
+                      Sin paradas definidas
+                    </Typography>
+                  )}
                 </Stack>
               </Paper>
               <Paper elevation={2} sx={{ p: 3 }}>
@@ -287,22 +290,25 @@ export default function EventDetailPage() {
                             <Stack spacing={0.25}>
                               {budget.Dietas != null && (
                                 <Typography variant="caption" color="text.secondary">
-                                  Dietas: {budget.Dietas} €
+                                  🚐 Dietas y transporte: {budget.Dietas} €
                                 </Typography>
                               )}
-                              {budget.Equipment && (
-                                <Typography variant="caption" color="text.secondary">· Equipo incluido</Typography>
-                              )}
                               {budget.DJ && (
-                                <Typography variant="caption" color="text.secondary">· DJ incluido</Typography>
+                                <Typography variant="caption" color="text.secondary">· 🎧 EfectiviDJs: {price.dj} €</Typography>
+                              )}
+                              {budget.Equipment && (
+                                <Typography variant="caption" color="text.secondary">· 🔊 Equipo: {price.equipment} €</Typography>
                               )}
                             </Stack>
                           </Stack>
-                          {budget.Base != null && (
+                          <Stack direction="row" alignItems="center" spacing={1}>
                             <Typography variant="h6" color={budget.Accepted ? 'success.main' : 'text.primary'}>
-                              {budget.Base} €
+                              {((budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0)).toLocaleString('es-ES')} €
                             </Typography>
-                          )}
+                            <IconButton size="small" onClick={() => setPreviewBudgetIndex(index)}>
+                              <VisibilityIcon fontSize="small" />
+                            </IconButton>
+                          </Stack>
                         </Stack>
                       </Box>
                     ))
@@ -310,6 +316,21 @@ export default function EventDetailPage() {
                 </Stack>
               </Paper>
 
+              {event.Budget && previewBudgetIndex != null && previewBudgetIndex < event.Budget.length && (
+                <BudgetPreviewModal
+                  open
+                  onClose={() => setPreviewBudgetIndex(null)}
+                  event={{
+                    Name: event.Name ?? '',
+                    Location: event.Location ?? undefined,
+                    StartDate: event.StartDate ?? undefined,
+                    GigType: event.GigType ?? undefined,
+                    Distance: event.Distance,
+                  }}
+                  budget={event.Budget[previewBudgetIndex] as import('@/features/events/hooks/useEventForm').BudgetItem}
+                  budgetIndex={previewBudgetIndex}
+                />
+              )}
             </Stack>
           )}
 

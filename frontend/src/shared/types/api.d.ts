@@ -68,6 +68,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["info/get/info"];
+        put: operations["info/put/info"];
+        post?: never;
+        delete: operations["info/delete/info"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/people": {
         parameters: {
             query?: never;
@@ -125,6 +141,38 @@ export interface paths {
         };
         get?: never;
         put: operations["profile/put/profile_avatar"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/viability": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["profile/post/profile_viability"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/my-viability": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["profile/get/profile_my_viability"];
+        put?: never;
         post?: never;
         delete?: never;
         options?: never;
@@ -795,7 +843,7 @@ export interface operations {
     "event/get/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Status" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
                 filters?: {
                     [key: string]: unknown;
                 };
@@ -809,12 +857,12 @@ export interface operations {
                     start: number;
                     limit: number;
                 });
-                sort?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Status" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Status" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
                 }[];
-                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "users_permissions_user") | ("contacts" | "Budget" | "Logistic" | "users_permissions_user")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "CreatedByUser") | ("contacts" | "Budget" | "Logistic" | "CreatedByUser")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
             };
@@ -839,17 +887,21 @@ export interface operations {
                             Distance?: string;
                             Location?: string;
                             /** @enum {string} */
-                            Type: "Reservation" | "Event" | "Viability";
+                            Type: "Event" | "Viability";
                             /** @enum {string} */
                             GigType?: "Wedding" | "Party" | "Village" | "Gig";
                             StartDate: string;
                             EndDate?: string;
-                            Cancelled?: boolean | null;
+                            /**
+                             * @default Budgeted
+                             * @enum {string}
+                             */
+                            Status: "Budgeted" | "Accepted" | "Cancelled";
                             CancelledDate?: string;
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.839Z */
+                            /** @default 2026-03-19T18:28:49.159Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -864,7 +916,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.842Z */
+                                /** @default 2026-03-19T18:28:49.162Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -874,17 +926,21 @@ export interface operations {
                                     Distance?: string;
                                     Location?: string;
                                     /** @enum {string} */
-                                    Type: "Reservation" | "Event" | "Viability";
+                                    Type: "Event" | "Viability";
                                     /** @enum {string} */
                                     GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                     StartDate: string;
                                     EndDate?: string;
-                                    Cancelled?: boolean | null;
+                                    /**
+                                     * @default Budgeted
+                                     * @enum {string}
+                                     */
+                                    Status: "Budgeted" | "Accepted" | "Cancelled";
                                     CancelledDate?: string;
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.845Z */
+                                    /** @default 2026-03-19T18:28:49.165Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -893,14 +949,15 @@ export interface operations {
                                         Dietas?: number;
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
+                                        BudgetNumber?: string;
                                     }[];
                                     Logistic?: {
                                         Time?: string;
                                         Label?: string;
                                         Description?: string;
                                         /** @enum {string} */
-                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                        users_permissions_user?: {
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                        PickUpUser?: {
                                             /** Format: uuid */
                                             documentId: string;
                                             id: string | number;
@@ -915,7 +972,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.849Z */
+                                            /** @default 2026-03-19T18:28:49.169Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -926,7 +983,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.850Z */
+                                                /** @default 2026-03-19T18:28:49.170Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -935,7 +992,97 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-16T22:16:35.851Z */
+                                                    /** @default 2026-03-19T18:28:49.171Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default shortFlat
+                                                 * @enum {string}
+                                                 */
+                                                top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                                /** @enum {string} */
+                                                accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                                /** @default 10 */
+                                                accessoriesProbability: number;
+                                                /** @enum {string} */
+                                                facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                                /** @default 10 */
+                                                facialHairProbability: number;
+                                                /**
+                                                 * @default blazerAndShirt
+                                                 * @enum {string}
+                                                 */
+                                                clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                                /** @enum {string} */
+                                                clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                                /**
+                                                 * @default smile
+                                                 * @enum {string}
+                                                 */
+                                                mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                                /** @default edb98a */
+                                                skinColor: string;
+                                                /** @default 4a312c */
+                                                hairColor: string;
+                                                /** @default 929598 */
+                                                clothesColor: string;
+                                                /** @default 4a312c */
+                                                facialHairColor: string;
+                                                /** @default 929598 */
+                                                hatColor: string;
+                                            };
+                                            events?: unknown[];
+                                        };
+                                        DoneBy?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            displayName?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.169Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.170Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-19T18:28:49.171Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -991,7 +1138,7 @@ export interface operations {
                                             events?: unknown[];
                                         };
                                     }[];
-                                    users_permissions_user?: {
+                                    CreatedByUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -1006,7 +1153,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -1017,7 +1164,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -1026,7 +1173,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -1089,14 +1236,15 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                                BudgetNumber?: string;
                             }[];
                             Logistic?: {
                                 Time?: string;
                                 Label?: string;
                                 Description?: string;
                                 /** @enum {string} */
-                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                users_permissions_user?: {
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                PickUpUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -1111,7 +1259,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -1122,7 +1270,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -1131,7 +1279,97 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default shortFlat
+                                         * @enum {string}
+                                         */
+                                        top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                        /** @enum {string} */
+                                        accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                        /** @default 10 */
+                                        accessoriesProbability: number;
+                                        /** @enum {string} */
+                                        facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                        /** @default 10 */
+                                        facialHairProbability: number;
+                                        /**
+                                         * @default blazerAndShirt
+                                         * @enum {string}
+                                         */
+                                        clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                        /** @enum {string} */
+                                        clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                        /**
+                                         * @default smile
+                                         * @enum {string}
+                                         */
+                                        mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                        /** @default edb98a */
+                                        skinColor: string;
+                                        /** @default 4a312c */
+                                        hairColor: string;
+                                        /** @default 929598 */
+                                        clothesColor: string;
+                                        /** @default 4a312c */
+                                        facialHairColor: string;
+                                        /** @default 929598 */
+                                        hatColor: string;
+                                    };
+                                    events?: unknown[];
+                                };
+                                DoneBy?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    displayName?: string;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-19T18:28:49.169Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.170Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -1187,7 +1425,7 @@ export interface operations {
                                     events?: unknown[];
                                 };
                             }[];
-                            users_permissions_user?: {
+                            CreatedByUser?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
@@ -1202,7 +1440,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.849Z */
+                                /** @default 2026-03-19T18:28:49.169Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -1213,7 +1451,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.850Z */
+                                    /** @default 2026-03-19T18:28:49.170Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -1222,7 +1460,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.851Z */
+                                        /** @default 2026-03-19T18:28:49.171Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -1321,8 +1559,8 @@ export interface operations {
     "event/post/events": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
-                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "users_permissions_user") | ("contacts" | "Budget" | "Logistic" | "users_permissions_user")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Status" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "CreatedByUser") | ("contacts" | "Budget" | "Logistic" | "CreatedByUser")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
             };
@@ -1338,21 +1576,25 @@ export interface operations {
                         Distance?: string;
                         Location?: string;
                         /** @enum {string} */
-                        Type: "Reservation" | "Event" | "Viability";
+                        Type: "Event" | "Viability";
                         /** @enum {string} */
                         GigType?: "Wedding" | "Party" | "Village" | "Gig";
                         StartDate: string;
                         EndDate?: string;
-                        Cancelled?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
+                        /**
+                         * @default Budgeted
+                         * @enum {string}
+                         */
+                        Status: "Budgeted" | "Accepted" | "Cancelled";
                         CancelledDate?: string;
                         DiscordChannelId?: string;
-                        /** @default 2026-03-16T22:16:35.877Z */
+                        /** @default 2026-03-19T18:28:49.196Z */
                         publishedAt: string;
                         contacts?: string[];
                         Budget?: unknown[];
                         Logistic?: unknown[];
                         /** Format: uuid */
-                        users_permissions_user?: string;
+                        CreatedByUser?: string;
                     };
                 };
             };
@@ -1373,17 +1615,21 @@ export interface operations {
                             Distance?: string;
                             Location?: string;
                             /** @enum {string} */
-                            Type: "Reservation" | "Event" | "Viability";
+                            Type: "Event" | "Viability";
                             /** @enum {string} */
                             GigType?: "Wedding" | "Party" | "Village" | "Gig";
                             StartDate: string;
                             EndDate?: string;
-                            Cancelled?: boolean | null;
+                            /**
+                             * @default Budgeted
+                             * @enum {string}
+                             */
+                            Status: "Budgeted" | "Accepted" | "Cancelled";
                             CancelledDate?: string;
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.879Z */
+                            /** @default 2026-03-19T18:28:49.198Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1398,7 +1644,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.842Z */
+                                /** @default 2026-03-19T18:28:49.162Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1408,17 +1654,21 @@ export interface operations {
                                     Distance?: string;
                                     Location?: string;
                                     /** @enum {string} */
-                                    Type: "Reservation" | "Event" | "Viability";
+                                    Type: "Event" | "Viability";
                                     /** @enum {string} */
                                     GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                     StartDate: string;
                                     EndDate?: string;
-                                    Cancelled?: boolean | null;
+                                    /**
+                                     * @default Budgeted
+                                     * @enum {string}
+                                     */
+                                    Status: "Budgeted" | "Accepted" | "Cancelled";
                                     CancelledDate?: string;
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.845Z */
+                                    /** @default 2026-03-19T18:28:49.165Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1427,14 +1677,15 @@ export interface operations {
                                         Dietas?: number;
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
+                                        BudgetNumber?: string;
                                     }[];
                                     Logistic?: {
                                         Time?: string;
                                         Label?: string;
                                         Description?: string;
                                         /** @enum {string} */
-                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                        users_permissions_user?: {
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                        PickUpUser?: {
                                             /** Format: uuid */
                                             documentId: string;
                                             id: string | number;
@@ -1449,7 +1700,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.849Z */
+                                            /** @default 2026-03-19T18:28:49.169Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -1460,7 +1711,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.850Z */
+                                                /** @default 2026-03-19T18:28:49.170Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -1469,7 +1720,97 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-16T22:16:35.851Z */
+                                                    /** @default 2026-03-19T18:28:49.171Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default shortFlat
+                                                 * @enum {string}
+                                                 */
+                                                top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                                /** @enum {string} */
+                                                accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                                /** @default 10 */
+                                                accessoriesProbability: number;
+                                                /** @enum {string} */
+                                                facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                                /** @default 10 */
+                                                facialHairProbability: number;
+                                                /**
+                                                 * @default blazerAndShirt
+                                                 * @enum {string}
+                                                 */
+                                                clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                                /** @enum {string} */
+                                                clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                                /**
+                                                 * @default smile
+                                                 * @enum {string}
+                                                 */
+                                                mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                                /** @default edb98a */
+                                                skinColor: string;
+                                                /** @default 4a312c */
+                                                hairColor: string;
+                                                /** @default 929598 */
+                                                clothesColor: string;
+                                                /** @default 4a312c */
+                                                facialHairColor: string;
+                                                /** @default 929598 */
+                                                hatColor: string;
+                                            };
+                                            events?: unknown[];
+                                        };
+                                        DoneBy?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            displayName?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.169Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.170Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-19T18:28:49.171Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -1525,7 +1866,7 @@ export interface operations {
                                             events?: unknown[];
                                         };
                                     }[];
-                                    users_permissions_user?: {
+                                    CreatedByUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -1540,7 +1881,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -1551,7 +1892,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -1560,7 +1901,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -1623,14 +1964,15 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                                BudgetNumber?: string;
                             }[];
                             Logistic?: {
                                 Time?: string;
                                 Label?: string;
                                 Description?: string;
                                 /** @enum {string} */
-                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                users_permissions_user?: {
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                PickUpUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -1645,7 +1987,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -1656,7 +1998,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -1665,7 +2007,97 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default shortFlat
+                                         * @enum {string}
+                                         */
+                                        top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                        /** @enum {string} */
+                                        accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                        /** @default 10 */
+                                        accessoriesProbability: number;
+                                        /** @enum {string} */
+                                        facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                        /** @default 10 */
+                                        facialHairProbability: number;
+                                        /**
+                                         * @default blazerAndShirt
+                                         * @enum {string}
+                                         */
+                                        clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                        /** @enum {string} */
+                                        clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                        /**
+                                         * @default smile
+                                         * @enum {string}
+                                         */
+                                        mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                        /** @default edb98a */
+                                        skinColor: string;
+                                        /** @default 4a312c */
+                                        hairColor: string;
+                                        /** @default 929598 */
+                                        clothesColor: string;
+                                        /** @default 4a312c */
+                                        facialHairColor: string;
+                                        /** @default 929598 */
+                                        hatColor: string;
+                                    };
+                                    events?: unknown[];
+                                };
+                                DoneBy?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    displayName?: string;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-19T18:28:49.169Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.170Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -1721,7 +2153,7 @@ export interface operations {
                                     events?: unknown[];
                                 };
                             }[];
-                            users_permissions_user?: {
+                            CreatedByUser?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
@@ -1736,7 +2168,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.849Z */
+                                /** @default 2026-03-19T18:28:49.169Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -1747,7 +2179,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.850Z */
+                                    /** @default 2026-03-19T18:28:49.170Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -1756,7 +2188,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.851Z */
+                                        /** @default 2026-03-19T18:28:49.171Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -1855,12 +2287,12 @@ export interface operations {
     "event/get/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
-                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "users_permissions_user") | ("contacts" | "Budget" | "Logistic" | "users_permissions_user")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Status" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "CreatedByUser") | ("contacts" | "Budget" | "Logistic" | "CreatedByUser")[];
                 filters?: {
                     [key: string]: unknown;
                 };
-                sort?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[] | {
+                sort?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Status" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt") | ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Status" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[] | {
                     [key: string]: "asc" | "desc";
                 } | {
                     [key: string]: "asc" | "desc";
@@ -1891,17 +2323,21 @@ export interface operations {
                             Distance?: string;
                             Location?: string;
                             /** @enum {string} */
-                            Type: "Reservation" | "Event" | "Viability";
+                            Type: "Event" | "Viability";
                             /** @enum {string} */
                             GigType?: "Wedding" | "Party" | "Village" | "Gig";
                             StartDate: string;
                             EndDate?: string;
-                            Cancelled?: boolean | null;
+                            /**
+                             * @default Budgeted
+                             * @enum {string}
+                             */
+                            Status: "Budgeted" | "Accepted" | "Cancelled";
                             CancelledDate?: string;
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.872Z */
+                            /** @default 2026-03-19T18:28:49.191Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1916,7 +2352,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.842Z */
+                                /** @default 2026-03-19T18:28:49.162Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1926,17 +2362,21 @@ export interface operations {
                                     Distance?: string;
                                     Location?: string;
                                     /** @enum {string} */
-                                    Type: "Reservation" | "Event" | "Viability";
+                                    Type: "Event" | "Viability";
                                     /** @enum {string} */
                                     GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                     StartDate: string;
                                     EndDate?: string;
-                                    Cancelled?: boolean | null;
+                                    /**
+                                     * @default Budgeted
+                                     * @enum {string}
+                                     */
+                                    Status: "Budgeted" | "Accepted" | "Cancelled";
                                     CancelledDate?: string;
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.845Z */
+                                    /** @default 2026-03-19T18:28:49.165Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1945,14 +2385,15 @@ export interface operations {
                                         Dietas?: number;
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
+                                        BudgetNumber?: string;
                                     }[];
                                     Logistic?: {
                                         Time?: string;
                                         Label?: string;
                                         Description?: string;
                                         /** @enum {string} */
-                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                        users_permissions_user?: {
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                        PickUpUser?: {
                                             /** Format: uuid */
                                             documentId: string;
                                             id: string | number;
@@ -1967,7 +2408,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.849Z */
+                                            /** @default 2026-03-19T18:28:49.169Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -1978,7 +2419,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.850Z */
+                                                /** @default 2026-03-19T18:28:49.170Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -1987,7 +2428,97 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-16T22:16:35.851Z */
+                                                    /** @default 2026-03-19T18:28:49.171Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default shortFlat
+                                                 * @enum {string}
+                                                 */
+                                                top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                                /** @enum {string} */
+                                                accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                                /** @default 10 */
+                                                accessoriesProbability: number;
+                                                /** @enum {string} */
+                                                facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                                /** @default 10 */
+                                                facialHairProbability: number;
+                                                /**
+                                                 * @default blazerAndShirt
+                                                 * @enum {string}
+                                                 */
+                                                clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                                /** @enum {string} */
+                                                clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                                /**
+                                                 * @default smile
+                                                 * @enum {string}
+                                                 */
+                                                mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                                /** @default edb98a */
+                                                skinColor: string;
+                                                /** @default 4a312c */
+                                                hairColor: string;
+                                                /** @default 929598 */
+                                                clothesColor: string;
+                                                /** @default 4a312c */
+                                                facialHairColor: string;
+                                                /** @default 929598 */
+                                                hatColor: string;
+                                            };
+                                            events?: unknown[];
+                                        };
+                                        DoneBy?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            displayName?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.169Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.170Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-19T18:28:49.171Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -2043,7 +2574,7 @@ export interface operations {
                                             events?: unknown[];
                                         };
                                     }[];
-                                    users_permissions_user?: {
+                                    CreatedByUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -2058,7 +2589,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -2069,7 +2600,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -2078,7 +2609,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -2141,14 +2672,15 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                                BudgetNumber?: string;
                             }[];
                             Logistic?: {
                                 Time?: string;
                                 Label?: string;
                                 Description?: string;
                                 /** @enum {string} */
-                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                users_permissions_user?: {
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                PickUpUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -2163,7 +2695,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -2174,7 +2706,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -2183,7 +2715,97 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default shortFlat
+                                         * @enum {string}
+                                         */
+                                        top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                        /** @enum {string} */
+                                        accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                        /** @default 10 */
+                                        accessoriesProbability: number;
+                                        /** @enum {string} */
+                                        facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                        /** @default 10 */
+                                        facialHairProbability: number;
+                                        /**
+                                         * @default blazerAndShirt
+                                         * @enum {string}
+                                         */
+                                        clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                        /** @enum {string} */
+                                        clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                        /**
+                                         * @default smile
+                                         * @enum {string}
+                                         */
+                                        mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                        /** @default edb98a */
+                                        skinColor: string;
+                                        /** @default 4a312c */
+                                        hairColor: string;
+                                        /** @default 929598 */
+                                        clothesColor: string;
+                                        /** @default 4a312c */
+                                        facialHairColor: string;
+                                        /** @default 929598 */
+                                        hatColor: string;
+                                    };
+                                    events?: unknown[];
+                                };
+                                DoneBy?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    displayName?: string;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-19T18:28:49.169Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.170Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -2239,7 +2861,7 @@ export interface operations {
                                     events?: unknown[];
                                 };
                             }[];
-                            users_permissions_user?: {
+                            CreatedByUser?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
@@ -2254,7 +2876,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.849Z */
+                                /** @default 2026-03-19T18:28:49.169Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -2265,7 +2887,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.850Z */
+                                    /** @default 2026-03-19T18:28:49.170Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -2274,7 +2896,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.851Z */
+                                        /** @default 2026-03-19T18:28:49.171Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -2373,8 +2995,8 @@ export interface operations {
     "event/put/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
-                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "users_permissions_user") | ("contacts" | "Budget" | "Logistic" | "users_permissions_user")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Status" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "CreatedByUser") | ("contacts" | "Budget" | "Logistic" | "CreatedByUser")[];
                 status?: "draft" | "published";
                 hasPublishedVersion?: boolean | ("true" | "false");
             };
@@ -2392,21 +3014,25 @@ export interface operations {
                         Distance?: string;
                         Location?: string;
                         /** @enum {string} */
-                        Type?: "Reservation" | "Event" | "Viability";
+                        Type?: "Event" | "Viability";
                         /** @enum {string} */
                         GigType?: "Wedding" | "Party" | "Village" | "Gig";
                         StartDate?: string;
                         EndDate?: string;
-                        Cancelled?: ("0" | "1" | "t" | "true" | "f" | "false") | null;
+                        /**
+                         * @default Budgeted
+                         * @enum {string}
+                         */
+                        Status?: "Budgeted" | "Accepted" | "Cancelled";
                         CancelledDate?: string;
                         DiscordChannelId?: string;
-                        /** @default 2026-03-16T22:16:35.883Z */
+                        /** @default 2026-03-19T18:28:49.201Z */
                         publishedAt?: string;
                         contacts?: string[];
                         Budget?: unknown[];
                         Logistic?: unknown[];
                         /** Format: uuid */
-                        users_permissions_user?: string;
+                        CreatedByUser?: string;
                     };
                 };
             };
@@ -2427,17 +3053,21 @@ export interface operations {
                             Distance?: string;
                             Location?: string;
                             /** @enum {string} */
-                            Type: "Reservation" | "Event" | "Viability";
+                            Type: "Event" | "Viability";
                             /** @enum {string} */
                             GigType?: "Wedding" | "Party" | "Village" | "Gig";
                             StartDate: string;
                             EndDate?: string;
-                            Cancelled?: boolean | null;
+                            /**
+                             * @default Budgeted
+                             * @enum {string}
+                             */
+                            Status: "Budgeted" | "Accepted" | "Cancelled";
                             CancelledDate?: string;
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.885Z */
+                            /** @default 2026-03-19T18:28:49.203Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -2452,7 +3082,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.842Z */
+                                /** @default 2026-03-19T18:28:49.162Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -2462,17 +3092,21 @@ export interface operations {
                                     Distance?: string;
                                     Location?: string;
                                     /** @enum {string} */
-                                    Type: "Reservation" | "Event" | "Viability";
+                                    Type: "Event" | "Viability";
                                     /** @enum {string} */
                                     GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                     StartDate: string;
                                     EndDate?: string;
-                                    Cancelled?: boolean | null;
+                                    /**
+                                     * @default Budgeted
+                                     * @enum {string}
+                                     */
+                                    Status: "Budgeted" | "Accepted" | "Cancelled";
                                     CancelledDate?: string;
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.845Z */
+                                    /** @default 2026-03-19T18:28:49.165Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -2481,14 +3115,15 @@ export interface operations {
                                         Dietas?: number;
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
+                                        BudgetNumber?: string;
                                     }[];
                                     Logistic?: {
                                         Time?: string;
                                         Label?: string;
                                         Description?: string;
                                         /** @enum {string} */
-                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                        users_permissions_user?: {
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                        PickUpUser?: {
                                             /** Format: uuid */
                                             documentId: string;
                                             id: string | number;
@@ -2503,7 +3138,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.849Z */
+                                            /** @default 2026-03-19T18:28:49.169Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -2514,7 +3149,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.850Z */
+                                                /** @default 2026-03-19T18:28:49.170Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -2523,7 +3158,97 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-16T22:16:35.851Z */
+                                                    /** @default 2026-03-19T18:28:49.171Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default shortFlat
+                                                 * @enum {string}
+                                                 */
+                                                top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                                /** @enum {string} */
+                                                accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                                /** @default 10 */
+                                                accessoriesProbability: number;
+                                                /** @enum {string} */
+                                                facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                                /** @default 10 */
+                                                facialHairProbability: number;
+                                                /**
+                                                 * @default blazerAndShirt
+                                                 * @enum {string}
+                                                 */
+                                                clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                                /** @enum {string} */
+                                                clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                                /**
+                                                 * @default smile
+                                                 * @enum {string}
+                                                 */
+                                                mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                                /** @default edb98a */
+                                                skinColor: string;
+                                                /** @default 4a312c */
+                                                hairColor: string;
+                                                /** @default 929598 */
+                                                clothesColor: string;
+                                                /** @default 4a312c */
+                                                facialHairColor: string;
+                                                /** @default 929598 */
+                                                hatColor: string;
+                                            };
+                                            events?: unknown[];
+                                        };
+                                        DoneBy?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            displayName?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.169Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.170Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-19T18:28:49.171Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -2579,7 +3304,7 @@ export interface operations {
                                             events?: unknown[];
                                         };
                                     }[];
-                                    users_permissions_user?: {
+                                    CreatedByUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -2594,7 +3319,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -2605,7 +3330,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -2614,7 +3339,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -2677,14 +3402,15 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                                BudgetNumber?: string;
                             }[];
                             Logistic?: {
                                 Time?: string;
                                 Label?: string;
                                 Description?: string;
                                 /** @enum {string} */
-                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                users_permissions_user?: {
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                PickUpUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -2699,7 +3425,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -2710,7 +3436,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -2719,7 +3445,97 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default shortFlat
+                                         * @enum {string}
+                                         */
+                                        top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                        /** @enum {string} */
+                                        accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                        /** @default 10 */
+                                        accessoriesProbability: number;
+                                        /** @enum {string} */
+                                        facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                        /** @default 10 */
+                                        facialHairProbability: number;
+                                        /**
+                                         * @default blazerAndShirt
+                                         * @enum {string}
+                                         */
+                                        clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                        /** @enum {string} */
+                                        clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                        /**
+                                         * @default smile
+                                         * @enum {string}
+                                         */
+                                        mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                        /** @default edb98a */
+                                        skinColor: string;
+                                        /** @default 4a312c */
+                                        hairColor: string;
+                                        /** @default 929598 */
+                                        clothesColor: string;
+                                        /** @default 4a312c */
+                                        facialHairColor: string;
+                                        /** @default 929598 */
+                                        hatColor: string;
+                                    };
+                                    events?: unknown[];
+                                };
+                                DoneBy?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    displayName?: string;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-19T18:28:49.169Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.170Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -2775,7 +3591,7 @@ export interface operations {
                                     events?: unknown[];
                                 };
                             }[];
-                            users_permissions_user?: {
+                            CreatedByUser?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
@@ -2790,7 +3606,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.849Z */
+                                /** @default 2026-03-19T18:28:49.169Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -2801,7 +3617,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.850Z */
+                                    /** @default 2026-03-19T18:28:49.170Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -2810,7 +3626,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.851Z */
+                                        /** @default 2026-03-19T18:28:49.171Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -2909,8 +3725,8 @@ export interface operations {
     "event/delete/events_by_id": {
         parameters: {
             query?: {
-                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Cancelled" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
-                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "users_permissions_user") | ("contacts" | "Budget" | "Logistic" | "users_permissions_user")[];
+                fields?: ("Name" | "Distance" | "Location" | "Type" | "GigType" | "StartDate" | "EndDate" | "Status" | "CancelledDate" | "DiscordChannelId" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("contacts" | "Budget" | "Logistic" | "CreatedByUser") | ("contacts" | "Budget" | "Logistic" | "CreatedByUser")[];
                 filters?: {
                     [key: string]: unknown;
                 };
@@ -2940,17 +3756,21 @@ export interface operations {
                             Distance?: string;
                             Location?: string;
                             /** @enum {string} */
-                            Type: "Reservation" | "Event" | "Viability";
+                            Type: "Event" | "Viability";
                             /** @enum {string} */
                             GigType?: "Wedding" | "Party" | "Village" | "Gig";
                             StartDate: string;
                             EndDate?: string;
-                            Cancelled?: boolean | null;
+                            /**
+                             * @default Budgeted
+                             * @enum {string}
+                             */
+                            Status: "Budgeted" | "Accepted" | "Cancelled";
                             CancelledDate?: string;
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.889Z */
+                            /** @default 2026-03-19T18:28:49.207Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -2965,7 +3785,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.842Z */
+                                /** @default 2026-03-19T18:28:49.162Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -2975,17 +3795,21 @@ export interface operations {
                                     Distance?: string;
                                     Location?: string;
                                     /** @enum {string} */
-                                    Type: "Reservation" | "Event" | "Viability";
+                                    Type: "Event" | "Viability";
                                     /** @enum {string} */
                                     GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                     StartDate: string;
                                     EndDate?: string;
-                                    Cancelled?: boolean | null;
+                                    /**
+                                     * @default Budgeted
+                                     * @enum {string}
+                                     */
+                                    Status: "Budgeted" | "Accepted" | "Cancelled";
                                     CancelledDate?: string;
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.845Z */
+                                    /** @default 2026-03-19T18:28:49.165Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -2994,14 +3818,15 @@ export interface operations {
                                         Dietas?: number;
                                         DJ?: boolean | null;
                                         Accepted?: boolean | null;
+                                        BudgetNumber?: string;
                                     }[];
                                     Logistic?: {
                                         Time?: string;
                                         Label?: string;
                                         Description?: string;
                                         /** @enum {string} */
-                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                        users_permissions_user?: {
+                                        Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                        PickUpUser?: {
                                             /** Format: uuid */
                                             documentId: string;
                                             id: string | number;
@@ -3016,7 +3841,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.849Z */
+                                            /** @default 2026-03-19T18:28:49.169Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -3027,7 +3852,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.850Z */
+                                                /** @default 2026-03-19T18:28:49.170Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -3036,7 +3861,97 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-16T22:16:35.851Z */
+                                                    /** @default 2026-03-19T18:28:49.171Z */
+                                                    publishedAt: string;
+                                                    role?: unknown;
+                                                }[];
+                                                users?: unknown[];
+                                            };
+                                            avatar?: {
+                                                /**
+                                                 * @default shortFlat
+                                                 * @enum {string}
+                                                 */
+                                                top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                                /** @enum {string} */
+                                                accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                                /** @default 10 */
+                                                accessoriesProbability: number;
+                                                /** @enum {string} */
+                                                facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                                /** @default 10 */
+                                                facialHairProbability: number;
+                                                /**
+                                                 * @default blazerAndShirt
+                                                 * @enum {string}
+                                                 */
+                                                clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                                /** @enum {string} */
+                                                clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                                /**
+                                                 * @default default
+                                                 * @enum {string}
+                                                 */
+                                                eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                                /**
+                                                 * @default smile
+                                                 * @enum {string}
+                                                 */
+                                                mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                                /** @default edb98a */
+                                                skinColor: string;
+                                                /** @default 4a312c */
+                                                hairColor: string;
+                                                /** @default 929598 */
+                                                clothesColor: string;
+                                                /** @default 4a312c */
+                                                facialHairColor: string;
+                                                /** @default 929598 */
+                                                hatColor: string;
+                                            };
+                                            events?: unknown[];
+                                        };
+                                        DoneBy?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            username: string;
+                                            /** Format: email */
+                                            email: string;
+                                            provider?: string;
+                                            /** @default false */
+                                            confirmed: boolean | null;
+                                            /** @default false */
+                                            blocked: boolean | null;
+                                            displayName?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.169Z */
+                                            publishedAt: string;
+                                            role?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                name: string;
+                                                description?: string;
+                                                type?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.170Z */
+                                                publishedAt: string;
+                                                permissions?: {
+                                                    /** Format: uuid */
+                                                    documentId: string;
+                                                    id: string | number;
+                                                    action: string;
+                                                    createdAt?: string;
+                                                    updatedAt?: string;
+                                                    /** @default 2026-03-19T18:28:49.171Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -3092,7 +4007,7 @@ export interface operations {
                                             events?: unknown[];
                                         };
                                     }[];
-                                    users_permissions_user?: {
+                                    CreatedByUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -3107,7 +4022,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -3118,7 +4033,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -3127,7 +4042,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -3190,14 +4105,15 @@ export interface operations {
                                 Dietas?: number;
                                 DJ?: boolean | null;
                                 Accepted?: boolean | null;
+                                BudgetNumber?: string;
                             }[];
                             Logistic?: {
                                 Time?: string;
                                 Label?: string;
                                 Description?: string;
                                 /** @enum {string} */
-                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                users_permissions_user?: {
+                                Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                PickUpUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -3212,7 +4128,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -3223,7 +4139,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -3232,7 +4148,97 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
+                                            publishedAt: string;
+                                            role?: unknown;
+                                        }[];
+                                        users?: unknown[];
+                                    };
+                                    avatar?: {
+                                        /**
+                                         * @default shortFlat
+                                         * @enum {string}
+                                         */
+                                        top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                        /** @enum {string} */
+                                        accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                        /** @default 10 */
+                                        accessoriesProbability: number;
+                                        /** @enum {string} */
+                                        facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                        /** @default 10 */
+                                        facialHairProbability: number;
+                                        /**
+                                         * @default blazerAndShirt
+                                         * @enum {string}
+                                         */
+                                        clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                        /** @enum {string} */
+                                        clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                        /**
+                                         * @default default
+                                         * @enum {string}
+                                         */
+                                        eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                        /**
+                                         * @default smile
+                                         * @enum {string}
+                                         */
+                                        mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                        /** @default edb98a */
+                                        skinColor: string;
+                                        /** @default 4a312c */
+                                        hairColor: string;
+                                        /** @default 929598 */
+                                        clothesColor: string;
+                                        /** @default 4a312c */
+                                        facialHairColor: string;
+                                        /** @default 929598 */
+                                        hatColor: string;
+                                    };
+                                    events?: unknown[];
+                                };
+                                DoneBy?: {
+                                    /** Format: uuid */
+                                    documentId: string;
+                                    id: string | number;
+                                    username: string;
+                                    /** Format: email */
+                                    email: string;
+                                    provider?: string;
+                                    /** @default false */
+                                    confirmed: boolean | null;
+                                    /** @default false */
+                                    blocked: boolean | null;
+                                    displayName?: string;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    /** @default 2026-03-19T18:28:49.169Z */
+                                    publishedAt: string;
+                                    role?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        name: string;
+                                        description?: string;
+                                        type?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.170Z */
+                                        publishedAt: string;
+                                        permissions?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            action: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -3288,7 +4294,7 @@ export interface operations {
                                     events?: unknown[];
                                 };
                             }[];
-                            users_permissions_user?: {
+                            CreatedByUser?: {
                                 /** Format: uuid */
                                 documentId: string;
                                 id: string | number;
@@ -3303,7 +4309,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.849Z */
+                                /** @default 2026-03-19T18:28:49.169Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -3314,7 +4320,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.850Z */
+                                    /** @default 2026-03-19T18:28:49.170Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -3323,7 +4329,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.851Z */
+                                        /** @default 2026-03-19T18:28:49.171Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -3419,6 +4425,404 @@ export interface operations {
             };
         };
     };
+    "info/get/info": {
+        parameters: {
+            query?: {
+                fields?: ("Adress" | "Phone" | "Email" | "BudgetCounter" | "InvoiceCounter" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("BasicLogo" | "LargeLogo") | ("BasicLogo" | "LargeLogo")[];
+                filters?: {
+                    [key: string]: unknown;
+                };
+                status?: "draft" | "published";
+                hasPublishedVersion?: boolean | ("true" | "false");
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            documentId: string;
+                            id: string | number;
+                            Adress?: string;
+                            Phone?: string;
+                            /** Format: email */
+                            Email?: string;
+                            BudgetCounter?: string;
+                            InvoiceCounter?: string;
+                            createdAt?: string;
+                            updatedAt?: string;
+                            /** @default 2026-03-19T18:28:49.210Z */
+                            publishedAt: string;
+                            BasicLogo?: {
+                                /** Format: uuid */
+                                documentId: string;
+                                id: string | number;
+                                name: string;
+                                alternativeText?: string;
+                                caption?: string;
+                                focalPoint?: unknown;
+                                width?: number;
+                                height?: number;
+                                formats?: unknown;
+                                hash: string;
+                                ext?: string;
+                                mime: string;
+                                size: number;
+                                url: string;
+                                previewUrl?: string;
+                                provider: string;
+                                provider_metadata?: unknown;
+                                createdAt?: string;
+                                updatedAt?: string;
+                                /** @default 2026-03-19T18:28:49.213Z */
+                                publishedAt: string;
+                                related: unknown;
+                            };
+                            LargeLogo?: {
+                                /** Format: uuid */
+                                documentId: string;
+                                id: string | number;
+                                name: string;
+                                alternativeText?: string;
+                                caption?: string;
+                                focalPoint?: unknown;
+                                width?: number;
+                                height?: number;
+                                formats?: unknown;
+                                hash: string;
+                                ext?: string;
+                                mime: string;
+                                size: number;
+                                url: string;
+                                previewUrl?: string;
+                                provider: string;
+                                provider_metadata?: unknown;
+                                createdAt?: string;
+                                updatedAt?: string;
+                                /** @default 2026-03-19T18:28:49.213Z */
+                                publishedAt: string;
+                                related: unknown;
+                            };
+                        };
+                    };
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal server error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "info/put/info": {
+        parameters: {
+            query?: {
+                fields?: ("Adress" | "Phone" | "Email" | "BudgetCounter" | "InvoiceCounter" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("BasicLogo" | "LargeLogo") | ("BasicLogo" | "LargeLogo")[];
+                status?: "draft" | "published";
+                hasPublishedVersion?: boolean | ("true" | "false");
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    data: {
+                        Adress?: string;
+                        Phone?: string;
+                        /** Format: email */
+                        Email?: string;
+                        BudgetCounter?: string;
+                        InvoiceCounter?: string;
+                        /** @default 2026-03-19T18:28:49.215Z */
+                        publishedAt?: string;
+                        BasicLogo?: unknown;
+                        LargeLogo?: unknown;
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            documentId: string;
+                            id: string | number;
+                            Adress?: string;
+                            Phone?: string;
+                            /** Format: email */
+                            Email?: string;
+                            BudgetCounter?: string;
+                            InvoiceCounter?: string;
+                            createdAt?: string;
+                            updatedAt?: string;
+                            /** @default 2026-03-19T18:28:49.216Z */
+                            publishedAt: string;
+                            BasicLogo?: {
+                                /** Format: uuid */
+                                documentId: string;
+                                id: string | number;
+                                name: string;
+                                alternativeText?: string;
+                                caption?: string;
+                                focalPoint?: unknown;
+                                width?: number;
+                                height?: number;
+                                formats?: unknown;
+                                hash: string;
+                                ext?: string;
+                                mime: string;
+                                size: number;
+                                url: string;
+                                previewUrl?: string;
+                                provider: string;
+                                provider_metadata?: unknown;
+                                createdAt?: string;
+                                updatedAt?: string;
+                                /** @default 2026-03-19T18:28:49.213Z */
+                                publishedAt: string;
+                                related: unknown;
+                            };
+                            LargeLogo?: {
+                                /** Format: uuid */
+                                documentId: string;
+                                id: string | number;
+                                name: string;
+                                alternativeText?: string;
+                                caption?: string;
+                                focalPoint?: unknown;
+                                width?: number;
+                                height?: number;
+                                formats?: unknown;
+                                hash: string;
+                                ext?: string;
+                                mime: string;
+                                size: number;
+                                url: string;
+                                previewUrl?: string;
+                                provider: string;
+                                provider_metadata?: unknown;
+                                createdAt?: string;
+                                updatedAt?: string;
+                                /** @default 2026-03-19T18:28:49.213Z */
+                                publishedAt: string;
+                                related: unknown;
+                            };
+                        };
+                    };
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal server error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "info/delete/info": {
+        parameters: {
+            query?: {
+                fields?: ("Adress" | "Phone" | "Email" | "BudgetCounter" | "InvoiceCounter" | "createdAt" | "updatedAt" | "publishedAt")[];
+                populate?: "*" | ("BasicLogo" | "LargeLogo") | ("BasicLogo" | "LargeLogo")[];
+                status?: "draft" | "published";
+                hasPublishedVersion?: boolean | ("true" | "false");
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            documentId: string;
+                            id: string | number;
+                            Adress?: string;
+                            Phone?: string;
+                            /** Format: email */
+                            Email?: string;
+                            BudgetCounter?: string;
+                            InvoiceCounter?: string;
+                            createdAt?: string;
+                            updatedAt?: string;
+                            /** @default 2026-03-19T18:28:49.218Z */
+                            publishedAt: string;
+                            BasicLogo?: {
+                                /** Format: uuid */
+                                documentId: string;
+                                id: string | number;
+                                name: string;
+                                alternativeText?: string;
+                                caption?: string;
+                                focalPoint?: unknown;
+                                width?: number;
+                                height?: number;
+                                formats?: unknown;
+                                hash: string;
+                                ext?: string;
+                                mime: string;
+                                size: number;
+                                url: string;
+                                previewUrl?: string;
+                                provider: string;
+                                provider_metadata?: unknown;
+                                createdAt?: string;
+                                updatedAt?: string;
+                                /** @default 2026-03-19T18:28:49.213Z */
+                                publishedAt: string;
+                                related: unknown;
+                            };
+                            LargeLogo?: {
+                                /** Format: uuid */
+                                documentId: string;
+                                id: string | number;
+                                name: string;
+                                alternativeText?: string;
+                                caption?: string;
+                                focalPoint?: unknown;
+                                width?: number;
+                                height?: number;
+                                formats?: unknown;
+                                hash: string;
+                                ext?: string;
+                                mime: string;
+                                size: number;
+                                url: string;
+                                previewUrl?: string;
+                                provider: string;
+                                provider_metadata?: unknown;
+                                createdAt?: string;
+                                updatedAt?: string;
+                                /** @default 2026-03-19T18:28:49.213Z */
+                                publishedAt: string;
+                                related: unknown;
+                            };
+                        };
+                    };
+                };
+            };
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal server error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     "person/get/people": {
         parameters: {
             query?: {
@@ -3471,7 +4875,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.894Z */
+                            /** @default 2026-03-19T18:28:49.222Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -3481,17 +4885,21 @@ export interface operations {
                                 Distance?: string;
                                 Location?: string;
                                 /** @enum {string} */
-                                Type: "Reservation" | "Event" | "Viability";
+                                Type: "Event" | "Viability";
                                 /** @enum {string} */
                                 GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                 StartDate: string;
                                 EndDate?: string;
-                                Cancelled?: boolean | null;
+                                /**
+                                 * @default Budgeted
+                                 * @enum {string}
+                                 */
+                                Status: "Budgeted" | "Accepted" | "Cancelled";
                                 CancelledDate?: string;
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.845Z */
+                                /** @default 2026-03-19T18:28:49.165Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -3500,14 +4908,15 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                    BudgetNumber?: string;
                                 }[];
                                 Logistic?: {
                                     Time?: string;
                                     Label?: string;
                                     Description?: string;
                                     /** @enum {string} */
-                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                    users_permissions_user?: {
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                    PickUpUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -3522,7 +4931,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -3533,7 +4942,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -3542,7 +4951,97 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default shortFlat
+                                             * @enum {string}
+                                             */
+                                            top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                            /** @enum {string} */
+                                            accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                            /** @default 10 */
+                                            accessoriesProbability: number;
+                                            /** @enum {string} */
+                                            facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                            /** @default 10 */
+                                            facialHairProbability: number;
+                                            /**
+                                             * @default blazerAndShirt
+                                             * @enum {string}
+                                             */
+                                            clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                            /** @enum {string} */
+                                            clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                            /**
+                                             * @default smile
+                                             * @enum {string}
+                                             */
+                                            mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                            /** @default edb98a */
+                                            skinColor: string;
+                                            /** @default 4a312c */
+                                            hairColor: string;
+                                            /** @default 929598 */
+                                            clothesColor: string;
+                                            /** @default 4a312c */
+                                            facialHairColor: string;
+                                            /** @default 929598 */
+                                            hatColor: string;
+                                        };
+                                        events?: unknown[];
+                                    };
+                                    DoneBy?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        displayName?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.169Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.170Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -3598,7 +5097,7 @@ export interface operations {
                                         events?: unknown[];
                                     };
                                 }[];
-                                users_permissions_user?: {
+                                CreatedByUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -3613,7 +5112,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -3624,7 +5123,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -3633,7 +5132,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -3753,7 +5252,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-16T22:16:35.900Z */
+                        /** @default 2026-03-19T18:28:49.227Z */
                         publishedAt: string;
                         events?: string[];
                     };
@@ -3781,7 +5280,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.901Z */
+                            /** @default 2026-03-19T18:28:49.228Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -3791,17 +5290,21 @@ export interface operations {
                                 Distance?: string;
                                 Location?: string;
                                 /** @enum {string} */
-                                Type: "Reservation" | "Event" | "Viability";
+                                Type: "Event" | "Viability";
                                 /** @enum {string} */
                                 GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                 StartDate: string;
                                 EndDate?: string;
-                                Cancelled?: boolean | null;
+                                /**
+                                 * @default Budgeted
+                                 * @enum {string}
+                                 */
+                                Status: "Budgeted" | "Accepted" | "Cancelled";
                                 CancelledDate?: string;
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.845Z */
+                                /** @default 2026-03-19T18:28:49.165Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -3810,14 +5313,15 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                    BudgetNumber?: string;
                                 }[];
                                 Logistic?: {
                                     Time?: string;
                                     Label?: string;
                                     Description?: string;
                                     /** @enum {string} */
-                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                    users_permissions_user?: {
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                    PickUpUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -3832,7 +5336,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -3843,7 +5347,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -3852,7 +5356,97 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default shortFlat
+                                             * @enum {string}
+                                             */
+                                            top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                            /** @enum {string} */
+                                            accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                            /** @default 10 */
+                                            accessoriesProbability: number;
+                                            /** @enum {string} */
+                                            facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                            /** @default 10 */
+                                            facialHairProbability: number;
+                                            /**
+                                             * @default blazerAndShirt
+                                             * @enum {string}
+                                             */
+                                            clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                            /** @enum {string} */
+                                            clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                            /**
+                                             * @default smile
+                                             * @enum {string}
+                                             */
+                                            mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                            /** @default edb98a */
+                                            skinColor: string;
+                                            /** @default 4a312c */
+                                            hairColor: string;
+                                            /** @default 929598 */
+                                            clothesColor: string;
+                                            /** @default 4a312c */
+                                            facialHairColor: string;
+                                            /** @default 929598 */
+                                            hatColor: string;
+                                        };
+                                        events?: unknown[];
+                                    };
+                                    DoneBy?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        displayName?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.169Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.170Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -3908,7 +5502,7 @@ export interface operations {
                                         events?: unknown[];
                                     };
                                 }[];
-                                users_permissions_user?: {
+                                CreatedByUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -3923,7 +5517,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -3934,7 +5528,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -3943,7 +5537,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -4084,7 +5678,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.898Z */
+                            /** @default 2026-03-19T18:28:49.225Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -4094,17 +5688,21 @@ export interface operations {
                                 Distance?: string;
                                 Location?: string;
                                 /** @enum {string} */
-                                Type: "Reservation" | "Event" | "Viability";
+                                Type: "Event" | "Viability";
                                 /** @enum {string} */
                                 GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                 StartDate: string;
                                 EndDate?: string;
-                                Cancelled?: boolean | null;
+                                /**
+                                 * @default Budgeted
+                                 * @enum {string}
+                                 */
+                                Status: "Budgeted" | "Accepted" | "Cancelled";
                                 CancelledDate?: string;
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.845Z */
+                                /** @default 2026-03-19T18:28:49.165Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -4113,14 +5711,15 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                    BudgetNumber?: string;
                                 }[];
                                 Logistic?: {
                                     Time?: string;
                                     Label?: string;
                                     Description?: string;
                                     /** @enum {string} */
-                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                    users_permissions_user?: {
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                    PickUpUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -4135,7 +5734,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -4146,7 +5745,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -4155,7 +5754,97 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default shortFlat
+                                             * @enum {string}
+                                             */
+                                            top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                            /** @enum {string} */
+                                            accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                            /** @default 10 */
+                                            accessoriesProbability: number;
+                                            /** @enum {string} */
+                                            facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                            /** @default 10 */
+                                            facialHairProbability: number;
+                                            /**
+                                             * @default blazerAndShirt
+                                             * @enum {string}
+                                             */
+                                            clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                            /** @enum {string} */
+                                            clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                            /**
+                                             * @default smile
+                                             * @enum {string}
+                                             */
+                                            mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                            /** @default edb98a */
+                                            skinColor: string;
+                                            /** @default 4a312c */
+                                            hairColor: string;
+                                            /** @default 929598 */
+                                            clothesColor: string;
+                                            /** @default 4a312c */
+                                            facialHairColor: string;
+                                            /** @default 929598 */
+                                            hatColor: string;
+                                        };
+                                        events?: unknown[];
+                                    };
+                                    DoneBy?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        displayName?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.169Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.170Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -4211,7 +5900,7 @@ export interface operations {
                                         events?: unknown[];
                                     };
                                 }[];
-                                users_permissions_user?: {
+                                CreatedByUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -4226,7 +5915,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -4237,7 +5926,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -4246,7 +5935,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -4368,7 +6057,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-16T22:16:35.903Z */
+                        /** @default 2026-03-19T18:28:49.230Z */
                         publishedAt?: string;
                         events?: string[];
                     };
@@ -4396,7 +6085,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.904Z */
+                            /** @default 2026-03-19T18:28:49.231Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -4406,17 +6095,21 @@ export interface operations {
                                 Distance?: string;
                                 Location?: string;
                                 /** @enum {string} */
-                                Type: "Reservation" | "Event" | "Viability";
+                                Type: "Event" | "Viability";
                                 /** @enum {string} */
                                 GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                 StartDate: string;
                                 EndDate?: string;
-                                Cancelled?: boolean | null;
+                                /**
+                                 * @default Budgeted
+                                 * @enum {string}
+                                 */
+                                Status: "Budgeted" | "Accepted" | "Cancelled";
                                 CancelledDate?: string;
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.845Z */
+                                /** @default 2026-03-19T18:28:49.165Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -4425,14 +6118,15 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                    BudgetNumber?: string;
                                 }[];
                                 Logistic?: {
                                     Time?: string;
                                     Label?: string;
                                     Description?: string;
                                     /** @enum {string} */
-                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                    users_permissions_user?: {
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                    PickUpUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -4447,7 +6141,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -4458,7 +6152,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -4467,7 +6161,97 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default shortFlat
+                                             * @enum {string}
+                                             */
+                                            top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                            /** @enum {string} */
+                                            accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                            /** @default 10 */
+                                            accessoriesProbability: number;
+                                            /** @enum {string} */
+                                            facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                            /** @default 10 */
+                                            facialHairProbability: number;
+                                            /**
+                                             * @default blazerAndShirt
+                                             * @enum {string}
+                                             */
+                                            clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                            /** @enum {string} */
+                                            clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                            /**
+                                             * @default smile
+                                             * @enum {string}
+                                             */
+                                            mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                            /** @default edb98a */
+                                            skinColor: string;
+                                            /** @default 4a312c */
+                                            hairColor: string;
+                                            /** @default 929598 */
+                                            clothesColor: string;
+                                            /** @default 4a312c */
+                                            facialHairColor: string;
+                                            /** @default 929598 */
+                                            hatColor: string;
+                                        };
+                                        events?: unknown[];
+                                    };
+                                    DoneBy?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        displayName?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.169Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.170Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -4523,7 +6307,7 @@ export interface operations {
                                         events?: unknown[];
                                     };
                                 }[];
-                                users_permissions_user?: {
+                                CreatedByUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -4538,7 +6322,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -4549,7 +6333,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -4558,7 +6342,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -4694,7 +6478,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.906Z */
+                            /** @default 2026-03-19T18:28:49.233Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -4704,17 +6488,21 @@ export interface operations {
                                 Distance?: string;
                                 Location?: string;
                                 /** @enum {string} */
-                                Type: "Reservation" | "Event" | "Viability";
+                                Type: "Event" | "Viability";
                                 /** @enum {string} */
                                 GigType?: "Wedding" | "Party" | "Village" | "Gig";
                                 StartDate: string;
                                 EndDate?: string;
-                                Cancelled?: boolean | null;
+                                /**
+                                 * @default Budgeted
+                                 * @enum {string}
+                                 */
+                                Status: "Budgeted" | "Accepted" | "Cancelled";
                                 CancelledDate?: string;
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-16T22:16:35.845Z */
+                                /** @default 2026-03-19T18:28:49.165Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -4723,14 +6511,15 @@ export interface operations {
                                     Dietas?: number;
                                     DJ?: boolean | null;
                                     Accepted?: boolean | null;
+                                    BudgetNumber?: string;
                                 }[];
                                 Logistic?: {
                                     Time?: string;
                                     Label?: string;
                                     Description?: string;
                                     /** @enum {string} */
-                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "arrival" | "teardown" | "meal";
-                                    users_permissions_user?: {
+                                    Type?: "load" | "unload" | "pickup" | "setup" | "event_start" | "event_end" | "departure" | "arrival" | "teardown" | "meal" | "rest" | "pick_truck" | "leave_truck";
+                                    PickUpUser?: {
                                         /** Format: uuid */
                                         documentId: string;
                                         id: string | number;
@@ -4745,7 +6534,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.849Z */
+                                        /** @default 2026-03-19T18:28:49.169Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -4756,7 +6545,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.850Z */
+                                            /** @default 2026-03-19T18:28:49.170Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -4765,7 +6554,97 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-16T22:16:35.851Z */
+                                                /** @default 2026-03-19T18:28:49.171Z */
+                                                publishedAt: string;
+                                                role?: unknown;
+                                            }[];
+                                            users?: unknown[];
+                                        };
+                                        avatar?: {
+                                            /**
+                                             * @default shortFlat
+                                             * @enum {string}
+                                             */
+                                            top: "hat" | "hijab" | "turban" | "winterHat1" | "winterHat02" | "winterHat03" | "winterHat04" | "bob" | "bun" | "curly" | "curvy" | "dreads" | "frida" | "fro" | "froBand" | "longButNotTooLong" | "miaWallace" | "shavedSides" | "straight02" | "straight01" | "straightAndStrand" | "dreads01" | "dreads02" | "frizzle" | "shaggy" | "shaggyMullet" | "shortCurly" | "shortFlat" | "shortRound" | "shortWaved" | "sides" | "theCaesar" | "theCaesarAndSidePart" | "bigHair";
+                                            /** @enum {string} */
+                                            accessories?: "kurt" | "prescription01" | "prescription02" | "round" | "sunglasses" | "wayfarers" | "eyepatch";
+                                            /** @default 10 */
+                                            accessoriesProbability: number;
+                                            /** @enum {string} */
+                                            facialHair?: "beardLight" | "beardMajestic" | "beardMedium" | "moustacheFancy" | "moustacheMagnum";
+                                            /** @default 10 */
+                                            facialHairProbability: number;
+                                            /**
+                                             * @default blazerAndShirt
+                                             * @enum {string}
+                                             */
+                                            clothing: "blazerAndShirt" | "blazerAndSweater" | "collarAndSweater" | "graphicShirt" | "hoodie" | "overall" | "shirtCrewNeck" | "shirtScoopNeck" | "shirtVNeck";
+                                            /** @enum {string} */
+                                            clothingGraphic?: "bat" | "bear" | "cumbia" | "deer" | "diamond" | "hola" | "pizza" | "resist" | "skull" | "skullOutline";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyes: "closed" | "cry" | "default" | "eyeRoll" | "happy" | "hearts" | "side" | "squint" | "surprised" | "winkWacky" | "wink" | "xDizzy";
+                                            /**
+                                             * @default default
+                                             * @enum {string}
+                                             */
+                                            eyebrows: "angryNatural" | "defaultNatural" | "flatNatural" | "frownNatural" | "raisedExcitedNatural" | "sadConcernedNatural" | "unibrowNatural" | "upDownNatural" | "angry" | "default" | "raisedExcited" | "sadConcerned" | "upDown";
+                                            /**
+                                             * @default smile
+                                             * @enum {string}
+                                             */
+                                            mouth: "concerned" | "default" | "disbelief" | "eating" | "grimace" | "sad" | "screamOpen" | "serious" | "smile" | "tongue" | "twinkle" | "vomit";
+                                            /** @default edb98a */
+                                            skinColor: string;
+                                            /** @default 4a312c */
+                                            hairColor: string;
+                                            /** @default 929598 */
+                                            clothesColor: string;
+                                            /** @default 4a312c */
+                                            facialHairColor: string;
+                                            /** @default 929598 */
+                                            hatColor: string;
+                                        };
+                                        events?: unknown[];
+                                    };
+                                    DoneBy?: {
+                                        /** Format: uuid */
+                                        documentId: string;
+                                        id: string | number;
+                                        username: string;
+                                        /** Format: email */
+                                        email: string;
+                                        provider?: string;
+                                        /** @default false */
+                                        confirmed: boolean | null;
+                                        /** @default false */
+                                        blocked: boolean | null;
+                                        displayName?: string;
+                                        createdAt?: string;
+                                        updatedAt?: string;
+                                        /** @default 2026-03-19T18:28:49.169Z */
+                                        publishedAt: string;
+                                        role?: {
+                                            /** Format: uuid */
+                                            documentId: string;
+                                            id: string | number;
+                                            name: string;
+                                            description?: string;
+                                            type?: string;
+                                            createdAt?: string;
+                                            updatedAt?: string;
+                                            /** @default 2026-03-19T18:28:49.170Z */
+                                            publishedAt: string;
+                                            permissions?: {
+                                                /** Format: uuid */
+                                                documentId: string;
+                                                id: string | number;
+                                                action: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                /** @default 2026-03-19T18:28:49.171Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -4821,7 +6700,7 @@ export interface operations {
                                         events?: unknown[];
                                     };
                                 }[];
-                                users_permissions_user?: {
+                                CreatedByUser?: {
                                     /** Format: uuid */
                                     documentId: string;
                                     id: string | number;
@@ -4836,7 +6715,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-16T22:16:35.849Z */
+                                    /** @default 2026-03-19T18:28:49.169Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -4847,7 +6726,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-16T22:16:35.850Z */
+                                        /** @default 2026-03-19T18:28:49.170Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -4856,7 +6735,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-16T22:16:35.851Z */
+                                            /** @default 2026-03-19T18:28:49.171Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -4986,7 +6865,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.909Z */
+                            /** @default 2026-03-19T18:28:49.236Z */
                             publishedAt: string;
                         };
                     };
@@ -5048,7 +6927,7 @@ export interface operations {
                         Base?: string;
                         DJ?: string;
                         Equipment?: string;
-                        /** @default 2026-03-16T22:16:35.911Z */
+                        /** @default 2026-03-19T18:28:49.237Z */
                         publishedAt?: string;
                     };
                 };
@@ -5071,7 +6950,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.912Z */
+                            /** @default 2026-03-19T18:28:49.238Z */
                             publishedAt: string;
                         };
                     };
@@ -5144,7 +7023,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.913Z */
+                            /** @default 2026-03-19T18:28:49.239Z */
                             publishedAt: string;
                         };
                     };
@@ -5188,6 +7067,98 @@ export interface operations {
         };
     };
     "profile/put/profile_avatar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal server error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "profile/post/profile_viability": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bad request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal server error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "profile/get/profile_my_viability": {
         parameters: {
             query?: never;
             header?: never;
@@ -5280,7 +7251,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.917Z */
+                            /** @default 2026-03-19T18:28:49.242Z */
                             publishedAt: string;
                         }[];
                     };
@@ -5341,7 +7312,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-16T22:16:36.236Z */
+                        /** @default 2026-03-19T18:28:49.595Z */
                         publishedAt: string;
                     };
                 };
@@ -5363,7 +7334,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.920Z */
+                            /** @default 2026-03-19T18:28:49.246Z */
                             publishedAt: string;
                         };
                     };
@@ -5445,7 +7416,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.919Z */
+                            /** @default 2026-03-19T18:28:49.245Z */
                             publishedAt: string;
                         };
                     };
@@ -5508,7 +7479,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-16T22:16:35.921Z */
+                        /** @default 2026-03-19T18:28:49.248Z */
                         publishedAt?: string;
                     };
                 };
@@ -5530,7 +7501,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.922Z */
+                            /** @default 2026-03-19T18:28:49.248Z */
                             publishedAt: string;
                         };
                     };
@@ -5607,7 +7578,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-16T22:16:35.924Z */
+                            /** @default 2026-03-19T18:28:49.250Z */
                             publishedAt: string;
                         };
                     };

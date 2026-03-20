@@ -382,7 +382,7 @@ function AvailabilityTab() {
   const blockedRanges: BlockedRange[] = events.map((event) => ({
     start: dayjs(event.StartDate as string),
     end: dayjs((event.EndDate as string) || (event.StartDate as string)),
-    color: event.Cancelled ? 'action.disabled' : 'error.main',
+    color: event.Status === 'Cancelled' ? 'action.disabled' : 'error.main',
   }));
 
   const resetForm = () => {

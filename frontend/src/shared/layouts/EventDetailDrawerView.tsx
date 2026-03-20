@@ -1,5 +1,6 @@
 import { EventChip } from '@/features/events/components/EventChip';
 import { Timeline } from '@/shared/components/Timeline';
+import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import { useDiscordMessages, useSendDiscordMessage } from '@/features/events/hooks/useDiscordMessages';
 import { useEventById } from '@/features/events/hooks/useEvents';
 import { ChatBubble } from '@/shared/components/ChatBubble';
@@ -34,6 +35,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAuth } from '@/shared/context/AuthContext';
+import { useUsers } from '@/shared/hooks/useUsers';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { useEffect, useRef } from 'react';
@@ -51,9 +53,13 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
   const { openBudgetsDrawer } = useDrawerNav();
   const { tabIndex: tab, setTab } = useEventTabParam();
   const { data, isLoading } = useEventById(id, {
-    query: { populate: ['contacts', 'Budget'] },
+    query: { populate: ['contacts', 'Budget', 'Logistic'] },
   });
+  const { data: users = [] } = useUsers();
   const event = data?.data;
+
+  const TAB_NAMES = ['info', 'logistics', 'budget', 'chat'] as const;
+  const currentTabName = TAB_NAMES[tab] || 'info';
   const { data: messages = [], isLoading: messagesLoading } = useDiscordMessages(event?.DiscordChannelId, { polling: tab === 3 });
   const { mutate: sendMessage, isPending: isSending } = useSendDiscordMessage(event?.DiscordChannelId);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -75,7 +81,7 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
   }
 
   const isPeriod = event.Type === 'Viability' && event.EndDate;
-  const isCancelled = event.Cancelled === true;
+  const isCancelled = event.Status === 'Cancelled';
 
   return (
     <Stack spacing={0} sx={{ height: '100%' }}>
@@ -173,7 +179,7 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
               variant="contained"
               startIcon={<OpenInFullIcon />}
               fullWidth
-              onClick={() => navigate(`/events/${event.documentId}`)}
+              onClick={() => navigate(`/events/${event.documentId}?openTab=${currentTabName}`)}
             >
               Ver página completa
             </Button>
@@ -181,7 +187,7 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
               variant="outlined"
               startIcon={<EditIcon />}
               fullWidth
-              onClick={() => navigate(`/events/${event.documentId}/edit`)}
+              onClick={() => navigate(`/events/${event.documentId}/edit?openTab=${currentTabName}`)}
             >
               Editar evento
             </Button>
@@ -195,18 +201,13 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
           <Typography variant="subtitle2" color="text.secondary">
             Cronología
           </Typography>
-          <Timeline
-            items={[
-              { time: '08:00', label: 'Carga de equipo', description: 'Almacén central', icon: <Inventory2Icon sx={{ fontSize: 18 }} />, color: '#546e7a' },
-              { time: '08:45', label: 'Recoger a Carlos', description: 'C/ Gran Vía 12', photo: 'https://i.pravatar.cc/150?u=carlos' },
-              { time: '09:30', label: 'Salida', description: 'Viaje estimado: 2h 15min', icon: <DirectionsCarIcon sx={{ fontSize: 18 }} />, color: '#1565c0' },
-              { time: '11:45', label: 'Llegada y montaje', description: 'Recinto ferial, puerta B', icon: <BuildIcon sx={{ fontSize: 18 }} />, color: '#ef6c00' },
-              { time: '14:00', label: 'Inicio del evento', icon: <MusicNoteIcon sx={{ fontSize: 18 }} />, color: '#2e7d32' },
-              { time: '22:00', label: 'Fin del evento', icon: <FlagIcon sx={{ fontSize: 18 }} />, color: '#2e7d32' },
-              { time: '22:30', label: 'Desmontaje', icon: <BuildIcon sx={{ fontSize: 18 }} />, color: '#ef6c00' },
-              { time: '23:30', label: 'Llegada a casa', icon: <NightlightIcon sx={{ fontSize: 18 }} />, color: '#37474f' },
-            ]}
-          />
+          {event.Logistic && event.Logistic.length > 0 ? (
+            <Timeline items={logisticToTimelineItems(event.Logistic as any, users)} />
+          ) : (
+            <Typography variant="body2" color="text.secondary" textAlign="center">
+              Sin paradas definidas
+            </Typography>
+          )}
           <Divider />
           <Typography variant="body2" color="text.secondary" textAlign="center">
             Mapa de ruta próximamente.

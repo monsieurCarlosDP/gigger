@@ -22,7 +22,7 @@ type Event = {
   Distance?: string;
   Location?: string;
   Type?: EventType;
-  Cancelled?: boolean | null;
+  Status?: 'Budgeted' | 'Accepted' | 'Cancelled' | null;
   CancelledDate?: string;
 };
 
@@ -34,7 +34,7 @@ type EventCardProps = {
 export function EventCard({ event, onEventClick }: EventCardProps) {
   const startDate = dayjs(event.StartDate);
   const isPeriod = event.Type === 'Viability' && event.EndDate;
-  const isCancelled = event.Cancelled === true;
+  const isCancelled = event.Status === 'Cancelled';
 
   return (
     <Box sx={isCancelled ? { opacity: 0.6 } : undefined}>

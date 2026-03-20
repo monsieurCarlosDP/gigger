@@ -20,6 +20,9 @@
     },
     "Accepted": {
       "type": "boolean"
+    },
+    "BudgetNumber": {
+      "type": "biginteger"
     }
   },
   "config": {}

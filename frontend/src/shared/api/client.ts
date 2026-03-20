@@ -167,7 +167,7 @@ export const api = {
 
   /** GET /profile/my-viability — list Viability events for current user */
   getMyViability() {
-    return authFetch<{ data: { documentId: string; Name: string; StartDate: string; EndDate: string | null; Cancelled: boolean | null }[] }>('/profile/my-viability');
+    return authFetch<{ data: { documentId: string; Name: string; StartDate: string; EndDate: string | null; Status: 'Budgeted' | 'Accepted' | 'Cancelled' | null }[] }>('/profile/my-viability');
   },
 
   /** POST /profile/viability — create Viability event linked to current user */
@@ -213,6 +213,11 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ currentPassword, password, passwordConfirmation }),
     });
+  },
+
+  /** GET /users — list all users */
+  getUsers() {
+    return authFetch<AuthUser[]>('/users?populate=avatar');
   },
 
   /** POST /discord/channels — create new text channel */

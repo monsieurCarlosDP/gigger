@@ -9,6 +9,7 @@ export interface EventBudget extends Struct.ComponentSchema {
   attributes: {
     Accepted: Schema.Attribute.Boolean;
     Base: Schema.Attribute.Integer;
+    BudgetNumber: Schema.Attribute.BigInteger;
     Dietas: Schema.Attribute.Integer;
     DJ: Schema.Attribute.Boolean;
     Equipment: Schema.Attribute.Boolean;
@@ -23,7 +24,15 @@ export interface EventTimelineStop extends Struct.ComponentSchema {
   };
   attributes: {
     Description: Schema.Attribute.Text;
+    DoneBy: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     Label: Schema.Attribute.String;
+    PickUpUser: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     Time: Schema.Attribute.DateTime;
     Type: Schema.Attribute.Enumeration<
       [
@@ -33,14 +42,14 @@ export interface EventTimelineStop extends Struct.ComponentSchema {
         'setup',
         'event_start',
         'event_end',
+        'departure',
         'arrival',
         'teardown',
         'meal',
+        'rest',
+        'pick_truck',
+        'leave_truck',
       ]
-    >;
-    users_permissions_user: Schema.Attribute.Relation<
-      'oneToOne',
-      'plugin::users-permissions.user'
     >;
   };
 }

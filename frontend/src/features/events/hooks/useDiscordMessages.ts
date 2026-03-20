@@ -20,7 +20,8 @@ export function useDiscordMessages(channelId: string | undefined | null, options
 
   useEffect(() => {
     if (query.error) {
-      showError(query.error.message);
+      const msg = query.error.message;
+      showError(msg.includes('404') ? 'No se ha encontrado canal de Discord' : msg);
     }
   }, [query.error, showError]);
 

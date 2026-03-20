@@ -15,7 +15,7 @@ dayjs.locale('es');
 
 export default function DashboardPage() {
   const { data, isLoading } = useEvents();
-  const { data: upcomingEvents } = useUpcomingEvents({ limit: 5, type: ['Event', 'Reservation'] });
+  const { data: upcomingEvents } = useUpcomingEvents({ limit: 5, type: 'Event' });
   const { openDayDrawer, openEventDrawer } = useDrawerNav();
 
   const [popperAnchor, setPopperAnchor] = useState<HTMLElement | null>(null);
@@ -28,7 +28,7 @@ export default function DashboardPage() {
     const eventsByDate: Record<string, NonNullable<typeof data>['data']> = {};
 
     for (const event of data?.data ?? []) {
-      const isCancelled = event.Cancelled === true;
+      const isCancelled = event.Status === 'Cancelled';
 
       if (event.Type === 'Viability' && event.EndDate) {
         blockedRanges.push({
@@ -67,7 +67,7 @@ export default function DashboardPage() {
   }, []);
 
   const hoveredEvents = hoveredDateKey
-    ? (eventsByDate[hoveredDateKey] ?? []).filter((e) => !e.Cancelled)
+    ? (eventsByDate[hoveredDateKey] ?? []).filter((e) => e.Status !== 'Cancelled')
     : [];
 
   const handleDayClick = useCallback((value: Dayjs | null) => {

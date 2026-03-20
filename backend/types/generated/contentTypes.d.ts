@@ -442,7 +442,6 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   };
   attributes: {
     Budget: Schema.Attribute.Component<'event.budget', true>;
-    Cancelled: Schema.Attribute.Boolean;
     CancelledDate: Schema.Attribute.Date;
     contacts: Schema.Attribute.Relation<'manyToMany', 'api::person.person'>;
     createdAt: Schema.Attribute.DateTime;
@@ -466,8 +465,43 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     Name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     StartDate: Schema.Attribute.Date & Schema.Attribute.Required;
-    Type: Schema.Attribute.Enumeration<['Reservation', 'Event', 'Viability']> &
+    Status: Schema.Attribute.Enumeration<
+      ['Budgeted', 'Accepted', 'Cancelled']
+    > &
+      Schema.Attribute.DefaultTo<'Budgeted'>;
+    Type: Schema.Attribute.Enumeration<['Event', 'Viability']> &
       Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiInfoInfo extends Struct.SingleTypeSchema {
+  collectionName: 'infos';
+  info: {
+    displayName: 'Info';
+    pluralName: 'infos';
+    singularName: 'info';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Adress: Schema.Attribute.String;
+    BasicLogo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    BudgetCounter: Schema.Attribute.BigInteger;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Email: Schema.Attribute.Email;
+    InvoiceCounter: Schema.Attribute.BigInteger;
+    LargeLogo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::info.info'> &
+      Schema.Attribute.Private;
+    Phone: Schema.Attribute.BigInteger;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1078,6 +1112,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::event.event': ApiEventEvent;
+      'api::info.info': ApiInfoInfo;
       'api::person.person': ApiPersonPerson;
       'api::price.price': ApiPricePrice;
       'api::tarif-distance.tarif-distance': ApiTarifDistanceTarifDistance;

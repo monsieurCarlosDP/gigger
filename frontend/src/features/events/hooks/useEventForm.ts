@@ -2,8 +2,9 @@ import { useReducer } from 'react';
 
 /** Types matching Strapi schema */
 
-type EventType = 'Reservation' | 'Event' | 'Viability';
+type EventType = 'Event' | 'Viability';
 type GigType = 'Wedding' | 'Party' | 'Village' | 'Gig';
+export type EventStatus = 'Budgeted' | 'Accepted' | 'Cancelled';
 
 export interface BudgetItem {
   Base: number | null;
@@ -14,10 +15,12 @@ export interface BudgetItem {
 }
 
 export interface LogisticStop {
-  Time: string;
+  Time: string | null;
   Label: string;
   Description: string;
   Type: string;
+  PickUpUser: string | null;
+  DoneBy: string | null;
 }
 
 export interface ContactRef {
@@ -33,7 +36,7 @@ export interface EventFormState {
   Distance: string;
   StartDate: string;
   EndDate: string;
-  Cancelled: boolean;
+  Status: EventStatus;
   CancelledDate: string;
   DiscordChannelId: string;
   contacts: ContactRef[];
@@ -46,16 +49,16 @@ export interface EventFormState {
 type Action =
   | { type: 'SET_FIELD'; field: keyof EventFormState; value: unknown }
   | { type: 'SET_CONTACT'; contacts: ContactRef[] }
-  | { type: 'ADD_BUDGET' }
+  | { type: 'ADD_BUDGET'; defaults?: Partial<BudgetItem> }
   | { type: 'UPDATE_BUDGET'; index: number; field: keyof BudgetItem; value: unknown }
   | { type: 'REMOVE_BUDGET'; index: number }
-  | { type: 'ADD_STOP' }
+  | { type: 'ADD_STOP'; defaults?: Partial<LogisticStop> }
   | { type: 'UPDATE_STOP'; index: number; field: keyof LogisticStop; value: unknown }
   | { type: 'REMOVE_STOP'; index: number }
   | { type: 'RESET'; state: EventFormState };
 
 const EMPTY_BUDGET: BudgetItem = { Base: null, Equipment: false, Dietas: null, DJ: false, Accepted: false };
-const EMPTY_STOP: LogisticStop = { Time: '', Label: '', Description: '', Type: '' };
+const EMPTY_STOP: LogisticStop = { Time: null, Label: '', Description: '', Type: '', PickUpUser: null, DoneBy: null };
 
 function reducer(state: EventFormState, action: Action): EventFormState {
   switch (action.type) {
@@ -66,7 +69,7 @@ function reducer(state: EventFormState, action: Action): EventFormState {
       return { ...state, contacts: action.contacts };
 
     case 'ADD_BUDGET':
-      return { ...state, Budget: [...state.Budget, { ...EMPTY_BUDGET }] };
+      return { ...state, Budget: [...state.Budget, { ...EMPTY_BUDGET, ...action.defaults }] };
 
     case 'UPDATE_BUDGET': {
       const Budget = state.Budget.map((b, i) =>
@@ -79,7 +82,7 @@ function reducer(state: EventFormState, action: Action): EventFormState {
       return { ...state, Budget: state.Budget.filter((_, i) => i !== action.index) };
 
     case 'ADD_STOP':
-      return { ...state, Logistic: [...state.Logistic, { ...EMPTY_STOP }] };
+      return { ...state, Logistic: [...state.Logistic, { ...EMPTY_STOP, ...action.defaults }] };
 
     case 'UPDATE_STOP': {
       const Logistic = state.Logistic.map((s, i) =>
@@ -109,7 +112,7 @@ export function eventToFormState(event: Record<string, unknown>): EventFormState
     Distance: event.Distance != null ? String(event.Distance) : '',
     StartDate: (event.StartDate as string) ?? '',
     EndDate: (event.EndDate as string) ?? '',
-    Cancelled: (event.Cancelled as boolean) ?? false,
+    Status: (event.Status as EventStatus) ?? 'Budgeted',
     CancelledDate: (event.CancelledDate as string) ?? '',
     DiscordChannelId: (event.DiscordChannelId as string) ?? '',
     contacts: Array.isArray(event.contacts)
@@ -126,10 +129,12 @@ export function eventToFormState(event: Record<string, unknown>): EventFormState
       : [],
     Logistic: Array.isArray(event.Logistic)
       ? (event.Logistic as Record<string, unknown>[]).map((s) => ({
-          Time: (s.Time as string) ?? '',
+          Time: (s.Time as string) ?? null,
           Label: (s.Label as string) ?? '',
           Description: (s.Description as string) ?? '',
           Type: (s.Type as string) ?? '',
+          PickUpUser: (s.PickUpUser as Record<string, unknown>)?.documentId as string ?? null,
+          DoneBy: (s.DoneBy as Record<string, unknown>)?.documentId as string ?? null,
         }))
       : [],
   };

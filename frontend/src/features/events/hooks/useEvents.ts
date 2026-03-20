@@ -57,8 +57,9 @@ export function useUpdateEvent() {
       if (error) throw error;
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: eventsKey });
+      queryClient.invalidateQueries({ queryKey: eventByIdKey(id) });
     },
   });
 }
@@ -121,7 +122,7 @@ export function useAcceptBudget() {
   });
 }
 
-export type EventType = 'Event' | 'Viability' | 'Reservation';
+export type EventType = 'Event' | 'Viability';
 
 type UseUpcomingEventsOptions = {
   limit?: number;
@@ -147,7 +148,7 @@ export function useUpcomingEvents({
   };
 
   const { data, ...rest } = useEvents({ query });
-  const activeEvents = (data?.data ?? []).filter((e) => !e.Cancelled);
+  const activeEvents = (data?.data ?? []).filter((e) => e.Status !== 'Cancelled');
 
   return { data: activeEvents, ...rest };
 }

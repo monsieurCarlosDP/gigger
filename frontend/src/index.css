@@ -7,3 +7,22 @@
 body {
   margin: 0;
 }
+
+@page {
+  margin: 0;
+}
+
+@media print {
+  body > * {
+    visibility: hidden;
+  }
+
+  .MuiModal-root {
+    visibility: visible;
+    position: static !important;
+  }
+
+  .MuiBackdrop-root {
+    display: none !important;
+  }
+}

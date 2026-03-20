@@ -1,7 +1,15 @@
 import { useDiscordChannels } from '@/features/events/hooks/useDiscordChannels';
-import { useEventById } from '@/features/events/hooks/useEvents';
+import type { EventFormDispatch, EventFormState } from '@/features/events/hooks/useEventForm';
 import { eventToFormState, useEventForm } from '@/features/events/hooks/useEventForm';
-import type { EventFormState, EventFormDispatch } from '@/features/events/hooks/useEventForm';
+import { useEventById, useUpdateEvent } from '@/features/events/hooks/useEvents';
+import { useTarifDistance } from '@/features/events/hooks/useTarifDistance';
+import { usePrice } from '@/features/tariffs/hooks/usePrice';
+import { Timeline } from '@/shared/components/Timeline';
+import { UserAvatar } from '@/shared/components/UserAvatar';
+import { DEFAULT_STOP_COLOR, DEFAULT_STOP_ICON, STOP_TYPES, STOP_TYPE_MAP } from '@/shared/constants/stopTypes';
+import { useSnackbar } from '@/shared/context/SnackbarContext';
+import { useUsers } from '@/shared/hooks/useUsers';
+import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import { PageLayout } from '@/shared/layouts/PageLayout';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LinkOffIcon from '@mui/icons-material/LinkOff';
@@ -26,18 +34,18 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 dayjs.locale('es');
 
 const EVENT_TYPES = [
-  { value: 'Reservation', label: 'Reserva' },
   { value: 'Event', label: 'Evento' },
 ] as const;
 
@@ -59,6 +67,54 @@ export default function EventEditPage() {
     query: { populate: ['contacts', 'Budget', 'Logistic'] },
   });
   const { data: channels = [], isLoading: channelsLoading } = useDiscordChannels();
+  const { mutateAsync: updateEvent, isPending: isSaving } = useUpdateEvent();
+  const { showSuccess, showError } = useSnackbar();
+
+  const formRef = useRef<(() => EventFormState) | null>(null);
+
+  const handleSave = useCallback(async () => {
+    if (!documentId || !formRef.current) return;
+    const form = formRef.current();
+    try {
+    await updateEvent({
+      id: documentId,
+      body: {
+        data: {
+          Name: form.Name,
+          Type: form.Type || undefined,
+          GigType: form.GigType || undefined,
+          Location: form.Location || undefined,
+          Distance: form.Distance ? Number(form.Distance) : undefined,
+          StartDate: form.StartDate || undefined,
+          EndDate: form.EndDate || undefined,
+          Status: form.Status || undefined,
+          CancelledDate: form.CancelledDate || undefined,
+          DiscordChannelId: form.DiscordChannelId || undefined,
+          contacts: form.contacts.map((c) => c.documentId),
+          Budget: form.Budget.map((b) => ({
+            Base: b.Base ?? undefined,
+            Equipment: b.Equipment,
+            Dietas: b.Dietas ?? undefined,
+            DJ: b.DJ,
+            Accepted: b.Accepted,
+          })),
+          Logistic: form.Logistic.map((s) => ({
+            Time: s.Time || undefined,
+            Label: s.Label || undefined,
+            Description: s.Description || undefined,
+            Type: s.Type || undefined,
+            PickUpUser: s.PickUpUser || undefined,
+            DoneBy: s.DoneBy || undefined,
+          })),
+        },
+      },
+    });
+    showSuccess('Evento guardado');
+    navigate(`/events/${documentId}`);
+    } catch {
+      showError('Error al guardar el evento');
+    }
+  }, [documentId, updateEvent, navigate, showSuccess, showError]);
 
   const event = data?.data;
 
@@ -76,8 +132,8 @@ export default function EventEditPage() {
             <Button variant="outlined" onClick={() => navigate(-1)}>
               Cancelar
             </Button>
-            <Button variant="contained">
-              Guardar
+            <Button variant="contained" onClick={handleSave} disabled={isSaving}>
+              {isSaving ? 'Guardando...' : 'Guardar'}
             </Button>
           </Stack>
         }
@@ -95,6 +151,7 @@ export default function EventEditPage() {
             setTab={setTab}
             channels={channels}
             channelsLoading={channelsLoading}
+            formRef={formRef}
           />
         )}
       </PageLayout>
@@ -109,15 +166,22 @@ function EventEditForm({
   setTab,
   channels,
   channelsLoading,
+  formRef,
 }: {
   event: Record<string, unknown>;
   tab: number;
   setTab: (v: number) => void;
   channels: { id: string; name: string }[];
   channelsLoading: boolean;
+  formRef: React.MutableRefObject<(() => EventFormState) | null>;
 }) {
   const [form, dispatch] = useEventForm(eventToFormState(event));
+
+  // Expose current form state to parent via ref
+  formRef.current = () => form;
   const linkedChannel = channels.find((c) => c.id === form.DiscordChannelId);
+  const defaultDietas = useTarifDistance(form.Distance ? Number(form.Distance) : null);
+  const price = usePrice();
 
   return (
     <Box sx={{ maxWidth: 900, mx: 'auto', width: '100%' }}>
@@ -132,7 +196,7 @@ function EventEditForm({
 
       {tab === 0 && <InfoTab form={form} dispatch={dispatch} />}
       {tab === 1 && <LogisticsTab form={form} dispatch={dispatch} />}
-      {tab === 2 && <BudgetTab form={form} dispatch={dispatch} />}
+      {tab === 2 && <BudgetTab form={form} dispatch={dispatch} defaultDietas={defaultDietas} price={price} />}
       {tab === 3 && (
         <DiscordTab
           form={form}
@@ -257,26 +321,24 @@ function InfoTab({ form, dispatch }: { form: EventFormState; dispatch: EventForm
 
       <Paper elevation={2} sx={{ p: 3 }}>
         <Stack spacing={3}>
-          <Typography variant="h6">Cancelación</Typography>
+          <Typography variant="h6">Estado</Typography>
           <Divider />
 
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={form.Cancelled}
-                  onChange={(e) => {
-                    dispatch({ type: 'SET_FIELD', field: 'Cancelled', value: e.target.checked });
-                    if (!e.target.checked) {
-                      dispatch({ type: 'SET_FIELD', field: 'CancelledDate', value: '' });
-                    }
-                  }}
-                />
-              }
-              label="Cancelado"
-            />
+            <TextField
+              select
+              label="Estado"
+              value={form.Status}
+              onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Status', value: e.target.value })}
+              fullWidth
+              sx={{ maxWidth: 250 }}
+            >
+              <MenuItem value="Budgeted">Presupuestado</MenuItem>
+              <MenuItem value="Accepted">Aceptado</MenuItem>
+              <MenuItem value="Cancelled">Cancelado</MenuItem>
+            </TextField>
 
-            {form.Cancelled && (
+            {form.Status === 'Cancelled' && (
               <DatePicker
                 label="Fecha de cancelación"
                 value={form.CancelledDate ? dayjs(form.CancelledDate) : null}
@@ -293,75 +355,223 @@ function InfoTab({ form, dispatch }: { form: EventFormState; dispatch: EventForm
 
 /** Tab: Logística */
 function LogisticsTab({ form, dispatch }: { form: EventFormState; dispatch: EventFormDispatch }) {
-  return (
-    <Stack spacing={3}>
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Stack spacing={3}>
-          <Typography variant="h6">Cronología</Typography>
-          <Divider />
+  const { data: users = [] } = useUsers();
+  const timelineItems = logisticToTimelineItems(form.Logistic, users);
 
-          {form.Logistic.length === 0 ? (
+  return (
+    <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
+      {/* Timeline preview — left side on desktop, top on mobile */}
+      <Paper
+        elevation={2}
+        sx={{
+          p: 3,
+          width: { xs: '100%', md: 280 },
+          flexShrink: 0,
+          alignSelf: 'flex-start',
+          position: { md: 'sticky' },
+          top: { md: 72 },
+        }}
+      >
+        <Stack spacing={2}>
+          <Typography variant="subtitle2" color="text.secondary">Vista previa</Typography>
+          <Divider />
+          {timelineItems.length === 0 ? (
             <Typography variant="body2" color="text.secondary" textAlign="center">
-              No hay paradas definidas.
+              Añade paradas para ver la cronología.
             </Typography>
           ) : (
-            form.Logistic.map((stop, index) => (
-              <Paper key={index} variant="outlined" sx={{ p: 2 }}>
-                <Stack spacing={2}>
-                  <Stack direction="row" alignItems="center" justifyContent="space-between">
-                    <Typography variant="subtitle2">Parada {index + 1}</Typography>
-                    <Button
-                      size="small"
-                      color="error"
-                      onClick={() => dispatch({ type: 'REMOVE_STOP', index })}
-                    >
-                      Eliminar
-                    </Button>
-                  </Stack>
-                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                    <TextField
-                      label="Hora"
-                      type="time"
-                      value={stop.Time}
-                      onChange={(e) => dispatch({ type: 'UPDATE_STOP', index, field: 'Time', value: e.target.value })}
-                      slotProps={{ inputLabel: { shrink: true } }}
-                      sx={{ minWidth: 140 }}
-                    />
-                    <TextField
-                      label="Etiqueta"
-                      fullWidth
-                      value={stop.Label}
-                      onChange={(e) => dispatch({ type: 'UPDATE_STOP', index, field: 'Label', value: e.target.value })}
-                    />
-                  </Stack>
-                  <TextField
-                    label="Descripción"
-                    fullWidth
-                    value={stop.Description}
-                    onChange={(e) => dispatch({ type: 'UPDATE_STOP', index, field: 'Description', value: e.target.value })}
-                  />
-                </Stack>
-              </Paper>
-            ))
+            <Timeline items={timelineItems} />
           )}
-
-          <Button variant="outlined" fullWidth onClick={() => dispatch({ type: 'ADD_STOP' })}>
-            Añadir parada
-          </Button>
         </Stack>
       </Paper>
 
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Typography variant="body2" color="text.secondary" textAlign="center">
-          Mapa de ruta próximamente.
-        </Typography>
-      </Paper>
+      {/* Form — right side */}
+      <Stack spacing={3} sx={{ flexGrow: 1 }}>
+        <Paper elevation={2} sx={{ p: 3 }}>
+          <Stack spacing={3}>
+            <Typography variant="h6">Cronología</Typography>
+            <Divider />
+
+            {form.Logistic.length === 0 ? (
+              <Typography variant="body2" color="text.secondary" textAlign="center">
+                No hay paradas definidas.
+              </Typography>
+            ) : (
+              form.Logistic
+                .map((stop, index) => ({ stop, index }))
+                .sort((a, b) => (a.stop.Time || '\uffff').localeCompare(b.stop.Time || '\uffff'))
+                .map(({ stop, index }) => (
+                <Paper key={index} variant="outlined" sx={{ p: 2 }}>
+                  <Stack spacing={2}>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between">
+                      <Typography variant="subtitle2">Parada {index + 1}</Typography>
+                      <Button
+                        size="small"
+                        color="error"
+                        onClick={() => dispatch({ type: 'REMOVE_STOP', index })}
+                      >
+                        Eliminar
+                      </Button>
+                    </Stack>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                      <Autocomplete
+                        options={STOP_TYPES}
+                        value={STOP_TYPES.find((t) => t.value === stop.Type) ?? null}
+                        onChange={(_e, v) => dispatch({ type: 'UPDATE_STOP', index, field: 'Type', value: v?.value ?? '' })}
+                        getOptionLabel={(o) => o.label}
+                        renderOption={(props, option) => (
+                          <Box component="li" {...props} key={option.value} sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                            <Box sx={{ color: option.color, display: 'flex' }}>{option.icon}</Box>
+                            {option.label}
+                          </Box>
+                        )}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Tipo"
+                            slotProps={{
+                              input: {
+                                ...params.InputProps,
+                                startAdornment: stop.Type && STOP_TYPE_MAP[stop.Type] ? (
+                                  <Box sx={{ color: STOP_TYPE_MAP[stop.Type].color, display: 'flex', ml: 1, mr: -0.5 }}>
+                                    {STOP_TYPE_MAP[stop.Type].icon}
+                                  </Box>
+                                ) : undefined,
+                              },
+                            }}
+                          />
+                        )}
+                        sx={{ minWidth: 200 }}
+                      />
+                      <DateTimePicker
+                        label="Fecha y hora"
+                        value={stop.Time ? dayjs(stop.Time) : null}
+                        onChange={(v) => dispatch({ type: 'UPDATE_STOP', index, field: 'Time', value: v ? v.toISOString() : null })}
+                        slotProps={{ textField: { fullWidth: true, sx: { minWidth: 240 } } }}
+                      />
+                    </Stack>
+                    {stop.Type === 'pickup' && (
+                      <Autocomplete
+                        options={users}
+                        value={users.find((u) => u.documentId === stop.PickUpUser) ?? null}
+                        onChange={(_e, v) => dispatch({ type: 'UPDATE_STOP', index, field: 'PickUpUser', value: v?.documentId ?? null })}
+                        getOptionLabel={(o) => o.displayName || o.username}
+                        renderInput={(params) => (
+                          <TextField {...params} label="Usuario a recoger" />
+                        )}
+                      />
+                    )}
+                    <Autocomplete
+                      options={users}
+                      value={users.find((u) => u.documentId === stop.DoneBy) ?? null}
+                      onChange={(_e, v) => dispatch({ type: 'UPDATE_STOP', index, field: 'DoneBy', value: v?.documentId ?? null })}
+                      getOptionLabel={(o) => o.displayName || o.username}
+                      renderInput={(params) => (
+                        <TextField {...params} label="Responsable (opcional)" />
+                      )}
+                    />
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                      <TextField
+                        label="Etiqueta"
+                        fullWidth
+                        value={stop.Label}
+                        onChange={(e) => dispatch({ type: 'UPDATE_STOP', index, field: 'Label', value: e.target.value })}
+                      />
+                      <TextField
+                        label="Descripción"
+                        fullWidth
+                        value={stop.Description}
+                        onChange={(e) => dispatch({ type: 'UPDATE_STOP', index, field: 'Description', value: e.target.value })}
+                      />
+                    </Stack>
+                  </Stack>
+                </Paper>
+              ))
+            )}
+
+            <Button
+              variant="outlined"
+              fullWidth
+              onClick={() => {
+                const defaults: Record<string, unknown> = {};
+                if (form.StartDate) {
+                  defaults.Time = `${form.StartDate}T00:00:00`;
+                }
+                dispatch({ type: 'ADD_STOP', defaults });
+              }}
+            >
+              Añadir parada
+            </Button>
+          </Stack>
+        </Paper>
+
+        <Paper elevation={2} sx={{ p: 3 }}>
+          <Stack spacing={2}>
+            <Typography variant="subtitle2" color="text.secondary">Resumen de paradas</Typography>
+            <Divider />
+            {form.Logistic.filter((s) => s.Time || s.Label).length === 0 ? (
+              <Typography variant="body2" color="text.secondary" textAlign="center">
+                Sin paradas definidas.
+              </Typography>
+            ) : (
+              <Stack spacing={2}>
+                {form.Logistic
+                  .filter((s) => s.Time || s.Label)
+                  .map((stop, idx) => ({ stop, idx }))
+                  .sort((a, b) => (a.stop.Time || '9999-12-31').localeCompare(b.stop.Time || '9999-12-31'))
+                  .map(({ stop, idx }) => {
+                    const cfg = STOP_TYPE_MAP[stop.Type];
+                    const user = stop.Type === 'pickup' && stop.PickUpUser ? users.find((u) => u.documentId === stop.PickUpUser) : null;
+                    const timeStr = stop.Time ? dayjs(stop.Time).format('D MMM HH:mm') : '—';
+                    return (
+                      <Paper key={idx} variant="outlined" sx={{ p: 1.5, bgcolor: 'background.default' }}>
+                        <Stack spacing={1}>
+                          <Stack direction="row" alignItems="center" gap={1}>
+                            <Box sx={{ color: cfg?.color ?? DEFAULT_STOP_COLOR, display: 'flex', fontSize: 20 }}>
+                              {cfg?.icon ?? DEFAULT_STOP_ICON}
+                            </Box>
+                            <Stack spacing={0} flex={1}>
+                              <Typography variant="subtitle2" fontWeight={600}>
+                                {timeStr} • {stop.Label || cfg?.label || 'Sin etiqueta'}
+                              </Typography>
+                              {stop.Description && (
+                                <Typography variant="caption" color="text.secondary">
+                                  {stop.Description}
+                                </Typography>
+                              )}
+                            </Stack>
+                          </Stack>
+                          {user && (
+                            <Typography variant="caption" color="primary" sx={{ ml: 4 }}>
+                              👤 {user.displayName || user.username}
+                            </Typography>
+                          )}
+                          {stop.DoneBy && (() => {
+                            const doneByUser = users.find((u) => u.documentId === stop.DoneBy);
+                            return doneByUser ? (
+                              <Stack direction="row" alignItems="center" gap={0.5} sx={{ ml: 4 }}>
+                                <UserAvatar avatar={doneByUser.avatar} size={18} />
+                                <Typography variant="caption" color="text.secondary">
+                                  {doneByUser.displayName || doneByUser.username}
+                                </Typography>
+                              </Stack>
+                            ) : null;
+                          })()}
+                        </Stack>
+                      </Paper>
+                    );
+                  })}
+              </Stack>
+            )}
+          </Stack>
+        </Paper>
+      </Stack>
     </Stack>
   );
 }
 
 /** Tab: Económica */
-function BudgetTab({ form, dispatch }: { form: EventFormState; dispatch: EventFormDispatch }) {
+function BudgetTab({ form, dispatch, defaultDietas, price }: { form: EventFormState; dispatch: EventFormDispatch; defaultDietas: number | null; price: { base: number; dj: number; equipment: number } }) {
   return (
     <Stack spacing={3}>
       <Paper elevation={2} sx={{ p: 3 }}>
@@ -400,14 +610,14 @@ function BudgetTab({ form, dispatch }: { form: EventFormState; dispatch: EventFo
                   </Stack>
                   <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                     <TextField
-                      label="Base (€)"
+                      label="🎸 Efectivishow (€)"
                       type="number"
                       value={budget.Base ?? ''}
                       onChange={(e) => dispatch({ type: 'UPDATE_BUDGET', index, field: 'Base', value: e.target.value ? Number(e.target.value) : null })}
                       sx={{ minWidth: 140 }}
                     />
                     <TextField
-                      label="Dietas (€)"
+                      label="🚐 Dietas y transporte (€)"
                       type="number"
                       value={budget.Dietas ?? ''}
                       onChange={(e) => dispatch({ type: 'UPDATE_BUDGET', index, field: 'Dietas', value: e.target.value ? Number(e.target.value) : null })}
@@ -422,7 +632,7 @@ function BudgetTab({ form, dispatch }: { form: EventFormState; dispatch: EventFo
                           onChange={(e) => dispatch({ type: 'UPDATE_BUDGET', index, field: 'Equipment', value: e.target.checked })}
                         />
                       }
-                      label="Equipo incluido"
+                      label={`🔊 Equipo (+${price.equipment} €)`}
                     />
                     <FormControlLabel
                       control={
@@ -431,15 +641,31 @@ function BudgetTab({ form, dispatch }: { form: EventFormState; dispatch: EventFo
                           onChange={(e) => dispatch({ type: 'UPDATE_BUDGET', index, field: 'DJ', value: e.target.checked })}
                         />
                       }
-                      label="DJ incluido"
+                      label={`🎧 EfectiviDJs (+${price.dj} €)`}
                     />
+                  </Stack>
+                  <Divider />
+                  <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
+                    <Typography variant="subtitle2" color="text.secondary">Total:</Typography>
+                    <Typography variant="h6" fontWeight="bold">
+                      {((budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0)).toLocaleString('es-ES')} €
+                    </Typography>
                   </Stack>
                 </Stack>
               </Paper>
             ))
           )}
 
-          <Button variant="outlined" fullWidth onClick={() => dispatch({ type: 'ADD_BUDGET' })}>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={() => {
+              const defaults: Record<string, unknown> = {};
+              if (price.base) defaults.Base = price.base;
+              if (defaultDietas != null) defaults.Dietas = defaultDietas;
+              dispatch({ type: 'ADD_BUDGET', defaults });
+            }}
+          >
             Añadir presupuesto
           </Button>
         </Stack>

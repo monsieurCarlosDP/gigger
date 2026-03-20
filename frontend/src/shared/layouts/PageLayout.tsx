@@ -17,6 +17,10 @@ export function PageLayout({ header, children }: PageLayoutProps) {
             py: 2,
             borderBottom: 1,
             borderColor: 'divider',
+            position: 'sticky',
+            top: 0,
+            bgcolor: 'background.paper',
+            zIndex: 10,
           }}
         >
           {header}

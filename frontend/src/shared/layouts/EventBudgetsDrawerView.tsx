@@ -1,4 +1,5 @@
 import { useAcceptBudget, useEventById } from '@/features/events/hooks/useEvents';
+import { usePrice } from '@/features/tariffs/hooks/usePrice';
 import CheckIcon from '@mui/icons-material/Check';
 import {
   Box,
@@ -21,6 +22,7 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
     query: { populate: ['Budget'] },
   });
   const { mutate: acceptBudget, isPending } = useAcceptBudget();
+  const price = usePrice();
 
   if (isLoading) {
     return (
@@ -49,7 +51,7 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
       ) : (
         <Stack spacing={2}>
           {budgets.map((budget, index) => {
-            const total = (budget.Base ?? 0) + (budget.Dietas ?? 0);
+            const total = (budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0);
             const isAccepted = budget.Accepted === true;
             const hasExtras = budget.Equipment || budget.DJ;
 
@@ -78,7 +80,7 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
 
                     <Stack spacing={0.75}>
                       <Stack direction="row" justifyContent="space-between">
-                        <Typography variant="body2" color="text.secondary">Base</Typography>
+                        <Typography variant="body2" color="text.secondary">🎸 Efectivishow</Typography>
                         <Typography variant="body2" fontWeight={500}>
                           {budget.Base != null ? `${budget.Base} €` : '—'}
                         </Typography>
@@ -86,32 +88,31 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
 
                       {budget.Dietas != null && (
                         <Stack direction="row" justifyContent="space-between">
-                          <Typography variant="body2" color="text.secondary">Dietas</Typography>
+                          <Typography variant="body2" color="text.secondary">🚐 Dietas y transporte</Typography>
                           <Typography variant="body2" fontWeight={500}>{budget.Dietas} €</Typography>
                         </Stack>
                       )}
 
-                      {budget.Dietas != null && budget.Base != null && (
-                        <>
-                          <Divider />
-                          <Stack direction="row" justifyContent="space-between">
-                            <Typography variant="body2" fontWeight={600}>Total</Typography>
-                            <Typography variant="body2" fontWeight={600}>{total} €</Typography>
-                          </Stack>
-                        </>
+                      {budget.DJ && (
+                        <Stack direction="row" justifyContent="space-between">
+                          <Typography variant="body2" color="text.secondary">🎧 EfectiviDJs</Typography>
+                          <Typography variant="body2" fontWeight={500}>{price.dj} €</Typography>
+                        </Stack>
                       )}
-                    </Stack>
 
-                    {hasExtras && (
-                      <Stack direction="row" spacing={1} flexWrap="wrap">
-                        {budget.Equipment && (
-                          <Chip label="Equipo incluido" size="small" variant="outlined" />
-                        )}
-                        {budget.DJ && (
-                          <Chip label="DJ incluido" size="small" variant="outlined" />
-                        )}
+                      {budget.Equipment && (
+                        <Stack direction="row" justifyContent="space-between">
+                          <Typography variant="body2" color="text.secondary">🔊 Equipo</Typography>
+                          <Typography variant="body2" fontWeight={500}>{price.equipment} €</Typography>
+                        </Stack>
+                      )}
+
+                      <Divider />
+                      <Stack direction="row" justifyContent="space-between">
+                        <Typography variant="body2" fontWeight={600}>Total</Typography>
+                        <Typography variant="body2" fontWeight={600}>{total} €</Typography>
                       </Stack>
-                    )}
+                    </Stack>
 
                     {!isAccepted && (
                       <Button

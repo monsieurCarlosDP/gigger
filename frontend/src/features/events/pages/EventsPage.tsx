@@ -1,4 +1,3 @@
-import type { EventType } from '@/features/events/hooks/useEvents';
 import { useEvents } from '@/features/events/hooks/useEvents';
 import { DataTable } from '@/shared/components/DataTable';
 import type { ColumnDef } from '@/shared/components/DataTable';
@@ -12,7 +11,6 @@ import { Checkbox, Chip, FormControlLabel, InputAdornment, Stack, TextField, Too
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { useMemo, useState } from 'react';
-import { EventChip } from '../components/EventChip';
 
 dayjs.locale('es');
 
@@ -27,20 +25,15 @@ const columns: ColumnDef<EventRow>[] = [
       <Typography
         variant="body2"
         fontWeight={500}
-        sx={row.Cancelled ? { textDecoration: 'line-through', color: 'text.disabled' } : undefined}
+        sx={row.Status === 'Cancelled' ? { textDecoration: 'line-through', color: 'text.disabled' } : undefined}
       >
         {row.Name}
       </Typography>
     ),
   },
   {
-    key: 'type',
-    header: 'Tipo',
-    render: (row) => <EventChip type={row.Type} />,
-  },
-  {
     key: 'gigType',
-    header: 'Subtipo',
+    header: 'Tipo',
     render: (row) => {
       if (!row.GigType) return null;
       const config: Record<string, { label: string; color: 'primary' | 'secondary' | 'info' | 'default' }> = {
@@ -59,9 +52,7 @@ const columns: ColumnDef<EventRow>[] = [
     sortValue: (row) => row.StartDate,
     render: (row) => (
       <Typography variant="body2">
-        {row.Type === 'Viability' && row.EndDate
-          ? `${dayjs(row.StartDate).format('D MMM YYYY')} — ${dayjs(row.EndDate).format('D MMM YYYY')}`
-          : dayjs(row.StartDate).format('D MMM YYYY')}
+        {dayjs(row.StartDate).format('D MMM YYYY')}
       </Typography>
     ),
   },
@@ -94,24 +85,31 @@ const columns: ColumnDef<EventRow>[] = [
     key: 'status',
     header: 'Estado',
     align: 'center',
-    render: (row) =>
-      row.Cancelled ? (
-        <Chip label="Cancelado" size="small" color="default" />
-      ) : (
-        <Chip label="Activo" size="small" color="success" />
-      ),
+    render: (row) => {
+      const config: Record<string, { label: string; color: 'success' | 'info' | 'default' }> = {
+        Budgeted: { label: 'Presupuestado', color: 'info' },
+        Accepted: { label: 'Aceptado', color: 'success' },
+        Cancelled: { label: 'Cancelado', color: 'default' },
+      };
+      const c = config[row.Status ?? 'Budgeted'];
+      return <Chip label={c.label} color={c.color} size="small" />;
+    },
   },
 ];
 
-const EVENT_TYPES: { value: EventType; label: string }[] = [
-  { value: 'Reservation', label: 'Reserva' },
-  { value: 'Event', label: 'Evento' },
-  { value: 'Viability', label: 'Disponibilidad' },
+type GigType = 'Wedding' | 'Party' | 'Village' | 'Gig';
+
+const GIG_TYPES: { value: GigType; label: string }[] = [
+  { value: 'Wedding', label: 'Boda' },
+  { value: 'Party', label: 'Fiesta privada' },
+  { value: 'Village', label: 'Fiesta patronal' },
+  { value: 'Gig', label: 'Bolo/concierto' },
 ];
 
 const STATUS_OPTIONS = [
-  { value: 'active', label: 'Activo' },
-  { value: 'cancelled', label: 'Cancelado' },
+  { value: 'Budgeted', label: 'Presupuestado' },
+  { value: 'Accepted', label: 'Aceptado' },
+  { value: 'Cancelled', label: 'Cancelado' },
 ] as const;
 
 type StatusFilter = (typeof STATUS_OPTIONS)[number]['value'];
@@ -120,14 +118,14 @@ export default function EventsPage() {
   const { data, isLoading } = useEvents({ query: { populate: ['Budget'] } });
   const { openEventDrawer } = useDrawerNav();
   const [search, setSearch] = useState('');
-  const [typeFilters, setTypeFilters] = useState<Set<EventType>>(new Set(['Reservation', 'Event', 'Viability']));
-  const [statusFilters, setStatusFilters] = useState<Set<StatusFilter>>(new Set(['active', 'cancelled']));
+  const [gigTypeFilters, setGigTypeFilters] = useState<Set<GigType>>(new Set(['Wedding', 'Party', 'Village', 'Gig']));
+  const [statusFilters, setStatusFilters] = useState<Set<StatusFilter>>(new Set(['Budgeted', 'Accepted', 'Cancelled']));
   const [hidePast, setHidePast] = useState(false);
 
   const rows = data?.data ?? [];
 
-  const toggleType = (type: EventType) => {
-    setTypeFilters((prev) => {
+  const toggleGigType = (type: GigType) => {
+    setGigTypeFilters((prev) => {
       const next = new Set(prev);
       if (next.has(type)) next.delete(type);
       else next.add(type);
@@ -146,10 +144,12 @@ export default function EventsPage() {
 
   const filteredRows = useMemo(() => {
     return rows.filter((row) => {
-      // Type filter
-      if (!typeFilters.has(row.Type as EventType)) return false;
+      // Exclude Viability events from the table
+      if (row.Type === 'Viability') return false;
+      // GigType filter
+      if (row.GigType && !gigTypeFilters.has(row.GigType as GigType)) return false;
       // Status filter
-      const status: StatusFilter = row.Cancelled ? 'cancelled' : 'active';
+      const status: StatusFilter = (row.Status as StatusFilter) ?? 'Budgeted';
       if (!statusFilters.has(status)) return false;
       // Hide past events
       if (hidePast && dayjs(row.StartDate).isBefore(dayjs(), 'day')) return false;
@@ -163,7 +163,7 @@ export default function EventsPage() {
       }
       return true;
     });
-  }, [rows, search, typeFilters, statusFilters, hidePast]);
+  }, [rows, search, gigTypeFilters, statusFilters, hidePast]);
 
   return (
     <PageLayout
@@ -199,14 +199,14 @@ export default function EventsPage() {
               buttonProps={{ variant: 'outlined', size: 'small', startIcon: <FilterListIcon /> }}
             >
               <Stack sx={{ p: 2, minWidth: 180 }}>
-                {EVENT_TYPES.map((t) => (
+                {GIG_TYPES.map((t) => (
                   <FormControlLabel
                     key={t.value}
                     control={
                       <Checkbox
                         size="small"
-                        checked={typeFilters.has(t.value)}
-                        onChange={() => toggleType(t.value)}
+                        checked={gigTypeFilters.has(t.value)}
+                        onChange={() => toggleGigType(t.value)}
                       />
                     }
                     label={t.label}
