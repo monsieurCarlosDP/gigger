@@ -230,6 +230,19 @@ export const api = {
     });
   },
 
+  /** POST /discord/categories — create new category */
+  createDiscordCategory(name: string) {
+    return authFetch<{ data: { id: string; name: string } }>('/discord/categories', {
+      method: 'POST',
+      body: JSON.stringify({ name }),
+    });
+  },
+
+  /** GET /discord/categories */
+  getDiscordCategories() {
+    return authFetch<{ data: { id: string; name: string }[] }>('/discord/categories');
+  },
+
   /** GET /discord/channels */
   getDiscordChannels() {
     return authFetch<{ data: DiscordChannel[] }>('/discord/channels');
@@ -249,6 +262,14 @@ export const api = {
     return authFetch<{ data: DiscordMessage }>(`/discord/channels/${channelId}/messages`, {
       method: 'POST',
       body: JSON.stringify({ content }),
+    });
+  },
+
+  /** POST /email/send — send email with optional attachments */
+  sendEmail(data: { email: string; subject: string; html: string; attachments?: { filename: string; content: string; contentType: string }[] }) {
+    return authFetch<{ message: string }>('/email/send', {
+      method: 'POST',
+      body: JSON.stringify(data),
     });
   },
 };

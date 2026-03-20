@@ -107,6 +107,20 @@ function buildAvatarUrl(avatar: Record<string, unknown> | null): string | undefi
 }
 
 export default {
+  async listCategories() {
+    const { guildId } = getConfig();
+    const channels = await discordFetch<DiscordChannel[]>(`/guilds/${guildId}/channels`);
+
+    // type 4 = category channel
+    return channels
+      .filter((ch) => ch.type === 4)
+      .map((ch) => ({
+        id: ch.id,
+        name: ch.name,
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  },
+
   async listChannels() {
     const { guildId } = getConfig();
     const channels = await discordFetch<DiscordChannel[]>(`/guilds/${guildId}/channels`);
@@ -121,6 +135,24 @@ export default {
         position: ch.position,
       }))
       .sort((a, b) => a.position - b.position);
+  },
+
+  async createCategory(name: string) {
+    const { guildId } = getConfig();
+    const body = {
+      name,
+      type: 4, // category channel
+    };
+
+    const channel = await discordFetch<DiscordChannel>(`/guilds/${guildId}/channels`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+
+    return {
+      id: channel.id,
+      name: channel.name,
+    };
   },
 
   async createChannel(name: string, categoryId?: string) {

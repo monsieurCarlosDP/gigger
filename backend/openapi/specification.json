@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "x-powered-by": "strapi",
-  "x-strapi-version": "5.37.1",
+  "x-strapi-version": "5.40.0",
   "info": {
     "title": "backend",
     "description": "API documentation for backend v0.1.0",
@@ -105,6 +105,32 @@
         },
         "tags": [
           "discord"
+        ]
+      }
+    },
+    "/email/send": {
+      "post": {
+        "operationId": "email/post/email_send",
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "email"
         ]
       }
     },
@@ -509,7 +535,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-19T18:28:49.159Z",
+                            "default": "2026-03-20T18:37:44.487Z",
                             "type": "string"
                           },
                           "contacts": {
@@ -561,7 +587,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-19T18:28:49.162Z",
+                                  "default": "2026-03-20T18:37:44.490Z",
                                   "type": "string"
                                 },
                                 "events": {
@@ -637,7 +663,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.165Z",
+                                        "default": "2026-03-20T18:37:44.493Z",
                                         "type": "string"
                                       },
                                       "contacts": {
@@ -789,7 +815,7 @@
                                                   "type": "string"
                                                 },
                                                 "publishedAt": {
-                                                  "default": "2026-03-19T18:28:49.169Z",
+                                                  "default": "2026-03-20T18:37:44.497Z",
                                                   "type": "string"
                                                 },
                                                 "role": {
@@ -826,7 +852,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-19T18:28:49.170Z",
+                                                      "default": "2026-03-20T18:37:44.498Z",
                                                       "type": "string"
                                                     },
                                                     "permissions": {
@@ -859,7 +885,7 @@
                                                             "type": "string"
                                                           },
                                                           "publishedAt": {
-                                                            "default": "2026-03-19T18:28:49.171Z",
+                                                            "default": "2026-03-20T18:37:44.499Z",
                                                             "type": "string"
                                                           },
                                                           "role": {}
@@ -1162,7 +1188,7 @@
                                                   "type": "string"
                                                 },
                                                 "publishedAt": {
-                                                  "default": "2026-03-19T18:28:49.169Z",
+                                                  "default": "2026-03-20T18:37:44.497Z",
                                                   "type": "string"
                                                 },
                                                 "role": {
@@ -1199,7 +1225,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-19T18:28:49.170Z",
+                                                      "default": "2026-03-20T18:37:44.498Z",
                                                       "type": "string"
                                                     },
                                                     "permissions": {
@@ -1232,7 +1258,7 @@
                                                             "type": "string"
                                                           },
                                                           "publishedAt": {
-                                                            "default": "2026-03-19T18:28:49.171Z",
+                                                            "default": "2026-03-20T18:37:44.499Z",
                                                             "type": "string"
                                                           },
                                                           "role": {}
@@ -1539,7 +1565,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-19T18:28:49.169Z",
+                                            "default": "2026-03-20T18:37:44.497Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -1576,7 +1602,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.170Z",
+                                                "default": "2026-03-20T18:37:44.498Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -1609,7 +1635,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-19T18:28:49.171Z",
+                                                      "default": "2026-03-20T18:37:44.499Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -2018,7 +2044,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-19T18:28:49.169Z",
+                                      "default": "2026-03-20T18:37:44.497Z",
                                       "type": "string"
                                     },
                                     "role": {
@@ -2055,7 +2081,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.170Z",
+                                          "default": "2026-03-20T18:37:44.498Z",
                                           "type": "string"
                                         },
                                         "permissions": {
@@ -2088,7 +2114,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.171Z",
+                                                "default": "2026-03-20T18:37:44.499Z",
                                                 "type": "string"
                                               },
                                               "role": {}
@@ -2391,7 +2417,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-19T18:28:49.169Z",
+                                      "default": "2026-03-20T18:37:44.497Z",
                                       "type": "string"
                                     },
                                     "role": {
@@ -2428,7 +2454,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.170Z",
+                                          "default": "2026-03-20T18:37:44.498Z",
                                           "type": "string"
                                         },
                                         "permissions": {
@@ -2461,7 +2487,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.171Z",
+                                                "default": "2026-03-20T18:37:44.499Z",
                                                 "type": "string"
                                               },
                                               "role": {}
@@ -2768,7 +2794,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-19T18:28:49.169Z",
+                                "default": "2026-03-20T18:37:44.497Z",
                                 "type": "string"
                               },
                               "role": {
@@ -2805,7 +2831,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.170Z",
+                                    "default": "2026-03-20T18:37:44.498Z",
                                     "type": "string"
                                   },
                                   "permissions": {
@@ -2838,7 +2864,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.171Z",
+                                          "default": "2026-03-20T18:37:44.499Z",
                                           "type": "string"
                                         },
                                         "role": {}
@@ -3308,7 +3334,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.198Z",
+                          "default": "2026-03-20T18:37:44.515Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -3360,7 +3386,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-19T18:28:49.162Z",
+                                "default": "2026-03-20T18:37:44.490Z",
                                 "type": "string"
                               },
                               "events": {
@@ -3436,7 +3462,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-19T18:28:49.165Z",
+                                      "default": "2026-03-20T18:37:44.493Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -3588,7 +3614,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.169Z",
+                                                "default": "2026-03-20T18:37:44.497Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -3625,7 +3651,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.170Z",
+                                                    "default": "2026-03-20T18:37:44.498Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -3658,7 +3684,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-19T18:28:49.171Z",
+                                                          "default": "2026-03-20T18:37:44.499Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -3961,7 +3987,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.169Z",
+                                                "default": "2026-03-20T18:37:44.497Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -3998,7 +4024,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.170Z",
+                                                    "default": "2026-03-20T18:37:44.498Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -4031,7 +4057,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-19T18:28:49.171Z",
+                                                          "default": "2026-03-20T18:37:44.499Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -4338,7 +4364,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -4375,7 +4401,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -4408,7 +4434,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -4817,7 +4843,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -4854,7 +4880,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -4887,7 +4913,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -5190,7 +5216,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -5227,7 +5253,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -5260,7 +5286,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -5567,7 +5593,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.169Z",
+                              "default": "2026-03-20T18:37:44.497Z",
                               "type": "string"
                             },
                             "role": {
@@ -5604,7 +5630,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-19T18:28:49.170Z",
+                                  "default": "2026-03-20T18:37:44.498Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -5637,7 +5663,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.171Z",
+                                        "default": "2026-03-20T18:37:44.499Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -5976,7 +6002,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-19T18:28:49.196Z",
+                        "default": "2026-03-20T18:37:44.513Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -6357,7 +6383,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.191Z",
+                          "default": "2026-03-20T18:37:44.508Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -6409,7 +6435,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-19T18:28:49.162Z",
+                                "default": "2026-03-20T18:37:44.490Z",
                                 "type": "string"
                               },
                               "events": {
@@ -6485,7 +6511,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-19T18:28:49.165Z",
+                                      "default": "2026-03-20T18:37:44.493Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -6637,7 +6663,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.169Z",
+                                                "default": "2026-03-20T18:37:44.497Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -6674,7 +6700,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.170Z",
+                                                    "default": "2026-03-20T18:37:44.498Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -6707,7 +6733,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-19T18:28:49.171Z",
+                                                          "default": "2026-03-20T18:37:44.499Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -7010,7 +7036,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.169Z",
+                                                "default": "2026-03-20T18:37:44.497Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -7047,7 +7073,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.170Z",
+                                                    "default": "2026-03-20T18:37:44.498Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -7080,7 +7106,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-19T18:28:49.171Z",
+                                                          "default": "2026-03-20T18:37:44.499Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -7387,7 +7413,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -7424,7 +7450,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -7457,7 +7483,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -7866,7 +7892,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -7903,7 +7929,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -7936,7 +7962,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -8239,7 +8265,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -8276,7 +8302,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -8309,7 +8335,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -8616,7 +8642,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.169Z",
+                              "default": "2026-03-20T18:37:44.497Z",
                               "type": "string"
                             },
                             "role": {
@@ -8653,7 +8679,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-19T18:28:49.170Z",
+                                  "default": "2026-03-20T18:37:44.498Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -8686,7 +8712,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.171Z",
+                                        "default": "2026-03-20T18:37:44.499Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -9166,7 +9192,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.203Z",
+                          "default": "2026-03-20T18:37:44.520Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -9218,7 +9244,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-19T18:28:49.162Z",
+                                "default": "2026-03-20T18:37:44.490Z",
                                 "type": "string"
                               },
                               "events": {
@@ -9294,7 +9320,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-19T18:28:49.165Z",
+                                      "default": "2026-03-20T18:37:44.493Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -9446,7 +9472,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.169Z",
+                                                "default": "2026-03-20T18:37:44.497Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -9483,7 +9509,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.170Z",
+                                                    "default": "2026-03-20T18:37:44.498Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -9516,7 +9542,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-19T18:28:49.171Z",
+                                                          "default": "2026-03-20T18:37:44.499Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -9819,7 +9845,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.169Z",
+                                                "default": "2026-03-20T18:37:44.497Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -9856,7 +9882,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.170Z",
+                                                    "default": "2026-03-20T18:37:44.498Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -9889,7 +9915,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-19T18:28:49.171Z",
+                                                          "default": "2026-03-20T18:37:44.499Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -10196,7 +10222,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -10233,7 +10259,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -10266,7 +10292,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -10675,7 +10701,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -10712,7 +10738,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -10745,7 +10771,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -11048,7 +11074,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -11085,7 +11111,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -11118,7 +11144,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -11425,7 +11451,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.169Z",
+                              "default": "2026-03-20T18:37:44.497Z",
                               "type": "string"
                             },
                             "role": {
@@ -11462,7 +11488,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-19T18:28:49.170Z",
+                                  "default": "2026-03-20T18:37:44.498Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -11495,7 +11521,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.171Z",
+                                        "default": "2026-03-20T18:37:44.499Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -11834,7 +11860,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-19T18:28:49.201Z",
+                        "default": "2026-03-20T18:37:44.518Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -12097,7 +12123,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.207Z",
+                          "default": "2026-03-20T18:37:44.524Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -12149,7 +12175,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-19T18:28:49.162Z",
+                                "default": "2026-03-20T18:37:44.490Z",
                                 "type": "string"
                               },
                               "events": {
@@ -12225,7 +12251,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-19T18:28:49.165Z",
+                                      "default": "2026-03-20T18:37:44.493Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -12377,7 +12403,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.169Z",
+                                                "default": "2026-03-20T18:37:44.497Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -12414,7 +12440,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.170Z",
+                                                    "default": "2026-03-20T18:37:44.498Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -12447,7 +12473,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-19T18:28:49.171Z",
+                                                          "default": "2026-03-20T18:37:44.499Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -12750,7 +12776,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.169Z",
+                                                "default": "2026-03-20T18:37:44.497Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -12787,7 +12813,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.170Z",
+                                                    "default": "2026-03-20T18:37:44.498Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -12820,7 +12846,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-19T18:28:49.171Z",
+                                                          "default": "2026-03-20T18:37:44.499Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -13127,7 +13153,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -13164,7 +13190,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -13197,7 +13223,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -13606,7 +13632,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -13643,7 +13669,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -13676,7 +13702,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -13979,7 +14005,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -14016,7 +14042,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -14049,7 +14075,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -14356,7 +14382,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.169Z",
+                              "default": "2026-03-20T18:37:44.497Z",
                               "type": "string"
                             },
                             "role": {
@@ -14393,7 +14419,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-19T18:28:49.170Z",
+                                  "default": "2026-03-20T18:37:44.498Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -14426,7 +14452,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.171Z",
+                                        "default": "2026-03-20T18:37:44.499Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -14883,7 +14909,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.210Z",
+                          "default": "2026-03-20T18:37:44.527Z",
                           "type": "string"
                         },
                         "BasicLogo": {
@@ -14954,7 +14980,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.213Z",
+                              "default": "2026-03-20T18:37:44.529Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15041,7 +15067,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.213Z",
+                              "default": "2026-03-20T18:37:44.529Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15245,7 +15271,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.216Z",
+                          "default": "2026-03-20T18:37:44.543Z",
                           "type": "string"
                         },
                         "BasicLogo": {
@@ -15316,7 +15342,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.213Z",
+                              "default": "2026-03-20T18:37:44.529Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15403,7 +15429,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.213Z",
+                              "default": "2026-03-20T18:37:44.529Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15486,7 +15512,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-19T18:28:49.215Z",
+                        "default": "2026-03-20T18:37:44.542Z",
                         "type": "string"
                       },
                       "BasicLogo": {},
@@ -15652,7 +15678,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.218Z",
+                          "default": "2026-03-20T18:37:44.545Z",
                           "type": "string"
                         },
                         "BasicLogo": {
@@ -15723,7 +15749,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.213Z",
+                              "default": "2026-03-20T18:37:44.529Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15810,7 +15836,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-19T18:28:49.213Z",
+                              "default": "2026-03-20T18:37:44.529Z",
                               "type": "string"
                             },
                             "related": {}
@@ -16208,7 +16234,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-19T18:28:49.222Z",
+                            "default": "2026-03-20T18:37:44.549Z",
                             "type": "string"
                           },
                           "events": {
@@ -16284,7 +16310,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-19T18:28:49.165Z",
+                                  "default": "2026-03-20T18:37:44.493Z",
                                   "type": "string"
                                 },
                                 "contacts": {
@@ -16436,7 +16462,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-19T18:28:49.169Z",
+                                            "default": "2026-03-20T18:37:44.497Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -16473,7 +16499,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.170Z",
+                                                "default": "2026-03-20T18:37:44.498Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -16506,7 +16532,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-19T18:28:49.171Z",
+                                                      "default": "2026-03-20T18:37:44.499Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -16809,7 +16835,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-19T18:28:49.169Z",
+                                            "default": "2026-03-20T18:37:44.497Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -16846,7 +16872,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.170Z",
+                                                "default": "2026-03-20T18:37:44.498Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -16879,7 +16905,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-19T18:28:49.171Z",
+                                                      "default": "2026-03-20T18:37:44.499Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -17186,7 +17212,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-19T18:28:49.169Z",
+                                      "default": "2026-03-20T18:37:44.497Z",
                                       "type": "string"
                                     },
                                     "role": {
@@ -17223,7 +17249,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.170Z",
+                                          "default": "2026-03-20T18:37:44.498Z",
                                           "type": "string"
                                         },
                                         "permissions": {
@@ -17256,7 +17282,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-19T18:28:49.171Z",
+                                                "default": "2026-03-20T18:37:44.499Z",
                                                 "type": "string"
                                               },
                                               "role": {}
@@ -17700,7 +17726,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.228Z",
+                          "default": "2026-03-20T18:37:44.555Z",
                           "type": "string"
                         },
                         "events": {
@@ -17776,7 +17802,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-19T18:28:49.165Z",
+                                "default": "2026-03-20T18:37:44.493Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -17928,7 +17954,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -17965,7 +17991,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -17998,7 +18024,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -18301,7 +18327,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -18338,7 +18364,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -18371,7 +18397,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -18678,7 +18704,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -18715,7 +18741,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -18748,7 +18774,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -19072,7 +19098,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-19T18:28:49.227Z",
+                        "default": "2026-03-20T18:37:44.554Z",
                         "type": "string"
                       },
                       "events": {
@@ -19376,7 +19402,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.225Z",
+                          "default": "2026-03-20T18:37:44.552Z",
                           "type": "string"
                         },
                         "events": {
@@ -19452,7 +19478,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-19T18:28:49.165Z",
+                                "default": "2026-03-20T18:37:44.493Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -19604,7 +19630,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -19641,7 +19667,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -19674,7 +19700,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -19977,7 +20003,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -20014,7 +20040,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -20047,7 +20073,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -20354,7 +20380,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -20391,7 +20417,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -20424,7 +20450,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -20878,7 +20904,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.231Z",
+                          "default": "2026-03-20T18:37:44.558Z",
                           "type": "string"
                         },
                         "events": {
@@ -20954,7 +20980,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-19T18:28:49.165Z",
+                                "default": "2026-03-20T18:37:44.493Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -21106,7 +21132,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -21143,7 +21169,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -21176,7 +21202,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -21479,7 +21505,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -21516,7 +21542,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -21549,7 +21575,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -21856,7 +21882,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -21893,7 +21919,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -21926,7 +21952,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -22250,7 +22276,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-19T18:28:49.230Z",
+                        "default": "2026-03-20T18:37:44.557Z",
                         "type": "string"
                       },
                       "events": {
@@ -22460,7 +22486,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.233Z",
+                          "default": "2026-03-20T18:37:44.560Z",
                           "type": "string"
                         },
                         "events": {
@@ -22536,7 +22562,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-19T18:28:49.165Z",
+                                "default": "2026-03-20T18:37:44.493Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -22688,7 +22714,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -22725,7 +22751,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -22758,7 +22784,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -23061,7 +23087,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-19T18:28:49.169Z",
+                                          "default": "2026-03-20T18:37:44.497Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -23098,7 +23124,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.170Z",
+                                              "default": "2026-03-20T18:37:44.498Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -23131,7 +23157,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-19T18:28:49.171Z",
+                                                    "default": "2026-03-20T18:37:44.499Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -23438,7 +23464,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-19T18:28:49.169Z",
+                                    "default": "2026-03-20T18:37:44.497Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -23475,7 +23501,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-19T18:28:49.170Z",
+                                        "default": "2026-03-20T18:37:44.498Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -23508,7 +23534,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-19T18:28:49.171Z",
+                                              "default": "2026-03-20T18:37:44.499Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -23956,7 +23982,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.236Z",
+                          "default": "2026-03-20T18:37:44.563Z",
                           "type": "string"
                         }
                       },
@@ -24128,7 +24154,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.238Z",
+                          "default": "2026-03-20T18:37:44.565Z",
                           "type": "string"
                         }
                       },
@@ -24187,7 +24213,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-19T18:28:49.237Z",
+                        "default": "2026-03-20T18:37:44.564Z",
                         "type": "string"
                       }
                     },
@@ -24335,7 +24361,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.239Z",
+                          "default": "2026-03-20T18:37:44.566Z",
                           "type": "string"
                         }
                       },
@@ -24757,7 +24783,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-19T18:28:49.242Z",
+                            "default": "2026-03-20T18:37:44.570Z",
                             "type": "string"
                           }
                         },
@@ -24926,7 +24952,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.246Z",
+                          "default": "2026-03-20T18:37:44.574Z",
                           "type": "string"
                         }
                       },
@@ -24982,7 +25008,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-19T18:28:49.595Z",
+                        "default": "2026-03-20T18:37:44.889Z",
                         "type": "string"
                       }
                     },
@@ -25240,7 +25266,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.245Z",
+                          "default": "2026-03-20T18:37:44.572Z",
                           "type": "string"
                         }
                       },
@@ -25419,7 +25445,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.248Z",
+                          "default": "2026-03-20T18:37:44.576Z",
                           "type": "string"
                         }
                       },
@@ -25475,7 +25501,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-19T18:28:49.248Z",
+                        "default": "2026-03-20T18:37:44.575Z",
                         "type": "string"
                       }
                     },
@@ -25651,7 +25677,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-19T18:28:49.250Z",
+                          "default": "2026-03-20T18:37:44.577Z",
                           "type": "string"
                         }
                       },
@@ -25692,9 +25718,9 @@
         ]
       }
     },
-    "/content-types": {
+    "/content-type-builder/content-types": {
       "get": {
-        "operationId": "content-type-builder/get/content_types",
+        "operationId": "content-type-builder/get/content_type_builder_content_types",
         "parameters": [
           {
             "name": "kind",
@@ -26149,9 +26175,9 @@
         ]
       }
     },
-    "/content-types/{uid}": {
+    "/content-type-builder/content-types/{uid}": {
       "get": {
-        "operationId": "content-type-builder/get/content_types_by_uid",
+        "operationId": "content-type-builder/get/content_type_builder_content_types_by_uid",
         "parameters": [
           {
             "name": "uid",
@@ -26599,9 +26625,9 @@
         ]
       }
     },
-    "/components": {
+    "/content-type-builder/components": {
       "get": {
-        "operationId": "content-type-builder/get/components",
+        "operationId": "content-type-builder/get/content_type_builder_components",
         "parameters": [],
         "responses": {
           "200": {
@@ -26991,9 +27017,9 @@
         ]
       }
     },
-    "/components/{uid}": {
+    "/content-type-builder/components/{uid}": {
       "get": {
-        "operationId": "content-type-builder/get/components_by_uid",
+        "operationId": "content-type-builder/get/content_type_builder_components_by_uid",
         "parameters": [
           {
             "name": "uid",
@@ -27391,9 +27417,92 @@
         ]
       }
     },
-    "/": {
+    "/email": {
       "post": {
-        "operationId": "upload/post",
+        "operationId": "email/post/email",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "email"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string"
+                  },
+                  "to": {
+                    "type": "string"
+                  },
+                  "cc": {
+                    "type": "string"
+                  },
+                  "bcc": {
+                    "type": "string"
+                  },
+                  "replyTo": {
+                    "type": "string"
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "html": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "to",
+                  "subject",
+                  "text"
+                ],
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upload": {
+      "post": {
+        "operationId": "upload/post/upload",
         "parameters": [
           {
             "name": "id",
@@ -27703,9 +27812,9 @@
         ]
       }
     },
-    "/files": {
+    "/upload/files": {
       "get": {
-        "operationId": "upload/get/files",
+        "operationId": "upload/get/upload_files",
         "parameters": [
           {
             "name": "fields",
@@ -28048,9 +28157,9 @@
         ]
       }
     },
-    "/files/{id}": {
+    "/upload/files/{id}": {
       "get": {
-        "operationId": "upload/get/files_by_id",
+        "operationId": "upload/get/upload_files_by_id",
         "parameters": [
           {
             "name": "id",
@@ -28274,7 +28383,7 @@
         ]
       },
       "delete": {
-        "operationId": "upload/delete/files_by_id",
+        "operationId": "upload/delete/upload_files_by_id",
         "parameters": [
           {
             "name": "id",
@@ -28447,9 +28556,9 @@
         ]
       }
     },
-    "/locales": {
+    "/i18n/locales": {
       "get": {
-        "operationId": "i18n/get/locales",
+        "operationId": "i18n/get/i18n_locales",
         "parameters": [],
         "responses": {
           "200": {
@@ -30910,9 +31019,9 @@
         ]
       }
     },
-    "/roles/{id}": {
+    "/users-permissions/roles/{id}": {
       "get": {
-        "operationId": "users-permissions/get/roles_by_id",
+        "operationId": "users-permissions/get/users_permissions_roles_by_id",
         "parameters": [
           {
             "name": "id",
@@ -31060,9 +31169,9 @@
         ]
       }
     },
-    "/roles": {
+    "/users-permissions/roles": {
       "get": {
-        "operationId": "users-permissions/get/roles",
+        "operationId": "users-permissions/get/users_permissions_roles",
         "parameters": [],
         "responses": {
           "200": {
@@ -31203,7 +31312,7 @@
         ]
       },
       "post": {
-        "operationId": "users-permissions/post/roles",
+        "operationId": "users-permissions/post/users_permissions_roles",
         "parameters": [],
         "responses": {
           "200": {
@@ -31280,9 +31389,9 @@
         }
       }
     },
-    "/roles/{role}": {
+    "/users-permissions/roles/{role}": {
       "put": {
-        "operationId": "users-permissions/put/roles_by_role",
+        "operationId": "users-permissions/put/users_permissions_roles_by_role",
         "parameters": [
           {
             "name": "role",
@@ -31365,7 +31474,7 @@
         }
       },
       "delete": {
-        "operationId": "users-permissions/delete/roles_by_role",
+        "operationId": "users-permissions/delete/users_permissions_roles_by_role",
         "parameters": [
           {
             "name": "role",
@@ -31419,9 +31528,9 @@
         ]
       }
     },
-    "/permissions": {
+    "/users-permissions/permissions": {
       "get": {
-        "operationId": "users-permissions/get/permissions",
+        "operationId": "users-permissions/get/users_permissions_permissions",
         "parameters": [],
         "responses": {
           "200": {

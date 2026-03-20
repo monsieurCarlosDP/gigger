@@ -1,6 +1,7 @@
 import { useAcceptBudget, useEventById } from '@/features/events/hooks/useEvents';
 import { usePrice } from '@/features/tariffs/hooks/usePrice';
 import CheckIcon from '@mui/icons-material/Check';
+import ShareIcon from '@mui/icons-material/Share';
 import {
   Box,
   Button,
@@ -9,9 +10,13 @@ import {
   Chip,
   CircularProgress,
   Divider,
+  IconButton,
+  Paper,
+  Popper,
   Stack,
   Typography,
 } from '@mui/material';
+import { useState } from 'react';
 
 interface EventBudgetsDrawerViewProps {
   eventId: string;
@@ -23,6 +28,7 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
   });
   const { mutate: acceptBudget, isPending } = useAcceptBudget();
   const price = usePrice();
+  const [openPopper, setOpenPopper] = useState<{ [key: number]: HTMLButtonElement | null }>({});
 
   if (isLoading) {
     return (
@@ -53,6 +59,8 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
           {budgets.map((budget, index) => {
             const total = (budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0);
             const isAccepted = budget.Accepted === true;
+            const anchorEl = openPopper[index] ?? null;
+            const open = Boolean(anchorEl);
 
             return (
               <Card
@@ -70,9 +78,33 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
                       <Typography variant="subtitle1" fontWeight={600}>
                         Presupuesto {index + 1}
                       </Typography>
-                      {isAccepted && (
-                        <Chip icon={<CheckIcon />} label="Aceptado" size="small" color="success" />
-                      )}
+                      <Stack direction="row" alignItems="center" spacing={1}>
+                        {isAccepted && (
+                          <Chip icon={<CheckIcon />} label="Aceptado" size="small" color="success" />
+                        )}
+                        <IconButton
+                          size="small"
+                          onClick={(e) => setOpenPopper({ ...openPopper, [index]: e.currentTarget })}
+                          title="Compartir presupuesto"
+                        >
+                          <ShareIcon fontSize="small" />
+                        </IconButton>
+                        <Popper open={open} anchorEl={anchorEl} placement="bottom-end">
+                          <Paper sx={{ p: 1, mt: 1 }}>
+                            <Stack spacing={0.5}>
+                              <Typography variant="caption" sx={{ px: 1, display: 'block', color: 'text.secondary' }}>
+                                Compartir como:
+                              </Typography>
+                              <Button size="small" fullWidth sx={{ justifyContent: 'flex-start' }}>
+                                📧 Email
+                              </Button>
+                              <Button size="small" fullWidth sx={{ justifyContent: 'flex-start' }}>
+                                🔗 Copiar enlace
+                              </Button>
+                            </Stack>
+                          </Paper>
+                        </Popper>
+                      </Stack>
                     </Stack>
 
                     <Divider />

@@ -37,7 +37,9 @@ async function assignBudgetNumbers(data: Record<string, unknown>) {
 
   // Read current counter from Info single type
   const info = await strapi.documents('api::info.info').findFirst();
-  let counter = Number(info?.BudgetCounter) || 0;
+  if (!info) return; // Si no existe info, no actualizar contador
+
+  let counter = Number(info.BudgetCounter) || 0;
 
   // Assign numbers to new budgets
   for (const b of newBudgets) {
@@ -47,7 +49,7 @@ async function assignBudgetNumbers(data: Record<string, unknown>) {
 
   // Update counter
   await strapi.documents('api::info.info').update({
-    documentId: info!.documentId,
+    documentId: info.documentId,
     data: { BudgetCounter: counter } as Record<string, unknown>,
   });
 }

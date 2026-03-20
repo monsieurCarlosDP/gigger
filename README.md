@@ -69,9 +69,22 @@ npm run openapi:generate
 | **tarif-distances** | Collection | minDistance, additionalPrice |
 | **price** | Single | Base, DJ, Equipment |
 
-## Documentación API
+## 📚 Documentación Completa
+
+### Documentación de Proyecto
+
+- **[CHANGELOG.md](./CHANGELOG.md)** - Resumen de todas las características implementadas, bugs arreglados y cambios realizados
+- **[TECHNICAL_DOCS.md](./TECHNICAL_DOCS.md)** - Documentación técnica detallada: arquitectura, flujos de datos, implementación
+- **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** - Guía rápida de referencia para desarrollo y debugging
+- **[SETUP.md](./SETUP.md)** - Guía completa de instalación, configuración e integración de servicios
+
+### Documentación API
 
 La documentación OpenAPI se genera automáticamente con el plugin `@strapi/plugin-documentation` y está disponible en:
 
 - **Swagger UI:** `http://localhost:1337/documentation`
 - **Spec JSON:** `backend/src/extensions/documentation/documentation/1.0.0/full_documentation.json`
+
+### Documentación Arquitectura
+
+Ver `ARCHITECTURE.md` para decisiones de arquitectura detalladas.

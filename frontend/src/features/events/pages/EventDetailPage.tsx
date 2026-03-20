@@ -1,5 +1,5 @@
 import { EventChip } from '@/features/events/components/EventChip';
-import { useCreateDiscordChannel, useDiscordChannels, useLinkDiscordChannel } from '@/features/events/hooks/useDiscordChannels';
+import { useCreateDiscordChannel, useCreateDiscordCategory, useDiscordCategories, useDiscordChannels, useLinkDiscordChannel } from '@/features/events/hooks/useDiscordChannels';
 import { useDiscordMessages, useSendDiscordMessage } from '@/features/events/hooks/useDiscordMessages';
 import { useEventById } from '@/features/events/hooks/useEvents';
 import { usePrice } from '@/features/tariffs/hooks/usePrice';
@@ -23,6 +23,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
 import RouteIcon from '@mui/icons-material/Route';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import ShareIcon from '@mui/icons-material/Share';
 import {
   Autocomplete,
   Box,
@@ -32,6 +33,7 @@ import {
   Divider,
   IconButton,
   Paper,
+  Popper,
   Stack,
   Tab,
   Tabs,
@@ -59,10 +61,15 @@ export default function EventDetailPage() {
 
   const price = usePrice();
   const { data: channels = [], isLoading: channelsLoading } = useDiscordChannels();
+  const { data: categories = [], isLoading: categoriesLoading } = useDiscordCategories();
   const { mutateAsync: createChannel, isPending: isCreating } = useCreateDiscordChannel();
   const { mutate: linkChannel, isPending: isLinking } = useLinkDiscordChannel(documentId ?? '');
+  const { mutateAsync: createCategory, isPending: isCreatingCategory } = useCreateDiscordCategory();
 
   const [selectedChannel, setSelectedChannel] = useState<{ id: string; name: string } | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<{ id: string; name: string } | null>(null);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [showNewCategory, setShowNewCategory] = useState(false);
   const [previewBudgetIndex, setPreviewBudgetIndex] = useState<number | null>(null);
 
   const event = data?.data;
@@ -90,6 +97,38 @@ export default function EventDetailPage() {
   }, [messages, tab]);
   const isPeriod = event?.Type === 'Viability' && event?.EndDate;
   const isCancelled = event?.Status === 'Cancelled';
+
+  // Budget action buttons component
+  const BudgetActionButtons = ({ budgetIndex, setPreviewBudgetIndex }: { budgetIndex: number; setPreviewBudgetIndex: (i: number | null) => void }) => {
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+    const open = Boolean(anchorEl);
+
+    return (
+      <>
+        <IconButton size="small" onClick={() => setPreviewBudgetIndex(budgetIndex)} title="Vista previa">
+          <VisibilityIcon fontSize="small" />
+        </IconButton>
+        <IconButton size="small" onClick={(e) => setAnchorEl(e.currentTarget)} title="Compartir">
+          <ShareIcon fontSize="small" />
+        </IconButton>
+        <Popper open={open} anchorEl={anchorEl} placement="bottom-end">
+          <Paper sx={{ p: 1, mt: 1 }}>
+            <Stack spacing={0.5}>
+              <Typography variant="caption" sx={{ px: 1, display: 'block', color: 'text.secondary' }}>
+                Compartir como:
+              </Typography>
+              <Button size="small" fullWidth sx={{ justifyContent: 'flex-start' }}>
+                📧 Email
+              </Button>
+              <Button size="small" fullWidth sx={{ justifyContent: 'flex-start' }}>
+                🔗 Copiar enlace
+              </Button>
+            </Stack>
+          </Paper>
+        </Popper>
+      </>
+    );
+  };
 
   return (
     <PageLayout
@@ -298,9 +337,7 @@ export default function EventDetailPage() {
                             <Typography variant="h6" color={budget.Accepted ? 'success.main' : 'text.primary'}>
                               {((budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0)).toLocaleString('es-ES')} €
                             </Typography>
-                            <IconButton size="small" onClick={() => setPreviewBudgetIndex(index)}>
-                              <VisibilityIcon fontSize="small" />
-                            </IconButton>
+                            <BudgetActionButtons budgetIndex={index} setPreviewBudgetIndex={setPreviewBudgetIndex} />
                           </Stack>
                         </Stack>
                       </Box>
@@ -368,27 +405,99 @@ export default function EventDetailPage() {
 
                     <Divider><Typography variant="caption" color="text.secondary">o</Typography></Divider>
 
-                    {/* Create new channel */}
-                    <Stack direction="row" spacing={1} alignItems="center">
-                      <TextField
-                        size="small"
-                        placeholder="Nombre del nuevo canal..."
-                        value={newChannelName}
-                        onChange={(e) => setNewChannelName(e.target.value)}
-                        sx={{ flexGrow: 1 }}
-                      />
-                      <Button
-                        variant="outlined"
-                        startIcon={<AddIcon />}
-                        disabled={!newChannelName.trim() || isCreating}
-                        onClick={async () => {
-                          const channel = await createChannel(newChannelName.trim());
-                          linkChannel(channel.id);
-                          setNewChannelName('');
-                        }}
-                      >
-                        Crear y vincular
-                      </Button>
+                    {/* Create new channel with optional category */}
+                    <Stack spacing={1.5}>
+                      {/* Category selection */}
+                      <Stack spacing={1}>
+                        <Typography variant="caption" color="text.secondary">Categoría (opcional)</Typography>
+                        {!showNewCategory ? (
+                          <Stack direction="row" spacing={1} alignItems="center">
+                            <Autocomplete
+                              options={categories}
+                              getOptionLabel={(option) => option.name}
+                              loading={categoriesLoading}
+                              value={selectedCategory}
+                              onChange={(_e, value) => setSelectedCategory(value)}
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  placeholder="Seleccionar categoría..."
+                                  size="small"
+                                />
+                              )}
+                              sx={{ flexGrow: 1 }}
+                            />
+                            <Button
+                              variant="text"
+                              size="small"
+                              onClick={() => setShowNewCategory(true)}
+                            >
+                              Crear nueva
+                            </Button>
+                          </Stack>
+                        ) : (
+                          <Stack direction="row" spacing={1} alignItems="center">
+                            <TextField
+                              size="small"
+                              placeholder="Nombre de la categoría..."
+                              value={newCategoryName}
+                              onChange={(e) => setNewCategoryName(e.target.value)}
+                              sx={{ flexGrow: 1 }}
+                            />
+                            <Button
+                              variant="text"
+                              size="small"
+                              onClick={() => {
+                                setShowNewCategory(false);
+                                setNewCategoryName('');
+                                setSelectedCategory(null);
+                              }}
+                            >
+                              Cancelar
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              disabled={!newCategoryName.trim() || isCreatingCategory}
+                              onClick={async () => {
+                                const category = await createCategory(newCategoryName.trim());
+                                setSelectedCategory({ id: category.id, name: category.name });
+                                setNewCategoryName('');
+                                setShowNewCategory(false);
+                              }}
+                            >
+                              Crear
+                            </Button>
+                          </Stack>
+                        )}
+                      </Stack>
+
+                      {/* Channel name input */}
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <TextField
+                          size="small"
+                          placeholder="Nombre del nuevo canal..."
+                          value={newChannelName}
+                          onChange={(e) => setNewChannelName(e.target.value)}
+                          sx={{ flexGrow: 1 }}
+                        />
+                        <Button
+                          variant="outlined"
+                          startIcon={<AddIcon />}
+                          disabled={!newChannelName.trim() || isCreating}
+                          onClick={async () => {
+                            const channel = await createChannel({
+                              name: newChannelName.trim(),
+                              categoryId: selectedCategory?.id,
+                            });
+                            linkChannel(channel.id);
+                            setNewChannelName('');
+                            setSelectedCategory(null);
+                          }}
+                        >
+                          Crear y vincular
+                        </Button>
+                      </Stack>
                     </Stack>
                   </Stack>
                 </Paper>

@@ -6,9 +6,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useDrawerNav } from '../context/DrawerContext';
 import { Navbar } from '../components/Navbar';
+import { FloatingActionMenu } from '../components/FloatingActionMenu';
 import { DayEventsDrawerView } from './DayEventsDrawerView';
 import { EventBudgetsDrawerView } from './EventBudgetsDrawerView';
 import { EventDetailDrawerView } from './EventDetailDrawerView';
+import EditIcon from '@mui/icons-material/Edit';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 
 const RIGHT_DRAWER_WIDTH = { xs: '100%', sm: 480 };
 
@@ -71,6 +74,9 @@ export default function MainLayout() {
         </Suspense>
       </Box>
 
+      {/* Floating Action Menu - Se oculta cuando el drawer está abierto */}
+      <FloatingActionMenu isDrawerOpen={isOpen} />
+
       <Drawer
         anchor="right"
         open={isOpen}
@@ -85,9 +91,29 @@ export default function MainLayout() {
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1 }}>
-          <IconButton onClick={() => navigate(-1)} size="small">
-            <ArrowBackIcon />
-          </IconButton>
+          <Box sx={{ display: 'flex', gap: 0.5 }}>
+            <IconButton onClick={() => navigate(-1)} size="small">
+              <ArrowBackIcon />
+            </IconButton>
+            {drawerType === 'event' && (
+              <>
+                <IconButton
+                  size="small"
+                  onClick={() => navigate(`/events/${searchParams.get('id')}`)}
+                  title="Ver página completa"
+                >
+                  <OpenInFullIcon fontSize="small" />
+                </IconButton>
+                <IconButton
+                  size="small"
+                  onClick={() => navigate(`/events/${searchParams.get('id')}/edit`)}
+                  title="Editar evento"
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              </>
+            )}
+          </Box>
           <IconButton onClick={closeDrawer} size="small">
             <CloseIcon />
           </IconButton>

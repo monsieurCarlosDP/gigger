@@ -3,6 +3,27 @@ import { useSnackbar } from '@/shared/context/SnackbarContext';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
+export function useDiscordCategories() {
+  const { showError } = useSnackbar();
+
+  const query = useQuery({
+    queryKey: ['discord', 'categories'],
+    queryFn: async () => {
+      const res = await api.getDiscordCategories();
+      return res.data;
+    },
+    retry: false,
+  });
+
+  useEffect(() => {
+    if (query.error) {
+      showError(query.error.message);
+    }
+  }, [query.error, showError]);
+
+  return query;
+}
+
 export function useDiscordChannels() {
   const { showError } = useSnackbar();
 
@@ -29,13 +50,32 @@ export function useCreateDiscordChannel() {
   const { showSuccess, showError } = useSnackbar();
 
   return useMutation({
-    mutationFn: async (name: string) => {
-      const res = await api.createDiscordChannel(name);
+    mutationFn: async ({ name, categoryId }: { name: string; categoryId?: string }) => {
+      const res = await api.createDiscordChannel(name, categoryId);
       return res.data;
     },
     onSuccess: (channel) => {
       showSuccess(`Canal #${channel.name} creado`);
       queryClient.invalidateQueries({ queryKey: ['discord', 'channels'] });
+    },
+    onError: (err: Error) => {
+      showError(err.message);
+    },
+  });
+}
+
+export function useCreateDiscordCategory() {
+  const queryClient = useQueryClient();
+  const { showSuccess, showError } = useSnackbar();
+
+  return useMutation({
+    mutationFn: async (name: string) => {
+      const res = await api.createDiscordCategory(name);
+      return res.data;
+    },
+    onSuccess: (category) => {
+      showSuccess(`Categoría ${category.name} creada`);
+      queryClient.invalidateQueries({ queryKey: ['discord', 'categories'] });
     },
     onError: (err: Error) => {
       showError(err.message);

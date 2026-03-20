@@ -2,6 +2,14 @@ export default {
   routes: [
     {
       method: 'GET',
+      path: '/discord/categories',
+      handler: 'discord.listCategories',
+      config: {
+        policies: ['global::isAuthenticated'],
+      },
+    },
+    {
+      method: 'GET',
       path: '/discord/channels',
       handler: 'discord.listChannels',
       config: {
@@ -12,6 +20,14 @@ export default {
       method: 'POST',
       path: '/discord/channels',
       handler: 'discord.createChannel',
+      config: {
+        policies: ['global::isAuthenticated'],
+      },
+    },
+    {
+      method: 'POST',
+      path: '/discord/categories',
+      handler: 'discord.createCategory',
       config: {
         policies: ['global::isAuthenticated'],
       },
