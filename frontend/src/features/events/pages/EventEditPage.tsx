@@ -1,9 +1,10 @@
-import { useDiscordChannels } from '@/features/events/hooks/useDiscordChannels';
+import { useCreateDiscordCategory, useCreateDiscordChannel, useDiscordCategories, useDiscordChannels, useLinkDiscordChannel } from '@/features/events/hooks/useDiscordChannels';
 import type { EventFormDispatch, EventFormState } from '@/features/events/hooks/useEventForm';
 import { eventToFormState, useEventForm } from '@/features/events/hooks/useEventForm';
 import { useEventById, useUpdateEvent } from '@/features/events/hooks/useEvents';
 import { useTarifDistance } from '@/features/events/hooks/useTarifDistance';
 import { usePrice } from '@/features/tariffs/hooks/usePrice';
+import { useQueryClient } from '@tanstack/react-query';
 import { Timeline } from '@/shared/components/Timeline';
 import { UserAvatar } from '@/shared/components/UserAvatar';
 import { DEFAULT_STOP_COLOR, DEFAULT_STOP_ICON, STOP_TYPES, STOP_TYPE_MAP } from '@/shared/constants/stopTypes';
@@ -11,7 +12,9 @@ import { useSnackbar } from '@/shared/context/SnackbarContext';
 import { useUsers } from '@/shared/hooks/useUsers';
 import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import { PageLayout } from '@/shared/layouts/PageLayout';
+import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import LinkIcon from '@mui/icons-material/Link';
 import LinkOffIcon from '@mui/icons-material/LinkOff';
 import {
   Autocomplete,
@@ -60,6 +63,7 @@ export default function EventEditPage() {
   const { documentId } = useParams<{ documentId: string }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const queryClient = useQueryClient();
   const TAB_MAP: Record<string, number> = { info: 0, logistics: 1, budget: 2, chat: 3 };
   const [tab, setTab] = useState(() => TAB_MAP[searchParams.get('openTab') ?? 'info'] ?? 0);
 
@@ -89,7 +93,7 @@ export default function EventEditPage() {
           EndDate: form.EndDate || undefined,
           EventStatus: form.Status || undefined,
           CancelledDate: form.CancelledDate || undefined,
-          DiscordChannelId: form.DiscordChannelId || undefined,
+          DiscordChannelId: form.DiscordChannelId || null,
           contacts: form.contacts.map((c) => c.documentId),
           Budget: form.Budget.map((b) => ({
             Base: b.Base ?? undefined,
@@ -110,11 +114,12 @@ export default function EventEditPage() {
       },
     });
     showSuccess('Evento guardado');
+    await queryClient.refetchQueries({ queryKey: ['events', documentId] });
     navigate(`/events/${documentId}`);
     } catch {
       showError('Error al guardar el evento');
     }
-  }, [documentId, updateEvent, navigate, showSuccess, showError]);
+  }, [documentId, updateEvent, navigate, showSuccess, showError, queryClient]);
 
   const event = data?.data;
 
@@ -146,6 +151,7 @@ export default function EventEditPage() {
           <Typography color="textSecondary">Evento no encontrado</Typography>
         ) : (
           <EventEditForm
+            documentId={documentId ?? ''}
             event={event}
             tab={tab}
             setTab={setTab}
@@ -161,6 +167,7 @@ export default function EventEditPage() {
 
 /** Inner form component — only mounts when event is loaded */
 function EventEditForm({
+  documentId,
   event,
   tab,
   setTab,
@@ -168,6 +175,7 @@ function EventEditForm({
   channelsLoading,
   formRef,
 }: {
+  documentId: string;
   event: Record<string, unknown>;
   tab: number;
   setTab: (v: number) => void;
@@ -199,6 +207,8 @@ function EventEditForm({
       {tab === 2 && <BudgetTab form={form} dispatch={dispatch} defaultDietas={defaultDietas} price={price} />}
       {tab === 3 && (
         <DiscordTab
+          documentId={documentId}
+          event={event}
           form={form}
           dispatch={dispatch}
           channels={channels}
@@ -676,18 +686,38 @@ function BudgetTab({ form, dispatch, defaultDietas, price }: { form: EventFormSt
 
 /** Tab: Discord */
 function DiscordTab({
+  documentId,
+  event,
   form,
   dispatch,
   channels,
   channelsLoading,
   linkedChannel,
 }: {
+  documentId: string;
+  event: Record<string, unknown>;
   form: EventFormState;
   dispatch: EventFormDispatch;
   channels: { id: string; name: string }[];
   channelsLoading: boolean;
   linkedChannel?: { id: string; name: string };
 }) {
+  const { data: categories = [], isLoading: categoriesLoading } = useDiscordCategories();
+  const { mutateAsync: createChannel, isPending: isCreating } = useCreateDiscordChannel();
+  const { mutateAsync: createCategory, isPending: isCreatingCategory } = useCreateDiscordCategory();
+  const { mutate: linkChannel } = useLinkDiscordChannel(documentId, event ? {
+    Name: event.Name as string | undefined,
+    Location: event.Location as string | undefined,
+    Distance: event.Distance ? Number(event.Distance) : undefined,
+    contacts: event.contacts as Array<{ Name: string; Type?: string; Email?: string; Number?: string }> | undefined,
+  } : undefined);
+
+  const [selectedChannel, setSelectedChannel] = useState<{ id: string; name: string } | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<{ id: string; name: string } | null>(null);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [showNewCategory, setShowNewCategory] = useState(false);
+  const [newChannelName, setNewChannelName] = useState('');
+
   return (
     <Stack spacing={3}>
       <Paper elevation={2} sx={{ p: 3 }}>
@@ -713,7 +743,14 @@ function DiscordTab({
                   color="error"
                   startIcon={<LinkOffIcon />}
                   size="small"
-                  onClick={() => dispatch({ type: 'SET_FIELD', field: 'DiscordChannelId', value: '' })}
+                  onClick={() => {
+                    dispatch({ type: 'SET_FIELD', field: 'DiscordChannelId', value: '' });
+                    setSelectedChannel(null);
+                    setSelectedCategory(null);
+                    setNewChannelName('');
+                    setNewCategoryName('');
+                    setShowNewCategory(false);
+                  }}
                 >
                   Desvincular
                 </Button>
@@ -743,9 +780,140 @@ function DiscordTab({
               />
             </Stack>
           ) : (
-            <Typography variant="body2" color="text.secondary" textAlign="center">
-              No hay canal vinculado. Puedes vincularlo desde la pestaña Conversación en la vista de detalle.
-            </Typography>
+            <Stack spacing={2}>
+              <Typography variant="subtitle2">Vincular canal de Discord</Typography>
+
+              {/* Select existing channel */}
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Autocomplete
+                  options={channels}
+                  getOptionLabel={(option) => `#${option.name}`}
+                  loading={channelsLoading}
+                  value={selectedChannel}
+                  onChange={(_e, value) => setSelectedChannel(value)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Buscar canal existente..."
+                      size="small"
+                    />
+                  )}
+                  sx={{ flexGrow: 1 }}
+                />
+                <Button
+                  variant="contained"
+                  startIcon={<LinkIcon />}
+                  disabled={!selectedChannel}
+                  onClick={() => {
+                    if (selectedChannel) {
+                      dispatch({ type: 'SET_FIELD', field: 'DiscordChannelId', value: selectedChannel.id });
+                      linkChannel(selectedChannel.id);
+                      setSelectedChannel(null);
+                    }
+                  }}
+                >
+                  Vincular
+                </Button>
+              </Stack>
+
+              <Divider><Typography variant="caption" color="text.secondary">o</Typography></Divider>
+
+              {/* Create new channel with optional category */}
+              <Stack spacing={1.5}>
+                {/* Category selection */}
+                <Stack spacing={1}>
+                  <Typography variant="caption" color="text.secondary">Categoría (opcional)</Typography>
+                  {!showNewCategory ? (
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Autocomplete
+                        options={categories}
+                        getOptionLabel={(option) => option.name}
+                        loading={categoriesLoading}
+                        value={selectedCategory}
+                        onChange={(_e, value) => setSelectedCategory(value)}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            placeholder="Seleccionar categoría..."
+                            size="small"
+                          />
+                        )}
+                        sx={{ flexGrow: 1 }}
+                      />
+                      <Button
+                        variant="text"
+                        size="small"
+                        onClick={() => setShowNewCategory(true)}
+                      >
+                        Crear nueva
+                      </Button>
+                    </Stack>
+                  ) : (
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <TextField
+                        size="small"
+                        placeholder="Nombre de la categoría..."
+                        value={newCategoryName}
+                        onChange={(e) => setNewCategoryName(e.target.value)}
+                        sx={{ flexGrow: 1 }}
+                      />
+                      <Button
+                        variant="text"
+                        size="small"
+                        onClick={() => {
+                          setShowNewCategory(false);
+                          setNewCategoryName('');
+                          setSelectedCategory(null);
+                        }}
+                      >
+                        Cancelar
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        disabled={!newCategoryName.trim() || isCreatingCategory}
+                        onClick={async () => {
+                          const category = await createCategory(newCategoryName.trim());
+                          setSelectedCategory({ id: category.id, name: category.name });
+                          setNewCategoryName('');
+                          setShowNewCategory(false);
+                        }}
+                      >
+                        Crear
+                      </Button>
+                    </Stack>
+                  )}
+                </Stack>
+
+                {/* Channel name input */}
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <TextField
+                    size="small"
+                    placeholder="Nombre del nuevo canal..."
+                    value={newChannelName}
+                    onChange={(e) => setNewChannelName(e.target.value)}
+                    sx={{ flexGrow: 1 }}
+                  />
+                  <Button
+                    variant="outlined"
+                    startIcon={<AddIcon />}
+                    disabled={!newChannelName.trim() || isCreating}
+                    onClick={async () => {
+                      const channel = await createChannel({
+                        name: newChannelName.trim(),
+                        categoryId: selectedCategory?.id,
+                      });
+                      dispatch({ type: 'SET_FIELD', field: 'DiscordChannelId', value: channel.id });
+                      linkChannel(channel.id);
+                      setNewChannelName('');
+                      setSelectedCategory(null);
+                    }}
+                  >
+                    Crear y vincular
+                  </Button>
+                </Stack>
+              </Stack>
+            </Stack>
           )}
         </Stack>
       </Paper>

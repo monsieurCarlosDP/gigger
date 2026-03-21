@@ -83,13 +83,26 @@ export function useCreateDiscordCategory() {
   });
 }
 
-export function useLinkDiscordChannel(eventDocumentId: string) {
+export function useLinkDiscordChannel(eventDocumentId: string, eventData?: { Name?: string; Location?: string; Distance?: number; contacts?: Array<{ Name: string; Type?: string; Email?: string; Number?: string }> }) {
   const queryClient = useQueryClient();
   const { showSuccess, showError } = useSnackbar();
 
   return useMutation({
     mutationFn: async (channelId: string) => {
-      return api.updateEvent(eventDocumentId, { data: { DiscordChannelId: channelId } });
+      // Link channel to event
+      await api.updateEvent(eventDocumentId, { data: { DiscordChannelId: channelId } });
+
+      // Send welcome message to Discord channel as bot
+      if (eventData?.Name) {
+        await api.sendDiscordWelcome(channelId, {
+          eventName: eventData.Name,
+          location: eventData.Location,
+          distance: eventData.Distance,
+          contacts: eventData.contacts,
+        });
+      }
+
+      return channelId;
     },
     onSuccess: () => {
       showSuccess('Canal vinculado al evento');

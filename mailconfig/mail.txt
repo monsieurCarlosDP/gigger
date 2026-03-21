@@ -1,0 +1,3 @@
+mail._domainkey	IN	TXT	( "v=DKIM1; h=sha256; k=rsa; "
+	  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu/bkjtIaKWzz38hi5BNzNj0xBxG3NGRI43E1sE8LiGTM6RIYNhQlvUG9rT5qbDKnIYiQc5FMew3H5+fQEVG2ZKBIirrHTJqtvV8Mv9zZvucVXOLbdbDR6eVTdey7cVXsfV0uXMO+pKx6FWQTrmn3tSQYiIiYof/jgGcptbD+PlgziuklZaeikQu89Dr/mBWHck+yYnYnVJLoao"
+	  "Q3hSN3l3YMTATMwqblpwVv9/jPQ7FzGA0COvuA8cA0wtJvsP8BSnCDvOLOSJuzKhS2DMm3oXAW5kH9SMIam6G7kQvMNUFRsD3e2VNCqHKd7yh0I1zJlbw6mIUQOdZrpYlQzUyiRwIDAQAB" )  ; ----- DKIM key mail for efectiviwonders.es

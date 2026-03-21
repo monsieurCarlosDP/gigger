@@ -272,6 +272,22 @@ export const api = {
       body: JSON.stringify(data),
     });
   },
+
+  /** POST /upload/pdf — upload PDF file to server */
+  uploadPDF(data: { filename: string; content: string }) {
+    return authFetch<{ data: { filename: string; url: string } }>('/upload/pdf', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  /** POST /discord/channels/:channelId/welcome — send welcome message when linking event */
+  sendDiscordWelcome(channelId: string, data: { eventName: string; location?: string; distance?: number; contacts?: Array<{ Name: string; Type?: string; Email?: string; Number?: string }> }) {
+    return authFetch<{ data: DiscordMessage }>(`/discord/channels/${channelId}/welcome`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
 };
 
 export default api;

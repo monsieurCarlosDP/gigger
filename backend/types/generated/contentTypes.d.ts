@@ -549,7 +549,7 @@ export interface ApiPersonPerson extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Description: Schema.Attribute.RichText;
-    Email: Schema.Attribute.Email;
+    Email: Schema.Attribute.Email & Schema.Attribute.Required;
     events: Schema.Attribute.Relation<'manyToMany', 'api::event.event'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -557,7 +557,7 @@ export interface ApiPersonPerson extends Struct.CollectionTypeSchema {
       'api::person.person'
     > &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
+    Name: Schema.Attribute.String & Schema.Attribute.Required;
     Number: Schema.Attribute.BigInteger;
     publishedAt: Schema.Attribute.DateTime;
     Type: Schema.Attribute.Enumeration<['Client', 'Provider', 'Manager']>;

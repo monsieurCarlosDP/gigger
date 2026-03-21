@@ -3,7 +3,10 @@ import { useSnackbar } from '@/shared/context/SnackbarContext';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-export function useDiscordMessages(channelId: string | undefined | null, options?: { polling?: boolean }) {
+export function useDiscordMessages(
+  channelId: string | undefined | null,
+  options?: { polling?: boolean; enabled?: boolean }
+) {
   const { showError } = useSnackbar();
 
   const query = useQuery({
@@ -12,7 +15,7 @@ export function useDiscordMessages(channelId: string | undefined | null, options
       const res = await api.getDiscordMessages(channelId!, { limit: 50 });
       return res.data;
     },
-    enabled: !!channelId,
+    enabled: !!channelId && (options?.enabled !== false),
     retry: false,
     refetchInterval: options?.polling ? 5000 : false,
     structuralSharing: true,

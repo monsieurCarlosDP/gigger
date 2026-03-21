@@ -48,5 +48,13 @@ export default {
         policies: ['global::isAuthenticated'],
       },
     },
+    {
+      method: 'POST',
+      path: '/discord/channels/:channelId/welcome',
+      handler: 'discord.sendWelcomeMessage',
+      config: {
+        policies: ['global::isAuthenticated'],
+      },
+    },
   ],
 };

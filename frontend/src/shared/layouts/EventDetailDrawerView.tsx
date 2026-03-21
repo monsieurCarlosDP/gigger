@@ -1,10 +1,10 @@
 import { EventChip } from '@/features/events/components/EventChip';
-import { useAcceptBudget, useEventById } from '@/features/events/hooks/useEvents';
+import { useEventById } from '@/features/events/hooks/useEvents';
 import { useDiscordMessages, useSendDiscordMessage } from '@/features/events/hooks/useDiscordMessages';
-import { usePrice } from '@/features/tariffs/hooks/usePrice';
 import { ChatBubble } from '@/shared/components/ChatBubble';
 import { ChatInput } from '@/shared/components/ChatInput';
 import { Timeline } from '@/shared/components/Timeline';
+import { EventBudgetsDrawerView } from './EventBudgetsDrawerView';
 import { useAuth } from '@/shared/context/AuthContext';
 import { useEventTabParam } from '@/shared/context/DrawerContext';
 import { useUsers } from '@/shared/hooks/useUsers';
@@ -12,7 +12,6 @@ import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import BlockIcon from '@mui/icons-material/Block';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import ChatIcon from '@mui/icons-material/Chat';
-import CheckIcon from '@mui/icons-material/Check';
 import EuroIcon from '@mui/icons-material/Euro';
 import InfoIcon from '@mui/icons-material/Info';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -21,9 +20,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import RouteIcon from '@mui/icons-material/Route';
 import {
   Box,
-  Button,
-  Card,
-  CardContent,
   Chip,
   CircularProgress,
   Divider,
@@ -50,10 +46,11 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
   });
   const { data: users = [] } = useUsers();
   const event = data?.data;
-  const { mutate: acceptBudget, isPending } = useAcceptBudget();
-  const price = usePrice();
 
-  const { data: messages = [], isLoading: messagesLoading } = useDiscordMessages(event?.DiscordChannelId, { polling: tab === 3 });
+  const { data: messages = [], isLoading: messagesLoading } = useDiscordMessages(event?.DiscordChannelId, {
+    polling: tab === 3,
+    enabled: tab === 3,
+  });
   const { mutate: sendMessage, isPending: isSending } = useSendDiscordMessage(event?.DiscordChannelId);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -190,94 +187,7 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
       )}
 
       {/* Tab: Económica */}
-      {tab === 2 && (
-        <Stack spacing={2}>
-          {!event.Budget || event.Budget.length === 0 ? (
-            <Typography color="textSecondary">Sin presupuestos</Typography>
-          ) : (
-            <Stack spacing={2}>
-              {event.Budget.map((budget, index) => {
-                const total = (budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0);
-                const isAccepted = budget.Accepted === true;
-
-                return (
-                  <Card
-                    key={index}
-                    variant="outlined"
-                    sx={{
-                      borderColor: isAccepted ? 'success.main' : 'divider',
-                      bgcolor: isAccepted ? 'success.50' : 'background.paper',
-                    }}
-                  >
-                    <CardContent>
-                      <Stack spacing={1.5}>
-                        <Stack direction="row" alignItems="center" justifyContent="space-between">
-                          <Typography variant="subtitle1" fontWeight={600}>
-                            Presupuesto {index + 1}
-                          </Typography>
-                          {isAccepted && (
-                            <Chip icon={<CheckIcon />} label="Aceptado" size="small" color="success" />
-                          )}
-                        </Stack>
-
-                        <Divider />
-
-                        <Stack spacing={0.75}>
-                          <Stack direction="row" justifyContent="space-between">
-                            <Typography variant="body2" color="text.secondary">🎸 Efectivishow</Typography>
-                            <Typography variant="body2" fontWeight={500}>
-                              {budget.Base != null ? `${budget.Base} €` : '—'}
-                            </Typography>
-                          </Stack>
-
-                          {budget.Dietas != null && (
-                            <Stack direction="row" justifyContent="space-between">
-                              <Typography variant="body2" color="text.secondary">🚐 Dietas y transporte</Typography>
-                              <Typography variant="body2" fontWeight={500}>{budget.Dietas} €</Typography>
-                            </Stack>
-                          )}
-
-                          {budget.DJ && (
-                            <Stack direction="row" justifyContent="space-between">
-                              <Typography variant="body2" color="text.secondary">🎧 EfectiviDJs</Typography>
-                              <Typography variant="body2" fontWeight={500}>{price.dj} €</Typography>
-                            </Stack>
-                          )}
-
-                          {budget.Equipment && (
-                            <Stack direction="row" justifyContent="space-between">
-                              <Typography variant="body2" color="text.secondary">🔊 Equipo</Typography>
-                              <Typography variant="body2" fontWeight={500}>{price.equipment} €</Typography>
-                            </Stack>
-                          )}
-
-                          <Divider />
-                          <Stack direction="row" justifyContent="space-between">
-                            <Typography variant="body2" fontWeight={600}>Total</Typography>
-                            <Typography variant="body2" fontWeight={600}>{total} €</Typography>
-                          </Stack>
-                        </Stack>
-
-                        {!isAccepted && (
-                          <Button
-                            variant="contained"
-                            size="small"
-                            fullWidth
-                            disabled={isPending}
-                            onClick={() => acceptBudget({ eventId: event.documentId, budgetIndex: index, budgets: event.Budget ?? [] })}
-                          >
-                            Aceptar presupuesto
-                          </Button>
-                        )}
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </Stack>
-          )}
-        </Stack>
-      )}
+      {tab === 2 && <EventBudgetsDrawerView eventId={id} />}
 
       {/* Tab: Conversación */}
       {tab === 3 && (

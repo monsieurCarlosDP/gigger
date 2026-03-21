@@ -1,5 +1,5 @@
+import { BudgetActionButtons } from '@/features/events/components/BudgetActionButtons';
 import { EventChip } from '@/features/events/components/EventChip';
-import { useCreateDiscordChannel, useCreateDiscordCategory, useDiscordCategories, useDiscordChannels, useLinkDiscordChannel } from '@/features/events/hooks/useDiscordChannels';
 import { useDiscordMessages, useSendDiscordMessage } from '@/features/events/hooks/useDiscordMessages';
 import { useEventById } from '@/features/events/hooks/useEvents';
 import { usePrice } from '@/features/tariffs/hooks/usePrice';
@@ -12,13 +12,11 @@ import { useDrawerNav, useEventTabParam } from '@/shared/context/DrawerContext';
 import { useUsers } from '@/shared/hooks/useUsers';
 import { PageLayout } from '@/shared/layouts/PageLayout';
 import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
-import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import BlockIcon from '@mui/icons-material/Block';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import EditIcon from '@mui/icons-material/Edit';
-import LinkIcon from '@mui/icons-material/Link';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
 import RouteIcon from '@mui/icons-material/Route';
@@ -57,37 +55,14 @@ export default function EventDetailPage() {
   const { data, isLoading } = useEventById(documentId ?? '', {
     query: { populate: ['contacts', 'Budget', 'Logistic'] },
   });
+
+  const contactEmail = data?.data?.contacts?.[0]?.Email;
   const { data: users = [] } = useUsers();
 
   const price = usePrice();
-  const { data: channels = [], isLoading: channelsLoading } = useDiscordChannels();
-  const { data: categories = [], isLoading: categoriesLoading } = useDiscordCategories();
-  const { mutateAsync: createChannel, isPending: isCreating } = useCreateDiscordChannel();
-  const { mutate: linkChannel, isPending: isLinking } = useLinkDiscordChannel(documentId ?? '');
-  const { mutateAsync: createCategory, isPending: isCreatingCategory } = useCreateDiscordCategory();
-
-  const [selectedChannel, setSelectedChannel] = useState<{ id: string; name: string } | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<{ id: string; name: string } | null>(null);
-  const [newCategoryName, setNewCategoryName] = useState('');
-  const [showNewCategory, setShowNewCategory] = useState(false);
-  const [previewBudgetIndex, setPreviewBudgetIndex] = useState<number | null>(null);
-
   const event = data?.data;
 
-  const defaultChannelName = event
-    ? [
-        dayjs(event.StartDate).format('DD-MM-YY'),
-        event.Location?.toLowerCase().replace(/\s+/g, '-'),
-        event.Type?.toLowerCase(),
-      ].filter(Boolean).join('-')
-    : '';
-  const [newChannelName, setNewChannelName] = useState('');
-
-  useEffect(() => {
-    if (defaultChannelName && !newChannelName) {
-      setNewChannelName(defaultChannelName);
-    }
-  }, [defaultChannelName]);
+  const [previewBudgetIndex, setPreviewBudgetIndex] = useState<number | null>(null);
   const { data: messages = [], isLoading: messagesLoading } = useDiscordMessages(event?.DiscordChannelId, { polling: tab === 3 });
   const { mutate: sendMessage, isPending: isSending } = useSendDiscordMessage(event?.DiscordChannelId);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -98,37 +73,6 @@ export default function EventDetailPage() {
   const isPeriod = event?.Type === 'Viability' && event?.EndDate;
   const isCancelled = event?.EventStatus === 'Cancelled';
 
-  // Budget action buttons component
-  const BudgetActionButtons = ({ budgetIndex, setPreviewBudgetIndex }: { budgetIndex: number; setPreviewBudgetIndex: (i: number | null) => void }) => {
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-    const open = Boolean(anchorEl);
-
-    return (
-      <>
-        <IconButton size="small" onClick={() => setPreviewBudgetIndex(budgetIndex)} title="Vista previa">
-          <VisibilityIcon fontSize="small" />
-        </IconButton>
-        <IconButton size="small" onClick={(e) => setAnchorEl(e.currentTarget)} title="Compartir">
-          <ShareIcon fontSize="small" />
-        </IconButton>
-        <Popper open={open} anchorEl={anchorEl} placement="bottom-end">
-          <Paper sx={{ p: 1, mt: 1 }}>
-            <Stack spacing={0.5}>
-              <Typography variant="caption" sx={{ px: 1, display: 'block', color: 'text.secondary' }}>
-                Compartir como:
-              </Typography>
-              <Button size="small" fullWidth sx={{ justifyContent: 'flex-start' }}>
-                📧 Email
-              </Button>
-              <Button size="small" fullWidth sx={{ justifyContent: 'flex-start' }}>
-                🔗 Copiar enlace
-              </Button>
-            </Stack>
-          </Paper>
-        </Popper>
-      </>
-    );
-  };
 
   return (
     <PageLayout
@@ -337,7 +281,11 @@ export default function EventDetailPage() {
                             <Typography variant="h6" color={budget.Accepted ? 'success.main' : 'text.primary'}>
                               {((budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0)).toLocaleString('es-ES')} €
                             </Typography>
-                            <BudgetActionButtons budgetIndex={index} setPreviewBudgetIndex={setPreviewBudgetIndex} />
+                            <BudgetActionButtons
+                              budgetIndex={index}
+                              onPreview={setPreviewBudgetIndex}
+                              contactEmail={contactEmail}
+                            />
                           </Stack>
                         </Stack>
                       </Box>
@@ -367,150 +315,23 @@ export default function EventDetailPage() {
           {/* Tab: Conversación */}
           {tab === 3 && (
             <Stack spacing={3}>
-              {/* Channel config — show when no channel linked, or collapsible when linked */}
-              {!event.DiscordChannelId && (
+              {!event.DiscordChannelId ? (
                 <Paper elevation={2} sx={{ p: 3 }}>
-                  <Stack spacing={2}>
-                    <Typography variant="h6">Vincular canal de Discord</Typography>
-                    <Divider />
-
-                    {/* Select existing channel */}
-                    <Stack direction="row" spacing={1} alignItems="center">
-                      <Autocomplete
-                        options={channels}
-                        getOptionLabel={(option) => `#${option.name}`}
-                        loading={channelsLoading}
-                        value={selectedChannel}
-                        onChange={(_e, value) => setSelectedChannel(value)}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            placeholder="Buscar canal existente..."
-                            size="small"
-                          />
-                        )}
-                        sx={{ flexGrow: 1 }}
-                      />
-                      <Button
-                        variant="contained"
-                        startIcon={<LinkIcon />}
-                        disabled={!selectedChannel || isLinking}
-                        onClick={() => {
-                          if (selectedChannel) linkChannel(selectedChannel.id);
-                        }}
-                      >
-                        Vincular
-                      </Button>
-                    </Stack>
-
-                    <Divider><Typography variant="caption" color="text.secondary">o</Typography></Divider>
-
-                    {/* Create new channel with optional category */}
-                    <Stack spacing={1.5}>
-                      {/* Category selection */}
-                      <Stack spacing={1}>
-                        <Typography variant="caption" color="text.secondary">Categoría (opcional)</Typography>
-                        {!showNewCategory ? (
-                          <Stack direction="row" spacing={1} alignItems="center">
-                            <Autocomplete
-                              options={categories}
-                              getOptionLabel={(option) => option.name}
-                              loading={categoriesLoading}
-                              value={selectedCategory}
-                              onChange={(_e, value) => setSelectedCategory(value)}
-                              renderInput={(params) => (
-                                <TextField
-                                  {...params}
-                                  placeholder="Seleccionar categoría..."
-                                  size="small"
-                                />
-                              )}
-                              sx={{ flexGrow: 1 }}
-                            />
-                            <Button
-                              variant="text"
-                              size="small"
-                              onClick={() => setShowNewCategory(true)}
-                            >
-                              Crear nueva
-                            </Button>
-                          </Stack>
-                        ) : (
-                          <Stack direction="row" spacing={1} alignItems="center">
-                            <TextField
-                              size="small"
-                              placeholder="Nombre de la categoría..."
-                              value={newCategoryName}
-                              onChange={(e) => setNewCategoryName(e.target.value)}
-                              sx={{ flexGrow: 1 }}
-                            />
-                            <Button
-                              variant="text"
-                              size="small"
-                              onClick={() => {
-                                setShowNewCategory(false);
-                                setNewCategoryName('');
-                                setSelectedCategory(null);
-                              }}
-                            >
-                              Cancelar
-                            </Button>
-                            <Button
-                              variant="outlined"
-                              size="small"
-                              disabled={!newCategoryName.trim() || isCreatingCategory}
-                              onClick={async () => {
-                                const category = await createCategory(newCategoryName.trim());
-                                setSelectedCategory({ id: category.id, name: category.name });
-                                setNewCategoryName('');
-                                setShowNewCategory(false);
-                              }}
-                            >
-                              Crear
-                            </Button>
-                          </Stack>
-                        )}
-                      </Stack>
-
-                      {/* Channel name input */}
-                      <Stack direction="row" spacing={1} alignItems="center">
-                        <TextField
-                          size="small"
-                          placeholder="Nombre del nuevo canal..."
-                          value={newChannelName}
-                          onChange={(e) => setNewChannelName(e.target.value)}
-                          sx={{ flexGrow: 1 }}
-                        />
-                        <Button
-                          variant="outlined"
-                          startIcon={<AddIcon />}
-                          disabled={!newChannelName.trim() || isCreating}
-                          onClick={async () => {
-                            const channel = await createChannel({
-                              name: newChannelName.trim(),
-                              categoryId: selectedCategory?.id,
-                            });
-                            linkChannel(channel.id);
-                            setNewChannelName('');
-                            setSelectedCategory(null);
-                          }}
-                        >
-                          Crear y vincular
-                        </Button>
-                      </Stack>
-                    </Stack>
+                  <Stack spacing={2} alignItems="center" textAlign="center">
+                    <Typography variant="h6">Sin canal de Discord</Typography>
+                    <Divider sx={{ width: '100%' }} />
+                    <Typography variant="body2" color="text.secondary">
+                      No hay un canal vinculado a este evento. Ve a la sección de <strong>edición</strong> y en la pestaña <strong>Discord</strong> para vincular o crear uno.
+                    </Typography>
                   </Stack>
                 </Paper>
-              )}
-
-              {/* Chat messages */}
-              {event.DiscordChannelId && (
+              ) : (
                 <Paper elevation={2} sx={{ p: 3 }}>
                   <Stack spacing={2}>
                     <Stack direction="row" alignItems="center" justifyContent="space-between">
                       <Typography variant="h6">Mensajes</Typography>
                       <Chip
-                        label={`#${channels.find((c) => c.id === event.DiscordChannelId)?.name ?? event.DiscordChannelId}`}
+                        label={`#${event.DiscordChannelId}`}
                         size="small"
                         variant="outlined"
                       />

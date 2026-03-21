@@ -1172,7 +1172,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.029Z */
+                            /** @default 2026-03-21T08:21:15.727Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1187,7 +1187,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.032Z */
+                                /** @default 2026-03-21T08:21:15.730Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1211,7 +1211,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.034Z */
+                                    /** @default 2026-03-21T08:21:15.733Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1243,7 +1243,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -1254,7 +1254,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -1263,7 +1263,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -1333,7 +1333,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -1344,7 +1344,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -1353,7 +1353,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -1424,7 +1424,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -1435,7 +1435,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -1444,7 +1444,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -1530,7 +1530,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -1541,7 +1541,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -1550,7 +1550,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -1620,7 +1620,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -1631,7 +1631,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -1640,7 +1640,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -1711,7 +1711,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.038Z */
+                                /** @default 2026-03-21T08:21:15.736Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -1722,7 +1722,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.039Z */
+                                    /** @default 2026-03-21T08:21:15.737Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -1731,7 +1731,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.040Z */
+                                        /** @default 2026-03-21T08:21:15.738Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -1859,7 +1859,7 @@ export interface operations {
                         EventStatus: "Requested" | "Budgeted" | "Accepted" | "Cancelled";
                         CancelledDate?: string;
                         DiscordChannelId?: string;
-                        /** @default 2026-03-20T22:57:47.053Z */
+                        /** @default 2026-03-21T08:21:15.761Z */
                         publishedAt: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -1900,7 +1900,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.055Z */
+                            /** @default 2026-03-21T08:21:15.763Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -1915,7 +1915,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.032Z */
+                                /** @default 2026-03-21T08:21:15.730Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -1939,7 +1939,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.034Z */
+                                    /** @default 2026-03-21T08:21:15.733Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -1971,7 +1971,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -1982,7 +1982,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -1991,7 +1991,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -2061,7 +2061,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -2072,7 +2072,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -2081,7 +2081,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -2152,7 +2152,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -2163,7 +2163,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -2172,7 +2172,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -2258,7 +2258,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -2269,7 +2269,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -2278,7 +2278,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -2348,7 +2348,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -2359,7 +2359,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -2368,7 +2368,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -2439,7 +2439,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.038Z */
+                                /** @default 2026-03-21T08:21:15.736Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -2450,7 +2450,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.039Z */
+                                    /** @default 2026-03-21T08:21:15.737Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -2459,7 +2459,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.040Z */
+                                        /** @default 2026-03-21T08:21:15.738Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -2608,7 +2608,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.049Z */
+                            /** @default 2026-03-21T08:21:15.757Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -2623,7 +2623,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.032Z */
+                                /** @default 2026-03-21T08:21:15.730Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -2647,7 +2647,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.034Z */
+                                    /** @default 2026-03-21T08:21:15.733Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -2679,7 +2679,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -2690,7 +2690,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -2699,7 +2699,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -2769,7 +2769,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -2780,7 +2780,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -2789,7 +2789,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -2860,7 +2860,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -2871,7 +2871,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -2880,7 +2880,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -2966,7 +2966,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -2977,7 +2977,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -2986,7 +2986,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -3056,7 +3056,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -3067,7 +3067,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -3076,7 +3076,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -3147,7 +3147,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.038Z */
+                                /** @default 2026-03-21T08:21:15.736Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -3158,7 +3158,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.039Z */
+                                    /** @default 2026-03-21T08:21:15.737Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -3167,7 +3167,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.040Z */
+                                        /** @default 2026-03-21T08:21:15.738Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -3297,7 +3297,7 @@ export interface operations {
                         EventStatus?: "Requested" | "Budgeted" | "Accepted" | "Cancelled";
                         CancelledDate?: string;
                         DiscordChannelId?: string;
-                        /** @default 2026-03-20T22:57:47.058Z */
+                        /** @default 2026-03-21T08:21:15.767Z */
                         publishedAt?: string;
                         contacts?: string[];
                         Budget?: unknown[];
@@ -3338,7 +3338,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.060Z */
+                            /** @default 2026-03-21T08:21:15.769Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -3353,7 +3353,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.032Z */
+                                /** @default 2026-03-21T08:21:15.730Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -3377,7 +3377,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.034Z */
+                                    /** @default 2026-03-21T08:21:15.733Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -3409,7 +3409,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -3420,7 +3420,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -3429,7 +3429,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -3499,7 +3499,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -3510,7 +3510,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -3519,7 +3519,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -3590,7 +3590,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -3601,7 +3601,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -3610,7 +3610,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -3696,7 +3696,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -3707,7 +3707,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -3716,7 +3716,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -3786,7 +3786,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -3797,7 +3797,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -3806,7 +3806,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -3877,7 +3877,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.038Z */
+                                /** @default 2026-03-21T08:21:15.736Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -3888,7 +3888,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.039Z */
+                                    /** @default 2026-03-21T08:21:15.737Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -3897,7 +3897,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.040Z */
+                                        /** @default 2026-03-21T08:21:15.738Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -4041,7 +4041,7 @@ export interface operations {
                             DiscordChannelId?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.063Z */
+                            /** @default 2026-03-21T08:21:15.772Z */
                             publishedAt: string;
                             contacts?: {
                                 /** Format: uuid */
@@ -4056,7 +4056,7 @@ export interface operations {
                                 Type?: "Client" | "Provider" | "Manager";
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.032Z */
+                                /** @default 2026-03-21T08:21:15.730Z */
                                 publishedAt: string;
                                 events?: {
                                     /** Format: uuid */
@@ -4080,7 +4080,7 @@ export interface operations {
                                     DiscordChannelId?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.034Z */
+                                    /** @default 2026-03-21T08:21:15.733Z */
                                     publishedAt: string;
                                     contacts?: unknown[];
                                     Budget?: {
@@ -4112,7 +4112,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -4123,7 +4123,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -4132,7 +4132,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -4202,7 +4202,7 @@ export interface operations {
                                             displayName?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.038Z */
+                                            /** @default 2026-03-21T08:21:15.736Z */
                                             publishedAt: string;
                                             role?: {
                                                 /** Format: uuid */
@@ -4213,7 +4213,7 @@ export interface operations {
                                                 type?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.039Z */
+                                                /** @default 2026-03-21T08:21:15.737Z */
                                                 publishedAt: string;
                                                 permissions?: {
                                                     /** Format: uuid */
@@ -4222,7 +4222,7 @@ export interface operations {
                                                     action: string;
                                                     createdAt?: string;
                                                     updatedAt?: string;
-                                                    /** @default 2026-03-20T22:57:47.040Z */
+                                                    /** @default 2026-03-21T08:21:15.738Z */
                                                     publishedAt: string;
                                                     role?: unknown;
                                                 }[];
@@ -4293,7 +4293,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -4304,7 +4304,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -4313,7 +4313,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -4399,7 +4399,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -4410,7 +4410,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -4419,7 +4419,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -4489,7 +4489,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -4500,7 +4500,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -4509,7 +4509,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -4580,7 +4580,7 @@ export interface operations {
                                 displayName?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.038Z */
+                                /** @default 2026-03-21T08:21:15.736Z */
                                 publishedAt: string;
                                 role?: {
                                     /** Format: uuid */
@@ -4591,7 +4591,7 @@ export interface operations {
                                     type?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.039Z */
+                                    /** @default 2026-03-21T08:21:15.737Z */
                                     publishedAt: string;
                                     permissions?: {
                                         /** Format: uuid */
@@ -4600,7 +4600,7 @@ export interface operations {
                                         action: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.040Z */
+                                        /** @default 2026-03-21T08:21:15.738Z */
                                         publishedAt: string;
                                         role?: unknown;
                                     }[];
@@ -4732,7 +4732,7 @@ export interface operations {
                             InvoiceCounter?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.067Z */
+                            /** @default 2026-03-21T08:21:15.776Z */
                             publishedAt: string;
                             BasicLogo?: {
                                 /** Format: uuid */
@@ -4755,7 +4755,7 @@ export interface operations {
                                 provider_metadata?: unknown;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.069Z */
+                                /** @default 2026-03-21T08:21:15.778Z */
                                 publishedAt: string;
                                 related: unknown;
                             };
@@ -4780,7 +4780,7 @@ export interface operations {
                                 provider_metadata?: unknown;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.069Z */
+                                /** @default 2026-03-21T08:21:15.778Z */
                                 publishedAt: string;
                                 related: unknown;
                             };
@@ -4847,7 +4847,7 @@ export interface operations {
                         Email?: string;
                         BudgetCounter?: string;
                         InvoiceCounter?: string;
-                        /** @default 2026-03-20T22:57:47.072Z */
+                        /** @default 2026-03-21T08:21:15.781Z */
                         publishedAt?: string;
                         BasicLogo?: unknown;
                         LargeLogo?: unknown;
@@ -4875,7 +4875,7 @@ export interface operations {
                             InvoiceCounter?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.073Z */
+                            /** @default 2026-03-21T08:21:15.782Z */
                             publishedAt: string;
                             BasicLogo?: {
                                 /** Format: uuid */
@@ -4898,7 +4898,7 @@ export interface operations {
                                 provider_metadata?: unknown;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.069Z */
+                                /** @default 2026-03-21T08:21:15.778Z */
                                 publishedAt: string;
                                 related: unknown;
                             };
@@ -4923,7 +4923,7 @@ export interface operations {
                                 provider_metadata?: unknown;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.069Z */
+                                /** @default 2026-03-21T08:21:15.778Z */
                                 publishedAt: string;
                                 related: unknown;
                             };
@@ -5001,7 +5001,7 @@ export interface operations {
                             InvoiceCounter?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.075Z */
+                            /** @default 2026-03-21T08:21:15.784Z */
                             publishedAt: string;
                             BasicLogo?: {
                                 /** Format: uuid */
@@ -5024,7 +5024,7 @@ export interface operations {
                                 provider_metadata?: unknown;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.069Z */
+                                /** @default 2026-03-21T08:21:15.778Z */
                                 publishedAt: string;
                                 related: unknown;
                             };
@@ -5049,7 +5049,7 @@ export interface operations {
                                 provider_metadata?: unknown;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.069Z */
+                                /** @default 2026-03-21T08:21:15.778Z */
                                 publishedAt: string;
                                 related: unknown;
                             };
@@ -5146,7 +5146,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.079Z */
+                            /** @default 2026-03-21T08:21:15.788Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -5170,7 +5170,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.034Z */
+                                /** @default 2026-03-21T08:21:15.733Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -5202,7 +5202,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -5213,7 +5213,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -5222,7 +5222,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -5292,7 +5292,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -5303,7 +5303,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -5312,7 +5312,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -5383,7 +5383,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -5394,7 +5394,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -5403,7 +5403,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -5523,7 +5523,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-20T22:57:47.084Z */
+                        /** @default 2026-03-21T08:21:15.794Z */
                         publishedAt: string;
                         events?: string[];
                     };
@@ -5551,7 +5551,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.085Z */
+                            /** @default 2026-03-21T08:21:15.795Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -5575,7 +5575,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.034Z */
+                                /** @default 2026-03-21T08:21:15.733Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -5607,7 +5607,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -5618,7 +5618,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -5627,7 +5627,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -5697,7 +5697,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -5708,7 +5708,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -5717,7 +5717,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -5788,7 +5788,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -5799,7 +5799,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -5808,7 +5808,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -5949,7 +5949,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.082Z */
+                            /** @default 2026-03-21T08:21:15.791Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -5973,7 +5973,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.034Z */
+                                /** @default 2026-03-21T08:21:15.733Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -6005,7 +6005,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -6016,7 +6016,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -6025,7 +6025,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -6095,7 +6095,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -6106,7 +6106,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -6115,7 +6115,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -6186,7 +6186,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -6197,7 +6197,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -6206,7 +6206,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -6328,7 +6328,7 @@ export interface operations {
                         Description?: string;
                         /** @enum {string} */
                         Type?: "Client" | "Provider" | "Manager";
-                        /** @default 2026-03-20T22:57:47.087Z */
+                        /** @default 2026-03-21T08:21:15.796Z */
                         publishedAt?: string;
                         events?: string[];
                     };
@@ -6356,7 +6356,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.096Z */
+                            /** @default 2026-03-21T08:21:15.797Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -6380,7 +6380,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.034Z */
+                                /** @default 2026-03-21T08:21:15.733Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -6412,7 +6412,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -6423,7 +6423,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -6432,7 +6432,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -6502,7 +6502,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -6513,7 +6513,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -6522,7 +6522,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -6593,7 +6593,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -6604,7 +6604,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -6613,7 +6613,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -6749,7 +6749,7 @@ export interface operations {
                             Type?: "Client" | "Provider" | "Manager";
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.098Z */
+                            /** @default 2026-03-21T08:21:15.799Z */
                             publishedAt: string;
                             events?: {
                                 /** Format: uuid */
@@ -6773,7 +6773,7 @@ export interface operations {
                                 DiscordChannelId?: string;
                                 createdAt?: string;
                                 updatedAt?: string;
-                                /** @default 2026-03-20T22:57:47.034Z */
+                                /** @default 2026-03-21T08:21:15.733Z */
                                 publishedAt: string;
                                 contacts?: unknown[];
                                 Budget?: {
@@ -6805,7 +6805,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -6816,7 +6816,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -6825,7 +6825,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -6895,7 +6895,7 @@ export interface operations {
                                         displayName?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.038Z */
+                                        /** @default 2026-03-21T08:21:15.736Z */
                                         publishedAt: string;
                                         role?: {
                                             /** Format: uuid */
@@ -6906,7 +6906,7 @@ export interface operations {
                                             type?: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.039Z */
+                                            /** @default 2026-03-21T08:21:15.737Z */
                                             publishedAt: string;
                                             permissions?: {
                                                 /** Format: uuid */
@@ -6915,7 +6915,7 @@ export interface operations {
                                                 action: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
-                                                /** @default 2026-03-20T22:57:47.040Z */
+                                                /** @default 2026-03-21T08:21:15.738Z */
                                                 publishedAt: string;
                                                 role?: unknown;
                                             }[];
@@ -6986,7 +6986,7 @@ export interface operations {
                                     displayName?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
-                                    /** @default 2026-03-20T22:57:47.038Z */
+                                    /** @default 2026-03-21T08:21:15.736Z */
                                     publishedAt: string;
                                     role?: {
                                         /** Format: uuid */
@@ -6997,7 +6997,7 @@ export interface operations {
                                         type?: string;
                                         createdAt?: string;
                                         updatedAt?: string;
-                                        /** @default 2026-03-20T22:57:47.039Z */
+                                        /** @default 2026-03-21T08:21:15.737Z */
                                         publishedAt: string;
                                         permissions?: {
                                             /** Format: uuid */
@@ -7006,7 +7006,7 @@ export interface operations {
                                             action: string;
                                             createdAt?: string;
                                             updatedAt?: string;
-                                            /** @default 2026-03-20T22:57:47.040Z */
+                                            /** @default 2026-03-21T08:21:15.738Z */
                                             publishedAt: string;
                                             role?: unknown;
                                         }[];
@@ -7136,7 +7136,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.101Z */
+                            /** @default 2026-03-21T08:21:15.802Z */
                             publishedAt: string;
                         };
                     };
@@ -7198,7 +7198,7 @@ export interface operations {
                         Base?: string;
                         DJ?: string;
                         Equipment?: string;
-                        /** @default 2026-03-20T22:57:47.102Z */
+                        /** @default 2026-03-21T08:21:15.804Z */
                         publishedAt?: string;
                     };
                 };
@@ -7221,7 +7221,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.103Z */
+                            /** @default 2026-03-21T08:21:15.805Z */
                             publishedAt: string;
                         };
                     };
@@ -7294,7 +7294,7 @@ export interface operations {
                             Equipment?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.104Z */
+                            /** @default 2026-03-21T08:21:15.806Z */
                             publishedAt: string;
                         };
                     };
@@ -7522,7 +7522,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.107Z */
+                            /** @default 2026-03-21T08:21:15.809Z */
                             publishedAt: string;
                         }[];
                     };
@@ -7583,7 +7583,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-20T22:57:47.442Z */
+                        /** @default 2026-03-21T08:21:16.141Z */
                         publishedAt: string;
                     };
                 };
@@ -7605,7 +7605,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.111Z */
+                            /** @default 2026-03-21T08:21:15.813Z */
                             publishedAt: string;
                         };
                     };
@@ -7687,7 +7687,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.109Z */
+                            /** @default 2026-03-21T08:21:15.811Z */
                             publishedAt: string;
                         };
                     };
@@ -7750,7 +7750,7 @@ export interface operations {
                     data: {
                         minDistance?: string;
                         additionalPrice?: string;
-                        /** @default 2026-03-20T22:57:47.112Z */
+                        /** @default 2026-03-21T08:21:15.815Z */
                         publishedAt?: string;
                     };
                 };
@@ -7772,7 +7772,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.113Z */
+                            /** @default 2026-03-21T08:21:15.815Z */
                             publishedAt: string;
                         };
                     };
@@ -7849,7 +7849,7 @@ export interface operations {
                             additionalPrice?: string;
                             createdAt?: string;
                             updatedAt?: string;
-                            /** @default 2026-03-20T22:57:47.115Z */
+                            /** @default 2026-03-21T08:21:15.817Z */
                             publishedAt: string;
                         };
                     };
