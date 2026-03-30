@@ -1,22 +1,26 @@
-import { useEvents } from '@/features/events/hooks/useEvents';
+import { useEvents, useDeleteEvent } from '@/features/events/hooks/useEvents';
 import { DataTable } from '@/shared/components/DataTable';
 import type { ColumnDef } from '@/shared/components/DataTable';
 import { PopperButton } from '@/shared/components/PopperButton';
 import { useDrawerNav } from '@/shared/context/DrawerContext';
+import { useSnackbar } from '@/shared/context/SnackbarContext';
 import { PageLayout } from '@/shared/layouts/PageLayout';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import PaidIcon from '@mui/icons-material/Paid';
 import SearchIcon from '@mui/icons-material/Search';
-import { Checkbox, Chip, FormControlLabel, InputAdornment, Stack, TextField, Tooltip, Typography } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Checkbox, Chip, FormControlLabel, IconButton, InputAdornment, Stack, TextField, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 dayjs.locale('es');
 
 type EventRow = NonNullable<ReturnType<typeof useEvents>['data']>['data'][number];
 
-const columns: ColumnDef<EventRow>[] = [
+const getColumns = (onEdit: (id: string) => void, onDelete: (id: string) => void): ColumnDef<EventRow>[] => [
   {
     key: 'name',
     header: 'Nombre',
@@ -95,6 +99,30 @@ const columns: ColumnDef<EventRow>[] = [
       return <Chip label={c.label} color={c.color} size="small" />;
     },
   },
+  {
+    key: 'actions',
+    header: 'Acciones',
+    render: (row) => (
+      <Stack direction="row" spacing={1}>
+        <IconButton
+          size="small"
+          onClick={() => onEdit(row.documentId)}
+          title="Editar"
+          color="primary"
+        >
+          <EditIcon fontSize="small" />
+        </IconButton>
+        <IconButton
+          size="small"
+          onClick={() => onDelete(row.documentId)}
+          title="Eliminar"
+          color="error"
+        >
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+      </Stack>
+    ),
+  },
 ];
 
 type GigType = 'Wedding' | 'Party' | 'Village' | 'Gig';
@@ -115,8 +143,11 @@ const STATUS_OPTIONS = [
 type StatusFilter = (typeof STATUS_OPTIONS)[number]['value'];
 
 export default function EventsPage() {
+  const navigate = useNavigate();
+  const { showSuccess, showError } = useSnackbar();
   const { data, isLoading } = useEvents({ query: { populate: ['Budget'] } });
   const { openEventDrawer } = useDrawerNav();
+  const { mutateAsync: deleteEvent } = useDeleteEvent();
   const [search, setSearch] = useState('');
   const [gigTypeFilters, setGigTypeFilters] = useState<Set<GigType>>(new Set(['Wedding', 'Party', 'Village', 'Gig']));
   const [statusFilters, setStatusFilters] = useState<Set<StatusFilter>>(new Set(['Requested', 'Accepted', 'Cancelled']));
@@ -140,6 +171,21 @@ export default function EventsPage() {
       else next.add(status);
       return next;
     });
+  };
+
+  const handleEdit = (id: string) => {
+    navigate(`/events/${id}/edit`);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar este evento?')) {
+      try {
+        await deleteEvent(id);
+        showSuccess('Evento eliminado correctamente');
+      } catch (err) {
+        showError(err instanceof Error ? err.message : 'Error al eliminar evento');
+      }
+    }
   };
 
   const filteredRows = useMemo(() => {
@@ -239,7 +285,7 @@ export default function EventsPage() {
       }
     >
       <DataTable
-        columns={columns}
+        columns={getColumns(handleEdit, handleDelete)}
         rows={filteredRows}
         getRowKey={(row) => row.documentId}
         isLoading={isLoading}

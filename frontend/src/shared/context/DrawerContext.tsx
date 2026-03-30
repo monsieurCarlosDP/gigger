@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 
-export type DrawerView = 'day' | 'event' | 'budgets';
+export type DrawerView = 'day' | 'event' | 'budgets' | 'person';
 export type EventTab = 'info' | 'logistics' | 'budget' | 'chat';
 
 const TAB_INDEX: Record<EventTab, number> = {
@@ -20,6 +20,7 @@ export function useDrawerNav() {
     drawerType,
     drawerDate: searchParams.get('date'),
     drawerEventId: searchParams.get('id'),
+    drawerPersonId: searchParams.get('id'),
     tabIndex: TAB_INDEX[openTab] ?? 0,
     openDayDrawer: (date: string) =>
       setSearchParams({ drawer: 'day', date }),
@@ -28,6 +29,8 @@ export function useDrawerNav() {
       if (tab) params.openTab = tab;
       setSearchParams(params);
     },
+    openPersonDrawer: (id: string) =>
+      setSearchParams({ drawer: 'person', id }),
     openBudgetsDrawer: (eventId: string) =>
       setSearchParams({ drawer: 'budgets', id: eventId }),
     closeDrawer: () => setSearchParams({}),

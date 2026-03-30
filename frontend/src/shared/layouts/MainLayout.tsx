@@ -10,6 +10,7 @@ import { FloatingActionMenu } from '../components/FloatingActionMenu';
 import { DayEventsDrawerView } from './DayEventsDrawerView';
 import { EventBudgetsDrawerView } from './EventBudgetsDrawerView';
 import { EventDetailDrawerView } from './EventDetailDrawerView';
+import { PersonDetailDrawerView } from './PersonDetailDrawerView';
 import EditIcon from '@mui/icons-material/Edit';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 
@@ -37,6 +38,9 @@ export default function MainLayout() {
   } else if (drawerType === 'budgets') {
     const id = searchParams.get('id') ?? '';
     drawerContent = <EventBudgetsDrawerView eventId={id} />;
+  } else if (drawerType === 'person') {
+    const id = searchParams.get('id') ?? '';
+    drawerContent = <PersonDetailDrawerView id={id} />;
   }
 
   return (

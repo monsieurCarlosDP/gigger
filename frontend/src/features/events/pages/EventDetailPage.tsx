@@ -20,10 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
 import RouteIcon from '@mui/icons-material/Route';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import ShareIcon from '@mui/icons-material/Share';
 import {
-  Autocomplete,
   Box,
   Button,
   Chip,
@@ -31,11 +28,9 @@ import {
   Divider,
   IconButton,
   Paper,
-  Popper,
   Stack,
   Tab,
   Tabs,
-  TextField,
   Typography,
 } from '@mui/material';
 import dayjs from 'dayjs';

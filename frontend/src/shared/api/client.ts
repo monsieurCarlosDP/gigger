@@ -102,12 +102,21 @@ export type ListQuery = paths['/events']['get']['parameters']['query'];
 export type EventByIdQuery = paths['/events/{id}']['get']['parameters']['query'];
 export type PeopleQuery = paths['/people']['get']['parameters']['query'];
 export type PersonByIdQuery = paths['/people/{id}']['get']['parameters']['query'];
+export type TagsQuery = paths['/tags']['get']['parameters']['query'];
+export type TagByIdQuery = paths['/tags/{id}']['get']['parameters']['query'];
 export type TarifDistancesQuery = paths['/tarif-distances']['get']['parameters']['query'];
 export type TarifDistanceByIdQuery = paths['/tarif-distances/{id}']['get']['parameters']['query'];
 
 /** Request body types for mutations */
 export type CreateEventBody = NonNullable<paths['/events']['post']['requestBody']>['content']['application/json'];
 export type UpdateEventBody = NonNullable<paths['/events/{id}']['put']['requestBody']>['content']['application/json'];
+export type CreatePersonBody = NonNullable<paths['/people']['post']['requestBody']>['content']['application/json'];
+export type UpdatePersonBody = NonNullable<paths['/people/{id}']['put']['requestBody']>['content']['application/json'];
+export type CreateTagBody = NonNullable<paths['/tags']['post']['requestBody']>['content']['application/json'];
+export type UpdateTagBody = NonNullable<paths['/tags/{id}']['put']['requestBody']>['content']['application/json'];
+
+/** Data types - Response models */
+export type Tag = NonNullable<paths['/tags']['get']['responses']['200']['content']['application/json']['data']>[number];
 
 /**
  * API client with GET methods only. Use from custom hooks.
@@ -163,6 +172,46 @@ export const api = {
   /** DELETE /events/{id} */
   deleteEvent(id: string) {
     return fetchClient.DELETE('/events/{id}', { params: { path: { id } } });
+  },
+
+  /** POST /people */
+  createPerson(body: CreatePersonBody) {
+    return fetchClient.POST('/people', { body });
+  },
+
+  /** PUT /people/{id} */
+  updatePerson(id: string, body: UpdatePersonBody) {
+    return fetchClient.PUT('/people/{id}', { params: { path: { id } }, body });
+  },
+
+  /** DELETE /people/{id} */
+  deletePerson(id: string) {
+    return fetchClient.DELETE('/people/{id}', { params: { path: { id } } });
+  },
+
+  /** GET /tags */
+  getTags(params?: { query?: TagsQuery }) {
+    return fetchClient.GET('/tags', { params });
+  },
+
+  /** GET /tags/{id} */
+  getTagById(id: string, params?: { query?: TagByIdQuery }) {
+    return fetchClient.GET('/tags/{id}', { params: { path: { id }, query: params?.query } });
+  },
+
+  /** POST /tags */
+  createTag(body: CreateTagBody) {
+    return fetchClient.POST('/tags', { body });
+  },
+
+  /** PUT /tags/{id} */
+  updateTag(id: string, body: UpdateTagBody) {
+    return fetchClient.PUT('/tags/{id}', { params: { path: { id } }, body });
+  },
+
+  /** DELETE /tags/{id} */
+  deleteTag(id: string) {
+    return fetchClient.DELETE('/tags/{id}', { params: { path: { id } } });
   },
 
   /** GET /profile/my-viability — list Viability events for current user */

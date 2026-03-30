@@ -3,6 +3,8 @@ import type { EventFormDispatch, EventFormState } from '@/features/events/hooks/
 import { eventToFormState, useEventForm } from '@/features/events/hooks/useEventForm';
 import { useEventById, useUpdateEvent } from '@/features/events/hooks/useEvents';
 import { useTarifDistance } from '@/features/events/hooks/useTarifDistance';
+import { usePeople } from '@/features/people/hooks/usePeople';
+import { CreatePersonModal } from '@/features/people/components/CreatePersonModal';
 import { usePrice } from '@/features/tariffs/hooks/usePrice';
 import { useQueryClient } from '@tanstack/react-query';
 import { Timeline } from '@/shared/components/Timeline';
@@ -66,6 +68,7 @@ export default function EventEditPage() {
   const queryClient = useQueryClient();
   const TAB_MAP: Record<string, number> = { info: 0, logistics: 1, budget: 2, chat: 3 };
   const [tab, setTab] = useState(() => TAB_MAP[searchParams.get('openTab') ?? 'info'] ?? 0);
+  const [openCreatePersonModal, setOpenCreatePersonModal] = useState(false);
 
   const { data, isLoading } = useEventById(documentId ?? '', {
     query: { populate: ['contacts', 'Budget', 'Logistic'] },
@@ -158,6 +161,8 @@ export default function EventEditPage() {
             channels={channels}
             channelsLoading={channelsLoading}
             formRef={formRef}
+            openCreatePersonModal={openCreatePersonModal}
+            setOpenCreatePersonModal={setOpenCreatePersonModal}
           />
         )}
       </PageLayout>
@@ -174,6 +179,8 @@ function EventEditForm({
   channels,
   channelsLoading,
   formRef,
+  openCreatePersonModal,
+  setOpenCreatePersonModal,
 }: {
   documentId: string;
   event: Record<string, unknown>;
@@ -182,8 +189,11 @@ function EventEditForm({
   channels: { id: string; name: string }[];
   channelsLoading: boolean;
   formRef: React.MutableRefObject<(() => EventFormState) | null>;
+  openCreatePersonModal: boolean;
+  setOpenCreatePersonModal: (v: boolean) => void;
 }) {
   const [form, dispatch] = useEventForm(eventToFormState(event));
+  const { data: peopleData, refetch: refetchPeople } = usePeople();
 
   // Expose current form state to parent via ref
   formRef.current = () => form;
@@ -202,7 +212,16 @@ function EventEditForm({
         </Tabs>
       </Box>
 
-      {tab === 0 && <InfoTab form={form} dispatch={dispatch} />}
+      {tab === 0 && (
+        <InfoTab
+          form={form}
+          dispatch={dispatch}
+          people={peopleData?.data ?? []}
+          openCreatePersonModal={openCreatePersonModal}
+          setOpenCreatePersonModal={setOpenCreatePersonModal}
+          refetchPeople={refetchPeople}
+        />
+      )}
       {tab === 1 && <LogisticsTab form={form} dispatch={dispatch} />}
       {tab === 2 && <BudgetTab form={form} dispatch={dispatch} defaultDietas={defaultDietas} price={price} />}
       {tab === 3 && (
@@ -221,7 +240,36 @@ function EventEditForm({
 }
 
 /** Tab: Info */
-function InfoTab({ form, dispatch }: { form: EventFormState; dispatch: EventFormDispatch }) {
+function InfoTab({
+  form,
+  dispatch,
+  people = [],
+  openCreatePersonModal,
+  setOpenCreatePersonModal,
+  refetchPeople,
+}: {
+  form: EventFormState;
+  dispatch: EventFormDispatch;
+  people?: any[];
+  openCreatePersonModal: boolean;
+  setOpenCreatePersonModal: (v: boolean) => void;
+  refetchPeople: () => void;
+}) {
+  const handlePersonCreated = (newPerson: any) => {
+    // Extraer documentId y Name de la persona creada
+    const contact = {
+      documentId: newPerson.documentId,
+      Name: newPerson.Name,
+    };
+    // Agregar la persona creada a los contactos
+    dispatch({
+      type: 'SET_CONTACT',
+      contacts: [...form.contacts, contact],
+    });
+    // Refrescar la lista de personas
+    refetchPeople();
+  };
+
   return (
     <Stack spacing={3}>
       <Paper elevation={2} sx={{ p: 3 }}>
@@ -308,23 +356,35 @@ function InfoTab({ form, dispatch }: { form: EventFormState; dispatch: EventForm
 
       <Paper elevation={2} sx={{ p: 3 }}>
         <Stack spacing={3}>
-          <Typography variant="h6">Contactos</Typography>
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <Typography variant="h6">Contactos</Typography>
+            <Button size="small" variant="outlined" onClick={() => setOpenCreatePersonModal(true)}>
+              + Nuevo
+            </Button>
+          </Stack>
           <Divider />
 
           <Autocomplete
             multiple
-            options={[]}
-            value={form.contacts.map((c) => ({ label: c.Name, id: c.documentId }))}
-            getOptionLabel={(option) => option.label}
+            options={people}
+            getOptionLabel={(option) => option.Name || ''}
+            value={form.contacts}
             renderInput={(params) => (
               <TextField {...params} placeholder="Buscar contactos..." />
             )}
             onChange={(_e, value) => {
               dispatch({
                 type: 'SET_CONTACT',
-                contacts: value.map((v) => ({ documentId: v.id, Name: v.label })),
+                contacts: value,
               });
             }}
+            isOptionEqualToValue={(option, value) => option.documentId === value.documentId}
+          />
+
+          <CreatePersonModal
+            open={openCreatePersonModal}
+            onClose={() => setOpenCreatePersonModal(false)}
+            onPersonCreated={handlePersonCreated}
           />
         </Stack>
       </Paper>
@@ -622,14 +682,14 @@ function BudgetTab({ form, dispatch, defaultDietas, price }: { form: EventFormSt
                     <TextField
                       label="🎸 Efectivishow (€)"
                       type="number"
-                      value={budget.Base ?? ''}
+                      value={budget.Base ?? price.base ?? ''}
                       onChange={(e) => dispatch({ type: 'UPDATE_BUDGET', index, field: 'Base', value: e.target.value ? Number(e.target.value) : null })}
                       sx={{ minWidth: 140 }}
                     />
                     <TextField
                       label="🚐 Dietas y transporte (€)"
                       type="number"
-                      value={budget.Dietas ?? ''}
+                      value={budget.Dietas ?? (form.Distance ? defaultDietas ?? 0 : 0) ?? ''}
                       onChange={(e) => dispatch({ type: 'UPDATE_BUDGET', index, field: 'Dietas', value: e.target.value ? Number(e.target.value) : null })}
                       sx={{ minWidth: 140 }}
                     />

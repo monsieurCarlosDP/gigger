@@ -35,7 +35,7 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
 
   const event = data?.data;
   // Use hook with channel ID, falls back to null if not available yet
-  const { mutate: sendDiscordMessageMutation } = useSendDiscordMessage(event?.DiscordChannelId ?? null);
+  const { mutate: sendDiscordMessage } = useSendDiscordMessage(event?.DiscordChannelId ?? null);
   const { mutateAsync: uploadPDF } = useUploadPDF();
 
   if (isLoading) {
@@ -92,8 +92,54 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
                           budgetIndex={index}
                           isLoadingEmail={isSendingEmail}
                           onPreview={setPreviewBudgetIndex}
+                          contacts={event.contacts}
                           contactEmail={contactEmail}
                           hasDiscordChannel={!!(event?.DiscordChannelId)}
+                          onShareEmail={async (email: string) => {
+                            const budgetTotal = (budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0);
+
+                            // Generate PDF
+                            const { base64, filename } = await generateBudgetPDF(
+                              {
+                                Name: event.Name ?? '',
+                                Location: event.Location ?? undefined,
+                                StartDate: event.StartDate ?? undefined,
+                                GigType: event.GigType ?? undefined,
+                                Distance: event.Distance,
+                              },
+                              {
+                                Base: budget.Base ?? null,
+                                Dietas: budget.Dietas ?? null,
+                                DJ: budget.DJ === true,
+                                Equipment: budget.Equipment === true,
+                                Accepted: budget.Accepted === true,
+                              },
+                              index,
+                              price.dj,
+                              price.equipment,
+                            );
+
+                            // Upload PDF to backend
+                            const uploadedFile = await uploadPDF({ filename, content: base64 });
+                            const pdfUrl = uploadedFile.url;
+
+                            const html = `
+                              <h2>${event.Name}</h2>
+                              <p><strong>Presupuesto ${index + 1}</strong></p>
+                              <hr />
+                              <h3>Desglose:</h3>
+                              <ul>
+                                ${budget.Base != null ? `<li>🎸 Efectivishow: ${budget.Base} €</li>` : ''}
+                                ${budget.Dietas != null ? `<li>🚐 Dietas y transporte: ${budget.Dietas} €</li>` : ''}
+                                ${budget.DJ ? `<li>🎧 EfectiviDJs: ${price.dj} €</li>` : ''}
+                                ${budget.Equipment ? `<li>🔊 Equipo: ${price.equipment} €</li>` : ''}
+                              </ul>
+                              <hr />
+                              <h3>Total: ${budgetTotal} €</h3>
+                              <p><a href="${pdfUrl}">📎 Descargar PDF</a></p>
+                            `;
+                            sendEmail({ email, subject: `Presupuesto para ${event.Name}`, html });
+                          }}
                           onShareDiscord={async () => {
                             if (!event.DiscordChannelId) return;
                             const budgetTotal = (budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0);
@@ -125,59 +171,7 @@ export function EventBudgetsDrawerView({ eventId }: EventBudgetsDrawerViewProps)
 
                             // Send Discord message with PDF link
                             const discordMessage = `📋 **Presupuesto ${index + 1} compartido**\n\n**${event.Name}**\n\n**Desglose:**\n${budget.Base != null ? `🎸 Efectivishow: ${budget.Base} €\n` : ''}${budget.Dietas != null ? `🚐 Dietas y transporte: ${budget.Dietas} €\n` : ''}${budget.DJ ? `🎧 EfectiviDJs: ${price.dj} €\n` : ''}${budget.Equipment ? `🔊 Equipo: ${price.equipment} €\n` : ''}\n**Total: ${budgetTotal} €**\n\n📎 [Descargar PDF](${pdfUrl})`;
-                            sendDiscordMessageMutation(discordMessage);
-                          }}
-                          onShareEmail={async () => {
-                            if (!contactEmail) return;
-                            const budgetTotal = (budget.Base ?? 0) + (budget.Dietas ?? 0) + (budget.DJ ? price.dj : 0) + (budget.Equipment ? price.equipment : 0);
-
-                            // Generate PDF
-                            const { base64, filename } = await generateBudgetPDF(
-                              {
-                                Name: event.Name ?? '',
-                                Location: event.Location ?? undefined,
-                                StartDate: event.StartDate ?? undefined,
-                                GigType: event.GigType ?? undefined,
-                                Distance: event.Distance,
-                              },
-                              {
-                                Base: budget.Base ?? null,
-                                Dietas: budget.Dietas ?? null,
-                                DJ: budget.DJ === true,
-                                Equipment: budget.Equipment === true,
-                                Accepted: budget.Accepted === true,
-                              },
-                              index,
-                              price.dj,
-                              price.equipment,
-                            );
-
-                            // Upload PDF to backend (same as Discord)
-                            const uploadedFile = await uploadPDF({ filename, content: base64 });
-                            const pdfUrl = uploadedFile.url;
-
-                            const html = `
-                              <h2>${event.Name}</h2>
-                              <p><strong>Presupuesto ${index + 1}</strong></p>
-                              <hr />
-                              <h3>Desglose:</h3>
-                              <ul>
-                                ${budget.Base != null ? `<li>🎸 Efectivishow: ${budget.Base} €</li>` : ''}
-                                ${budget.Dietas != null ? `<li>🚐 Dietas y transporte: ${budget.Dietas} €</li>` : ''}
-                                ${budget.DJ ? `<li>🎧 EfectiviDJs: ${price.dj} €</li>` : ''}
-                                ${budget.Equipment ? `<li>🔊 Equipo: ${price.equipment} €</li>` : ''}
-                              </ul>
-                              <hr />
-                              <h3>Total: ${budgetTotal} €</h3>
-                              <p><a href="${pdfUrl}">📎 Descargar PDF</a></p>
-                            `;
-
-                            // Send email with link to PDF
-                            sendEmail({
-                              email: contactEmail,
-                              subject: `Presupuesto ${index + 1} - ${event.Name}`,
-                              html,
-                            });
+                            sendDiscordMessage(discordMessage);
                           }}
                         />
                       </Stack>

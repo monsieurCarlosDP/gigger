@@ -33,33 +33,32 @@ export function PopperButton({
   const close = useCallback(() => setOpen(false), []);
 
   return (
-    <>
-      <Button
-        ref={anchorRef}
-        onClick={toggle}
-        {...buttonProps}
-      >
-        {label}
-      </Button>
-      <Popper
-        open={open}
-        anchorEl={anchorRef.current}
-        placement={placement}
-        transition
-        sx={{ zIndex: 1300 }}
-      >
-        {({ TransitionProps }) => (
-          <Grow {...TransitionProps}>
-            <Paper elevation={4} sx={{ mt: 0.5 }}>
-              <ClickAwayListener onClickAway={close}>
-                <div>
-                  {typeof children === 'function' ? children(close) : children}
-                </div>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
-    </>
+    <ClickAwayListener onClickAway={close}>
+      <div>
+        <Button
+          ref={anchorRef}
+          onClick={toggle}
+          {...buttonProps}
+        >
+          {label}
+        </Button>
+        <Popper
+          open={open}
+          anchorEl={anchorRef.current}
+          placement={placement}
+          transition
+          disablePortal
+          sx={{ zIndex: 1300 }}
+        >
+          {({ TransitionProps }) => (
+            <Grow {...TransitionProps}>
+              <Paper elevation={4} sx={{ mt: 0.5 }}>
+                {typeof children === 'function' ? children(close) : children}
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </div>
+    </ClickAwayListener>
   );
 }

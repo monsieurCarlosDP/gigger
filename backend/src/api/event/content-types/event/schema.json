@@ -25,6 +25,7 @@
       "type": "enumeration",
       "required": true,
       "enum": [
+        "Requested",
         "Event",
         "Viability"
       ]

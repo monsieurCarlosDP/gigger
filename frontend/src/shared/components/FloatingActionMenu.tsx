@@ -30,7 +30,7 @@ export function FloatingActionMenu({ isDrawerOpen = false }: FloatingActionMenuP
       icon: <PersonIcon />,
       name: 'Nuevo Contacto',
       action: () => {
-        console.log('TODO: Crear nuevo contacto');
+        navigate('/people/new');
         handleClose();
       },
     },

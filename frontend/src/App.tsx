@@ -13,6 +13,9 @@ const EventCreatePage = lazy(() => import('@/features/events/pages/EventCreatePa
 const EventEditPage = lazy(() => import('@/features/events/pages/EventEditPage'));
 const ProfilePage = lazy(() => import('@/features/auth/pages/ProfilePage'));
 const TariffsPage = lazy(() => import('@/features/tariffs/pages/TariffsPage'));
+const PeoplePage = lazy(() => import('@/features/people/pages/PeoplePage'));
+const CreatePersonPage = lazy(() => import('@/features/people/pages/CreatePersonPage'));
+const EditPersonPage = lazy(() => import('@/features/people/pages/EditPersonPage'));
 
 function ProtectedRoute() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -42,6 +45,9 @@ export default function App() {
                 <Route path="events/new" element={<EventCreatePage />} />
                 <Route path="events/:documentId" element={<EventDetailPage />} />
                 <Route path="events/:documentId/edit" element={<EventEditPage />} />
+                <Route path="people" element={<PeoplePage />} />
+                <Route path="people/new" element={<CreatePersonPage />} />
+                <Route path="people/:documentId/edit" element={<EditPersonPage />} />
                 <Route path="tariffs" element={<TariffsPage />} />
                 <Route path="profile" element={<ProfilePage />} />
               </Route>

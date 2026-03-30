@@ -38,6 +38,12 @@
       "relation": "manyToMany",
       "target": "api::event.event",
       "mappedBy": "contacts"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "mappedBy": "people"
     }
   }
 }
