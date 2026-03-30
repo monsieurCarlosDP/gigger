@@ -5,12 +5,103 @@ export default {
     await assignBudgetNumbers(event.params.data);
   },
 
+  async afterCreate(event: { result: Record<string, unknown> }) {
+    // draftAndPublish dispara afterCreate dos veces (draft + published), solo ejecutar una
+    if (event.result.publishedAt === null) return;
+    await createDiscordChannelForEvent(event.result);
+  },
+
   async beforeUpdate(event: { params: { data: Record<string, unknown> } }) {
     validateBudgetAccepted(event.params.data);
     handleCancelledDate(event.params.data);
     await assignBudgetNumbers(event.params.data);
   },
 };
+
+interface PersonWithTags {
+  documentId: string;
+  Name: string;
+  Email?: string;
+  Number?: string | bigint;
+  tags?: { Name: string }[];
+}
+
+async function createDiscordChannelForEvent(data: Record<string, unknown>) {
+  try {
+    const startDate = data.StartDate as string | undefined;
+    const location = data.Location as string | undefined;
+
+    if (!startDate || !location) return;
+
+    const [year, month, day] = startDate.split('-');
+    const slug = location.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    const channelName = `${day}-${month}-${year}-${slug}`;
+
+    const categoryId = await strapi.service('api::discord.discord').findCategoryByName('📅PETICIONES ABIERTAS');
+    if (!categoryId) {
+      strapi.log.warn('[Discord] Categoría "📅PETICIONES ABIERTAS" no encontrada');
+      return;
+    }
+
+    const channel = await strapi.service('api::discord.discord').createChannel(channelName, categoryId);
+
+    await strapi.documents('api::event.event').update({
+      documentId: data.documentId as string,
+      data: { DiscordChannelId: channel.id },
+    });
+
+    strapi.log.info(`[Discord] Canal creado: ${channelName} (${channel.id})`);
+
+    // Obtener contactos del evento con sus tags
+    const eventDoc = await strapi.documents('api::event.event').findOne({
+      documentId: data.documentId as string,
+      populate: { contacts: { populate: ['tags'] } },
+    });
+
+    const contacts = (eventDoc?.contacts ?? []) as PersonWithTags[];
+    const novios = contacts.filter((c) => c.tags?.some((t) => t.Name === 'Novio' || t.Name === 'Novia'));
+    const otros = contacts.filter((c) => !novios.some((n) => n.documentId === c.documentId));
+
+    const noviosLine = novios.length > 0
+      ? novios.map((n) => n.Name).join(' & ')
+      : 'Sin especificar';
+
+    const otrosLines = otros.length > 0
+      ? otros.map((c) => `• ${c.Name}${c.Number ? ` — ${c.Number}` : ''}${c.Email ? ` — ${c.Email}` : ''}`).join('\n')
+      : '• Sin especificar';
+
+    const welcomeMessage =
+      `@everyone 🎉 ¡Nuevo bolo!\n\n` +
+      `📅 **Fecha:** ${day}/${month}/${year}\n` +
+      `📍 **Lugar:** ${location}\n` +
+      `💍 **Novios:** ${noviosLine}\n` +
+      `👤 **Personas de contacto:**\n${otrosLines}`;
+
+    await strapi.service('api::discord.discord').sendMessage(channel.id, welcomeMessage, undefined);
+
+    strapi.log.info(`[Discord] Mensaje de bienvenida enviado al canal ${channel.id}`);
+
+    // Enviar notificación por WhatsApp
+    const whatsappGroupId = process.env.WHATSAPP_EVENT_GROUP_ID;
+    strapi.log.info(`[WhatsApp] Group ID: ${whatsappGroupId ?? 'NO DEFINIDO'}`);
+    if (whatsappGroupId) {
+      const guildId = process.env.DISCORD_GUILD_ID;
+      const discordUrl = `https://discord.com/channels/${guildId}/${channel.id}`;
+
+      const whatsappMessage =
+        `🎉 *¡Nuevo bolo en el sistema!*\n\n` +
+        `📅 *Fecha:* ${day}/${month}/${year}\n` +
+        `📍 *Lugar:* ${location}\n` +
+        `💍 *Novios:* ${noviosLine}\n\n` +
+        `💬 Canal de Discord:\n${discordUrl}`;
+
+      await strapi.service('api::whatsapp.whatsapp').sendMessage(whatsappGroupId, whatsappMessage);
+      strapi.log.info(`[WhatsApp] Notificación enviada al grupo ${whatsappGroupId}`);
+    }
+  } catch (err) {
+    strapi.log.error('[Discord] Error al crear canal para evento:', err);
+  }
+}
 
 function handleCancelledDate(data: Record<string, unknown>) {
   if (!('Status' in data)) return;

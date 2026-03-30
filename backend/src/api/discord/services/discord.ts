@@ -137,6 +137,13 @@ export default {
       .sort((a, b) => a.position - b.position);
   },
 
+  async findCategoryByName(name: string): Promise<string | null> {
+    const { guildId } = getConfig();
+    const channels = await discordFetch<DiscordChannel[]>(`/guilds/${guildId}/channels`);
+    const category = channels.find((ch) => ch.type === 4 && ch.name === name);
+    return category ? category.id : null;
+  },
+
   async createCategory(name: string) {
     const { guildId } = getConfig();
     const body = {

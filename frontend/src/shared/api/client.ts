@@ -97,6 +97,20 @@ export interface DiscordMessage {
   attachments: { id: string; filename: string; url: string }[];
 }
 
+export type WhatsAppConnectionStatus = 'disconnected' | 'qr_pending' | 'connected';
+
+export interface WhatsAppGroup {
+  id: string;
+  name: string;
+}
+
+export interface WhatsAppSentMessage {
+  id: string;
+  to: string;
+  content: string;
+  timestamp: number;
+}
+
 /** Query params for list endpoints (pagination, filters, etc.) */
 export type ListQuery = paths['/events']['get']['parameters']['query'];
 export type EventByIdQuery = paths['/events/{id}']['get']['parameters']['query'];
@@ -327,6 +341,24 @@ export const api = {
     return authFetch<{ data: { filename: string; url: string } }>('/upload/pdf', {
       method: 'POST',
       body: JSON.stringify(data),
+    });
+  },
+
+  /** GET /whatsapp/status */
+  getWhatsAppStatus() {
+    return authFetch<{ data: { status: WhatsAppConnectionStatus } }>('/whatsapp/status');
+  },
+
+  /** GET /whatsapp/groups */
+  getWhatsAppGroups() {
+    return authFetch<{ data: WhatsAppGroup[] }>('/whatsapp/groups');
+  },
+
+  /** POST /whatsapp/send */
+  sendWhatsAppMessage(to: string, content: string) {
+    return authFetch<{ data: WhatsAppSentMessage }>('/whatsapp/send', {
+      method: 'POST',
+      body: JSON.stringify({ to, content }),
     });
   },
 

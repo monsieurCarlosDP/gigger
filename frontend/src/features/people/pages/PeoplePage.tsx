@@ -108,7 +108,7 @@ const getColumns = (onEdit: (id: string) => void, onDelete: (id: string) => void
       <Stack direction="row" spacing={1}>
         <IconButton
           size="small"
-          onClick={() => onEdit(row.documentId)}
+          onClick={(e) => { e.stopPropagation(); onEdit(row.documentId); }}
           title="Editar"
           color="primary"
         >
@@ -116,7 +116,7 @@ const getColumns = (onEdit: (id: string) => void, onDelete: (id: string) => void
         </IconButton>
         <IconButton
           size="small"
-          onClick={() => onDelete(row.documentId)}
+          onClick={(e) => { e.stopPropagation(); onDelete(row.documentId); }}
           title="Eliminar"
           color="error"
         >

@@ -1,231 +1,320 @@
-import { useReducer } from 'react'
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-  Alert,
-  CircularProgress,
-  Stack,
-} from '@mui/material'
+import { useReducer, useRef, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
+import { Box, IconButton, Typography, Alert } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { formReducer, initialState } from '../hooks/formReducer'
 import { useEventRequestForm } from '../hooks/useEventRequestForm'
-import { formReducer, initialState, type FormData } from '../hooks/formReducer'
-import { useFieldValidator } from '../hooks/useFieldValidator'
-import { eventRequestFields } from '../config/eventRequestFields'
+import type { StepKey, StepConfig, FormErrors } from '../types/steps'
+import type { FormData as WeddingFormData } from '../types/formData'
+import { StepWelcome } from '../steps/StepWelcome'
+import { StepCouple } from '../steps/StepCouple'
+import { StepEventDate } from '../steps/StepEventDate'
+import { StepDescription } from '../steps/StepDescription'
+import { StepSummary } from '../steps/StepSummary'
+
+// ─────────────────────────────────────────────
+// Configuración de steps
+// ─────────────────────────────────────────────
+
+export const STEP_ORDER: StepKey[] = ['welcome', 'couple', 'event-date', 'description', 'summary']
+
+export const STEPS: Record<StepKey, StepConfig> = {
+  welcome: {
+    label: 'Bienvenida',
+    component: (props) => <StepWelcome {...props} />,
+  },
+  couple: {
+    label: 'La pareja',
+    component: (props) => <StepCouple {...props} />,
+    validate: (data: WeddingFormData): FormErrors => {
+      const errors: FormErrors = {}
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+      if (!data.person1Role) errors.person1Role = 'Selecciona un rol'
+      if (!data.person1Name.trim()) errors.person1Name = 'El nombre es requerido'
+      if (!data.person1Email.trim()) errors.person1Email = 'El email es requerido'
+      else if (!emailRegex.test(data.person1Email)) errors.person1Email = 'Email inválido'
+
+      if (!data.person2Role) errors.person2Role = 'Selecciona un rol'
+      if (!data.person2Name.trim()) errors.person2Name = 'El nombre es requerido'
+      if (!data.person2Email.trim()) errors.person2Email = 'El email es requerido'
+      else if (!emailRegex.test(data.person2Email)) errors.person2Email = 'Email inválido'
+
+      return errors
+    },
+  },
+  description: {
+    label: 'Descripción',
+    component: (props) => <StepDescription {...props} />,
+  },
+  summary: {
+    label: 'Resumen',
+    component: (props) => <StepSummary {...props} />,
+  },
+  'event-date': {
+    label: 'Fecha y lugar',
+    component: (props) => <StepEventDate {...props} />,
+    validate: (data: WeddingFormData): FormErrors => {
+      const errors: FormErrors = {}
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+      if (!data.StartDate) errors.StartDate = 'La fecha es necesaria para reservar el día'
+
+      if (data.venueContactName?.trim()) {
+        if (!data.venueContactEmail?.trim() && !data.venueContactPhone?.trim()) {
+          errors.venueContactEmail = 'Añade al menos un email o teléfono de contacto'
+        } else if (data.venueContactEmail?.trim() && !emailRegex.test(data.venueContactEmail)) {
+          errors.venueContactEmail = 'Email inválido'
+        }
+      }
+
+      return errors
+    },
+  },
+}
+
+// ─────────────────────────────────────────────
+// Navegación inferior (estilo slideshow)
+// ─────────────────────────────────────────────
+
+interface StepNavProps {
+  index: number
+  total: number
+  isFirst: boolean
+  isLast: boolean
+  isSubmitting: boolean
+  onPrev: () => void
+  onNext: () => void
+}
+
+function StepNav({ index, total, isFirst, isLast, isSubmitting, onPrev, onNext }: StepNavProps) {
+  return (
+    <Box
+      sx={{
+        position: 'fixed',
+        bottom: 24,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 200,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        background: 'rgba(20,20,20,.8)',
+        backdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255,255,255,.1)',
+        borderRadius: '60px',
+        px: '18px',
+        py: '8px',
+      }}
+    >
+      <IconButton
+        size="small"
+        onClick={onPrev}
+        disabled={isFirst || isSubmitting}
+        sx={{
+          color: 'white',
+          width: 34,
+          height: 34,
+          '&:hover': { background: 'rgba(255,255,255,.1)' },
+          '&:disabled': { opacity: 0.3 },
+        }}
+      >
+        <ArrowBackIcon fontSize="small" />
+      </IconButton>
+
+      <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+        {Array.from({ length: total }).map((_, i) => (
+          <Box
+            key={i}
+            sx={{
+              height: '5px',
+              borderRadius: '3px',
+              background: i === index ? 'white' : 'rgba(255,255,255,.25)',
+              width: i === index ? '18px' : '5px',
+              transition: 'all 0.3s cubic-bezier(.4,0,.2,1)',
+            }}
+          />
+        ))}
+      </Box>
+
+      <Typography
+        sx={{
+          color: 'rgba(255,255,255,.4)',
+          fontSize: '12px',
+          minWidth: '44px',
+          textAlign: 'center',
+          letterSpacing: '.06em',
+        }}
+      >
+        {index + 1} / {total}
+      </Typography>
+
+      <IconButton
+        size="small"
+        onClick={onNext}
+        disabled={isSubmitting}
+        sx={{
+          color: isLast ? '#C847FF' : 'white',
+          width: 34,
+          height: 34,
+          '&:hover': { background: 'rgba(255,255,255,.1)' },
+          '&:disabled': { opacity: 0.3 },
+        }}
+      >
+        <ArrowForwardIcon fontSize="small" />
+      </IconButton>
+    </Box>
+  )
+}
+
+// ─────────────────────────────────────────────
+// Slide animation wrapper
+// ─────────────────────────────────────────────
+
+function Slide({ children, direction }: { children: React.ReactNode; direction: 'right' | 'left' }) {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setVisible(true))
+    return () => cancelAnimationFrame(id)
+  }, [])
+
+  return (
+    <Box
+      sx={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'none' : direction === 'right' ? 'translateX(60px) scale(0.97)' : 'translateX(-60px) scale(0.97)',
+        transition: 'opacity .5s cubic-bezier(.4,0,.2,1), transform .5s cubic-bezier(.4,0,.2,1)',
+      }}
+    >
+      {children}
+    </Box>
+  )
+}
+
+// ─────────────────────────────────────────────
+// Page
+// ─────────────────────────────────────────────
 
 export default function EventRequestFormPage() {
   const [state, dispatch] = useReducer(formReducer, initialState)
-  const { mutate } = useEventRequestForm()
-  const { validateForm, getVisibleFields } = useFieldValidator()
+  const { mutate, isPending } = useEventRequestForm()
+  const navigate = useNavigate()
+  const slideDirection = useRef<'right' | 'left'>('right')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }> | any) => {
-    const target = e.target as HTMLInputElement | HTMLSelectElement
-    dispatch({
-      type: 'CHANGE_FIELD',
-      payload: {
-        name: target.name as keyof FormData,
-        value: target.value,
+  const currentIndex = STEP_ORDER.indexOf(state.step)
+  const isFirst = currentIndex === 0
+  const isLast = currentIndex === STEP_ORDER.length - 1
+  const currentConfig = STEPS[state.step]
+
+  const handleChange = (name: keyof typeof state.data, value: unknown) => {
+    dispatch({ type: 'CHANGE_FIELD', payload: { name, value } })
+  }
+
+  const handleSubmit = () => {
+    dispatch({ type: 'SUBMIT_START' })
+    mutate(state.data, {
+      onSuccess: (res) => {
+        const docId = res.data.documentId
+        localStorage.setItem('gigger_event_id', docId)
+        dispatch({ type: 'SUBMIT_SUCCESS' })
+        navigate(`/follow-up/${docId}`)
       },
+      onError: (err) =>
+        dispatch({ type: 'SUBMIT_ERROR', payload: err instanceof Error ? err.message : 'Error desconocido' }),
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-
-    // Validar usando la configuración de campos
-    const errors = validateForm(eventRequestFields, state.data)
-
+  const handleNext = () => {
+    const errors = currentConfig.validate?.(state.data) ?? {}
     if (Object.keys(errors).length > 0) {
       dispatch({ type: 'SET_ERRORS', payload: errors })
       return
     }
 
-    dispatch({ type: 'SUBMIT_START' })
+    if (isLast) return
 
-    const submitData = {
-      Name: state.data.Name,
-      Type: state.data.Type,
-      StartDate: state.data.StartDate,
-      EndDate: state.data.EndDate || undefined,
-      Location: state.data.Location || undefined,
-      Distance: state.data.Distance ? Number(state.data.Distance) : undefined,
-      GigType: state.data.GigType as any, // Ya fue validado
-      ContactEmail: state.data.ContactEmail,
-      ContactPhone: state.data.ContactPhone || undefined,
-      Notes: state.data.Notes || undefined,
-    }
-
-    mutate(submitData, {
-      onSuccess: () => {
-        dispatch({ type: 'SUBMIT_SUCCESS' })
-      },
-      onError: (error) => {
-        dispatch({
-          type: 'SUBMIT_ERROR',
-          payload: error instanceof Error ? error.message : 'Error desconocido',
-        })
-      },
-    })
+    slideDirection.current = 'right'
+    dispatch({ type: 'GO_TO_STEP', payload: STEP_ORDER[currentIndex + 1] })
   }
 
-  const handleReset = () => {
-    dispatch({ type: 'RESET' })
+  const handlePrev = () => {
+    slideDirection.current = 'left'
+    dispatch({ type: 'GO_TO_STEP', payload: STEP_ORDER[currentIndex - 1] })
   }
 
-  const visibleFields = getVisibleFields(eventRequestFields, state.data)
+  const handleGoToStep = (step: StepKey) => {
+    const targetIndex = STEP_ORDER.indexOf(step)
+    slideDirection.current = targetIndex < currentIndex ? 'left' : 'right'
+    dispatch({ type: 'GO_TO_STEP', payload: step })
+  }
+
+  if (state.status === 'success') {
+    return (
+      <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', px: 2 }}>
+        <Box sx={{ textAlign: 'center', maxWidth: 520 }}>
+          <Typography
+            variant="h1"
+            sx={{
+              background: 'linear-gradient(135deg, #C847FF 0%, #00D4FF 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              mb: 3,
+            }}
+          >
+            ¡Recibido!
+          </Typography>
+          <Typography variant="body1" sx={{ color: 'rgba(245,242,237,.72)', lineHeight: 1.7 }}>
+            Tu solicitud ha sido enviada correctamente.
+            <br />
+            Nos pondremos en contacto pronto.
+          </Typography>
+        </Box>
+      </Box>
+    )
+  }
 
   return (
-    <Box sx={{ py: 6 }}>
-      <Card>
-        <CardContent>
-          <Box sx={{ mb: 4 }}>
-            <Typography
-              variant="h1"
-              component="h1"
-              sx={{
-                background: 'linear-gradient(135deg, #C847FF 0%, #00D4FF 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                mb: 1,
-              }}
-            >
-              Solicitar Evento
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                color: 'rgba(245, 242, 237, 0.6)',
-                fontSize: '1rem',
-              }}
-            >
-              Cuéntanos sobre tu evento y nos pondremos en contacto pronto.
-            </Typography>
-          </Box>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        px: 2,
+        pb: '96px',
+      }}
+    >
+      <Box sx={{ width: '100%', maxWidth: 640 }}>
+        {state.status === 'error' && state.errorMessage && (
+          <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
+            {state.errorMessage}
+          </Alert>
+        )}
 
-          {state.status === 'success' && (
-            <Alert severity="success" sx={{ mb: 3, borderRadius: 2 }}>
-              ¡Tu solicitud ha sido enviada correctamente! Nos pondremos en contacto pronto.
-            </Alert>
-          )}
+        <Slide key={state.step} direction={slideDirection.current}>
+          {currentConfig.component({
+            data: state.data,
+            errors: state.errors,
+            onChange: handleChange,
+            onGoToStep: handleGoToStep,
+            onSubmit: handleSubmit,
+            isSubmitting: isPending,
+          })}
+        </Slide>
+      </Box>
 
-          {state.status === 'error' && (
-            <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
-              {state.errorMessage || 'Hubo un error al enviar tu solicitud. Intenta de nuevo.'}
-            </Alert>
-          )}
-
-          <Box component="form" onSubmit={handleSubmit} noValidate>
-            <Stack spacing={2.5}>
-              {visibleFields.map((field) => {
-                const fieldValue = state.data[field.name]
-                const fieldError = state.errors[field.name]
-                const isDisabled = state.status === 'submitting'
-
-                // TextField (text, email, number, datetime)
-                if (field.type !== 'select') {
-                  const inputType =
-                    field.type === 'datetime' ? 'datetime-local' : field.type === 'email' ? 'email' : field.type === 'number' ? 'number' : 'text'
-                  const isMultiline = field.name === 'Notes'
-
-                  return (
-                    <TextField
-                      key={field.name}
-                      fullWidth
-                      label={field.label}
-                      name={field.name}
-                      type={inputType}
-                      value={fieldValue}
-                      onChange={handleChange}
-                      error={!!fieldError}
-                      helperText={fieldError || field.help}
-                      disabled={isDisabled}
-                      required={field.required}
-                      placeholder={field.placeholder}
-                      multiline={isMultiline}
-                      rows={isMultiline ? 4 : undefined}
-                      slotProps={
-                        field.type === 'datetime'
-                          ? {
-                              input: {
-                                sx: { '&::-webkit-calendar-picker-indicator': { cursor: 'pointer' } },
-                              },
-                            }
-                          : {}
-                      }
-                      inputProps={
-                        field.type === 'number'
-                          ? {
-                              step: '0.1',
-                              min: '0',
-                            }
-                          : {}
-                      }
-                    />
-                  )
-                }
-
-                // Select (dropdown)
-                if (field.type === 'select') {
-                  return (
-                    <FormControl
-                      key={field.name}
-                      fullWidth
-                      error={!!fieldError}
-                      disabled={isDisabled}
-                    >
-                      <InputLabel>{field.label}</InputLabel>
-                      <Select
-                        name={field.name}
-                        value={fieldValue}
-                        onChange={handleChange}
-                        label={field.label}
-                      >
-                        {!field.required && <MenuItem value="">Seleccionar...</MenuItem>}
-                        {field.options?.map((opt) => (
-                          <MenuItem key={opt.value} value={opt.value}>
-                            {opt.label}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                      {fieldError && <FormHelperText>{fieldError}</FormHelperText>}
-                    </FormControl>
-                  )
-                }
-              })}
-
-              {/* Botones */}
-              <Stack direction="row" spacing={2} sx={{ pt: 3 }}>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  disabled={state.status === 'submitting'}
-                  fullWidth
-                  startIcon={state.status === 'submitting' ? <CircularProgress size={20} sx={{ color: '#C847FF' }} /> : undefined}
-                >
-                  {state.status === 'submitting' ? 'Enviando...' : 'Solicitar Evento'}
-                </Button>
-                <Button
-                  variant="outlined"
-                  type="button"
-                  onClick={handleReset}
-                  disabled={state.status === 'submitting'}
-                  sx={{ minWidth: 120 }}
-                >
-                  Limpiar
-                </Button>
-              </Stack>
-            </Stack>
-          </Box>
-        </CardContent>
-      </Card>
+      <StepNav
+        index={currentIndex}
+        total={STEP_ORDER.length}
+        isFirst={isFirst}
+        isLast={isLast}
+        isSubmitting={isPending}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
     </Box>
   )
 }

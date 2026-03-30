@@ -1,0 +1,3 @@
+2026/03/30-22:17:00.587 1c199 Reusing MANIFEST /var/www/gigger/backend/.whatsapp-session/session/Default/Sync Data/LevelDB/MANIFEST-000001
+2026/03/30-22:17:00.595 1c199 Recovering log #3
+2026/03/30-22:17:00.595 1c199 Reusing old log /var/www/gigger/backend/.whatsapp-session/session/Default/Sync Data/LevelDB/000003.log 

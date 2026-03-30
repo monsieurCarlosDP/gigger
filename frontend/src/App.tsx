@@ -16,6 +16,7 @@ const TariffsPage = lazy(() => import('@/features/tariffs/pages/TariffsPage'));
 const PeoplePage = lazy(() => import('@/features/people/pages/PeoplePage'));
 const CreatePersonPage = lazy(() => import('@/features/people/pages/CreatePersonPage'));
 const EditPersonPage = lazy(() => import('@/features/people/pages/EditPersonPage'));
+const WhatsAppPage = lazy(() => import('@/features/whatsapp/pages/WhatsAppPage'));
 
 function ProtectedRoute() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -50,6 +51,7 @@ export default function App() {
                 <Route path="people/:documentId/edit" element={<EditPersonPage />} />
                 <Route path="tariffs" element={<TariffsPage />} />
                 <Route path="profile" element={<ProfilePage />} />
+                <Route path="whatsapp" element={<WhatsAppPage />} />
               </Route>
             </Route>
           </Routes>

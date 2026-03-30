@@ -430,32 +430,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAuthAuth extends Struct.CollectionTypeSchema {
-  collectionName: 'auth';
-  info: {
-    displayName: 'Auth';
-    pluralName: 'auths';
-    singularName: 'auth';
-  };
-  options: {
-    draftAndPublish: false;
-    increments: true;
-    timestamps: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::auth.auth'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   collectionName: 'events';
   info: {
@@ -477,6 +451,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    Description: Schema.Attribute.RichText;
     DiscordChannelId: Schema.Attribute.String;
     Distance: Schema.Attribute.BigInteger;
     EndDate: Schema.Attribute.Date;
@@ -1168,7 +1143,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::auth.auth': ApiAuthAuth;
       'api::event.event': ApiEventEvent;
       'api::info.info': ApiInfoInfo;
       'api::person.person': ApiPersonPerson;

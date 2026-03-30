@@ -1,4 +1,5 @@
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EventIcon from '@mui/icons-material/Event';
@@ -40,6 +41,7 @@ const navItems: NavItem[] = [
   { label: 'Eventos', subtitle: 'Gestión de eventos', icon: <EventIcon />, path: '/events' },
   { label: 'Personas', subtitle: 'Contactos', icon: <PeopleIcon />, path: '/people' },
   { label: 'Tarifas', subtitle: 'Precios y distancias', icon: <AttachMoneyIcon />, path: '/tariffs' },
+  { label: 'WhatsApp', subtitle: 'Mensajería', icon: <WhatsAppIcon />, path: '/whatsapp' },
 ];
 
 interface NavbarProps {

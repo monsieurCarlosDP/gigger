@@ -1,4 +1,5 @@
 import type { Core } from '@strapi/strapi';
+import { initialize as initWhatsApp } from './api/whatsapp/services/whatsapp';
 
 const avatarOptions = {
   top: [
@@ -67,6 +68,7 @@ export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    initWhatsApp();
     // Lifecycle: assign random avatar to new users
     strapi.db.lifecycles.subscribe({
       models: ['plugin::users-permissions.user'],
