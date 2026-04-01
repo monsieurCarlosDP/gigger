@@ -3,17 +3,16 @@ import type { EventFormDispatch, EventFormState } from '@/features/events/hooks/
 import { eventToFormState, useEventForm } from '@/features/events/hooks/useEventForm';
 import { useEventById, useUpdateEvent } from '@/features/events/hooks/useEvents';
 import { useTarifDistance } from '@/features/events/hooks/useTarifDistance';
-import { usePeople } from '@/features/people/hooks/usePeople';
 import { CreatePersonModal } from '@/features/people/components/CreatePersonModal';
+import { usePeople } from '@/features/people/hooks/usePeople';
 import { usePrice } from '@/features/tariffs/hooks/usePrice';
-import { useQueryClient } from '@tanstack/react-query';
 import { Timeline } from '@/shared/components/Timeline';
 import { UserAvatar } from '@/shared/components/UserAvatar';
 import { DEFAULT_STOP_COLOR, DEFAULT_STOP_ICON, STOP_TYPES, STOP_TYPE_MAP } from '@/shared/constants/stopTypes';
 import { useSnackbar } from '@/shared/context/SnackbarContext';
 import { useUsers } from '@/shared/hooks/useUsers';
-import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import { PageLayout } from '@/shared/layouts/PageLayout';
+import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LinkIcon from '@mui/icons-material/Link';
@@ -43,6 +42,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { useCallback, useRef, useState } from 'react';
@@ -96,7 +96,7 @@ export default function EventEditPage() {
           EndDate: form.EndDate || undefined,
           EventStatus: form.Status || undefined,
           CancelledDate: form.CancelledDate || undefined,
-          DiscordChannelId: form.DiscordChannelId || null,
+          DiscordChannelId: form.DiscordChannelId,
           contacts: form.contacts.map((c) => c.documentId),
           Budget: form.Budget.map((b) => ({
             Base: b.Base ?? undefined,

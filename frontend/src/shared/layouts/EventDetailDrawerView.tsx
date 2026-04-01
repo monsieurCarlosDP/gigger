@@ -1,10 +1,9 @@
 import { EventChip } from '@/features/events/components/EventChip';
-import { useEventById } from '@/features/events/hooks/useEvents';
 import { useDiscordMessages, useSendDiscordMessage } from '@/features/events/hooks/useDiscordMessages';
+import { useEventById } from '@/features/events/hooks/useEvents';
 import { ChatBubble } from '@/shared/components/ChatBubble';
 import { ChatInput } from '@/shared/components/ChatInput';
 import { Timeline } from '@/shared/components/Timeline';
-import { EventBudgetsDrawerView } from './EventBudgetsDrawerView';
 import { useAuth } from '@/shared/context/AuthContext';
 import { useEventTabParam } from '@/shared/context/DrawerContext';
 import { useUsers } from '@/shared/hooks/useUsers';
@@ -31,6 +30,7 @@ import {
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { useEffect, useRef } from 'react';
+import { EventBudgetsDrawerView } from './EventBudgetsDrawerView';
 
 dayjs.locale('es');
 
@@ -71,7 +71,7 @@ export function EventDetailDrawerView({ id }: EventDetailDrawerViewProps) {
   }
 
   const isPeriod = event.Type === 'Viability' && event.EndDate;
-  const isCancelled = event.Status === 'Cancelled';
+  const isCancelled = event.EventStatus === 'Cancelled';
 
   return (
     <Stack spacing={0} sx={{ height: '100%' }}>

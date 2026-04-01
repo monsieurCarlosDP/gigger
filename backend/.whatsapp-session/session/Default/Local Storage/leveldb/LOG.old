@@ -1,3 +1,3 @@
-2026/03/30-22:17:00.611 1c1ca Reusing MANIFEST /var/www/gigger/backend/.whatsapp-session/session/Default/Local Storage/leveldb/MANIFEST-000001
-2026/03/30-22:17:00.621 1c1ca Recovering log #8
-2026/03/30-22:17:00.621 1c1ca Reusing old log /var/www/gigger/backend/.whatsapp-session/session/Default/Local Storage/leveldb/000008.log 
+2026/04/01-18:38:35.783 28cd Reusing MANIFEST /var/www/gigger/backend/.whatsapp-session/session/Default/Local Storage/leveldb/MANIFEST-000001
+2026/04/01-18:38:35.796 28cd Recovering log #14
+2026/04/01-18:38:35.796 28cd Reusing old log /var/www/gigger/backend/.whatsapp-session/session/Default/Local Storage/leveldb/000014.log 

@@ -17,19 +17,20 @@ import { StepSummary } from '../steps/StepSummary'
 // Configuración de steps
 // ─────────────────────────────────────────────
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export const STEP_ORDER: StepKey[] = ['welcome', 'couple', 'event-date', 'description', 'summary']
 
 export const STEPS: Record<StepKey, StepConfig> = {
   welcome: {
     label: 'Bienvenida',
-    component: (props) => <StepWelcome {...props} />,
+    component: StepWelcome,
   },
   couple: {
     label: 'La pareja',
-    component: (props) => <StepCouple {...props} />,
+    component: StepCouple,
     validate: (data: WeddingFormData): FormErrors => {
       const errors: FormErrors = {}
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
       if (!data.person1Role) errors.person1Role = 'Selecciona un rol'
       if (!data.person1Name.trim()) errors.person1Name = 'El nombre es requerido'
@@ -46,18 +47,17 @@ export const STEPS: Record<StepKey, StepConfig> = {
   },
   description: {
     label: 'Descripción',
-    component: (props) => <StepDescription {...props} />,
+    component: StepDescription,
   },
   summary: {
     label: 'Resumen',
-    component: (props) => <StepSummary {...props} />,
+    component: StepSummary,
   },
   'event-date': {
     label: 'Fecha y lugar',
-    component: (props) => <StepEventDate {...props} />,
+    component: StepEventDate,
     validate: (data: WeddingFormData): FormErrors => {
       const errors: FormErrors = {}
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
       if (!data.StartDate) errors.StartDate = 'La fecha es necesaria para reservar el día'
 

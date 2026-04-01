@@ -3,8 +3,8 @@ import type { EventFormDispatch, EventFormState } from '@/features/events/hooks/
 import { useEventForm } from '@/features/events/hooks/useEventForm';
 import { useCreateEvent } from '@/features/events/hooks/useEvents';
 import { useTarifDistance } from '@/features/events/hooks/useTarifDistance';
-import { usePeople } from '@/features/people/hooks/usePeople';
 import { CreatePersonModal } from '@/features/people/components/CreatePersonModal';
+import { usePeople } from '@/features/people/hooks/usePeople';
 import { usePrice } from '@/features/tariffs/hooks/usePrice';
 import { Timeline } from '@/shared/components/Timeline';
 import { UserAvatar } from '@/shared/components/UserAvatar';
@@ -12,15 +12,14 @@ import { DEFAULT_STOP_COLOR, DEFAULT_STOP_ICON, STOP_TYPES, STOP_TYPE_MAP } from
 import { useAuth } from '@/shared/context/AuthContext';
 import { useSnackbar } from '@/shared/context/SnackbarContext';
 import { useUsers } from '@/shared/hooks/useUsers';
-import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import { PageLayout } from '@/shared/layouts/PageLayout';
+import { logisticToTimelineItems } from '@/shared/utils/logisticUtils';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   Autocomplete,
   Box,
   Button,
   Checkbox,
-  CircularProgress,
   Divider,
   FormControl,
   FormControlLabel,
@@ -41,7 +40,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 dayjs.locale('es');

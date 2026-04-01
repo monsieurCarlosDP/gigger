@@ -1,7 +1,5 @@
 import type { StepKey, FormErrors } from '../types/steps'
 import { initialFormData } from '../types/formData'
-export type { FormData, PersonRole } from '../types/formData'
-
 import type { FormData } from '../types/formData'
 
 export interface FormState {

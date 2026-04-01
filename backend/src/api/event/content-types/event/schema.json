@@ -19,7 +19,7 @@
       "type": "richtext"
     },
     "Distance": {
-      "type": "biginteger"
+      "type": "integer"
     },
     "Location": {
       "type": "string"

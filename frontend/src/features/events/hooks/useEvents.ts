@@ -122,7 +122,7 @@ export function useAcceptBudget() {
   });
 }
 
-export type EventType = 'Event' | 'Viability';
+export type EventType = 'Event' | 'Viability' | 'Requested';
 
 type UseUpcomingEventsOptions = {
   limit?: number;

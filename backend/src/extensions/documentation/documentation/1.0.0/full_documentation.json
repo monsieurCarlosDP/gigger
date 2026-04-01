@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-03-30T22:18:53.058Z"
+    "x-generation-date": "2026-04-01T18:38:40.425Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -4181,9 +4181,7 @@
                 "type": "string"
               },
               "Distance": {
-                "type": "string",
-                "pattern": "^\\d*$",
-                "example": "123456789"
+                "type": "integer"
               },
               "Location": {
                 "type": "string"
@@ -4350,9 +4348,7 @@
             "type": "string"
           },
           "Distance": {
-            "type": "string",
-            "pattern": "^\\d*$",
-            "example": "123456789"
+            "type": "integer"
           },
           "Location": {
             "type": "string"
@@ -4440,9 +4436,7 @@
                         "type": "string"
                       },
                       "Distance": {
-                        "type": "string",
-                        "pattern": "^\\d*$",
-                        "example": "123456789"
+                        "type": "integer"
                       },
                       "Location": {
                         "type": "string"
@@ -7781,9 +7775,7 @@
                   "type": "string"
                 },
                 "Distance": {
-                  "type": "string",
-                  "pattern": "^\\d*$",
-                  "example": "123456789"
+                  "type": "integer"
                 },
                 "Location": {
                   "type": "string"
@@ -9454,9 +9446,7 @@
                         "type": "string"
                       },
                       "Distance": {
-                        "type": "string",
-                        "pattern": "^\\d*$",
-                        "example": "123456789"
+                        "type": "integer"
                       },
                       "Location": {
                         "type": "string"

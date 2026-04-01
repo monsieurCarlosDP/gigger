@@ -571,7 +571,9 @@
                             "type": "string"
                           },
                           "Distance": {
-                            "type": "string"
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
                           },
                           "Location": {
                             "type": "string"
@@ -622,7 +624,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-30T21:17:17.057Z",
+                            "default": "2026-04-01T18:38:35.273Z",
                             "type": "string"
                           },
                           "contacts": {
@@ -674,7 +676,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-30T21:17:17.060Z",
+                                  "default": "2026-04-01T18:38:35.276Z",
                                   "type": "string"
                                 },
                                 "events": {
@@ -704,7 +706,9 @@
                                         "type": "string"
                                       },
                                       "Distance": {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": -9007199254740991,
+                                        "maximum": 9007199254740991
                                       },
                                       "Location": {
                                         "type": "string"
@@ -755,7 +759,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.062Z",
+                                        "default": "2026-04-01T18:38:35.279Z",
                                         "type": "string"
                                       },
                                       "contacts": {
@@ -907,7 +911,7 @@
                                                   "type": "string"
                                                 },
                                                 "publishedAt": {
-                                                  "default": "2026-03-30T21:17:17.066Z",
+                                                  "default": "2026-04-01T18:38:35.282Z",
                                                   "type": "string"
                                                 },
                                                 "role": {
@@ -944,7 +948,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-30T21:17:17.067Z",
+                                                      "default": "2026-04-01T18:38:35.283Z",
                                                       "type": "string"
                                                     },
                                                     "permissions": {
@@ -977,7 +981,7 @@
                                                             "type": "string"
                                                           },
                                                           "publishedAt": {
-                                                            "default": "2026-03-30T21:17:17.068Z",
+                                                            "default": "2026-04-01T18:38:35.284Z",
                                                             "type": "string"
                                                           },
                                                           "role": {}
@@ -1280,7 +1284,7 @@
                                                   "type": "string"
                                                 },
                                                 "publishedAt": {
-                                                  "default": "2026-03-30T21:17:17.066Z",
+                                                  "default": "2026-04-01T18:38:35.282Z",
                                                   "type": "string"
                                                 },
                                                 "role": {
@@ -1317,7 +1321,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-30T21:17:17.067Z",
+                                                      "default": "2026-04-01T18:38:35.283Z",
                                                       "type": "string"
                                                     },
                                                     "permissions": {
@@ -1350,7 +1354,7 @@
                                                             "type": "string"
                                                           },
                                                           "publishedAt": {
-                                                            "default": "2026-03-30T21:17:17.068Z",
+                                                            "default": "2026-04-01T18:38:35.284Z",
                                                             "type": "string"
                                                           },
                                                           "role": {}
@@ -1657,7 +1661,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-30T21:17:17.066Z",
+                                            "default": "2026-04-01T18:38:35.282Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -1694,7 +1698,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.067Z",
+                                                "default": "2026-04-01T18:38:35.283Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -1727,7 +1731,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-30T21:17:17.068Z",
+                                                      "default": "2026-04-01T18:38:35.284Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -2019,7 +2023,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.074Z",
+                                        "default": "2026-04-01T18:38:35.289Z",
                                         "type": "string"
                                       },
                                       "people": {
@@ -2193,7 +2197,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.066Z",
+                                      "default": "2026-04-01T18:38:35.282Z",
                                       "type": "string"
                                     },
                                     "role": {
@@ -2230,7 +2234,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.067Z",
+                                          "default": "2026-04-01T18:38:35.283Z",
                                           "type": "string"
                                         },
                                         "permissions": {
@@ -2263,7 +2267,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.068Z",
+                                                "default": "2026-04-01T18:38:35.284Z",
                                                 "type": "string"
                                               },
                                               "role": {}
@@ -2566,7 +2570,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.066Z",
+                                      "default": "2026-04-01T18:38:35.282Z",
                                       "type": "string"
                                     },
                                     "role": {
@@ -2603,7 +2607,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.067Z",
+                                          "default": "2026-04-01T18:38:35.283Z",
                                           "type": "string"
                                         },
                                         "permissions": {
@@ -2636,7 +2640,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.068Z",
+                                                "default": "2026-04-01T18:38:35.284Z",
                                                 "type": "string"
                                               },
                                               "role": {}
@@ -2943,7 +2947,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.066Z",
+                                "default": "2026-04-01T18:38:35.282Z",
                                 "type": "string"
                               },
                               "role": {
@@ -2980,7 +2984,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.067Z",
+                                    "default": "2026-04-01T18:38:35.283Z",
                                     "type": "string"
                                   },
                                   "permissions": {
@@ -3013,7 +3017,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.068Z",
+                                          "default": "2026-04-01T18:38:35.284Z",
                                           "type": "string"
                                         },
                                         "role": {}
@@ -3438,7 +3442,9 @@
                           "type": "string"
                         },
                         "Distance": {
-                          "type": "string"
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
                         },
                         "Location": {
                           "type": "string"
@@ -3489,7 +3495,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.087Z",
+                          "default": "2026-04-01T18:38:35.301Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -3541,7 +3547,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.060Z",
+                                "default": "2026-04-01T18:38:35.276Z",
                                 "type": "string"
                               },
                               "events": {
@@ -3571,7 +3577,9 @@
                                       "type": "string"
                                     },
                                     "Distance": {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": -9007199254740991,
+                                      "maximum": 9007199254740991
                                     },
                                     "Location": {
                                       "type": "string"
@@ -3622,7 +3630,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.062Z",
+                                      "default": "2026-04-01T18:38:35.279Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -3774,7 +3782,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -3811,7 +3819,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -3844,7 +3852,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -4147,7 +4155,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -4184,7 +4192,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -4217,7 +4225,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -4524,7 +4532,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -4561,7 +4569,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -4594,7 +4602,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -4886,7 +4894,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.074Z",
+                                      "default": "2026-04-01T18:38:35.289Z",
                                       "type": "string"
                                     },
                                     "people": {
@@ -5060,7 +5068,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -5097,7 +5105,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -5130,7 +5138,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -5433,7 +5441,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -5470,7 +5478,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -5503,7 +5511,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -5810,7 +5818,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.066Z",
+                              "default": "2026-04-01T18:38:35.282Z",
                               "type": "string"
                             },
                             "role": {
@@ -5847,7 +5855,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-30T21:17:17.067Z",
+                                  "default": "2026-04-01T18:38:35.283Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -5880,7 +5888,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.068Z",
+                                        "default": "2026-04-01T18:38:35.284Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -6179,7 +6187,9 @@
                         "type": "string"
                       },
                       "Distance": {
-                        "type": "string"
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
                       },
                       "Location": {
                         "type": "string"
@@ -6224,7 +6234,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.085Z",
+                        "default": "2026-04-01T18:38:35.299Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -6565,7 +6575,9 @@
                           "type": "string"
                         },
                         "Distance": {
-                          "type": "string"
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
                         },
                         "Location": {
                           "type": "string"
@@ -6616,7 +6628,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.081Z",
+                          "default": "2026-04-01T18:38:35.295Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -6668,7 +6680,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.060Z",
+                                "default": "2026-04-01T18:38:35.276Z",
                                 "type": "string"
                               },
                               "events": {
@@ -6698,7 +6710,9 @@
                                       "type": "string"
                                     },
                                     "Distance": {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": -9007199254740991,
+                                      "maximum": 9007199254740991
                                     },
                                     "Location": {
                                       "type": "string"
@@ -6749,7 +6763,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.062Z",
+                                      "default": "2026-04-01T18:38:35.279Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -6901,7 +6915,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -6938,7 +6952,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -6971,7 +6985,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -7274,7 +7288,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -7311,7 +7325,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -7344,7 +7358,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -7651,7 +7665,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -7688,7 +7702,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -7721,7 +7735,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -8013,7 +8027,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.074Z",
+                                      "default": "2026-04-01T18:38:35.289Z",
                                       "type": "string"
                                     },
                                     "people": {
@@ -8187,7 +8201,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -8224,7 +8238,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -8257,7 +8271,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -8560,7 +8574,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -8597,7 +8611,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -8630,7 +8644,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -8937,7 +8951,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.066Z",
+                              "default": "2026-04-01T18:38:35.282Z",
                               "type": "string"
                             },
                             "role": {
@@ -8974,7 +8988,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-30T21:17:17.067Z",
+                                  "default": "2026-04-01T18:38:35.283Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -9007,7 +9021,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.068Z",
+                                        "default": "2026-04-01T18:38:35.284Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -9442,7 +9456,9 @@
                           "type": "string"
                         },
                         "Distance": {
-                          "type": "string"
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
                         },
                         "Location": {
                           "type": "string"
@@ -9493,7 +9509,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.093Z",
+                          "default": "2026-04-01T18:38:35.307Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -9545,7 +9561,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.060Z",
+                                "default": "2026-04-01T18:38:35.276Z",
                                 "type": "string"
                               },
                               "events": {
@@ -9575,7 +9591,9 @@
                                       "type": "string"
                                     },
                                     "Distance": {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": -9007199254740991,
+                                      "maximum": 9007199254740991
                                     },
                                     "Location": {
                                       "type": "string"
@@ -9626,7 +9644,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.062Z",
+                                      "default": "2026-04-01T18:38:35.279Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -9778,7 +9796,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -9815,7 +9833,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -9848,7 +9866,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -10151,7 +10169,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -10188,7 +10206,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -10221,7 +10239,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -10528,7 +10546,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -10565,7 +10583,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -10598,7 +10616,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -10890,7 +10908,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.074Z",
+                                      "default": "2026-04-01T18:38:35.289Z",
                                       "type": "string"
                                     },
                                     "people": {
@@ -11064,7 +11082,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -11101,7 +11119,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -11134,7 +11152,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -11437,7 +11455,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -11474,7 +11492,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -11507,7 +11525,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -11814,7 +11832,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.066Z",
+                              "default": "2026-04-01T18:38:35.282Z",
                               "type": "string"
                             },
                             "role": {
@@ -11851,7 +11869,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-30T21:17:17.067Z",
+                                  "default": "2026-04-01T18:38:35.283Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -11884,7 +11902,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.068Z",
+                                        "default": "2026-04-01T18:38:35.284Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -12183,7 +12201,9 @@
                         "type": "string"
                       },
                       "Distance": {
-                        "type": "string"
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
                       },
                       "Location": {
                         "type": "string"
@@ -12228,7 +12248,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.091Z",
+                        "default": "2026-04-01T18:38:35.305Z",
                         "type": "string"
                       },
                       "contacts": {
@@ -12447,7 +12467,9 @@
                           "type": "string"
                         },
                         "Distance": {
-                          "type": "string"
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
                         },
                         "Location": {
                           "type": "string"
@@ -12498,7 +12520,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.096Z",
+                          "default": "2026-04-01T18:38:35.310Z",
                           "type": "string"
                         },
                         "contacts": {
@@ -12550,7 +12572,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.060Z",
+                                "default": "2026-04-01T18:38:35.276Z",
                                 "type": "string"
                               },
                               "events": {
@@ -12580,7 +12602,9 @@
                                       "type": "string"
                                     },
                                     "Distance": {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": -9007199254740991,
+                                      "maximum": 9007199254740991
                                     },
                                     "Location": {
                                       "type": "string"
@@ -12631,7 +12655,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.062Z",
+                                      "default": "2026-04-01T18:38:35.279Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -12783,7 +12807,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -12820,7 +12844,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -12853,7 +12877,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -13156,7 +13180,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -13193,7 +13217,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -13226,7 +13250,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -13533,7 +13557,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -13570,7 +13594,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -13603,7 +13627,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -13895,7 +13919,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.074Z",
+                                      "default": "2026-04-01T18:38:35.289Z",
                                       "type": "string"
                                     },
                                     "people": {
@@ -14069,7 +14093,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -14106,7 +14130,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -14139,7 +14163,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -14442,7 +14466,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -14479,7 +14503,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -14512,7 +14536,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -14819,7 +14843,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.066Z",
+                              "default": "2026-04-01T18:38:35.282Z",
                               "type": "string"
                             },
                             "role": {
@@ -14856,7 +14880,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-30T21:17:17.067Z",
+                                  "default": "2026-04-01T18:38:35.283Z",
                                   "type": "string"
                                 },
                                 "permissions": {
@@ -14889,7 +14913,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.068Z",
+                                        "default": "2026-04-01T18:38:35.284Z",
                                         "type": "string"
                                       },
                                       "role": {}
@@ -15346,7 +15370,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.100Z",
+                          "default": "2026-04-01T18:38:35.314Z",
                           "type": "string"
                         },
                         "BasicLogo": {
@@ -15417,7 +15441,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.103Z",
+                              "default": "2026-04-01T18:38:35.316Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15504,7 +15528,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.103Z",
+                              "default": "2026-04-01T18:38:35.316Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15708,7 +15732,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.106Z",
+                          "default": "2026-04-01T18:38:35.320Z",
                           "type": "string"
                         },
                         "BasicLogo": {
@@ -15779,7 +15803,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.103Z",
+                              "default": "2026-04-01T18:38:35.316Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15866,7 +15890,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.103Z",
+                              "default": "2026-04-01T18:38:35.316Z",
                               "type": "string"
                             },
                             "related": {}
@@ -15949,7 +15973,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.105Z",
+                        "default": "2026-04-01T18:38:35.319Z",
                         "type": "string"
                       },
                       "BasicLogo": {},
@@ -16115,7 +16139,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.108Z",
+                          "default": "2026-04-01T18:38:35.322Z",
                           "type": "string"
                         },
                         "BasicLogo": {
@@ -16186,7 +16210,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.103Z",
+                              "default": "2026-04-01T18:38:35.316Z",
                               "type": "string"
                             },
                             "related": {}
@@ -16273,7 +16297,7 @@
                               "type": "string"
                             },
                             "publishedAt": {
-                              "default": "2026-03-30T21:17:17.103Z",
+                              "default": "2026-04-01T18:38:35.316Z",
                               "type": "string"
                             },
                             "related": {}
@@ -16673,7 +16697,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-30T21:17:17.120Z",
+                            "default": "2026-04-01T18:38:35.326Z",
                             "type": "string"
                           },
                           "events": {
@@ -16703,7 +16727,9 @@
                                   "type": "string"
                                 },
                                 "Distance": {
-                                  "type": "string"
+                                  "type": "integer",
+                                  "minimum": -9007199254740991,
+                                  "maximum": 9007199254740991
                                 },
                                 "Location": {
                                   "type": "string"
@@ -16754,7 +16780,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-30T21:17:17.062Z",
+                                  "default": "2026-04-01T18:38:35.279Z",
                                   "type": "string"
                                 },
                                 "contacts": {
@@ -16906,7 +16932,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-30T21:17:17.066Z",
+                                            "default": "2026-04-01T18:38:35.282Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -16943,7 +16969,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.067Z",
+                                                "default": "2026-04-01T18:38:35.283Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -16976,7 +17002,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-30T21:17:17.068Z",
+                                                      "default": "2026-04-01T18:38:35.284Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -17279,7 +17305,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-30T21:17:17.066Z",
+                                            "default": "2026-04-01T18:38:35.282Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -17316,7 +17342,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.067Z",
+                                                "default": "2026-04-01T18:38:35.283Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -17349,7 +17375,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-30T21:17:17.068Z",
+                                                      "default": "2026-04-01T18:38:35.284Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -17656,7 +17682,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.066Z",
+                                      "default": "2026-04-01T18:38:35.282Z",
                                       "type": "string"
                                     },
                                     "role": {
@@ -17693,7 +17719,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.067Z",
+                                          "default": "2026-04-01T18:38:35.283Z",
                                           "type": "string"
                                         },
                                         "permissions": {
@@ -17726,7 +17752,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.068Z",
+                                                "default": "2026-04-01T18:38:35.284Z",
                                                 "type": "string"
                                               },
                                               "role": {}
@@ -18018,7 +18044,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-30T21:17:17.074Z",
+                                  "default": "2026-04-01T18:38:35.289Z",
                                   "type": "string"
                                 },
                                 "people": {
@@ -18229,7 +18255,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.127Z",
+                          "default": "2026-04-01T18:38:35.332Z",
                           "type": "string"
                         },
                         "events": {
@@ -18259,7 +18285,9 @@
                                 "type": "string"
                               },
                               "Distance": {
-                                "type": "string"
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
                               },
                               "Location": {
                                 "type": "string"
@@ -18310,7 +18338,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.062Z",
+                                "default": "2026-04-01T18:38:35.279Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -18462,7 +18490,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -18499,7 +18527,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -18532,7 +18560,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -18835,7 +18863,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -18872,7 +18900,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -18905,7 +18933,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -19212,7 +19240,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -19249,7 +19277,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -19282,7 +19310,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -19574,7 +19602,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.074Z",
+                                "default": "2026-04-01T18:38:35.289Z",
                                 "type": "string"
                               },
                               "people": {
@@ -19663,7 +19691,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.126Z",
+                        "default": "2026-04-01T18:38:35.331Z",
                         "type": "string"
                       },
                       "events": {
@@ -19979,7 +20007,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.124Z",
+                          "default": "2026-04-01T18:38:35.329Z",
                           "type": "string"
                         },
                         "events": {
@@ -20009,7 +20037,9 @@
                                 "type": "string"
                               },
                               "Distance": {
-                                "type": "string"
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
                               },
                               "Location": {
                                 "type": "string"
@@ -20060,7 +20090,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.062Z",
+                                "default": "2026-04-01T18:38:35.279Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -20212,7 +20242,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -20249,7 +20279,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -20282,7 +20312,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -20585,7 +20615,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -20622,7 +20652,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -20655,7 +20685,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -20962,7 +20992,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -20999,7 +21029,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -21032,7 +21062,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -21324,7 +21354,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.074Z",
+                                "default": "2026-04-01T18:38:35.289Z",
                                 "type": "string"
                               },
                               "people": {
@@ -21545,7 +21575,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.130Z",
+                          "default": "2026-04-01T18:38:35.344Z",
                           "type": "string"
                         },
                         "events": {
@@ -21575,7 +21605,9 @@
                                 "type": "string"
                               },
                               "Distance": {
-                                "type": "string"
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
                               },
                               "Location": {
                                 "type": "string"
@@ -21626,7 +21658,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.062Z",
+                                "default": "2026-04-01T18:38:35.279Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -21778,7 +21810,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -21815,7 +21847,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -21848,7 +21880,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -22151,7 +22183,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -22188,7 +22220,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -22221,7 +22253,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -22528,7 +22560,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -22565,7 +22597,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -22598,7 +22630,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -22890,7 +22922,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.074Z",
+                                "default": "2026-04-01T18:38:35.289Z",
                                 "type": "string"
                               },
                               "people": {
@@ -22979,7 +23011,7 @@
                         ]
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.129Z",
+                        "default": "2026-04-01T18:38:35.334Z",
                         "type": "string"
                       },
                       "events": {
@@ -23199,7 +23231,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.133Z",
+                          "default": "2026-04-01T18:38:35.346Z",
                           "type": "string"
                         },
                         "events": {
@@ -23229,7 +23261,9 @@
                                 "type": "string"
                               },
                               "Distance": {
-                                "type": "string"
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
                               },
                               "Location": {
                                 "type": "string"
@@ -23280,7 +23314,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.062Z",
+                                "default": "2026-04-01T18:38:35.279Z",
                                 "type": "string"
                               },
                               "contacts": {
@@ -23432,7 +23466,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -23469,7 +23503,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -23502,7 +23536,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -23805,7 +23839,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -23842,7 +23876,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -23875,7 +23909,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -24182,7 +24216,7 @@
                                     "type": "string"
                                   },
                                   "publishedAt": {
-                                    "default": "2026-03-30T21:17:17.066Z",
+                                    "default": "2026-04-01T18:38:35.282Z",
                                     "type": "string"
                                   },
                                   "role": {
@@ -24219,7 +24253,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.067Z",
+                                        "default": "2026-04-01T18:38:35.283Z",
                                         "type": "string"
                                       },
                                       "permissions": {
@@ -24252,7 +24286,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.068Z",
+                                              "default": "2026-04-01T18:38:35.284Z",
                                               "type": "string"
                                             },
                                             "role": {}
@@ -24544,7 +24578,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.074Z",
+                                "default": "2026-04-01T18:38:35.289Z",
                                 "type": "string"
                               },
                               "people": {
@@ -24757,7 +24791,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.135Z",
+                          "default": "2026-04-01T18:38:35.349Z",
                           "type": "string"
                         }
                       },
@@ -24929,7 +24963,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.137Z",
+                          "default": "2026-04-01T18:38:35.351Z",
                           "type": "string"
                         }
                       },
@@ -24988,7 +25022,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.137Z",
+                        "default": "2026-04-01T18:38:35.350Z",
                         "type": "string"
                       }
                     },
@@ -25136,7 +25170,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.139Z",
+                          "default": "2026-04-01T18:38:35.352Z",
                           "type": "string"
                         }
                       },
@@ -25572,7 +25606,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-30T21:17:17.143Z",
+                            "default": "2026-04-01T18:38:35.358Z",
                             "type": "string"
                           },
                           "people": {
@@ -25624,7 +25658,7 @@
                                   "type": "string"
                                 },
                                 "publishedAt": {
-                                  "default": "2026-03-30T21:17:17.060Z",
+                                  "default": "2026-04-01T18:38:35.276Z",
                                   "type": "string"
                                 },
                                 "events": {
@@ -25654,7 +25688,9 @@
                                         "type": "string"
                                       },
                                       "Distance": {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": -9007199254740991,
+                                        "maximum": 9007199254740991
                                       },
                                       "Location": {
                                         "type": "string"
@@ -25705,7 +25741,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.062Z",
+                                        "default": "2026-04-01T18:38:35.279Z",
                                         "type": "string"
                                       },
                                       "contacts": {
@@ -25857,7 +25893,7 @@
                                                   "type": "string"
                                                 },
                                                 "publishedAt": {
-                                                  "default": "2026-03-30T21:17:17.066Z",
+                                                  "default": "2026-04-01T18:38:35.282Z",
                                                   "type": "string"
                                                 },
                                                 "role": {
@@ -25894,7 +25930,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-30T21:17:17.067Z",
+                                                      "default": "2026-04-01T18:38:35.283Z",
                                                       "type": "string"
                                                     },
                                                     "permissions": {
@@ -25927,7 +25963,7 @@
                                                             "type": "string"
                                                           },
                                                           "publishedAt": {
-                                                            "default": "2026-03-30T21:17:17.068Z",
+                                                            "default": "2026-04-01T18:38:35.284Z",
                                                             "type": "string"
                                                           },
                                                           "role": {}
@@ -26230,7 +26266,7 @@
                                                   "type": "string"
                                                 },
                                                 "publishedAt": {
-                                                  "default": "2026-03-30T21:17:17.066Z",
+                                                  "default": "2026-04-01T18:38:35.282Z",
                                                   "type": "string"
                                                 },
                                                 "role": {
@@ -26267,7 +26303,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-30T21:17:17.067Z",
+                                                      "default": "2026-04-01T18:38:35.283Z",
                                                       "type": "string"
                                                     },
                                                     "permissions": {
@@ -26300,7 +26336,7 @@
                                                             "type": "string"
                                                           },
                                                           "publishedAt": {
-                                                            "default": "2026-03-30T21:17:17.068Z",
+                                                            "default": "2026-04-01T18:38:35.284Z",
                                                             "type": "string"
                                                           },
                                                           "role": {}
@@ -26607,7 +26643,7 @@
                                             "type": "string"
                                           },
                                           "publishedAt": {
-                                            "default": "2026-03-30T21:17:17.066Z",
+                                            "default": "2026-04-01T18:38:35.282Z",
                                             "type": "string"
                                           },
                                           "role": {
@@ -26644,7 +26680,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.067Z",
+                                                "default": "2026-04-01T18:38:35.283Z",
                                                 "type": "string"
                                               },
                                               "permissions": {
@@ -26677,7 +26713,7 @@
                                                       "type": "string"
                                                     },
                                                     "publishedAt": {
-                                                      "default": "2026-03-30T21:17:17.068Z",
+                                                      "default": "2026-04-01T18:38:35.284Z",
                                                       "type": "string"
                                                     },
                                                     "role": {}
@@ -26969,7 +27005,7 @@
                                         "type": "string"
                                       },
                                       "publishedAt": {
-                                        "default": "2026-03-30T21:17:17.074Z",
+                                        "default": "2026-04-01T18:38:35.289Z",
                                         "type": "string"
                                       },
                                       "people": {
@@ -27175,7 +27211,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.147Z",
+                          "default": "2026-04-01T18:38:35.363Z",
                           "type": "string"
                         },
                         "people": {
@@ -27227,7 +27263,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.060Z",
+                                "default": "2026-04-01T18:38:35.276Z",
                                 "type": "string"
                               },
                               "events": {
@@ -27257,7 +27293,9 @@
                                       "type": "string"
                                     },
                                     "Distance": {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": -9007199254740991,
+                                      "maximum": 9007199254740991
                                     },
                                     "Location": {
                                       "type": "string"
@@ -27308,7 +27346,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.062Z",
+                                      "default": "2026-04-01T18:38:35.279Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -27460,7 +27498,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -27497,7 +27535,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -27530,7 +27568,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -27833,7 +27871,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -27870,7 +27908,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -27903,7 +27941,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -28210,7 +28248,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -28247,7 +28285,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -28280,7 +28318,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -28572,7 +28610,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.074Z",
+                                      "default": "2026-04-01T18:38:35.289Z",
                                       "type": "string"
                                     },
                                     "people": {
@@ -28660,7 +28698,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.147Z",
+                        "default": "2026-04-01T18:38:35.363Z",
                         "type": "string"
                       },
                       "people": {
@@ -28942,7 +28980,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.145Z",
+                          "default": "2026-04-01T18:38:35.361Z",
                           "type": "string"
                         },
                         "people": {
@@ -28994,7 +29032,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.060Z",
+                                "default": "2026-04-01T18:38:35.276Z",
                                 "type": "string"
                               },
                               "events": {
@@ -29024,7 +29062,9 @@
                                       "type": "string"
                                     },
                                     "Distance": {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": -9007199254740991,
+                                      "maximum": 9007199254740991
                                     },
                                     "Location": {
                                       "type": "string"
@@ -29075,7 +29115,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.062Z",
+                                      "default": "2026-04-01T18:38:35.279Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -29227,7 +29267,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -29264,7 +29304,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -29297,7 +29337,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -29600,7 +29640,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -29637,7 +29677,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -29670,7 +29710,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -29977,7 +30017,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -30014,7 +30054,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -30047,7 +30087,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -30339,7 +30379,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.074Z",
+                                      "default": "2026-04-01T18:38:35.289Z",
                                       "type": "string"
                                     },
                                     "people": {
@@ -30555,7 +30595,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.150Z",
+                          "default": "2026-04-01T18:38:35.366Z",
                           "type": "string"
                         },
                         "people": {
@@ -30607,7 +30647,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.060Z",
+                                "default": "2026-04-01T18:38:35.276Z",
                                 "type": "string"
                               },
                               "events": {
@@ -30637,7 +30677,9 @@
                                       "type": "string"
                                     },
                                     "Distance": {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": -9007199254740991,
+                                      "maximum": 9007199254740991
                                     },
                                     "Location": {
                                       "type": "string"
@@ -30688,7 +30730,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.062Z",
+                                      "default": "2026-04-01T18:38:35.279Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -30840,7 +30882,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -30877,7 +30919,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -30910,7 +30952,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -31213,7 +31255,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -31250,7 +31292,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -31283,7 +31325,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -31590,7 +31632,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -31627,7 +31669,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -31660,7 +31702,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -31952,7 +31994,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.074Z",
+                                      "default": "2026-04-01T18:38:35.289Z",
                                       "type": "string"
                                     },
                                     "people": {
@@ -32040,7 +32082,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.149Z",
+                        "default": "2026-04-01T18:38:35.365Z",
                         "type": "string"
                       },
                       "people": {
@@ -32234,7 +32276,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.152Z",
+                          "default": "2026-04-01T18:38:35.368Z",
                           "type": "string"
                         },
                         "people": {
@@ -32286,7 +32328,7 @@
                                 "type": "string"
                               },
                               "publishedAt": {
-                                "default": "2026-03-30T21:17:17.060Z",
+                                "default": "2026-04-01T18:38:35.276Z",
                                 "type": "string"
                               },
                               "events": {
@@ -32316,7 +32358,9 @@
                                       "type": "string"
                                     },
                                     "Distance": {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": -9007199254740991,
+                                      "maximum": 9007199254740991
                                     },
                                     "Location": {
                                       "type": "string"
@@ -32367,7 +32411,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.062Z",
+                                      "default": "2026-04-01T18:38:35.279Z",
                                       "type": "string"
                                     },
                                     "contacts": {
@@ -32519,7 +32563,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -32556,7 +32600,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -32589,7 +32633,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -32892,7 +32936,7 @@
                                                 "type": "string"
                                               },
                                               "publishedAt": {
-                                                "default": "2026-03-30T21:17:17.066Z",
+                                                "default": "2026-04-01T18:38:35.282Z",
                                                 "type": "string"
                                               },
                                               "role": {
@@ -32929,7 +32973,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.067Z",
+                                                    "default": "2026-04-01T18:38:35.283Z",
                                                     "type": "string"
                                                   },
                                                   "permissions": {
@@ -32962,7 +33006,7 @@
                                                           "type": "string"
                                                         },
                                                         "publishedAt": {
-                                                          "default": "2026-03-30T21:17:17.068Z",
+                                                          "default": "2026-04-01T18:38:35.284Z",
                                                           "type": "string"
                                                         },
                                                         "role": {}
@@ -33269,7 +33313,7 @@
                                           "type": "string"
                                         },
                                         "publishedAt": {
-                                          "default": "2026-03-30T21:17:17.066Z",
+                                          "default": "2026-04-01T18:38:35.282Z",
                                           "type": "string"
                                         },
                                         "role": {
@@ -33306,7 +33350,7 @@
                                               "type": "string"
                                             },
                                             "publishedAt": {
-                                              "default": "2026-03-30T21:17:17.067Z",
+                                              "default": "2026-04-01T18:38:35.283Z",
                                               "type": "string"
                                             },
                                             "permissions": {
@@ -33339,7 +33383,7 @@
                                                     "type": "string"
                                                   },
                                                   "publishedAt": {
-                                                    "default": "2026-03-30T21:17:17.068Z",
+                                                    "default": "2026-04-01T18:38:35.284Z",
                                                     "type": "string"
                                                   },
                                                   "role": {}
@@ -33631,7 +33675,7 @@
                                       "type": "string"
                                     },
                                     "publishedAt": {
-                                      "default": "2026-03-30T21:17:17.074Z",
+                                      "default": "2026-04-01T18:38:35.289Z",
                                       "type": "string"
                                     },
                                     "people": {
@@ -34003,7 +34047,7 @@
                             "type": "string"
                           },
                           "publishedAt": {
-                            "default": "2026-03-30T21:17:17.155Z",
+                            "default": "2026-04-01T18:38:35.371Z",
                             "type": "string"
                           }
                         },
@@ -34172,7 +34216,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.159Z",
+                          "default": "2026-04-01T18:38:35.375Z",
                           "type": "string"
                         }
                       },
@@ -34228,7 +34272,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.509Z",
+                        "default": "2026-04-01T18:38:35.752Z",
                         "type": "string"
                       }
                     },
@@ -34486,7 +34530,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.157Z",
+                          "default": "2026-04-01T18:38:35.373Z",
                           "type": "string"
                         }
                       },
@@ -34665,7 +34709,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.161Z",
+                          "default": "2026-04-01T18:38:35.377Z",
                           "type": "string"
                         }
                       },
@@ -34721,7 +34765,7 @@
                         "type": "string"
                       },
                       "publishedAt": {
-                        "default": "2026-03-30T21:17:17.160Z",
+                        "default": "2026-04-01T18:38:35.376Z",
                         "type": "string"
                       }
                     },
@@ -34897,7 +34941,7 @@
                           "type": "string"
                         },
                         "publishedAt": {
-                          "default": "2026-03-30T21:17:17.162Z",
+                          "default": "2026-04-01T18:38:35.378Z",
                           "type": "string"
                         }
                       },
@@ -34967,6 +35011,32 @@
     "/whatsapp/status": {
       "get": {
         "operationId": "whatsapp/get/whatsapp_status",
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "whatsapp"
+        ]
+      }
+    },
+    "/whatsapp/chats": {
+      "get": {
+        "operationId": "whatsapp/get/whatsapp_chats",
         "parameters": [],
         "responses": {
           "400": {

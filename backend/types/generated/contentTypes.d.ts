@@ -453,7 +453,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     >;
     Description: Schema.Attribute.RichText;
     DiscordChannelId: Schema.Attribute.String;
-    Distance: Schema.Attribute.BigInteger;
+    Distance: Schema.Attribute.Integer;
     EndDate: Schema.Attribute.Date;
     EventStatus: Schema.Attribute.Enumeration<
       ['Requested', 'Budgeted', 'Accepted', 'Cancelled']

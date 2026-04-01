@@ -26,10 +26,26 @@ interface PersonWithTags {
   tags?: { Name: string }[];
 }
 
+const GIG_TYPE_LABELS: Record<string, string> = {
+  Wedding: '💍 Boda',
+  Party: '🎊 Fiesta',
+  Village: '🏘️ Pueblo',
+  Gig: '🎸 Concierto',
+};
+
 async function createDiscordChannelForEvent(data: Record<string, unknown>) {
   try {
+    if (data.Type !== 'Event') return;
+
+    const gigType = data.GigType as string | undefined;
+    const isWedding = gigType === 'Wedding';
+    const isOtherGig = gigType === 'Party' || gigType === 'Village' || gigType === 'Gig';
+
+    if (!isWedding && !isOtherGig) return;
+
     const startDate = data.StartDate as string | undefined;
     const location = data.Location as string | undefined;
+    const distance = data.Distance as number | undefined;
 
     if (!startDate || !location) return;
 
@@ -70,15 +86,41 @@ async function createDiscordChannelForEvent(data: Record<string, unknown>) {
       ? otros.map((c) => `• ${c.Name}${c.Number ? ` — ${c.Number}` : ''}${c.Email ? ` — ${c.Email}` : ''}`).join('\n')
       : '• Sin especificar';
 
-    const welcomeMessage =
-      `@everyone 🎉 ¡Nuevo bolo!\n\n` +
-      `📅 **Fecha:** ${day}/${month}/${year}\n` +
-      `📍 **Lugar:** ${location}\n` +
-      `💍 **Novios:** ${noviosLine}\n` +
-      `👤 **Personas de contacto:**\n${otrosLines}`;
+    const gigLabel = GIG_TYPE_LABELS[gigType ?? ''] ?? '🎵 Bolo';
 
-    await strapi.service('api::discord.discord').sendMessage(channel.id, welcomeMessage, undefined);
+    let discordMessage: string;
+    let whatsappMessage: string;
 
+    if (isWedding) {
+      discordMessage =
+        `@everyone 🎉 ¡Nuevo bolo!\n\n` +
+        `📅 **Fecha:** ${day}/${month}/${year}\n` +
+        `📍 **Lugar:** ${location}\n` +
+        `💍 **Novios:** ${noviosLine}\n` +
+        `👤 **Personas de contacto:**\n${otrosLines}`;
+
+      whatsappMessage =
+        `🎉 *¡Nuevo bolo en el sistema!*\n\n` +
+        `📅 *Fecha:* ${day}/${month}/${year}\n` +
+        `📍 *Lugar:* ${location}\n` +
+        `💍 *Novios:* ${noviosLine}\n\n`;
+    } else {
+      discordMessage =
+        `@everyone ${gigLabel} — **${location}**\n\n` +
+        `📅 **Fecha:** ${day}/${month}/${year}\n` +
+        `📍 **Lugar:** ${location}\n` +
+        `${distance ? `🚗 **Distancia:** ${distance} km\n` : ''}` +
+        `👤 **Personas de contacto:**\n${otrosLines}`;
+
+      whatsappMessage =
+        `${gigLabel} — *${location}*\n\n` +
+        `📅 *Fecha:* ${day}/${month}/${year}\n` +
+        `📍 *Lugar:* ${location}\n` +
+        `${distance ? `🚗 *Distancia:* ${distance} km\n` : ''}` +
+        `👤 *Contacto:*\n${otrosLines}\n\n`;
+    }
+
+    await strapi.service('api::discord.discord').sendMessage(channel.id, discordMessage, undefined);
     strapi.log.info(`[Discord] Mensaje de bienvenida enviado al canal ${channel.id}`);
 
     // Enviar notificación por WhatsApp
@@ -88,15 +130,36 @@ async function createDiscordChannelForEvent(data: Record<string, unknown>) {
       const guildId = process.env.DISCORD_GUILD_ID;
       const discordUrl = `https://discord.com/channels/${guildId}/${channel.id}`;
 
-      const whatsappMessage =
-        `🎉 *¡Nuevo bolo en el sistema!*\n\n` +
-        `📅 *Fecha:* ${day}/${month}/${year}\n` +
-        `📍 *Lugar:* ${location}\n` +
-        `💍 *Novios:* ${noviosLine}\n\n` +
-        `💬 Canal de Discord:\n${discordUrl}`;
-
-      await strapi.service('api::whatsapp.whatsapp').sendMessage(whatsappGroupId, whatsappMessage);
+      await strapi.service('api::whatsapp.whatsapp').sendMessage(whatsappGroupId, whatsappMessage + `💬 Canal de Discord:\n${discordUrl}`);
       strapi.log.info(`[WhatsApp] Notificación enviada al grupo ${whatsappGroupId}`);
+    }
+
+    // Enviar email de confirmación a los novios (solo bodas)
+    if (!isWedding) return;
+    const noviosConEmail = novios.filter((n) => n.Email);
+    for (const novio of noviosConEmail) {
+      const html = `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
+          <h2 style="color: #333;">🎉 ¡Hemos recibido tu solicitud!</h2>
+          <p>Hola <strong>${novio.Name}</strong>, muchas gracias por contactarnos. Aquí tienes un resumen de tu solicitud:</p>
+          <table style="width: 100%; border-collapse: collapse; margin: 24px 0;">
+            <tr><td style="padding: 8px; color: #666;">📅 Fecha</td><td style="padding: 8px;"><strong>${day}/${month}/${year}</strong></td></tr>
+            <tr style="background:#f9f9f9;"><td style="padding: 8px; color: #666;">📍 Lugar</td><td style="padding: 8px;"><strong>${location}</strong></td></tr>
+            <tr><td style="padding: 8px; color: #666;">💍 Novios</td><td style="padding: 8px;"><strong>${noviosLine}</strong></td></tr>
+          </table>
+          <p>Nos pondremos en contacto con vosotros lo antes posible.</p>
+          <p style="color: #999; font-size: 12px;">EfectiviWonders</p>
+        </div>
+      `;
+
+      await strapi.service('plugin::email.email').send({
+        to: novio.Email,
+        from: process.env.EMAIL_FROM,
+        subject: '🎉 ¡Hemos recibido tu solicitud! — EfectiviWonders',
+        html,
+      });
+
+      strapi.log.info(`[Email] Confirmación enviada a ${novio.Email}`);
     }
   } catch (err) {
     strapi.log.error('[Discord] Error al crear canal para evento:', err);

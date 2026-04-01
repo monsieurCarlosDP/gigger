@@ -28,7 +28,7 @@ export default function DashboardPage() {
     const eventsByDate: Record<string, NonNullable<typeof data>['data']> = {};
 
     for (const event of data?.data ?? []) {
-      const isCancelled = event.Status === 'Cancelled';
+      const isCancelled = event.EventStatus === 'Cancelled';
 
       if (event.Type === 'Viability' && event.EndDate) {
         blockedRanges.push({
@@ -67,7 +67,7 @@ export default function DashboardPage() {
   }, []);
 
   const hoveredEvents = hoveredDateKey
-    ? (eventsByDate[hoveredDateKey] ?? []).filter((e) => e.Status !== 'Cancelled')
+    ? (eventsByDate[hoveredDateKey] ?? []).filter((e) => e.EventStatus !== 'Cancelled')
     : [];
 
   const handleDayClick = useCallback((value: Dayjs | null) => {
