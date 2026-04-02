@@ -1,5 +1,6 @@
 import type { BudgetItem } from '@/features/events/hooks/useEventForm';
 import { pdf } from '@react-pdf/renderer';
+import type { DocumentProps } from '@react-pdf/renderer';
 import React from 'react';
 import { BudgetPDFDocument } from '@/shared/components/BudgetPDFDocument';
 
@@ -26,7 +27,7 @@ export async function generateBudgetPDF(
     equipment,
   });
 
-  const blob = await pdf(doc).toBlob();
+  const blob = await pdf(doc as React.ReactElement<DocumentProps>).toBlob();
 
   // Convert blob to base64 using a different approach
   const arrayBuffer = await blob.arrayBuffer();

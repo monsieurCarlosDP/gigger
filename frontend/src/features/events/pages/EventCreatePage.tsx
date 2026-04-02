@@ -1,4 +1,3 @@
-import { useDiscordChannels } from '@/features/events/hooks/useDiscordChannels';
 import type { EventFormDispatch, EventFormState } from '@/features/events/hooks/useEventForm';
 import { useEventForm } from '@/features/events/hooks/useEventForm';
 import { useCreateEvent } from '@/features/events/hooks/useEvents';
@@ -60,7 +59,6 @@ export default function EventCreatePage() {
   const [tab, setTab] = useState(() => TAB_MAP[searchParams.get('openTab') ?? 'info'] ?? 0);
   const [openCreatePersonModal, setOpenCreatePersonModal] = useState(false);
 
-  const { data: channels = [] } = useDiscordChannels();
   const { mutateAsync: createEvent, isPending: isSaving } = useCreateEvent();
   const { showSuccess, showError } = useSnackbar();
 
@@ -171,7 +169,6 @@ export default function EventCreatePage() {
           dispatch={dispatch}
           tab={tab}
           setTab={setTab}
-          channels={channels}
           openCreatePersonModal={openCreatePersonModal}
           setOpenCreatePersonModal={setOpenCreatePersonModal}
         />
@@ -186,7 +183,6 @@ function EventCreateForm({
   dispatch,
   tab,
   setTab,
-  channels,
   openCreatePersonModal,
   setOpenCreatePersonModal,
 }: {
@@ -194,7 +190,6 @@ function EventCreateForm({
   dispatch: EventFormDispatch;
   tab: number;
   setTab: (v: number) => void;
-  channels: { id: string; name: string }[];
   openCreatePersonModal: boolean;
   setOpenCreatePersonModal: (v: boolean) => void;
 }) {

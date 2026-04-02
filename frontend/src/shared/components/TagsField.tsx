@@ -1,5 +1,5 @@
-import AddIcon from '@mui/icons-material/Add';
 import type { Tag } from '@/shared/api/client';
+import AddIcon from '@mui/icons-material/Add';
 import {
   Autocomplete,
   Box,

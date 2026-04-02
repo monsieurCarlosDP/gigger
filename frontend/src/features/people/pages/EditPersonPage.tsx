@@ -1,4 +1,5 @@
-import type { PersonFormDispatch, PersonFormState } from '@/features/people/hooks/usePersonForm';
+import type { Tag } from '@/shared/api/client';
+import type { PersonFormState } from '@/features/people/hooks/usePersonForm';
 import { useUpdatePerson, usePersonById } from '@/features/people/hooks/usePeople';
 import { useCreateTag, useTags } from '@/features/people/hooks/useTags';
 import { usePersonForm } from '@/features/people/hooks/usePersonForm';
@@ -71,7 +72,7 @@ export default function EditPersonPage() {
         value: person.Description || '',
       });
       dispatch({ type: 'SET_FIELD', field: 'Type', value: person.Type || '' });
-      dispatch({ type: 'SET_TAGS', tags: person.tags || [] });
+      dispatch({ type: 'SET_TAGS', tags: (person.tags || []) as Tag[] });
     }
   }, [person, dispatch]);
 

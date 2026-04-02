@@ -1,4 +1,4 @@
-import type { PersonFormDispatch, PersonFormState } from '@/features/people/hooks/usePersonForm';
+import type { PersonFormState } from '@/features/people/hooks/usePersonForm';
 import { useCreatePerson } from '@/features/people/hooks/usePeople';
 import { useCreateTag, useTags } from '@/features/people/hooks/useTags';
 import { usePersonForm } from '@/features/people/hooks/usePersonForm';

@@ -19,7 +19,7 @@ type Event = {
   Description?: string;
   StartDate: string;
   EndDate?: string;
-  Distance?: string;
+  Distance?: number;
   Location?: string;
   Type?: EventType;
   Status?: 'Budgeted' | 'Accepted' | 'Cancelled' | null;

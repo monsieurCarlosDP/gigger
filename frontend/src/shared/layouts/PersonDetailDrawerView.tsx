@@ -1,5 +1,5 @@
 import { usePersonById, useUpdatePerson } from '@/features/people/hooks/usePeople';
-import { Box, Button, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typography, Chip, IconButton } from '@mui/material';
+import { Box, CircularProgress, Divider, FormControl, MenuItem, Select, Stack, TextField, Typography, Chip, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';

@@ -1,9 +1,10 @@
 import type { EventType } from '@/features/events/hooks/useEvents';
 import { Chip } from '@mui/material';
 
-const eventTypeConfig: Record<EventType, { label: string; color: 'success' | 'error' }> = {
+const eventTypeConfig: Record<EventType, { label: string; color: 'success' | 'error' | 'warning' }> = {
   Event: { label: 'Evento', color: 'success' },
   Viability: { label: 'Disponibilidad', color: 'error' },
+  Requested: { label: 'Solicitud', color: 'warning' },
 };
 
 type EventChipProps = {

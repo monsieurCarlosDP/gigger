@@ -1,5 +1,6 @@
 import { useCreatePerson } from '@/features/people/hooks/usePeople';
 import { useCreateTag, useTags } from '@/features/people/hooks/useTags';
+import type { PersonFormState } from '@/features/people/hooks/usePersonForm';
 import { usePersonForm } from '@/features/people/hooks/usePersonForm';
 import { Modal } from '@/shared/components/Modal';
 import { TagsField } from '@/shared/components/TagsField';
@@ -59,7 +60,7 @@ export function CreatePersonModal({
   const [newTagColor, setNewTagColor] = useState('#1976D2');
   const [openNewTagModal, setOpenNewTagModal] = useState(false);
 
-  const formRef = useRef<(() => any) | null>(null);
+  const formRef = useRef<(() => PersonFormState) | null>(null);
   formRef.current = () => form;
 
   const allTags = tagsData?.data ?? [];

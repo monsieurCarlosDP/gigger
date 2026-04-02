@@ -1,22 +1,20 @@
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Backdrop,
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   IconButton,
-  Stack,
-  type DialogProps,
+  type DialogProps
 } from '@mui/material';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-export interface ModalProps extends Omit<DialogProps, 'open'> {
+export interface ModalProps extends Omit<DialogProps, 'open' | 'title'> {
   open: boolean;
   onClose: () => void;
-  title?: ReactNode;
+  title?: ReactNode | string;
   children: ReactNode;
   onConfirm?: () => void | Promise<void>;
   confirmText?: string;

@@ -1,3 +1,4 @@
+import type { Tag } from '@/shared/api/client';
 import { useReducer } from 'react';
 
 export interface PersonFormState {
@@ -6,12 +7,12 @@ export interface PersonFormState {
   Number: string;
   Description: string;
   Type: 'Client' | 'Provider' | 'Manager' | '';
-  tags: { documentId: string; Name: string }[];
+  tags: Tag[];
 }
 
 export type PersonFormAction =
   | { type: 'SET_FIELD'; field: keyof PersonFormState; value: string }
-  | { type: 'SET_TAGS'; tags: { documentId: string; Name: string }[] };
+  | { type: 'SET_TAGS'; tags: Tag[] };
 
 export type PersonFormDispatch = (action: PersonFormAction) => void;
 
