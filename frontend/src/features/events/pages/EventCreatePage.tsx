@@ -28,6 +28,7 @@ import {
   Paper,
   Select,
   Stack,
+  Switch,
   Tab,
   Tabs,
   TextField,
@@ -58,6 +59,7 @@ export default function EventCreatePage() {
   const TAB_MAP: Record<string, number> = { info: 0, logistics: 1, budget: 2 };
   const [tab, setTab] = useState(() => TAB_MAP[searchParams.get('openTab') ?? 'info'] ?? 0);
   const [openCreatePersonModal, setOpenCreatePersonModal] = useState(false);
+  const [notifications, setNotifications] = useState({ whatsapp: true, email: true });
 
   const { mutateAsync: createEvent, isPending: isSaving } = useCreateEvent();
   const { showSuccess, showError } = useSnackbar();
@@ -130,6 +132,7 @@ export default function EventCreatePage() {
             PickUpUser: s.PickUpUser || undefined,
             DoneBy: s.DoneBy || undefined,
           })),
+          Notifications: notifications,
         } as any,
       });
 
@@ -171,10 +174,17 @@ export default function EventCreatePage() {
           setTab={setTab}
           openCreatePersonModal={openCreatePersonModal}
           setOpenCreatePersonModal={setOpenCreatePersonModal}
+          notifications={notifications}
+          setNotifications={setNotifications}
         />
       </PageLayout>
     </LocalizationProvider>
   );
+}
+
+interface NotificationsConfig {
+  whatsapp: boolean;
+  email: boolean;
 }
 
 /** Inner form component */
@@ -185,6 +195,8 @@ function EventCreateForm({
   setTab,
   openCreatePersonModal,
   setOpenCreatePersonModal,
+  notifications,
+  setNotifications,
 }: {
   form: EventFormState;
   dispatch: EventFormDispatch;
@@ -192,6 +204,8 @@ function EventCreateForm({
   setTab: (v: number) => void;
   openCreatePersonModal: boolean;
   setOpenCreatePersonModal: (v: boolean) => void;
+  notifications: NotificationsConfig;
+  setNotifications: React.Dispatch<React.SetStateAction<NotificationsConfig>>;
 }) {
   const { data: peopleData, refetch: refetchPeople } = usePeople();
   const defaultDietas = useTarifDistance(form.Distance ? Number(form.Distance) : null);
@@ -215,6 +229,8 @@ function EventCreateForm({
           openCreatePersonModal={openCreatePersonModal}
           setOpenCreatePersonModal={setOpenCreatePersonModal}
           refetchPeople={refetchPeople}
+          notifications={notifications}
+          setNotifications={setNotifications}
         />
       )}
       {tab === 1 && <LogisticsTab form={form} dispatch={dispatch} />}
@@ -231,6 +247,8 @@ function InfoTab({
   openCreatePersonModal,
   setOpenCreatePersonModal,
   refetchPeople,
+  notifications,
+  setNotifications,
 }: {
   form: EventFormState;
   dispatch: EventFormDispatch;
@@ -238,6 +256,8 @@ function InfoTab({
   openCreatePersonModal: boolean;
   setOpenCreatePersonModal: (v: boolean) => void;
   refetchPeople: () => void;
+  notifications: NotificationsConfig;
+  setNotifications: React.Dispatch<React.SetStateAction<NotificationsConfig>>;
 }) {
   const handlePersonCreated = (newPerson: any) => {
     // Extraer documentId y Name de la persona creada
@@ -255,123 +275,162 @@ function InfoTab({
   };
 
   return (
-    <Stack spacing={3}>
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Stack spacing={3}>
-          <Typography variant="h6">Datos básicos</Typography>
+    <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
+      {/* Sidebar izquierdo — notificaciones */}
+      <Paper
+        elevation={2}
+        sx={{
+          p: 3,
+          width: { xs: '100%', md: 280 },
+          flexShrink: 0,
+          alignSelf: 'flex-start',
+          position: { md: 'sticky' },
+          top: { md: 72 },
+        }}
+      >
+        <Stack spacing={2}>
+          <Typography variant="subtitle2" color="text.secondary">Notificaciones al crear</Typography>
           <Divider />
-
-          <TextField
-            label="Nombre"
-            required
-            fullWidth
-            value={form.Name}
-            onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Name', value: e.target.value })}
-          />
-
-          <FormControl fullWidth>
-            <InputLabel>Tipo de evento</InputLabel>
-            <Select
-              value={form.GigType}
-              label="Tipo de evento"
-              onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'GigType', value: e.target.value })}
-            >
-              <MenuItem value="">—</MenuItem>
-              {GIG_TYPES.map((t) => (
-                <MenuItem key={t.value} value={t.value}>{t.label}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          <TextField
-            label="Ubicación"
-            fullWidth
-            value={form.Location}
-            onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Location', value: e.target.value })}
-          />
-
-          <TextField
-            label="Distancia (km)"
-            type="number"
-            fullWidth
-            value={form.Distance}
-            onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Distance', value: e.target.value })}
-          />
-
-          <DatePicker
-            label="Fecha"
-            value={form.StartDate ? dayjs(form.StartDate) : null}
-            onChange={(v) => dispatch({ type: 'SET_FIELD', field: 'StartDate', value: v?.format('YYYY-MM-DD') ?? '' })}
-            slotProps={{ textField: { fullWidth: true, required: true } }}
-          />
-        </Stack>
-      </Paper>
-
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Stack spacing={3}>
-          <Stack direction="row" alignItems="center" justifyContent="space-between">
-            <Typography variant="h6">Contactos</Typography>
-            <Button size="small" variant="outlined" onClick={() => setOpenCreatePersonModal(true)}>
-              + Nuevo
-            </Button>
-          </Stack>
-          <Divider />
-
-          <Autocomplete
-            multiple
-            options={people}
-            getOptionLabel={(option) => option.Name || ''}
-            value={form.contacts}
-            renderInput={(params) => (
-              <TextField {...params} placeholder="Buscar contactos..." />
-            )}
-            onChange={(_e, value) => {
-              dispatch({
-                type: 'SET_CONTACT',
-                contacts: value,
-              });
-            }}
-            isOptionEqualToValue={(option, value) => option.documentId === value.documentId}
-          />
-        </Stack>
-
-        <CreatePersonModal
-          open={openCreatePersonModal}
-          onClose={() => setOpenCreatePersonModal(false)}
-          onPersonCreated={handlePersonCreated}
-        />
-      </Paper>
-
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Stack spacing={3}>
-          <Typography variant="h6">Estado</Typography>
-          <Divider />
-
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
-            <TextField
-              select
-              label="Estado"
-              value={form.Status}
-              onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Status', value: e.target.value })}
-              fullWidth
-              sx={{ maxWidth: 250 }}
-            >
-              <MenuItem value="Requested">Solicitado</MenuItem>
-              <MenuItem value="Accepted">Aceptado</MenuItem>
-              <MenuItem value="Cancelled">Cancelado</MenuItem>
-            </TextField>
-
-            {form.Status === 'Cancelled' && (
-              <DatePicker
-                label="Fecha de cancelación"
-                value={form.CancelledDate ? dayjs(form.CancelledDate) : null}
-                onChange={(v) => dispatch({ type: 'SET_FIELD', field: 'CancelledDate', value: v?.format('YYYY-MM-DD') ?? '' })}
-                slotProps={{ textField: { fullWidth: true } }}
+          <FormControlLabel
+            control={
+              <Switch
+                checked={notifications.whatsapp}
+                onChange={(e) => setNotifications((n) => ({ ...n, whatsapp: e.target.checked }))}
               />
-            )}
-          </Stack>
+            }
+            label="WhatsApp"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={notifications.email}
+                onChange={(e) => setNotifications((n) => ({ ...n, email: e.target.checked }))}
+              />
+            }
+            label="Email (novios)"
+          />
         </Stack>
       </Paper>
+
+      {/* Contenido principal */}
+      <Stack spacing={3} sx={{ flexGrow: 1 }}>
+        <Paper elevation={2} sx={{ p: 3 }}>
+          <Stack spacing={3}>
+            <Typography variant="h6">Datos básicos</Typography>
+            <Divider />
+
+            <TextField
+              label="Nombre"
+              required
+              fullWidth
+              value={form.Name}
+              onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Name', value: e.target.value })}
+            />
+
+            <FormControl fullWidth>
+              <InputLabel>Tipo de evento</InputLabel>
+              <Select
+                value={form.GigType}
+                label="Tipo de evento"
+                onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'GigType', value: e.target.value })}
+              >
+                <MenuItem value="">—</MenuItem>
+                {GIG_TYPES.map((t) => (
+                  <MenuItem key={t.value} value={t.value}>{t.label}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <TextField
+              label="Ubicación"
+              fullWidth
+              value={form.Location}
+              onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Location', value: e.target.value })}
+            />
+
+            <TextField
+              label="Distancia (km)"
+              type="number"
+              fullWidth
+              value={form.Distance}
+              onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Distance', value: e.target.value })}
+            />
+
+            <DatePicker
+              label="Fecha"
+              value={form.StartDate ? dayjs(form.StartDate) : null}
+              onChange={(v) => dispatch({ type: 'SET_FIELD', field: 'StartDate', value: v?.format('YYYY-MM-DD') ?? '' })}
+              slotProps={{ textField: { fullWidth: true, required: true } }}
+            />
+          </Stack>
+        </Paper>
+
+        <Paper elevation={2} sx={{ p: 3 }}>
+          <Stack spacing={3}>
+            <Stack direction="row" alignItems="center" justifyContent="space-between">
+              <Typography variant="h6">Contactos</Typography>
+              <Button size="small" variant="outlined" onClick={() => setOpenCreatePersonModal(true)}>
+                + Nuevo
+              </Button>
+            </Stack>
+            <Divider />
+
+            <Autocomplete
+              multiple
+              options={people}
+              getOptionLabel={(option) => option.Name || ''}
+              value={form.contacts}
+              renderInput={(params) => (
+                <TextField {...params} placeholder="Buscar contactos..." />
+              )}
+              onChange={(_e, value) => {
+                dispatch({
+                  type: 'SET_CONTACT',
+                  contacts: value,
+                });
+              }}
+              isOptionEqualToValue={(option, value) => option.documentId === value.documentId}
+            />
+          </Stack>
+
+          <CreatePersonModal
+            open={openCreatePersonModal}
+            onClose={() => setOpenCreatePersonModal(false)}
+            onPersonCreated={handlePersonCreated}
+          />
+        </Paper>
+
+        <Paper elevation={2} sx={{ p: 3 }}>
+          <Stack spacing={3}>
+            <Typography variant="h6">Estado</Typography>
+            <Divider />
+
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
+              <TextField
+                select
+                label="Estado"
+                value={form.Status}
+                onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'Status', value: e.target.value })}
+                fullWidth
+                sx={{ maxWidth: 250 }}
+              >
+                <MenuItem value="Requested">Solicitado</MenuItem>
+                <MenuItem value="Accepted">Aceptado</MenuItem>
+                <MenuItem value="Cancelled">Cancelado</MenuItem>
+              </TextField>
+
+              {form.Status === 'Cancelled' && (
+                <DatePicker
+                  label="Fecha de cancelación"
+                  value={form.CancelledDate ? dayjs(form.CancelledDate) : null}
+                  onChange={(v) => dispatch({ type: 'SET_FIELD', field: 'CancelledDate', value: v?.format('YYYY-MM-DD') ?? '' })}
+                  slotProps={{ textField: { fullWidth: true } }}
+                />
+              )}
+            </Stack>
+          </Stack>
+        </Paper>
+      </Stack>
     </Stack>
   );
 }

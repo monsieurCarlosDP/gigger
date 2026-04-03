@@ -74,8 +74,8 @@ export function CreatePersonModal({
       return;
     }
 
-    if (!currentForm.Email.trim()) {
-      showError('El email es obligatorio');
+    if (!currentForm.Email.trim() && !currentForm.Number.trim()) {
+      showError('El email o el teléfono son obligatorios');
       return;
     }
 
@@ -178,7 +178,6 @@ export function CreatePersonModal({
 
         <TextField
           label="Email"
-          required
           type="email"
           fullWidth
           size="small"
