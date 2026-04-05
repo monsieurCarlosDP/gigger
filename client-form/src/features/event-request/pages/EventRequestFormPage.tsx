@@ -250,6 +250,8 @@ export default function EventRequestFormPage() {
     dispatch({ type: 'GO_TO_STEP', payload: step })
   }
 
+  const StepComponent = currentConfig.component
+
   if (state.status === 'success') {
     return (
       <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', px: 2 }}>
@@ -295,14 +297,14 @@ export default function EventRequestFormPage() {
         )}
 
         <Slide key={state.step} direction={slideDirection.current}>
-          {currentConfig.component({
-            data: state.data,
-            errors: state.errors,
-            onChange: handleChange,
-            onGoToStep: handleGoToStep,
-            onSubmit: handleSubmit,
-            isSubmitting: isPending,
-          })}
+          <StepComponent
+            data={state.data}
+            errors={state.errors}
+            onChange={handleChange}
+            onGoToStep={handleGoToStep}
+            onSubmit={handleSubmit}
+            isSubmitting={isPending}
+          />
         </Slide>
       </Box>
 
